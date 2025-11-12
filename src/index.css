@@ -10,18 +10,18 @@ All colors MUST be HSL.
   :root {
     /* TeleWind Brand System - Defense Grade */
     --background: 0 0% 100%;
-    --foreground: 225 100% 16%;
+    --foreground: 224 100% 15%;
     
-    /* Navy Blue - Primary Brand */
-    --primary: 225 100% 16%;
+    /* Navy Blue - Primary Brand (matches logo #00154F) */
+    --primary: 224 100% 15%;
     --primary-foreground: 0 0% 100%;
     
-    /* Deep Gold - Accent Brand */
-    --accent: 43 100% 48%;
-    --accent-foreground: 225 100% 16%;
+    /* Deep Gold - Accent Brand (matches logo gold) */
+    --accent: 43 100% 50%;
+    --accent-foreground: 224 100% 15%;
     
     /* Secondary Navy */
-    --secondary: 225 60% 25%;
+    --secondary: 224 80% 20%;
     --secondary-foreground: 0 0% 100%;
     
     /* Neutrals */
@@ -46,11 +46,11 @@ All colors MUST be HSL.
     /* Enterprise specific */
     --charcoal: 0 0% 13%;
     --light-gray: 220 14% 96%;
-    --navy-dark: 225 100% 10%;
+    --navy-dark: 224 100% 10%;
     
     /* Gradients */
-    --gradient-navy: linear-gradient(135deg, hsl(225, 100%, 16%) 0%, hsl(225, 100%, 10%) 100%);
-    --gradient-overlay: linear-gradient(135deg, hsla(225, 100%, 16%, 0.95) 0%, hsla(225, 100%, 10%, 0.9) 100%);
+    --gradient-navy: linear-gradient(135deg, hsl(224, 100%, 15%) 0%, hsl(224, 100%, 10%) 100%);
+    --gradient-overlay: linear-gradient(135deg, hsla(224, 100%, 15%, 0.95) 0%, hsla(224, 100%, 10%, 0.9) 100%);
     
     /* Transitions */
     --transition-base: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
