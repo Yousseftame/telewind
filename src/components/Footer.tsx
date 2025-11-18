@@ -15,15 +15,15 @@ export default function Footer() {
             <div className="flex flex-col gap-2 text-sm">
               <div className="flex items-center gap-2">
                 <Mail size={16} />
-                <span>info@telewind.org</span>
+                <span>info@telewind.com.tw</span>
               </div>
-              <div className="flex items-center gap-2">
+              {/* <div className="flex items-center gap-2">
                 <Phone size={16} />
                 <span>+1 (XXX) XXX-XXXX</span>
-              </div>
+              </div> */}
               <div className="flex items-center gap-2">
                 <MapPin size={16} />
-                <span>Headquarters Location</span>
+                <span>No. 260, Sec. 6, Minzu Rd., Zhongli Dist., Taoyuan City 320,TAIWAN ( R.O.C ) </span>
               </div>
             </div>
           </div>
@@ -57,8 +57,8 @@ export default function Footer() {
         <div className="border-t border-primary-foreground/20 pt-6 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-primary-foreground/80">
           <p>&copy; {new Date().getFullYear()} TeleWind Electronics. All rights reserved.</p>
           <div className="flex gap-4">
-            <Link to="/privacy" className="hover:text-accent transition-colors">Privacy Policy</Link>
-            <Link to="/terms" className="hover:text-accent transition-colors">Terms of Service</Link>
+            <Link to="" className="hover:text-accent transition-colors">Privacy Policy</Link>
+            <Link to="" className="hover:text-accent transition-colors">Terms of Service</Link>
           </div>
         </div>
       </div>

@@ -16,7 +16,7 @@ const partners = [
     contact: "John Smith",
     email: "jsmith@advdefense.com",
     phone: "+1 (555) 123-4567",
-    website: "www.advdefense.com",
+    website: "https://www.advanceddefensesolutionsllc.com/index.html",
     focus: ["Radar Systems", "Electronic Warfare", "RF Amplifiers"],
   },
   {
@@ -28,7 +28,7 @@ const partners = [
     contact: "Hans Mueller",
     email: "h.mueller@eurotech-defense.de",
     phone: "+49 30 12345678",
-    website: "www.eurotech-defense.de",
+    website: "https://www.eurotech.com/",
     focus: ["Tactical Communications", "Radar Systems"],
   },
   {
@@ -52,7 +52,7 @@ const partners = [
     contact: "Li Wei Chen",
     email: "l.chen@apelectronics.sg",
     phone: "+65 6123 4567",
-    website: "www.apelectronics.sg",
+    website: "https://pacific-electronics.com/",
     focus: ["RF Amplifiers", "Tactical Communications", "Optical Systems"],
   },
   {
@@ -161,7 +161,7 @@ export default function Partners() {
                       </a>
                     </div>
 
-                    <div className="flex items-center gap-2 text-sm">
+                    {/* <div className="flex items-center gap-2 text-sm">
                       <Globe className="w-4 h-4 text-accent flex-shrink-0" />
                       <a 
                         href={`https://${partner.website}`} 
@@ -171,7 +171,7 @@ export default function Partners() {
                       >
                         {partner.website}
                       </a>
-                    </div>
+                    </div> */}
                   </div>
 
                   {/* Product Focus */}
@@ -188,7 +188,7 @@ export default function Partners() {
                     </div>
                   </div>
 
-                  <Button variant="outline" size="sm" className="w-full mt-4">
+                  <Button variant="outline" size="sm" className="w-full mt-4" onClick={() => window.open(partner.website, "_blank")}>
                     <ExternalLink className="w-4 h-4 mr-2" />
                     Visit Website
                   </Button>

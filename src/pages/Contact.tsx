@@ -77,12 +77,12 @@ export default function Contact() {
                       <div>
                         <p className="font-semibold text-sm mb-1">Email</p>
                         <a href="mailto:info@telewind.org" className="text-sm text-accent hover:underline">
-                          info@telewind.org
+                          info@telewind.com.tw
                         </a>
                       </div>
                     </div>
 
-                    <div className="flex items-start gap-3">
+                    {/* <div className="flex items-start gap-3">
                       <Phone className="w-5 h-5 text-accent mt-1 flex-shrink-0" />
                       <div>
                         <p className="font-semibold text-sm mb-1">Phone</p>
@@ -90,7 +90,7 @@ export default function Contact() {
                           +1 (XXX) XXX-XXXX
                         </a>
                       </div>
-                    </div>
+                    </div> */}
 
                     <div className="flex items-start gap-3">
                       <Clock className="w-5 h-5 text-accent mt-1 flex-shrink-0" />

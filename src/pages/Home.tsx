@@ -274,7 +274,7 @@ export default function Home() {
               <Card key={idx} className="bg-primary-foreground/10 border-primary-foreground/20 hover:bg-primary-foreground/20 transition-colors">
                 <CardContent className="p-6 text-center">
                   <industry.icon className="w-12 h-12 text-accent mx-auto mb-3" />
-                  <h3 className="font-heading text-lg font-bold mb-2">{industry.title}</h3>
+                  <h3 className="font-heading text-primary-foreground/80 text-lg font-bold mb-2">{industry.title}</h3>
                   <p className="text-sm text-primary-foreground/80">{industry.desc}</p>
                 </CardContent>
               </Card>
@@ -290,7 +290,7 @@ export default function Home() {
       </section>
 
       {/* Case Studies Highlight */}
-      <section className="py-20">
+      {/* <section className="py-20">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="font-heading text-4xl md:text-5xl font-bold mb-4">Proven Results</h2>
@@ -358,7 +358,7 @@ export default function Home() {
             </Button>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Global Trust / Certifications */}
       <section className="py-16 bg-muted">

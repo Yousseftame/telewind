@@ -70,3 +70,17 @@ All colors MUST be HSL.
     @apply font-heading font-bold tracking-tight;
   }
 }
+
+.custom-btn {
+  width: 100%;               /* w-full */
+  padding-top: 0.75rem;      /* py-3 */
+  padding-bottom: 0.75rem;
+  background-color: #010A11;
+  color: white;              /* text-white */
+  font-weight: 600;          /* font-semibold */
+  
+  border-radius: 0.5rem;     /* rounded-lg */
+  
+  transition: color 0.2s, background-color 0.2s; /* transition-colors */
+}
+

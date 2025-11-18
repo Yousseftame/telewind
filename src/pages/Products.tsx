@@ -8,6 +8,10 @@ import radarSystems from "@/assets/radar-systems.jpg";
 import electronicWarfare from "@/assets/electronic-warfare.jpg";
 import tacticalComms from "@/assets/tactical-comms.jpg";
 import rfAmplifiers from "@/assets/rf-amplifiers.jpg";
+import { useNavigate } from "react-router-dom";
+import jsPDF from "jspdf";
+
+
 
 // Demo products data - in production, this would come from CMS
 const products = [
@@ -54,6 +58,8 @@ const categories = ["All", "Radar & Microwave", "Electronic Warfare", "Tactical 
 export default function Products() {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
+    const navigate = useNavigate();
+
 
   const filteredProducts = products.filter((product) => {
     const matchesCategory = selectedCategory === "All" || product.category === selectedCategory;
@@ -61,6 +67,38 @@ export default function Products() {
                          product.description.toLowerCase().includes(searchQuery.toLowerCase());
     return matchesCategory && matchesSearch;
   });
+
+
+  // pdf download 
+  const generateProductPDF = (product: any) => {
+  const doc = new jsPDF();
+
+  doc.setFontSize(20);
+  doc.text(product.name, 10, 20);
+
+  doc.setFontSize(12);
+  doc.text(`Category: ${product.category}`, 10, 35);
+
+  doc.text("Description:", 10, 50);
+  doc.text(product.description, 10, 58);
+
+  doc.text("Key Features:", 10, 75);
+  product.features.forEach((f: string, i: number) => {
+    doc.text(`- ${f}`, 12, 85 + i * 8);
+  });
+
+  doc.text("Supported Bands:", 10, 120);
+  doc.text(product.bands.join(", "), 12, 130);
+
+  const img = product.image;
+  const imgWidth = 60;
+  const imgHeight = 40;
+
+  doc.addImage(img, "JPEG", 140, 20, imgWidth, imgHeight);
+
+  // Save file
+  doc.save(`${product.name}.pdf`);
+};
 
   return (
     <div className="min-h-screen bg-background">
@@ -156,10 +194,13 @@ export default function Products() {
 
                   {/* Actions */}
                   <div className="flex gap-2">
-                    <Button variant="default" size="sm" className="flex-1">
+                    <Button variant="default" size="sm" className="flex-1" onClick={
+                            () => navigate(`/products/${product.id}`)
+                            // // console.log(task.id)
+                          }>
                       View Details
                     </Button>
-                    <Button variant="outline" size="sm">
+                    <Button variant="outline" size="sm"  onClick={() => generateProductPDF(product)}>
                       <Download className="w-4 h-4" />
                     </Button>
                   </div>
@@ -183,7 +224,7 @@ export default function Products() {
           <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
             Our engineering team can design custom solutions to meet your specific requirements
           </p>
-          <Button variant="default" size="lg">
+          <Button variant="default" size="lg" onClick={ () => navigate('/contact') }>
             Contact Engineering Team
           </Button>
         </div>
