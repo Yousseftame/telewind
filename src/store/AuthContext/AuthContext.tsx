@@ -9,7 +9,7 @@ import {
 } from "react";
 import type {
   AuthContextType,
-  DecodedTokenPayload,
+  AuthTokenData,
   FullUserDataType,
 } from "../../services/types";
 import { ADMIN_URL } from "../../services/apiEndpoints";
@@ -18,44 +18,39 @@ import { axiosInstance } from "../../services/axiosInstance";
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export default function AuthProvider({ children }: { children: ReactNode }) {
-  const [loginData, setLoginData] = useState<DecodedTokenPayload | null>(null);
+const [loginData, setLoginData] = useState<AuthTokenData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [fullUserData, setFullUserData] = useState<FullUserDataType | null>(
     null
   );
 
-  const saveLoginData = async () => {
-    try {
-      const token = localStorage.getItem("token");
-      if (token) {
-        const decoded = jwtDecode<DecodedTokenPayload>(token);
-        setLoginData(decoded);
-        
-        
-      }
-    } catch (err) {
-      console.error("Invalid token", err);
-      localStorage.removeItem("token");
-    } finally {
-      setIsLoading(false); // stop loading whether success or fail
-    }
-  };
+  const saveLoginData = () => {
+  const token = localStorage.getItem("token");
+  if (token) {
+    setLoginData({ token });
+  } else {
+    setLoginData(null);
+  }
+  setIsLoading(false);
+};
 
-  const getCurrentUser = async () => {
-    try {
-      const res = await axiosInstance.get(ADMIN_URL.GET_CURRENT_USER);
-      setFullUserData(res.data);
-      // // console.log("userData", res.data);
-    } catch (err) {
-      console.error("Failed to fetch user data", err);
-    }
-  };
 
-  useEffect(() => {
+
+  // const getCurrentUser = async () => {
+  //   try {
+  //     const res = await axiosInstance.get(ADMIN_URL.GET_CURRENT_USER);
+  //     setFullUserData(res.data);
+  //     // // console.log("userData", res.data);
+  //   } catch (err) {
+  //     console.error("Failed to fetch user data", err);
+  //   }
+  // };
+
+ useEffect(() => {
   const initAuth = async () => {
-    setIsLoading(true); // start loading immediately
-    const token = localStorage.getItem("token");
+    setIsLoading(true);
 
+    const token = localStorage.getItem("token");
     if (!token) {
       setLoginData(null);
       setFullUserData(null);
@@ -64,24 +59,25 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
     }
 
     try {
-      const decoded = jwtDecode<DecodedTokenPayload>(token);
-      setLoginData(decoded);
+      setLoginData({ token }); // now valid type
 
-      // fetch full user data
       const res = await axiosInstance.get(ADMIN_URL.GET_CURRENT_USER);
       setFullUserData(res.data);
+
     } catch (err) {
       console.error("Auth init failed", err);
       localStorage.removeItem("token");
       setLoginData(null);
       setFullUserData(null);
     } finally {
-      setIsLoading(false); // done loading only after everything
+      setIsLoading(false);
     }
   };
 
   initAuth();
 }, []);
+
+
 
 
 
@@ -100,7 +96,6 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
         isLoading,
         setFullUserData,
         fullUserData,
-        getCurrentUser,
         logOutUser,
       }}
     >

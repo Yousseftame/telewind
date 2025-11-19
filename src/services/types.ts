@@ -15,44 +15,17 @@ export type FullUserDataType = {
   };
 };
 
-
-export interface AuthContextType {
-  loginData: DecodedTokenPayload | null;
-  setLoginData: React.Dispatch<
-    React.SetStateAction<DecodedTokenPayload | null>
-  >;
-  saveLoginData: () => Promise<void>;
-  isLoading: boolean;
-  fullUserData: FullUserDataType | null;
-  setFullUserData: React.Dispatch<
-    React.SetStateAction<FullUserDataType | null>
-  >;
-  getCurrentUser: () => Promise<void>;
-  logOutUser: () => void;
-}
-
-export interface DecodedTokenPayload {
-  exp: number; // Expiration time (Unix timestamp)
-  iat: number; // Issued at time (Unix timestamp)
-  roles: string[]; // Array of user roles/permissions
-  userEmail: string; // User's email
-  userGroup: string; // User group (e.g., "Employee")
-  userId: number; // Unique user ID
-  userName: string; // Username
+export interface AuthTokenData {
+  token: string;
 }
 
 export interface AuthContextType {
-  loginData: DecodedTokenPayload | null;
-  setLoginData: React.Dispatch<
-    React.SetStateAction<DecodedTokenPayload | null>
-  >;
-  saveLoginData: () => Promise<void>;
+  loginData: AuthTokenData | null;
+  setLoginData: React.Dispatch<React.SetStateAction<AuthTokenData | null>>;
+  saveLoginData: () => void;
   isLoading: boolean;
   fullUserData: FullUserDataType | null;
-  setFullUserData: React.Dispatch<
-    React.SetStateAction<FullUserDataType | null>
-  >;
-  getCurrentUser: () => Promise<void>;
+  setFullUserData: React.Dispatch<React.SetStateAction<FullUserDataType | null>>;
   logOutUser: () => void;
 }
 

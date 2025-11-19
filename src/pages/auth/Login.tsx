@@ -14,7 +14,7 @@ import SubmitBtn from "@/components/shared/SubmitBtn";
 
 const Login = () => {
   const navigate = useNavigate();
-  const { saveLoginData, loginData, getCurrentUser }: AuthContextType = useAuth();
+  const { saveLoginData, loginData }: AuthContextType = useAuth();
   const [showPassword, setShowPassword] = useState(false);
   const {
     register,
@@ -24,19 +24,36 @@ const Login = () => {
 
   const handleTogglePassword = () => setShowPassword(prev => !prev);
 
-  const onSubmit = async (data: FormLoginProps) => {
-    try {
-      const response = await axiosInstance.post(ADMIN_URL.LOGIN, data);
-      localStorage.setItem("token", response?.data?.token);
-      await saveLoginData();
-      await getCurrentUser();
-      toast.success("Login success!");
-      navigate("/dashboard", { replace: true });
-    } catch (error) {
-      if (isAxiosError(error))
-        toast.error(error?.response?.data?.message || "Something went wrong");
+ const onSubmit = async (data: FormLoginProps) => {
+  try {
+    const response = await axiosInstance.post(ADMIN_URL.LOGIN, data);
+
+    // ✅ Correct path to token
+    const token = response.data?.data?.token;
+    if (!token) {
+      toast.error("Login failed: token not found");
+      return;
     }
-  };
+
+    // Save token in localStorage
+    localStorage.setItem("token", token);
+
+    // Update context
+    saveLoginData();
+
+    toast.success("Login success!");
+    navigate("/dashboard", { replace: true });
+
+  } catch (error) {
+    if (isAxiosError(error)) {
+      toast.error(error.response?.data?.message || "Something went wrong");
+    } else {
+      toast.error("Unexpected error");
+    }
+  }
+};
+
+
 
   return (
     <div className="flex h-screen">

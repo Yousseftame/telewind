@@ -13,19 +13,12 @@ const validation = {
       value: 6,
       message: "Password must be at least 6 characters",
     },
-    validate: {
-      hasUppercase: (value: string) =>
-        /[A-Z]/.test(value) ||
-        "Password must contain at least one uppercase letter",
-      hasLowercase: (value: string) =>
-        /[a-z]/.test(value) ||
-        "Password must contain at least one lowercase letter",
-      hasNumber: (value: string) =>
-        /\d/.test(value) || "Password must contain at least one number",
-      hasSpecialChar: (value: string) =>
-        /[!@#$%^&*(),.?":{}|<>]/.test(value) ||
-        "Password must contain at least one special character",
-    },
+   validate: {
+  hasLowercase: (value: string) =>
+    /[a-z]/.test(value) ||
+    "Password must contain at least one lowercase letter",
+}
+
   }),
   
 };

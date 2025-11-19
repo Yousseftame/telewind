@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -8,7 +8,7 @@ import radarSystems from "@/assets/radar-systems.jpg";
 import electronicWarfare from "@/assets/electronic-warfare.jpg";
 import tacticalComms from "@/assets/tactical-comms.jpg";
 import rfAmplifiers from "@/assets/rf-amplifiers.jpg";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import jsPDF from "jspdf";
 
 
@@ -56,9 +56,17 @@ const products = [
 const categories = ["All", "Radar & Microwave", "Electronic Warfare", "Tactical Communications", "RF Power Amplifiers"];
 
 export default function Products() {
+  const [searchParams] = useSearchParams();
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
-    const navigate = useNavigate();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const categoryParam = searchParams.get("category");
+    if (categoryParam) {
+      setSelectedCategory(categoryParam);
+    }
+  }, [searchParams]);
 
 
   const filteredProducts = products.filter((product) => {
