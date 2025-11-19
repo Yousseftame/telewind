@@ -113,7 +113,7 @@ export default function Products() {
       {/* Header */}
       <section className="bg-primary text-primary-foreground py-20">
         <div className="container mx-auto px-4">
-          <h1 className="font-heading text-5xl font-bold mb-4">Products & Solutions</h1>
+          <h1 className="font-heading text-5xl font-bold mb-4 pt-5">Products & Solutions</h1>
           <p className="text-lg text-primary-foreground/90 max-w-2xl">
             Defense-grade electronics built on 45+ years of engineering excellence
           </p>

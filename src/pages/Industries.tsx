@@ -108,7 +108,7 @@ export default function Industries() {
       {/* Header */}
       <section className="bg-primary text-primary-foreground py-20">
         <div className="container mx-auto px-4">
-          <h1 className="font-heading text-5xl font-bold mb-4">Industries & Applications</h1>
+          <h1 className="font-heading text-5xl font-bold mb-4 pt-5">Industries & Applications</h1>
           <p className="text-lg text-primary-foreground/90 max-w-2xl">
             TeleWind Electronics serves critical sectors worldwide with defense-grade technology
           </p>

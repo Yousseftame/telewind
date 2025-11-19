@@ -42,7 +42,7 @@ export default function Contact() {
       {/* Header */}
       <section className="bg-primary text-primary-foreground py-20">
         <div className="container mx-auto px-4">
-          <h1 className="font-heading text-5xl font-bold mb-4">Contact Us</h1>
+          <h1 className="font-heading text-5xl font-bold mb-4 pt-5">Contact Us</h1>
           <p className="text-lg text-primary-foreground/90 max-w-2xl">
             Get in touch with our team to discuss your defense electronics requirements
           </p>

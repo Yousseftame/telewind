@@ -33,3 +33,17 @@ export interface FormLoginProps {
   email: string;
   password: string;
 }
+
+export interface CategoryTranslation {
+  locale: string;
+  title: string;
+  description: string;
+}
+
+export interface Category {
+  id: number;
+  image: string;
+  icon: string;
+  translations: CategoryTranslation[];
+  creationDate?: string;
+}

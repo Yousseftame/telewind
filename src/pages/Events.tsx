@@ -70,7 +70,7 @@ export default function Events() {
       {/* Header */}
       <section className="bg-primary text-primary-foreground py-20">
         <div className="container mx-auto px-4">
-          <h1 className="font-heading text-5xl font-bold mb-4">Events & Media</h1>
+          <h1 className="font-heading text-5xl font-bold mb-4 pt-5">Events & Media</h1>
           <p className="text-lg text-primary-foreground/90 max-w-2xl">
             Stay updated on TeleWind's latest events, news, and industry insights
           </p>
