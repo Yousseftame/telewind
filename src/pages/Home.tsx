@@ -1,28 +1,19 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { 
-  Shield, 
-  Cpu, 
-  Radio, 
-  Radar,
-  Zap,
-  Target,
-  Eye,
-  Satellite,
-  ArrowRight,
-  Factory,
-  Globe,
-  Award,
-  Users
-} from "lucide-react";
+import { Shield, Cpu, Radio, Radar, Zap, Target, Eye, Satellite, ArrowRight, Factory, Globe, Award, Users, MapPin, Building2, X } from 'lucide-react';
 import heroBg from "@/assets/hero-bg.jpg";
 import radarSystems from "@/assets/radar-systems.jpg";
 import electronicWarfare from "@/assets/electronic-warfare.jpg";
 import tacticalComms from "@/assets/tactical-comms.jpg";
 import rfAmplifiers from "@/assets/rf-amplifiers.jpg";
+import { useState } from 'react';
 
 export default function Home() {
+    const [selectedImage, setSelectedImage] = useState<string | null>(null);
+
+
+
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
@@ -361,29 +352,122 @@ export default function Home() {
       </section> */}
 
       {/* Global Trust / Certifications */}
-      <section className="py-16 bg-muted">
+       <section className="py-16 bg-muted">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-8">
+          <div className="text-center mb-12">
             <h2 className="font-heading text-3xl font-bold mb-2">Global Trust & Quality Assurance</h2>
             <p className="text-muted-foreground">Certified excellence in defense electronics manufacturing</p>
           </div>
 
-          <div className="flex flex-wrap justify-center items-center gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
-              "ISO 9001",
-              "ISO 13485",
-              "In-House EMS",
-              "Advanced SMT/DIP",
-              "MES/SECS/GEM",
-              "Industry 4.0"
+              {
+                title: "ISO 9001 Certification",
+                image: "/trust1.webp",
+              },
+              {
+                title: "ISO 13485 Certification",
+                image: "/trust2.webp",
+              },
+              {
+                title: "Industry 4.0 Compliance",
+                image: "/trust3.webp",
+              },
             ].map((cert, idx) => (
-              <div key={idx} className="bg-background border-2 border-accent/20 px-6 py-3 rounded-sm">
-                <span className="font-heading font-bold text-sm tracking-wider">{cert}</span>
+              <div 
+                key={idx} 
+                className="bg-background rounded-lg overflow-hidden hover:shadow-lg transition-shadow cursor-pointer hover:scale-105 transition-transform duration-300"
+                onClick={() => setSelectedImage(cert.image)}
+              >
+                <img
+                  src={cert.image || "/placeholder.svg"}
+                  alt={cert.title}
+                  className="w-full h-48 object-cover"
+                />
+                <div className="p-4 text-center">
+                  <h3 className="font-heading font-bold text-sm tracking-wide">{cert.title}</h3>
+                </div>
               </div>
             ))}
           </div>
         </div>
       </section>
+
+      <section className="py-16">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="font-heading text-4xl md:text-5xl font-bold mb-4">Partners & Distributors</h2>
+            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+              Trusted partners delivering our defense-grade solutions across the globe
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[
+              {
+                companyName: "Global Defense Systems Inc.",
+                type: "Primary Distributor",
+                country: "United States",
+              },
+              {
+                companyName: "European Defense Solutions",
+                type: "Regional Partner",
+                country: "Germany",
+              },
+              {
+                companyName: "Asia-Pacific Technology Group",
+                type: "Technology Partner",
+                country: "Singapore",
+              },
+            ].map((partner, idx) => (
+              <Card key={idx} className="hover:shadow-xl transition-shadow border-l-4 border-l-accent">
+                <CardContent className="p-6">
+                  <div className="flex items-start gap-3 mb-4">
+                    <Building2 className="w-6 h-6 text-accent flex-shrink-0 mt-1" />
+                    <div className="flex-1">
+                      <h3 className="font-heading text-xl font-bold mb-1">{partner.companyName}</h3>
+                      <p className="text-accent font-semibold text-sm">{partner.type}</p>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-center gap-2 text-muted-foreground">
+                    <MapPin className="w-4 h-4 flex-shrink-0" />
+                    <span className="text-sm">{partner.country}</span>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {selectedImage && (
+        <div 
+          className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4 backdrop-blur-sm"
+          onClick={() => setSelectedImage(null)}
+        >
+          <div 
+            className="relative w-full max-w-4xl max-h-[90vh] flex items-center justify-center"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              onClick={() => setSelectedImage(null)}
+              className="absolute -top-12 right-0 text-white hover:text-gray-300 transition-colors z-10"
+              aria-label="Close lightbox"
+            >
+              <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+            <img
+              src={selectedImage || "/placeholder.svg"}
+              alt="Certification fullscreen"
+              className="w-full h-auto max-h-[85vh] object-contain rounded-lg shadow-2xl"
+            />
+          </div>
+        </div>
+      )}
+
 
       {/* CTA Section */}
       <section className="py-20 bg-gradient-to-br from-primary via-secondary to-primary">

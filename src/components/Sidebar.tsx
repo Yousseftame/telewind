@@ -42,6 +42,7 @@ const Sidebar = () => {
     { label: "Category", icon: <Bed size={20} />, path: "/AdminCate" },
     { label: "Events", icon: <Layers size={20} />, path: "/adminEvents" },
     { label: "Partners", icon: <FileText size={20} />, path: "/AdminPartner" },
+    { label: "Contacts", icon: <FileText size={20} />, path: "/Contacts" },
 
     // Logout stays without path
     { label: "Logout", icon: <LogOut size={20} />, onClick: logOut },

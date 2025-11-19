@@ -26,6 +26,7 @@ import AdminStudies from "./pages/admin/AdminStudies/AdminStudies.tsx";
 import AdminEvents from "./pages/admin/AdminEvents/AdminEvents.tsx";
 import AdminPartner from "./pages/admin/AdminPartner/AdminPartner.tsx";
 import AdminCate from "./pages/admin/AdminCate/AdminCate.tsx";
+import Contacts from "./pages/admin/contacts/Contacts.tsx";
 
 const queryClient = new QueryClient();
 
@@ -67,6 +68,7 @@ const App = () => (
                <Route path="/AdminCate" element={<ProtectedRoute><AdminCate /></ProtectedRoute>} />
                <Route path="/adminEvents" element={<ProtectedRoute><AdminEvents /></ProtectedRoute>} />
                <Route path="/adminPartner" element={<ProtectedRoute><AdminPartner /></ProtectedRoute>} />
+               <Route path="/Contacts" element={<ProtectedRoute><Contacts /></ProtectedRoute>} />
 
             
           </Route>
