@@ -65,7 +65,7 @@ export default function AdminIndustries() {
             {isManager && (
               <Button className="rounded-full w-full md:w-auto" size="lg" onClick={() => console.log("Add new project")}>
                 <Plus className="mr-2 h-5 w-5" />
-                Add Industries
+                Add new  Industries 
               </Button>
             )}
           </div>

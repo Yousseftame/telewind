@@ -24,9 +24,11 @@ const [loginData, setLoginData] = useState<AuthTokenData | null>(null);
     null
   );
 
+
   const saveLoginData = () => {
   const token = localStorage.getItem("token");
   if (token) {
+
     setLoginData({ token });
   } else {
     setLoginData(null);
@@ -59,7 +61,7 @@ const [loginData, setLoginData] = useState<AuthTokenData | null>(null);
     }
 
     try {
-      setLoginData({ token }); // now valid type
+      setLoginData({ token }); 
 
       const res = await axiosInstance.get(ADMIN_URL.GET_CURRENT_USER);
       setFullUserData(res.data);
