@@ -47,3 +47,21 @@ export interface Category {
   translations: CategoryTranslation[];
   creationDate?: string;
 }
+
+// Add this to your src/services/types.ts
+
+export interface EventTranslation {
+  locale: string;
+  title: string;
+  description: string;
+  location: string;
+  details: string;
+}
+
+export interface Event {
+  id: number;
+  date: string;
+  type: string;
+  translations: EventTranslation[];
+  creationDate?: string;
+}

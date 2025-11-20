@@ -42,7 +42,7 @@ const Login = () => {
     saveLoginData();
 
     toast.success("Login success!");
-    navigate("/dashboard", { replace: true });
+    navigate("/adminProduct", { replace: true });
 
   } catch (error) {
     if (isAxiosError(error)) {

@@ -113,10 +113,10 @@ export default function Events() {
                     </div>
                   )}
 
-                  <Button variant="outline" size="sm" className="w-full">
+                  {/* <Button variant="outline" size="sm" className="w-full">
                     <ExternalLink className="w-4 h-4 mr-2" />
                     Event Details
-                  </Button>
+                  </Button> */}
                 </CardContent>
               </Card>
             ))}

@@ -15,6 +15,8 @@ import Draggable from "react-draggable";
 import { AuthContextType } from "@/services/types";
 import { useAuth } from "@/store/AuthContext/AuthContext";
 import { useNavigate, Link } from "react-router-dom";
+import Swal from "sweetalert2";
+
 
 interface MenuItem {
   label: string;
@@ -31,11 +33,40 @@ const Sidebar = () => {
   const logOut = () => {
     logOutUser();
     localStorage.removeItem("token");
-    navigate("/login");
+    navigate("/login" , { replace: true });
   };
 
+  const handleLogout = () => {
+  Swal.fire({
+    title: "Are you sure?",
+    text: "You will be logged out!",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Logout"
+  }).then(async (result) => {
+    if (result.isConfirmed) {
+      // Call your logout function
+      
+
+      Swal.fire({
+        title: "Logged out",
+        text: "You have been logged out successfully.",
+        icon: "success",
+        timer: 1000,
+        showConfirmButton: false,
+        didClose: () => {
+          // Run logout AFTER the toast finishes
+          logOut();
+        }
+      });
+    }
+  });
+};
+
   const menuItems: MenuItem[] = [
-    { label: "Home", icon: <Home size={20} />, path: "/dashboard" },
+    // { label: "Home", icon: <Home size={20} />, path: "/dashboard" },
     { label: "Products", icon: <Users size={20} />, path: "/adminProduct" },
     { label: "Industries", icon: <Grid size={20} />, path: "/adminindustries" },
     // { label: "Studies", icon: <Bed size={20} />, path: "/adminStudies" },
@@ -43,9 +74,10 @@ const Sidebar = () => {
     { label: "Events", icon: <Layers size={20} />, path: "/adminEvents" },
     { label: "Partners", icon: <FileText size={20} />, path: "/AdminPartner" },
     { label: "Contacts", icon: <FileText size={20} />, path: "/Contacts" },
+    { label: "Certifications", icon: <FileText size={20} />, path: "/certifications" },
 
     // Logout stays without path
-    { label: "Logout", icon: <LogOut size={20} />, onClick: logOut },
+    { label: "Logout", icon: <LogOut size={20} />, onClick: handleLogout  },
   ];
 
   return (

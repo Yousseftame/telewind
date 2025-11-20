@@ -35,6 +35,8 @@ interface CategoryFormData {
 interface CategoryFormDialogData extends CategoryFormData {
   image: File | null;
   icon: File | null;
+  removeImage?: boolean;
+  removeIcon?: boolean;
 }
 
 interface CategoryFormDialogProps {
@@ -54,6 +56,8 @@ export default function CategoryFormDialog({
 }: CategoryFormDialogProps) {
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [iconFile, setIconFile] = useState<File | null>(null);
+  const [imageRemoved, setImageRemoved] = useState(false);
+  const [iconRemoved, setIconRemoved] = useState(false);
   const isEditMode = !!category;
 
   const getDefaultTranslations = () => {
@@ -98,13 +102,10 @@ export default function CategoryFormDialog({
         translations: getDefaultTranslations(),
       });
       
-      if (isEditMode) {
-        setImageFile(null);
-        setIconFile(null);
-      } else {
-        setImageFile(null);
-        setIconFile(null);
-      }
+      setImageFile(null);
+      setIconFile(null);
+      setImageRemoved(false);
+      setIconRemoved(false);
     }
   }, [open, reset, category]);
 
@@ -113,7 +114,27 @@ export default function CategoryFormDialog({
       ...data,
       image: imageFile,
       icon: iconFile,
+      removeImage: imageRemoved,
+      removeIcon: iconRemoved,
     });
+  };
+
+  const handleImageChange = (file: File | null) => {
+    setImageFile(file);
+    if (file === null && isEditMode) {
+      setImageRemoved(true);
+    } else {
+      setImageRemoved(false);
+    }
+  };
+
+  const handleIconChange = (file: File | null) => {
+    setIconFile(file);
+    if (file === null && isEditMode) {
+      setIconRemoved(true);
+    } else {
+      setIconRemoved(false);
+    }
   };
 
   return (
@@ -128,20 +149,20 @@ export default function CategoryFormDialog({
           <ImageUpload
             label="Category Image"
             id="image"
-            onFileChange={setImageFile}
-            error={!imageFile && !isEditMode ? "Image is required" : undefined}
+            onFileChange={handleImageChange}
+            error={!imageFile && !isEditMode && !category?.image ? "Image is required" : undefined}
             required={!isEditMode}
-            currentImage={isEditMode ? category?.image : undefined}
+            currentImage={isEditMode && !imageRemoved ? category?.image : undefined}
           />
 
           {/* Icon Upload */}
           <ImageUpload
             label="Category Icon"
             id="icon"
-            onFileChange={setIconFile}
-            error={!iconFile && !isEditMode ? "Icon is required" : undefined}
+            onFileChange={handleIconChange}
+            error={!iconFile && !isEditMode && !category?.icon ? "Icon is required" : undefined}
             required={!isEditMode}
-            currentImage={isEditMode ? category?.icon : undefined}
+            currentImage={isEditMode && !iconRemoved ? category?.icon : undefined}
           />
 
           {/* Language Tabs */}

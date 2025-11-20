@@ -1,135 +1,66 @@
 import { useState, useMemo } from "react";
-import { useNavigate } from "react-router-dom";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Plus } from "lucide-react";
+import { Plus, Eye } from "lucide-react";
 import { DataTable, Column, editAction, deleteAction } from "@/components/shared/DataTable";
 import { DeleteDialog } from "@/components/shared/DeleteDialog";
-import { axiosInstance } from "@/services/axiosInstance";
-import { CATE_URLS } from "@/services/apiEndpoints";
 import { Category } from "@/services/types";
-import { toast } from "sonner";
+import { getTranslation } from "@/utils/formDataHelpers";
 import CategoryFormDialog from "./CategoryFormDialog";
+import CategoryViewDialog from "./CategoryViewDialog";
+import { useCategoryCRUD } from "./useCategoryCRUD";
 
 type Language = "en" | "ar" | "fr";
 
 export default function AdminCate() {
-  const navigate = useNavigate();
-  const queryClient = useQueryClient();
-
   const [selectedLanguage, setSelectedLanguage] = useState<Language>("en");
   const [searchTitle, setSearchTitle] = useState("");
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
   const [showFormDialog, setShowFormDialog] = useState(false);
+  const [showViewDialog, setShowViewDialog] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState<Category | null>(null);
+  const [viewCategoryId, setViewCategoryId] = useState<number | null>(null);
 
   const isManager = true; // Mock authentication
 
-  // Fetch categories
-  const { data: categories = [], isLoading } = useQuery({
-    queryKey: ["categories"],
-    queryFn: async () => {
-      const response = await axiosInstance.get(CATE_URLS.GET_ALL_CATE);
-      return response.data.data as Category[];
-    },
-  });
+  // Use CRUD hook
+  const {
+    items: categories,
+    isLoading,
+    useItem,
+    createMutation,
+    updateMutation,
+    deleteMutation,
+  } = useCategoryCRUD();
 
-  // Create mutation
-  const createMutation = useMutation({
-    mutationFn: async (data: any) => {
-      const formData = new FormData();
-      formData.append("image", data.image);
-      formData.append("icon", data.icon);
-      formData.append("translations[0][locale]", "en");
-      formData.append("translations[0][title]", data.translations.en.title);
-      formData.append("translations[0][description]", data.translations.en.description);
-      formData.append("translations[1][locale]", "ar");
-      formData.append("translations[1][title]", data.translations.ar.title);
-      formData.append("translations[1][description]", data.translations.ar.description);
-      formData.append("translations[2][locale]", "fr");
-      formData.append("translations[2][title]", data.translations.fr.title);
-      formData.append("translations[2][description]", data.translations.fr.description);
-      
-      await axiosInstance.post(CATE_URLS.CREATE_CATE, formData, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["categories"] });
-      toast.success("Category created successfully");
-      setShowFormDialog(false);
-      setSelectedCategory(null);
-    },
-    onError: () => {
-      toast.error("Failed to create category");
-    },
-  });
-
-  // Update mutation
-  const updateMutation = useMutation({
-    mutationFn: async ({ id, data }: { id: number; data: any }) => {
-      const formData = new FormData();
-      
-      if (data.image) {
-        formData.append("image", data.image);
-      }
-      if (data.icon) {
-        formData.append("icon", data.icon);
-      }
-      
-      formData.append("translations[0][locale]", "en");
-      formData.append("translations[0][title]", data.translations.en.title);
-      formData.append("translations[0][description]", data.translations.en.description);
-      formData.append("translations[1][locale]", "ar");
-      formData.append("translations[1][title]", data.translations.ar.title);
-      formData.append("translations[1][description]", data.translations.ar.description);
-      formData.append("translations[2][locale]", "fr");
-      formData.append("translations[2][title]", data.translations.fr.title);
-      formData.append("translations[2][description]", data.translations.fr.description);
-      
-      await axiosInstance.post(CATE_URLS.UPDATE_CATE(id), formData, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["categories"] });
-      toast.success("Category updated successfully");
-      setShowFormDialog(false);
-      setSelectedCategory(null);
-    },
-    onError: () => {
-      toast.error("Failed to update category");
-    },
-  });
-
-  // Delete mutation
-  const deleteMutation = useMutation({
-    mutationFn: async (id: number) => {
-      await axiosInstance.delete(CATE_URLS.DELETE_CATE(id));
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["categories"] });
-      toast.success("Category deleted successfully");
-      setShowDeleteDialog(false);
-    },
-    onError: () => {
-      toast.error("Failed to delete category");
-    },
-  });
+  // Fetch single category for view
+  const { data: viewCategory, isLoading: isLoadingView } = useItem(viewCategoryId, showViewDialog);
 
   // Handle form submit
   const handleFormSubmit = (data: any) => {
     if (selectedCategory) {
-      updateMutation.mutate({ id: selectedCategory.id, data });
+      updateMutation.mutate(
+        { id: selectedCategory.id, data },
+        {
+          onSuccess: () => {
+            setShowFormDialog(false);
+            setSelectedCategory(null);
+          },
+        }
+      );
     } else {
-      createMutation.mutate(data);
+      createMutation.mutate(data, {
+        onSuccess: () => {
+          setShowFormDialog(false);
+          setSelectedCategory(null);
+        },
+      });
     }
   };
 
   // Get translation for selected language
-  const getTranslation = (category: Category) => {
-    return category.translations.find((t) => t.locale === selectedLanguage) || category.translations[0];
+  const getCategoryTranslation = (category: Category) => {
+    return getTranslation(category, selectedLanguage);
   };
 
   // Sort categories by ID descending (newest first)
@@ -143,7 +74,7 @@ export default function AdminCate() {
       key: "image",
       label: "Image",
       render: (_, category) => (
-        <img src={category.image} alt={getTranslation(category).title} className="h-12 w-12 rounded-md object-cover" />
+        <img src={category.image} alt={getCategoryTranslation(category).title} className="h-12 w-12 rounded-md object-cover" />
       ),
     },
     {
@@ -157,17 +88,25 @@ export default function AdminCate() {
       key: "id" as keyof Category,
       label: "Title",
       sortable: true,
-      render: (_, category) => getTranslation(category).title,
+      render: (_, category) => getCategoryTranslation(category).title,
     },
     {
       key: "translations" as keyof Category,
       label: "Description",
       sortable: true,
-      render: (_, category) => getTranslation(category).description,
+      render: (_, category) => getCategoryTranslation(category).description,
     },
   ];
 
   const actions = [
+    {
+      label: "View",
+      icon: <Eye className="h-4 w-4" />,
+      onClick: (category: Category) => {
+        setViewCategoryId(category.id);
+        setShowViewDialog(true);
+      },
+    },
     editAction<Category>((category) => {
       setSelectedCategory(category);
       setShowFormDialog(true);
@@ -250,6 +189,7 @@ export default function AdminCate() {
         onOpenChange={setShowFormDialog}
         onSubmit={handleFormSubmit}
         isSubmitting={createMutation.isPending || updateMutation.isPending}
+        category={selectedCategory}
       />
 
       {/* DELETE DIALOG */}
@@ -257,11 +197,28 @@ export default function AdminCate() {
         open={showDeleteDialog}
         onOpenChange={setShowDeleteDialog}
         onConfirm={() => {
-          if (selectedCategory) deleteMutation.mutate(selectedCategory.id);
+          if (selectedCategory) {
+            deleteMutation.mutate(selectedCategory.id, {
+              onSuccess: () => setShowDeleteDialog(false),
+            });
+          }
         }}
         title="Delete Category"
-        itemName={selectedCategory ? getTranslation(selectedCategory).title : ""}
+        itemName={selectedCategory ? getCategoryTranslation(selectedCategory).title : ""}
         isDeleting={deleteMutation.isPending}
+      />
+
+      {/* VIEW DIALOG */}
+      <CategoryViewDialog
+        open={showViewDialog}
+        onOpenChange={(open) => {
+          setShowViewDialog(open);
+          if (!open) {
+            setViewCategoryId(null);
+          }
+        }}
+        category={viewCategory || null}
+        isLoading={isLoadingView}
       />
     </div>
   );

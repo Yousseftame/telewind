@@ -1,112 +1,163 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
 import { DataTable, Column, editAction, deleteAction } from "@/components/shared/DataTable";
+import EventFormDialog from "./EventFormDialog";
 import { DeleteDialog } from "@/components/shared/DeleteDialog";
-
-// Sample project type
-interface Project {
-  id: number;
-  title: string;
-  description: string;
-  task: any[];
-  creationDate: string;
-}
+import { useEventCRUD } from "./useEventCRUD";
+import { Event } from "@/services/types";
+import { getTranslation } from "@/utils/formDataHelpers";
 
 export default function AdminEvents() {
-  const navigate = useNavigate();
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
+  const [eventToDelete, setEventToDelete] = useState<Event | null>(null);
 
-  // Static mock data
-  const [projects, setProjects] = useState<Project[]>([
-    { id: 1, title: "Alpha Project", description: "UI mock project", task: [1, 2], creationDate: "2024-01-10" },
-    { id: 2, title: "Beta Project", description: "Static example", task: [1], creationDate: "2024-02-05" },
-    { id: 3, title: "Gamma Project", description: "Demo project", task: [], creationDate: "2024-02-20" },
-  ]);
+  const { items: events, isLoading, createMutation, updateMutation, deleteMutation } = useEventCRUD();
 
-  const [searchTitle, setSearchTitle] = useState("");
-  const [showDeleteDialog, setShowDeleteDialog] = useState(false);
-  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
-
-  const isManager = true; // Mock authentication
-
-  // Table columns
-  const columns: Column<Project>[] = [
-    { key: "title", label: "Title", sortable: true },
-    { key: "description", label: "Description", sortable: true },
-    { key: "task", label: "Num Tasks", sortable: true, render: (tasks) => tasks?.length || 0 },
-    { key: "creationDate", label: "Date Created", sortable: true, render: (date) => new Date(date).toLocaleDateString() },
-  ];
+    const columns: Column<Event>[] = [
+      {
+        key: "id",
+        label: "ID",
+        sortable: true,
+      },
+      {
+        key: "date",
+        label: "Date",
+        sortable: true,
+      },
+      {
+        key: "type",
+        label: "Type",
+        sortable: true,
+      },
+      {
+        key: "id",
+        label: "Title",
+        render: (event) => {
+          try {
+            const translation = getTranslation(event, "en");
+            return translation?.title || "-";
+          } catch {
+            return "-";
+          }
+        },
+      },
+      {
+        key: "id",
+        label: "Location",
+        render: (event) => {
+          try {
+            const translation = getTranslation(event, "en");
+            return translation?.location || "-";
+          } catch {
+            return "-";
+          }
+        },
+      },
+      // {
+      //   key: "creationDate",
+      //   label: "Created At",
+      //   sortable: true,
+      //   render: (event) => {
+      //     if (!event.creationDate) return "-";
+      //     return new Date(event.creationDate).toLocaleDateString();
+      //   },
+      // },
+    ];
 
   const actions = [
-    editAction<Project>((project) => console.log("Edit:", project.id)),
-    deleteAction<Project>(
-      (project) => {
-        setSelectedProject(project);
-        setShowDeleteDialog(true);
-      },
-      () => isManager
-    ),
+    editAction<Event>((event) => {
+      setSelectedEvent(event);
+      setDialogOpen(true);
+    }),
+    deleteAction<Event>((event) => {
+      setEventToDelete(event);
+      setDeleteDialogOpen(true);
+    }),
   ];
 
+  const handleFormSubmit = (data: any) => {
+    if (selectedEvent) {
+      updateMutation.mutate(
+        { id: selectedEvent.id, data },
+        {
+          onSuccess: () => {
+            setDialogOpen(false);
+            setSelectedEvent(null);
+          },
+        }
+      );
+    } else {
+      createMutation.mutate(data, {
+        onSuccess: () => {
+          setDialogOpen(false);
+        },
+      });
+    }
+  };
+
+  const handleDelete = () => {
+    if (eventToDelete) {
+      deleteMutation.mutate(eventToDelete.id, {
+        onSuccess: () => {
+          setDeleteDialogOpen(false);
+          setEventToDelete(null);
+        },
+      });
+    }
+  };
+
   return (
-    <div className="flex min-h-screen bg-background">
-      {/* MAIN CONTENT */}
-      <main className="flex-1 px-4 py-6 md:px-6 lg:px-8 overflow-x-hidden">
-        <div className="w-full space-y-6">
-
-          {/* HEADER */}
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-            <div>
-              <h1 className="text-2xl md:text-3xl font-bold">Events</h1>
-              <p className="text-muted-foreground mt-1">Manage your Events with this clean UI</p>
-            </div>
-
-            {isManager && (
-              <Button className="rounded-full w-full md:w-auto" size="lg" onClick={() => console.log("Add new project")}>
-                <Plus className="mr-2 h-5 w-5" />
-                Add  Event 
-              </Button>
-            )}
-          </div>
-
-          {/* TABLE */}
-          <div className="w-full overflow-x-auto">
-            <DataTable
-              columns={columns}
-              data={projects}
-              loading={false}
-              actions={actions}
-              searchable
-              searchValue={searchTitle}
-              onSearchChange={setSearchTitle}
-              searchPlaceholder="Search projects..."
-              showActionsColumn={isManager}
-              pagination={{
-                pageNumber: 1,
-                pageSize: 10,
-                totalPages: 1,
-                totalRecords: projects.length,
-                onPageChange: () => {},
-                onPageSizeChange: () => {},
-              }}
-              emptyMessage="No projects found."
-            />
-          </div>
+    <div className="space-y-6">
+      {/* Header */}
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-3xl font-bold">Events Management</h1>
+          <p className="text-muted-foreground mt-1">
+            Manage your events with multi-language support
+          </p>
         </div>
-      </main>
+        <Button
+          onClick={() => {
+            setSelectedEvent(null);
+            setDialogOpen(true);
+          }}
+        >
+          <Plus className="mr-2 h-4 w-4" />
+          Add Event
+        </Button>
+      </div>
 
-      {/* DELETE DIALOG */}
+      {/* Data Table */}
+      <DataTable
+        data={events}
+        columns={columns}
+        loading={isLoading}
+        searchable
+        searchPlaceholder="Search events..."
+        showActionsColumn
+        actions={actions}
+      />
+
+      {/* Form Dialog */}
+      <EventFormDialog
+        open={dialogOpen}
+        onOpenChange={setDialogOpen}
+        onSubmit={handleFormSubmit}
+        isSubmitting={createMutation.isPending || updateMutation.isPending}
+        event={selectedEvent}
+      />
+
+      {/* Delete Dialog */}
       <DeleteDialog
-        open={showDeleteDialog}
-        onOpenChange={setShowDeleteDialog}
-        onConfirm={() => {
-          if (selectedProject) setProjects((prev) => prev.filter((p) => p.id !== selectedProject.id));
-          setShowDeleteDialog(false);
-        }}
-        title="Delete Project"
-        itemName={selectedProject?.title}
-        isDeleting={false}
+        open={deleteDialogOpen}
+        onOpenChange={setDeleteDialogOpen}
+        onConfirm={handleDelete}
+        title="Delete Event"
+        itemName={eventToDelete ? (getTranslation(eventToDelete, "en")?.title || "Event") : ""}
+        isDeleting={deleteMutation.isPending}
       />
     </div>
   );

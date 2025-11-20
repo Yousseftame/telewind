@@ -84,3 +84,30 @@ All colors MUST be HSL.
   transition: color 0.2s, background-color 0.2s; /* transition-colors */
 }
 
+.ql-toolbar {
+  @apply border-border bg-muted/30 rounded-t-md;
+}
+
+.ql-container {
+  @apply border-border rounded-b-md;
+}
+
+.ql-editor {
+  @apply min-h-[200px] bg-background text-foreground;
+}
+
+.dark .ql-toolbar {
+  @apply bg-muted/50;
+}
+
+.dark .ql-stroke {
+  @apply stroke-foreground;
+}
+
+.dark .ql-fill {
+  @apply fill-foreground;
+}
+
+.dark .ql-picker-label {
+  @apply text-foreground;
+}

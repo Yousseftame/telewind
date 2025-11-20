@@ -64,10 +64,7 @@ export default function Contact() {
                       <div>
                         <p className="font-semibold text-sm mb-1">Headquarters</p>
                         <p className="text-sm text-muted-foreground">
-                          TeleWind Electronics<br />
-                          [Address Line 1]<br />
-                          [City, State ZIP]<br />
-                          [Country]
+                         No. 260, Sec. 6, Minzu Rd. <br /> Zhongli Dist., Taoyuan City 320,<br />TAIWAN ( R.O.C ) 
                         </p>
                       </div>
                     </div>

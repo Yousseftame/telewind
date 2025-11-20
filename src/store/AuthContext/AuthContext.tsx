@@ -63,8 +63,8 @@ const [loginData, setLoginData] = useState<AuthTokenData | null>(null);
     try {
       setLoginData({ token }); 
 
-      const res = await axiosInstance.get(ADMIN_URL.GET_CURRENT_USER);
-      setFullUserData(res.data);
+      // const res = await axiosInstance.get(ADMIN_URL.GET_CURRENT_USER);
+      // setFullUserData(res.data);
 
     } catch (err) {
       console.error("Auth init failed", err);
