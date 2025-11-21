@@ -133,7 +133,7 @@ export default function Partners() {
               <Card key={partner.id} className="hover:shadow-xl transition-shadow">
                 <CardContent className="p-6">
                   <div className="mb-4">
-                    <Badge className="mb-3 bg-accent text-accent-foreground">{partner.type}</Badge>
+                    <Badge className="mb-3 bg-accent text-accent-foreground btnHover">{partner.type}</Badge>
                     <h3 className="font-heading text-xl font-bold mb-2">{partner.name}</h3>
                     <p className="text-sm text-muted-foreground">{partner.country}, {partner.region}</p>
                   </div>

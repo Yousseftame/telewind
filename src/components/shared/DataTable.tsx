@@ -125,7 +125,7 @@ export function DataTable<T>({
           placeholder={searchPlaceholder}
           value={searchValue}
           onChange={(e) => onSearchChange?.(e.target.value)}
-          className="max-w-sm"
+          className="max-w-sm  searchBtn"
         />
       )}
 

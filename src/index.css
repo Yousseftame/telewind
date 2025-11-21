@@ -111,3 +111,12 @@ All colors MUST be HSL.
 .dark .ql-picker-label {
   @apply text-foreground;
 }
+
+.btnHover:hover{
+   color: white;
+
+}
+
+.searchBtn:focus-visible {
+  box-shadow: none !important;
+}

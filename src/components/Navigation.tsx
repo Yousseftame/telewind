@@ -59,12 +59,11 @@ export default function Navigation() {
         <NavigationMenu className="hidden lg:flex">
           <NavigationMenuList>
             <NavigationMenuItem>
-              <Link to="/" className="px-4 py-2 text-sm font-medium tracking-wide transition-colors relative group">
-                <span className={`${isActive("/") ? "text-primary" : "text-muted-foreground group-hover:text-primary"}`}>
+<Link to="/" className="px-4 py-2 text-sm font-medium tracking-wide transition-colors relative group/item">                <span className={`${isActive("/") ? "text-primary" : "text-muted-foreground group-hover/item:text-primary"}`}>
                   Home
                 </span>
                 {isActive("/") && <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-accent"></span>}
-                {!isActive("/") && <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-accent scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>}
+                {!isActive("/") && <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-accent scale-x-0 group-hover/item:scale-x-100 transition-transform duration-300 origin-left"></span>}
               </Link>
             </NavigationMenuItem>
 
@@ -98,7 +97,7 @@ export default function Navigation() {
                   to={link.path}
 className="px-4 py-2 text-sm font-medium tracking-wide transition-colors relative group/item"
                 >
-                  <span className={`${isActive(link.path) ? "text-primary" : "text-muted-foreground group-hover:text-primary"}`}>
+                  <span className={`${isActive(link.path) ? "text-primary" : "text-muted-foreground group-hover/item:text-primary"}`}>
                     {link.name}
                   </span>
                   {isActive(link.path) && <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-accent"></span>}

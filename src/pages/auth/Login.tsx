@@ -138,7 +138,7 @@ const Login = () => {
 
       {/* Right Side: Image */}
       <div
-        className="flex-1 relative hidden md:flex bg-cover bg-center"
+        className="flex-1 relative hidden md:flex bg-cover bg-center   "
         style={{ backgroundImage: `url(${heroBg})` }}
       >
         {/* Overlay */}

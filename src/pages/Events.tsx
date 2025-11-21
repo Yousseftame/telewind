@@ -88,7 +88,7 @@ export default function Events() {
             {upcomingEvents.map((event) => (
               <Card key={event.id} className="hover:shadow-xl transition-shadow border-t-4 border-accent">
                 <CardContent className="p-6">
-                  <Badge className="mb-4 bg-accent text-accent-foreground">{event.type}</Badge>
+                  <Badge className="mb-4 bg-accent text-accent-foreground btnHover ">{event.type}</Badge>
                   <h3 className="font-heading text-xl font-bold mb-4">{event.name}</h3>
 
                   <div className="space-y-3 mb-4">
