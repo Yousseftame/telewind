@@ -77,7 +77,7 @@ export default function Certifications() {
         ),
     },
     {
-      key: "id" as keyof Certification,
+      key: "title" as keyof Certification,
       label: "Title",
       render: (cert) => {
         try {
