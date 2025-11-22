@@ -71,23 +71,23 @@ export default function AdminEvents() {
       sortable: true,
     },
     {
-      key: "id" as keyof Event,
+      key: "title" as keyof Event,
       label: "Title",
       sortable: true,
       render: (_, event) => getEventTranslation(event).title || "-",
     },
     {
-      key: "id" as keyof Event,
+      key: "location" as keyof Event,
       label: "Location",
       render: (_, event) => getEventTranslation(event).location || "-",
     },
     {
-      key: "id" as keyof Event,
+      key: "description" as keyof Event,
       label: "Description",
       render: (_, event) => getEventTranslation(event).description || "-",
     },
     {
-      key: "id" as keyof Event,
+      key: "details" as keyof Event,
       label: "Details",
       render: (_, event) => {
         const details = getEventTranslation(event).details || "";
