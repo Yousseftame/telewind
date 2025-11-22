@@ -20,3 +20,11 @@ export const EVENT_URLS = {
   CREATE_EVENT: "/admin/events",
   UPDATE_EVENT: (id: number) => `/admin/events/${id}`,
 };
+
+export const CERT_URLS = {
+  GET_ALL_CERT: "/admin/certificates",
+  GET_CERT: (id: number) => `/admin/certificates/${id}`,
+  DELETE_CERT: (id: number) => `/admin/certificates/${id}`,
+  CREATE_CERT: "/admin/certificates",
+  UPDATE_CERT: (id: number) => `/admin/certificates/${id}`,
+};

@@ -65,6 +65,33 @@ export function buildEventFormData(
 }
 
 /**
+ * Helper to build FormData for certifications (image + title only)
+ */
+export function buildCertFormData(
+  data: any,
+  languages: string[] = ["en", "ar", "tw"]
+): FormData {
+  const formData = new FormData();
+
+  // Handle image
+  if (data.image) {
+    formData.append("image", data.image);
+  } else if (data.removeImage) {
+    formData.append("remove_image", "1");
+  }
+
+  // Handle translations (only title)
+  languages.forEach((lang, index) => {
+    if (data.translations?.[lang]) {
+      formData.append(`translations[${index}][locale]`, lang);
+      formData.append(`translations[${index}][title]`, data.translations[lang].title || "");
+    }
+  });
+
+  return formData;
+}
+
+/**
  * Helper to extract translation for a specific language
  */
 export function getTranslation<T extends { translations?: Array<{ locale: string; [key: string]: any }> }>(

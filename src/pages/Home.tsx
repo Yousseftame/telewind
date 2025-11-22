@@ -393,53 +393,88 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="py-16">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="font-heading text-4xl md:text-5xl font-bold mb-4">Partners & Distributors</h2>
-            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-              Trusted partners delivering our defense-grade solutions across the globe
-            </p>
+      {/* Partners & Distributors */}
+{/* Partners & Distributors - Modern Marquee Style */}
+<section className="py-20 overflow-hidden">
+  <div className="container mx-auto px-4">
+    {/* Section Header */}
+    <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
+      <div>
+        <p className="text-accent font-semibold mb-2">Our Network</p>
+        <h2 className="font-heading text-4xl md:text-5xl font-bold">
+          Trusted Partners
+        </h2>
+      </div>
+      <div className="flex items-center gap-8 text-muted-foreground">
+          <div className="text-center">
+            <p className="text-3xl font-bold text-foreground">50+</p>
+            <p className="text-sm">Partners</p>
           </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[
-              {
-                companyName: "Global Defense Systems Inc.",
-                type: "Primary Distributor",
-                country: "United States",
-              },
-              {
-                companyName: "European Defense Solutions",
-                type: "Regional Partner",
-                country: "Germany",
-              },
-              {
-                companyName: "Asia-Pacific Technology Group",
-                type: "Technology Partner",
-                country: "Singapore",
-              },
-            ].map((partner, idx) => (
-              <Card key={idx} className="hover:shadow-xl transition-shadow border-l-4 border-l-accent">
-                <CardContent className="p-6">
-                  <div className="flex items-start gap-3 mb-4">
-                    <Building2 className="w-6 h-6 text-accent flex-shrink-0 mt-1" />
-                    <div className="flex-1">
-                      <h3 className="font-heading text-xl font-bold mb-1">{partner.companyName}</h3>
-                      <p className="text-accent font-semibold text-sm">{partner.type}</p>
-                    </div>
-                  </div>
-                  
-                  <div className="flex items-center gap-2 text-muted-foreground">
-                    <MapPin className="w-4 h-4 flex-shrink-0" />
-                    <span className="text-sm">{partner.country}</span>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
+          <div className="h-10 w-px bg-border" />
+          <div className="text-center">
+            <p className="text-3xl font-bold text-foreground">30+</p>
+            <p className="text-sm">Countries</p>
+          </div>
+          <div className="h-10 w-px bg-border" />
+          <div className="text-center">
+            <p className="text-3xl font-bold text-foreground">100%</p>
+            <p className="text-sm">Satisfaction</p>
           </div>
         </div>
-      </section>
+    </div>
+
+    {/* Logo Grid with Accent Border */}
+    <div className="relative">
+      {/* Decorative accent line */}
+      <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-accent via-accent/50 to-transparent rounded-full" />
+      
+      <div className="pl-8 md:pl-12">
+        {/* Main Grid */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+          {[
+            { name: "Partner 1", logo: "/secure.png" },
+            { name: "Partner 2", logo: "/shield (1).png" },
+            { name: "Partner 3", logo: "/army.png" },
+            { name: "Partner 4", logo: "/secure-shield.png" },
+            { name: "Partner 5", logo: "/army.png" },
+            { name: "Partner 6", logo: "/secure-shield.png" },
+            { name: "Partner 7", logo: "/shield (1).png" },
+            { name: "Partner 8", logo: "/secure.png" },
+          ].map((partner, idx) => (
+            <div
+              key={idx}
+              className="group relative bg-muted/50 hover:bg-background rounded-xl aspect-[2/1] flex items-center justify-center p-6 transition-all duration-300 hover:shadow-lg cursor-pointer"
+            >
+              <img
+                src={partner.logo}
+                alt={partner.name}
+                className="max-w-[80%] max-h-[60%] object-contain filter grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500"
+              />
+              
+              {/* Hover overlay with name */}
+              <div className="absolute inset-x-0 bottom-0 h-1 bg-accent scale-x-0 group-hover:scale-x-100 transition-transform duration-300 rounded-b-xl" />
+            </div>
+          ))}
+        </div>
+
+        {/* Bottom Row - Become a Partner CTA */}
+        {/* <div className="mt-8 pt-8 border-t border-border/50">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-6 bg-gradient-to-r from-primary/5 via-accent/5 to-primary/5 rounded-2xl p-6 md:p-8">
+            <div className="text-center sm:text-left">
+              <h3 className="font-heading text-xl font-bold mb-1">Interested in Partnership?</h3>
+              <p className="text-muted-foreground text-sm">Join our global network of authorized distributors</p>
+            </div>
+            <Button variant="default" size="lg" asChild>
+              <Link to="/contact">
+                Get in Touch <ArrowRight className="ml-2 w-4 h-4" />
+              </Link>
+            </Button>
+          </div>
+        </div> */}
+      </div>
+    </div>
+  </div>
+</section>
 
       {selectedImage && (
         <div 

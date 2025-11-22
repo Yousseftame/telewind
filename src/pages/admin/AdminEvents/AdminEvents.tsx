@@ -1,88 +1,122 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { Button } from "@/components/ui/button";
-import { Plus } from "lucide-react";
-import { DataTable, Column, editAction, deleteAction } from "@/components/shared/DataTable";
-import EventFormDialog from "./EventFormDialog";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Plus, Eye } from "lucide-react";
+import {
+  DataTable,
+  Column,
+  editAction,
+  deleteAction,
+} from "@/components/shared/DataTable";
 import { DeleteDialog } from "@/components/shared/DeleteDialog";
-import { useEventCRUD } from "./useEventCRUD";
 import { Event } from "@/services/types";
 import { getTranslation } from "@/utils/formDataHelpers";
-import { Tabs, TabsList, TabsTrigger } from "@radix-ui/react-tabs";
+import EventFormDialog from "./EventFormDialog";
+import EventViewDialog from "./EventViewDialog";
+import { useEventCRUD } from "./useEventCRUD";
 
-type Language = "en" | "ar" | "fr";
-
-
+// Supported languages for events
+type Language = "en" | "ar" | "tw";
 
 export default function AdminEvents() {
+  const [selectedLanguage, setSelectedLanguage] = useState<Language>("en");
+  const [searchTitle, setSearchTitle] = useState("");
 
-    const [selectedLanguage, setSelectedLanguage] = useState<Language>("en");
-  const [dialogOpen, setDialogOpen] = useState(false);
-  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const [showFormDialog, setShowFormDialog] = useState(false);
+  const [showDeleteDialog, setShowDeleteDialog] = useState(false);
+  const [showViewDialog, setShowViewDialog] = useState(false);
+
   const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
-  const [eventToDelete, setEventToDelete] = useState<Event | null>(null);
+  const [viewEventId, setViewEventId] = useState<number | null>(null);
 
-  const { items: events, isLoading, createMutation, updateMutation, deleteMutation } = useEventCRUD();
+  const isManager = true; // Same pattern as AdminCate
 
-    const columns: Column<Event>[] = [
-      {
-        key: "id",
-        label: "ID",
-        sortable: true,
+  const {
+    items: events,
+    isLoading,
+    useItem,
+    createMutation,
+    updateMutation,
+    deleteMutation,
+  } = useEventCRUD();
+
+  // Fetch single event for view dialog
+  const { data: viewEvent, isLoading: isLoadingView } = useItem(
+    viewEventId,
+    showViewDialog
+  );
+
+  // Helper to get translation for current language
+  const getEventTranslation = (event: Event) => {
+    return getTranslation(event, selectedLanguage);
+  };
+
+  // Sort events (newest ID first, like categories)
+  const sortedEvents = useMemo(() => {
+    return [...events].sort((a, b) => b.id - a.id);
+  }, [events]);
+
+  // Simple helper to strip HTML tags for table display of details
+  const stripHtml = (html: string) => html.replace(/<[^>]+>/g, "");
+
+  const columns: Column<Event>[] = [
+    {
+      key: "date",
+      label: "Date",
+      sortable: true,
+    },
+    {
+      key: "type",
+      label: "Type",
+      sortable: true,
+    },
+    {
+      key: "id" as keyof Event,
+      label: "Title",
+      sortable: true,
+      render: (_, event) => getEventTranslation(event).title || "-",
+    },
+    {
+      key: "id" as keyof Event,
+      label: "Location",
+      render: (_, event) => getEventTranslation(event).location || "-",
+    },
+    {
+      key: "id" as keyof Event,
+      label: "Description",
+      render: (_, event) => getEventTranslation(event).description || "-",
+    },
+    {
+      key: "id" as keyof Event,
+      label: "Details",
+      render: (_, event) => {
+        const details = getEventTranslation(event).details || "";
+        const text = stripHtml(details);
+        return text.length > 80 ? `${text.slice(0, 80)}...` : text || "-";
       },
-      {
-        key: "date",
-        label: "Date",
-        sortable: true,
-      },
-      {
-        key: "type",
-        label: "Type",
-        sortable: true,
-      },
-      {
-        key: "id",
-        label: "Title",
-        render: (event) => {
-          try {
-            const translation = getTranslation(event, "en");
-            return translation?.title || "-";
-          } catch {
-            return "-";
-          }
-        },
-      },
-      {
-        key: "id",
-        label: "Location",
-        render: (event) => {
-          try {
-            const translation = getTranslation(event, "en");
-            return translation?.location || "-";
-          } catch {
-            return "-";
-          }
-        },
-      },
-      // {
-      //   key: "creationDate",
-      //   label: "Created At",
-      //   sortable: true,
-      //   render: (event) => {
-      //     if (!event.creationDate) return "-";
-      //     return new Date(event.creationDate).toLocaleDateString();
-      //   },
-      // },
-    ];
+    },
+  ];
 
   const actions = [
+    {
+      label: "View",
+      icon: <Eye className="h-4 w-4" />,
+      onClick: (event: Event) => {
+        setViewEventId(event.id);
+        setShowViewDialog(true);
+      },
+    },
     editAction<Event>((event) => {
       setSelectedEvent(event);
-      setDialogOpen(true);
+      setShowFormDialog(true);
     }),
-    deleteAction<Event>((event) => {
-      setEventToDelete(event);
-      setDeleteDialogOpen(true);
-    }),
+    deleteAction<Event>(
+      (event) => {
+        setSelectedEvent(event);
+        setShowDeleteDialog(true);
+      },
+      () => isManager
+    ),
   ];
 
   const handleFormSubmit = (data: any) => {
@@ -91,7 +125,7 @@ export default function AdminEvents() {
         { id: selectedEvent.id, data },
         {
           onSuccess: () => {
-            setDialogOpen(false);
+            setShowFormDialog(false);
             setSelectedEvent(null);
           },
         }
@@ -99,126 +133,119 @@ export default function AdminEvents() {
     } else {
       createMutation.mutate(data, {
         onSuccess: () => {
-          setDialogOpen(false);
-        },
-      });
-    }
-  };
-
-  const handleDelete = () => {
-    if (eventToDelete) {
-      deleteMutation.mutate(eventToDelete.id, {
-        onSuccess: () => {
-          setDeleteDialogOpen(false);
-          setEventToDelete(null);
+          setShowFormDialog(false);
+          setSelectedEvent(null);
         },
       });
     }
   };
 
   return (
-   <div className="flex min-h-screen bg-background">
-  {/* MAIN CONTENT */}
-  <main className="flex-1 px-4 py-6 md:px-6 lg:px-8 overflow-x-hidden">
-    <div className="w-full space-y-6">
-      
-      {/* HEADER */}
-      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-        <div>
-          <h1 className="text-2xl md:text-3xl font-bold">Events Management</h1>
-          <p className="text-muted-foreground mt-1">
-            Manage your events with multi-language support
-          </p>
+    <div className="flex min-h-screen bg-background">
+      {/* MAIN CONTENT */}
+      <main className="flex-1 px-4 py-6 md:px-6 lg:px-8 overflow-x-hidden">
+        <div className="w-full space-y-6">
+          {/* HEADER */}
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+            <div>
+              <h1 className="text-2xl md:text-3xl font-bold">Events Management</h1>
+              <p className="text-muted-foreground mt-1">
+                Manage your events with multi-language support
+              </p>
+            </div>
+
+            {isManager && (
+              <Button
+                className="rounded-full w-full md:w-auto"
+                size="lg"
+                onClick={() => {
+                  setSelectedEvent(null);
+                  setShowFormDialog(true);
+                }}
+              >
+                <Plus className="mr-2 h-5 w-5" />
+                Add Event
+              </Button>
+            )}
+          </div>
+
+          {/* LANGUAGE TABS */}
+          <Tabs
+            value={selectedLanguage}
+            onValueChange={(value) => setSelectedLanguage(value as Language)}
+          >
+            <TabsList>
+              <TabsTrigger value="en">English</TabsTrigger>
+              <TabsTrigger value="ar">العربية</TabsTrigger>
+              <TabsTrigger value="tw">Taiwan</TabsTrigger>
+            </TabsList>
+          </Tabs>
+
+          {/* TABLE */}
+          <div className="w-full overflow-x-auto">
+            <DataTable
+              data={sortedEvents}
+              columns={columns}
+              loading={isLoading}
+              searchable
+              searchValue={searchTitle}
+              onSearchChange={setSearchTitle}
+              searchPlaceholder="Search events..."
+              showActionsColumn={isManager}
+              actions={actions}
+              pagination={{
+                pageNumber: 1,
+                pageSize: 10,
+                totalPages: 1,
+                totalRecords: sortedEvents.length,
+                onPageChange: () => {},
+                onPageSizeChange: () => {},
+              }}
+              emptyMessage="No events found."
+            />
+          </div>
         </div>
+      </main>
 
-        <Button
-          className="rounded-full w-full md:w-auto"
-          size="lg"
-          onClick={() => {
-            setSelectedEvent(null);
-            setDialogOpen(true);
-          }}
-        >
-          <Plus className="mr-2 h-5 w-5" />
-          Add Event
-        </Button>
-      </div>
+      {/* FORM DIALOG */}
+      <EventFormDialog
+        open={showFormDialog}
+        onOpenChange={setShowFormDialog}
+        onSubmit={handleFormSubmit}
+        isSubmitting={createMutation.isPending || updateMutation.isPending}
+        event={selectedEvent}
+      />
 
-      {/* LANGUAGE TABS */}
-     <Tabs
-  value={selectedLanguage}
-  onValueChange={(value) => setSelectedLanguage(value as Language)}
->
-  <TabsList className="inline-flex h-10 items-center justify-center rounded-md bg-muted p-1 text-muted-foreground">
-    <TabsTrigger
-      value="en"
-      className="px-3 py-1.5 rounded-sm data-[state=active]:bg-background data-[state=active]:text-foreground"
-    >
-      English
-    </TabsTrigger>
+      {/* DELETE DIALOG */}
+      <DeleteDialog
+        open={showDeleteDialog}
+        onOpenChange={setShowDeleteDialog}
+        onConfirm={() => {
+          if (selectedEvent) {
+            deleteMutation.mutate(selectedEvent.id, {
+              onSuccess: () => setShowDeleteDialog(false),
+            });
+          }
+        }}
+        title="Delete Event"
+        itemName={
+          selectedEvent ? getEventTranslation(selectedEvent).title || "Event" : ""
+        }
+        isDeleting={deleteMutation.isPending}
+      />
 
-    <TabsTrigger
-      value="ar"
-      className="px-3 py-1.5 rounded-sm data-[state=active]:bg-background data-[state=active]:text-foreground"
-    >
-      العربية
-    </TabsTrigger>
-
-    <TabsTrigger
-      value="fr"
-      className="px-3 py-1.5 rounded-sm data-[state=active]:bg-background data-[state=active]:text-foreground"
-    >
-      Taiwan
-    </TabsTrigger>
-  </TabsList>
-</Tabs>
-
-      {/* TABLE */}
-      <div className="w-full overflow-x-auto">
-        <DataTable
-          data={events}
-          columns={columns}
-          loading={isLoading}
-          searchable
-          searchPlaceholder="Search events..."
-          showActionsColumn
-          actions={actions}
-          pagination={{
-            pageNumber: 1,
-            pageSize: 10,
-            totalPages: 1,
-            totalRecords: events.length,
-            onPageChange: () => {},
-            onPageSizeChange: () => {},
-          }}
-          emptyMessage="No events found."
-        />
-      </div>
+      {/* VIEW DIALOG */}
+      <EventViewDialog
+        open={showViewDialog}
+        onOpenChange={(open) => {
+          setShowViewDialog(open);
+          if (!open) {
+            setViewEventId(null);
+          }
+        }}
+        event={viewEvent || null}
+        isLoading={isLoadingView}
+      />
     </div>
-  </main>
-
-  {/* FORM DIALOG */}
-  <EventFormDialog
-    open={dialogOpen}
-    onOpenChange={setDialogOpen}
-    onSubmit={handleFormSubmit}
-    isSubmitting={createMutation.isPending || updateMutation.isPending}
-    event={selectedEvent}
-  />
-
-  {/* DELETE DIALOG */}
-  <DeleteDialog
-    open={deleteDialogOpen}
-    onOpenChange={setDeleteDialogOpen}
-    onConfirm={handleDelete}
-    title="Delete Event"
-    itemName={
-      eventToDelete ? getTranslation(eventToDelete, "en")?.title || "Event" : ""
-    }
-    isDeleting={deleteMutation.isPending}
-  />
-</div>
-
-
   );
 }
