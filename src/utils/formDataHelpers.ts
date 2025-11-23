@@ -166,6 +166,43 @@ export function buildPartnerFormData(
 
   return formData;
 }
+export function buildIndustryFormData(
+  data: any,
+  languages: string[] = ["en", "ar", "tw"]
+): FormData {
+  const formData = new FormData();
+
+  // Handle icon image
+  if (data.icon) {
+    formData.append("icon", data.icon);
+  } else if (data.removeIcon) {
+    formData.append("remove_icon", "1");
+  }
+
+  // Handle translations
+  languages.forEach((lang, index) => {
+    if (data.translations?.[lang]) {
+      const trans = data.translations[lang];
+      formData.append(`translations[${index}][locale]`, lang);
+      formData.append(`translations[${index}][title]`, trans.title || "");
+      formData.append(`translations[${index}][description]`, trans.description || "");
+      
+      // Handle applications array
+      if (trans.applications && Array.isArray(trans.applications)) {
+        trans.applications.forEach((app: string, appIndex: number) => {
+          formData.append(`translations[${index}][applications][${appIndex}]`, app);
+        });
+      }
+    }
+  });
+
+  return formData;
+}
+
+
+
+
+
 
 /**
  * Helper to extract translation for a specific language

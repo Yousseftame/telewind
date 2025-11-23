@@ -28,7 +28,7 @@ import AdminPartner from "./pages/admin/AdminPartner/AdminPartner.tsx";
 import AdminCate from "./pages/admin/AdminCate/AdminCate.tsx";
 import Contacts from "./pages/admin/contacts/Contacts.tsx";
 import Certifications from "./pages/admin/Certifications/Certifications.tsx";
-import Announcements from "./pages/admin/announcements/announcements.tsx";
+import Announcements from "./pages/admin/announcements/Announcements.tsx";
 
 const queryClient = new QueryClient();
 
@@ -67,11 +67,11 @@ const App = () => (
                <Route path="/adminProduct" element={<ProtectedRoute><AdminProduct /> </ProtectedRoute>} />
                <Route path="/adminindustries" element={<ProtectedRoute><AdminIndustries /></ProtectedRoute>} />
                {/* <Route path="/adminStudies" element={<ProtectedRoute><AdminStudies /></ProtectedRoute>} /> */}
-               <Route path="/AdminCate" element={<AdminCate />} />
-               <Route path="/adminEvents" element={<AdminEvents />} />
+               <Route path="/AdminCate" element={<ProtectedRoute><AdminCate /></ProtectedRoute>} />
+               <Route path="/adminEvents" element={<ProtectedRoute><AdminEvents /></ProtectedRoute>} />
                <Route path="/adminPartner" element={<ProtectedRoute><AdminPartner /></ProtectedRoute>} />
-               <Route path="/certifications" element={<Certifications />} />
-               <Route path="/announcements" element={<Announcements />} />
+               <Route path="/certifications" element={<ProtectedRoute><Certifications /></ProtectedRoute>} />
+               <Route path="/announcements" element={<ProtectedRoute><Announcements /></ProtectedRoute>} />
                <Route path="/Contacts" element={<ProtectedRoute><Contacts /></ProtectedRoute>} />
 
             

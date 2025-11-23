@@ -82,6 +82,8 @@
     "title": "產品與解決方案",
     "description": "基於45年以上工程卓越經驗的國防級電子設備",
     "showingProducts": "顯示4個產品",
+    "keyFeature" :"主要特性",
+    "viewDetails": "查看詳情",
     "cantFind": "找不到您需要的？",
     "customSolution": "我們的工程團隊可以設計客製化解決方案以滿足您的特定需求",
     "contactButton": "聯絡工程團隊"

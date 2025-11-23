@@ -44,3 +44,11 @@ export const PARTNER_URLS = {
   CREATE_PARTNER: "/admin/partners",
   UPDATE_PARTNER: (id: number) => `/admin/partners/${id}`,
 };
+
+export const INDUSTRY_URLS = {
+  GET_ALL_INDUSTRY: "/admin/industries",
+  GET_INDUSTRY: (id: number) => `/admin/industries/${id}`,
+  DELETE_INDUSTRY: (id: number) => `/admin/industries/${id}`,
+  CREATE_INDUSTRY: "/admin/industries",
+  UPDATE_INDUSTRY: (id: number) => `/admin/industries/${id}`,
+};

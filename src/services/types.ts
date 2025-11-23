@@ -111,3 +111,18 @@ export interface Partner {
   translations: PartnerTranslation[];
   creationDate?: string;
 }
+
+export interface IndustryTranslation {
+  locale: string;
+  title: string;
+  description: string;
+  applications: string[];
+}
+
+export interface Industry {
+  id: number;
+  slug: string;
+  icon: string;
+  translations: IndustryTranslation[];
+  creationDate?: string;
+}

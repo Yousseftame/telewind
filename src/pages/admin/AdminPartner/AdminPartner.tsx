@@ -3,7 +3,7 @@
 import { useState, useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Plus, Eye, ChevronRight, ChevronLeft, Search, Briefcase } from "lucide-react";
+import { Plus, Eye, ChevronRight, ChevronLeft, Search, Briefcase, Handshake } from "lucide-react";
 import {
   DataTable,
   Column,
@@ -203,7 +203,7 @@ export default function AdminPartner() {
             <div className="space-y-1">
               <div className="flex items-center gap-3">
                 <div className="p-2.5 bg-indigo-100 rounded-xl">
-                  <Briefcase className="h-6 w-6 text-indigo-600" />
+                  <Handshake className="h-6 w-6 text-indigo-600" />
                 </div>
                 <h1 className="text-2xl md:text-3xl font-bold text-slate-800">
                   Partners

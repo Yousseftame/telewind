@@ -82,6 +82,8 @@
     "title": "产品与解决方案",
     "description": "基于45年以上工程卓越经验的国防级电子设备",
     "showingProducts": "显示4个产品",
+    "keyFeature" :"主要特性",
+    "viewDetails": "查看详情",
     "cantFind": "找不到您需要的？",
     "customSolution": "我们的工程团队可以设计定制解决方案以满足您的特定需求",
     "contactButton": "联系工程团队"

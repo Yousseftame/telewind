@@ -18,6 +18,9 @@ import {
   ChartColumnStacked,
   Globe,
   Megaphone,
+  Factory,
+  Calendar,
+  Award,
 } from "lucide-react";
 import { AuthContextType } from "@/services/types";
 import { useAuth } from "@/store/AuthContext/AuthContext";
@@ -80,11 +83,11 @@ const Sidebar = ({ collapsed, setCollapsed }: SidebarProps) => {
 
   const menuItems: MenuItem[] = [
     { label: "Products", icon: <Target size={20} />, path: "/adminProduct" },
-    { label: "Industries", icon: <Grid size={20} />, path: "/adminindustries" },
+    { label: "Industries", icon: <Factory size={20} />, path: "/adminindustries" },
     { label: "Category", icon: <ChartColumnStacked size={20} />, path: "/AdminCate" },
-    { label: "Events", icon: <Layers size={20} />, path: "/adminEvents" },
+    { label: "Events", icon: <Calendar size={20} />, path: "/adminEvents" },
     { label: "Partners", icon: <Handshake size={20} />, path: "/AdminPartner" },
-    { label: "Certifications", icon: <ShieldCheck size={20} />, path: "/certifications" },
+    { label: "Certifications", icon: <Award size={20} />, path: "/certifications" },
     { label: "Announcements", icon: <Megaphone  size={20} />, path: "/announcements" },
     { label: "Contacts", icon: <UserPen size={20} />, path: "/Contacts" },
     { label: "Logout", icon: <LogOut size={20} />, onClick: handleLogout },
