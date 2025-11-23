@@ -102,6 +102,13 @@ export interface PartnerTranslation {
   focus: string[];
 }
 
+export interface ProductTranslation {
+  locale: string;
+  title: string;
+  description: string;
+  key_features: string[];
+}
+
 export interface Partner {
   id: number;
   email: string;
@@ -115,6 +122,6 @@ export interface Product {
   id: number;
   image: string;
   supported_bands:string[]
-  translations: PartnerTranslation[];
+  translations: ProductTranslation[];
   creationDate?: string;
 }
