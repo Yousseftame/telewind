@@ -28,3 +28,11 @@ export const CERT_URLS = {
   CREATE_CERT: "/admin/certificates",
   UPDATE_CERT: (id: number) => `/admin/certificates/${id}`,
 };
+
+export const ANNOUNCEMENT_URLS = {
+  GET_ALL_ANNOUNCEMENT: "/admin/announcements",
+  GET_ANNOUNCEMENT: (id: number) => `/admin/announcements/${id}`,
+  DELETE_ANNOUNCEMENT: (id: number) => `/admin/announcements/${id}`,
+  CREATE_ANNOUNCEMENT: "/admin/announcements",
+  UPDATE_ANNOUNCEMENT: (id: number) => `/admin/announcements/${id}`,
+};

@@ -92,6 +92,35 @@ export function buildCertFormData(
 }
 
 /**
+ * Helper to build FormData for announcements (date, type, title, description)
+ */
+export function buildAnnouncementFormData(
+  data: any,
+  languages: string[] = ["en", "ar", "tw"]
+): FormData {
+  const formData = new FormData();
+
+  // Handle basic fields
+  if (data.date) {
+    formData.append("date", data.date);
+  }
+  if (data.type) {
+    formData.append("type", data.type);
+  }
+
+  // Handle translations (title and description)
+  languages.forEach((lang, index) => {
+    if (data.translations?.[lang]) {
+      formData.append(`translations[${index}][locale]`, lang);
+      formData.append(`translations[${index}][title]`, data.translations[lang].title || "");
+      formData.append(`translations[${index}][description]`, data.translations[lang].description || "");
+    }
+  });
+
+  return formData;
+}
+
+/**
  * Helper to extract translation for a specific language
  */
 export function getTranslation<T extends { translations?: Array<{ locale: string; [key: string]: any }> }>(

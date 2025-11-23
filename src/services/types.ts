@@ -77,3 +77,18 @@ export interface Certification {
   translations: CertificationTranslation[];
   creationDate?: string;
 }
+
+export interface AnnouncementTranslation {
+  locale: string;
+  title: string;
+  description: string;
+}
+
+export interface Announcement {
+  id: number;
+  slug: string;
+  date: string;
+  type: string;
+  translations: AnnouncementTranslation[];
+  creationDate?: string;
+}
