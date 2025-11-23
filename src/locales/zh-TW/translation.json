@@ -1,0 +1,81 @@
+{
+  "nav": {
+    "home": "首頁",
+    "products": "產品與解決方案",
+    "industries": "產業與應用",
+    "events": "活動與媒體",
+    "partners": "合作夥伴與經銷商",
+    "contact": "聯絡我們"
+  },
+  "productCategories": {
+    "all": "所有產品",
+    "radar": "雷達與微波",
+    "warfare": "電子戰",
+    "communications": "戰術通訊",
+    "amplifiers": "射頻功率放大器"
+  },
+  "hero": {
+    "title": "以科技防禦",
+    "description": "TeleWind Electronics 提供雷達、電子戰、戰術通訊和智慧系統，建立在超過 45 年的內部工程和製造經驗之上。",
+    "exploreButton": "探索產品與解決方案",
+    "contactButton": "聯絡我們的團隊"
+  },
+  "keyPillars": {
+    "pillar1Title": "45年以上的工程卓越",
+    "pillar1Description": "數十年在國防級電子設備與系統整合方面的成熟經驗。",
+    
+    "pillar2Title": "全程自主設計與製造",
+    "pillar2Description": "從概念到生產的全流程掌控，具備先進的SMT/DIP能力。",
+    
+    "pillar3Title": "國防級射頻、電子戰和戰術通訊",
+    "pillar3Description": "用於關鍵任務與安全通訊的軍規系統。",
+    
+    "pillar4Title": "人工智慧、機器人與合成智慧",
+    "pillar4Description": "新一代智慧平台與協作式機器人系統。"
+  },
+  "featuredProducts": {
+    "title": "產品類別",
+    "description": "為最嚴苛的國防與工業應用設計的先進電子系統",
+    "learnMore": "了解更多",
+    "viewAll": "查看所有產品"
+  },
+  "industries": {
+    "title": "我們服務的產業",
+    "description": "深受全球國防、安全與關鍵基礎設施機構的信任",
+    "explore": "探索所有產業"
+  },
+  "globalTrust": {
+    "title": "全球信任與品質保證",
+    "description": "在國防電子製造領域具備認證的卓越品質"
+  },
+  "network": {
+    "title": "可信賴的合作夥伴",
+    "ourNetwork": "我們的網路",
+    "partners": "合作夥伴",
+    "countries": "國家",
+    "satisfaction": "滿意度"
+  },
+  "ctaSection": {
+    "title": "準備好與 TeleWind 合作了嗎？",
+    "description": "讓我們討論我們的國防級電子設備如何滿足您關鍵任務的需求",
+    "contact": "聯絡我們的團隊",
+    "browse": "瀏覽產品"
+  },
+  "footer": {
+    "companyName": "TELEWIND ELECTRONICS",
+    "description": "在雷達、電子戰和戰術通訊領域擁有45年以上的國防級工程卓越經驗。",
+    "quickLinksTitle": "快速連結",
+    "links": {
+      "products": "產品與解決方案",
+      "industries": "產業",
+      "caseStudies": "案例研究",
+      "events": "活動與媒體",
+      "partners": "合作夥伴",
+      "contact": "聯絡我們"
+    },
+    "certificationsTitle": "認證",
+    "copyright": "TeleWind Electronics. 版權所有。",
+    "privacyPolicy": "隱私政策",
+    "termsOfService": "服務條款"
+  }
+}

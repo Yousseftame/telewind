@@ -120,3 +120,12 @@ All colors MUST be HSL.
 .searchBtn:focus-visible {
   box-shadow: none !important;
 }
+
+[dir="rtl"] {
+  direction: rtl;
+  text-align: right;
+}
+
+[dir="rtl"] .flex {
+  flex-direction: row-reverse;
+}

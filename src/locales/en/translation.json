@@ -1,0 +1,82 @@
+{
+  "nav": {
+    "home": "Home",
+    "products": "Products & Solutions",
+    "industries": "Industries & Applications",
+    "events": "Events & Media",
+    "partners": "Partners & Distributors",
+    "contact": "Contact"
+  },
+  "productCategories": {
+    "all": "All Products",
+    "radar": "Radar & Microwave",
+    "warfare": "Electronic Warfare",
+    "communications": "Tactical Communications",
+    "amplifiers": "RF Power Amplifiers"
+  },
+  "hero": {
+    "title": "WE DEFEND WITH TECHNOLOGY",
+    "description": "TeleWind Electronics delivers radar, electronic warfare, tactical communications, and intelligent systems built on 45+ years of in-house engineering and manufacturing.",
+    "exploreButton": "Explore Products & Solutions",
+    "contactButton": "Contact Our Team"
+  },
+  "keyPillars": {
+    "pillar1Title": "45+ Years of Engineering Excellence",
+    "pillar1Description": "Decades of proven expertise in defense-grade electronics and systems integration.",
+    
+    "pillar2Title": "Full In-House Design & Manufacturing",
+    "pillar2Description": "Complete control from concept to production with advanced SMT/DIP capabilities.",
+    
+    "pillar3Title": "Defense-Grade RF, EW & Tactical Communications",
+    "pillar3Description": "Military-spec systems for mission-critical operations and secure communications.",
+    
+    "pillar4Title": "AI, Robotics & Synthetic Intelligence",
+    "pillar4Description": "Next-generation intelligent platforms and collaborative robotic systems."
+  },
+  "featuredProducts": {
+    "title": "Product Categories",
+    "description": "Advanced electronics systems designed for the most demanding defense and industrial applications",
+    "learnMore": "Learn More",
+    "viewAll": "View All Products"
+  }
+  ,"industries": {
+    "title": "Industries We Serve",
+    "description": "Trusted by defense, security, and critical infrastructure organizations worldwide",
+    "explore": "Explore All Industries"
+  },
+  "globalTrust": {
+    "title": "Global Trust & Quality Assurance",
+    "description": "Certified excellence in defense electronics manufacturing"
+  },
+  "network": {
+    "title": "Trusted Partners",
+    "ourNetwork": "Our Network",
+    "partners": "Partners",
+    "countries": "Countries",
+    "satisfaction": "Satisfaction"
+  }
+  ,"ctaSection": {
+    "title": "Ready to Partner with TeleWind?",
+    "description": "Let's discuss how our defense-grade electronics can meet your mission-critical requirements",
+    "contact": "Contact Our Team",
+    "browse": "Browse Products"
+  },
+  "footer": {
+    "companyName": "TELEWIND ELECTRONICS",
+    "description": "45+ years of defense-grade engineering excellence in radar, electronic warfare, and tactical communications.",
+    "quickLinksTitle": "QUICK LINKS",
+    "links": {
+      "products": "Products & Solutions",
+      "industries": "Industries",
+      "caseStudies": "Case Studies",
+      "events": "Events & Media",
+      "partners": "Partners",
+      "contact": "Contact Us"
+    },
+    "certificationsTitle": "CERTIFICATIONS",
+    "copyright": "TeleWind Electronics. All rights reserved.",
+    "privacyPolicy": "Privacy Policy",
+    "termsOfService": "Terms of Service"
+  }
+  
+}

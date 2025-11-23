@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, ChevronDown } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Menu, X } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import telewindLogo from "@/assets/telewind-logo.png";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -12,27 +13,11 @@ import {
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
 
-const navLinks = [
-  { name: "Home", path: "/" },
-  { name: "Industries & Applications", path: "/industries" },
-  // { name: "Case Studies", path: "/case-studies" },
-  { name: "Events & Media", path: "/events" },
-  { name: "Partners & Distributors", path: "/partners" },
-  { name: "Contact", path: "/contact" },
-];
-
-const productCategories = [
-  { name: "All Products", category: "All" },
-  { name: "Radar & Microwave", category: "Radar & Microwave" },
-  { name: "Electronic Warfare", category: "Electronic Warfare" },
-  { name: "Tactical Communications", category: "Tactical Communications" },
-  { name: "RF Power Amplifiers", category: "RF Power Amplifiers" },
-];
-
 export default function Navigation() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const location = useLocation();
   const [scrolled, setScrolled] = useState(false);
+  const { t } = useTranslation();
 
   // Handle scroll effect
   if (typeof window !== "undefined") {
@@ -40,6 +25,22 @@ export default function Navigation() {
       setScrolled(window.scrollY > 50);
     });
   }
+
+  const navLinks = [
+    { name: t("nav.home"), path: "/" },
+    { name: t("nav.industries"), path: "/industries" },
+    { name: t("nav.events"), path: "/events" },
+    { name: t("nav.partners"), path: "/partners" },
+    { name: t("nav.contact"), path: "/contact" },
+  ];
+
+  const productCategories = [
+    { name: t("productCategories.all"), category: "All" },
+    { name: t("productCategories.radar"), category: "Radar & Microwave" },
+    { name: t("productCategories.warfare"), category: "Electronic Warfare" },
+    { name: t("productCategories.communications"), category: "Tactical Communications" },
+    { name: t("productCategories.amplifiers"), category: "RF Power Amplifiers" },
+  ];
 
   const isActive = (path: string) => location.pathname === path;
 
@@ -59,8 +60,9 @@ export default function Navigation() {
         <NavigationMenu className="hidden lg:flex">
           <NavigationMenuList>
             <NavigationMenuItem>
-<Link to="/" className="px-4 py-2 text-sm font-medium tracking-wide transition-colors relative group/item">                <span className={`${isActive("/") ? "text-primary" : "text-muted-foreground group-hover/item:text-primary"}`}>
-                  Home
+              <Link to="/" className="px-4 py-2 text-sm font-medium tracking-wide transition-colors relative group/item">
+                <span className={`${isActive("/") ? "text-primary" : "text-muted-foreground group-hover/item:text-primary"}`}>
+                  {t("nav.home")}
                 </span>
                 {isActive("/") && <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-accent"></span>}
                 {!isActive("/") && <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-accent scale-x-0 group-hover/item:scale-x-100 transition-transform duration-300 origin-left"></span>}
@@ -71,7 +73,7 @@ export default function Navigation() {
               <NavigationMenuTrigger className={`px-4 py-2 text-sm font-medium tracking-wide transition-colors bg-transparent hover:bg-transparent data-[state=open]:bg-transparent focus:bg-transparent data-[active]:bg-transparent ${
                 isActive("/products") ? "text-primary" : "text-muted-foreground hover:text-primary"
               }`}>
-                Products & Solutions
+                {t("nav.products")}
               </NavigationMenuTrigger>
               <NavigationMenuContent>
                 <ul className="grid w-[400px] gap-3 p-4 bg-background border border-border shadow-lg">
@@ -95,7 +97,7 @@ export default function Navigation() {
               <NavigationMenuItem key={link.path}>
                 <Link
                   to={link.path}
-className="px-4 py-2 text-sm font-medium tracking-wide transition-colors relative group/item"
+                  className="px-4 py-2 text-sm font-medium tracking-wide transition-colors relative group/item"
                 >
                   <span className={`${isActive(link.path) ? "text-primary" : "text-muted-foreground group-hover/item:text-primary"}`}>
                     {link.name}
@@ -108,14 +110,18 @@ className="px-4 py-2 text-sm font-medium tracking-wide transition-colors relativ
           </NavigationMenuList>
         </NavigationMenu>
 
-        {/* Mobile Menu Button */}
-        <button
-          className="lg:hidden text-foreground p-2"
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          aria-label="Toggle menu"
-        >
-          {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
+        {/* Language Switcher & Mobile Menu Button */}
+        <div className="flex items-center gap-2">
+          <LanguageSwitcher />
+          
+          <button
+            className="lg:hidden text-foreground p-2"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label="Toggle menu"
+          >
+            {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
       </nav>
 
       {/* Mobile Navigation */}
@@ -129,12 +135,12 @@ className="px-4 py-2 text-sm font-medium tracking-wide transition-colors relativ
                 isActive("/") ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:bg-muted hover:text-primary"
               }`}
             >
-              Home
+              {t("nav.home")}
             </Link>
 
             <div className="border-l-2 border-accent pl-2">
               <div className="px-4 py-2 text-xs font-semibold text-muted-foreground uppercase tracking-wide">
-                Products & Solutions
+                {t("nav.products")}
               </div>
               {productCategories.map((cat) => (
                 <Link

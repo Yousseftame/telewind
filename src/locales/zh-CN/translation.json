@@ -1,0 +1,81 @@
+{
+  "nav": {
+    "home": "首页",
+    "products": "产品与解决方案",
+    "industries": "行业与应用",
+    "events": "活动与媒体",
+    "partners": "合作伙伴与经销商",
+    "contact": "联系我们"
+  },
+  "productCategories": {
+    "all": "所有产品",
+    "radar": "雷达与微波",
+    "warfare": "电子战",
+    "communications": "战术通信",
+    "amplifiers": "射频功率放大器"
+  },
+  "hero": {
+    "title": "以科技防御",
+    "description": "TeleWind Electronics 提供雷达、电子战、战术通信和智能系统，建立在超过 45 年的内部工程和制造经验之上。",
+    "exploreButton": "探索产品与解决方案",
+    "contactButton": "联系我们的团队"
+  },
+  "keyPillars": {
+    "pillar1Title": "45年以上的工程卓越",
+    "pillar1Description": "数十年在国防级电子设备和系统集成方面的成熟经验。",
+    
+    "pillar2Title": "全程自主设计与制造",
+    "pillar2Description": "从概念到生产的全流程掌控，具备先进的SMT/DIP能力。",
+    
+    "pillar3Title": "国防级射频、电子战和战术通信",
+    "pillar3Description": "用于关键任务和安全通信的军规系统。",
+    
+    "pillar4Title": "人工智能、机器人与合成智能",
+    "pillar4Description": "新一代智能平台和协作式机器人系统。"
+  },
+  "featuredProducts": {
+    "title": "产品类别",
+    "description": "为最严苛的国防与工业应用而设计的先进电子系统",
+    "learnMore": "了解更多",
+    "viewAll": "查看所有产品"
+  },
+   "industries": {
+    "title": "我们服务的行业",
+    "description": "深受全球国防、安全及关键基础设施机构的信赖",
+    "explore": "探索所有行业"
+  },
+  "globalTrust": {
+    "title": "全球信任与质量保障",
+    "description": "在国防电子制造领域具备认证的卓越品质"
+  },
+  "network": {
+    "title": "可信赖的合作伙伴",
+    "ourNetwork": "我们的网络",
+    "partners": "合作伙伴",
+    "countries": "国家",
+    "satisfaction": "满意度"
+  },
+   "ctaSection": {
+    "title": "准备好与 TeleWind 合作了吗？",
+    "description": "让我们讨论我们的国防级电子设备如何满足您关键任务的需求",
+    "contact": "联系我们的团队",
+    "browse": "浏览产品"
+  },
+  "footer": {
+    "companyName": "TELEWIND ELECTRONICS",
+    "description": "在雷达、电子战和战术通信领域拥有45年以上的国防级工程卓越经验。",
+    "quickLinksTitle": "快速链接",
+    "links": {
+      "products": "产品与解决方案",
+      "industries": "行业",
+      "caseStudies": "案例研究",
+      "events": "活动与媒体",
+      "partners": "合作伙伴",
+      "contact": "联系我们"
+    },
+    "certificationsTitle": "认证",
+    "copyright": "TeleWind Electronics. 版权所有。",
+    "privacyPolicy": "隐私政策",
+    "termsOfService": "服务条款"
+  }
+}

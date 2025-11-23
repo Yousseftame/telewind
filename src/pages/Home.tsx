@@ -8,9 +8,12 @@ import electronicWarfare from "@/assets/electronic-warfare.jpg";
 import tacticalComms from "@/assets/tactical-comms.jpg";
 import rfAmplifiers from "@/assets/rf-amplifiers.jpg";
 import { useState } from 'react';
+import { useTranslation } from "react-i18next";
+
 
 export default function Home() {
     const [selectedImage, setSelectedImage] = useState<string | null>(null);
+     const { t } = useTranslation();
 
 
 
@@ -31,17 +34,17 @@ export default function Home() {
         {/* Content */}
         <div className="relative z-10 container mx-auto px-4 text-primary-foreground">
           <h1 className="font-heading text-5xl md:text-7xl font-bold mb-6 tracking-tight">
-            WE DEFEND WITH TECHNOLOGY
+           {t('hero.title')}
           </h1>
           <p className="text-lg md:text-xl mb-8 max-w-3xl mx-auto text-primary-foreground/90 leading-relaxed">
-            TeleWind Electronics delivers radar, electronic warfare, tactical communications, and intelligent systems built on 45+ years of in-house engineering and manufacturing.
+          {t('hero.description')}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <Button variant="hero" size="lg" asChild>
-              <Link to="/products">Explore Products & Solutions</Link>
+              <Link to="/products">{t('hero.exploreButton')}</Link>
             </Button>
             <Button variant="hero-outline" size="lg" asChild>
-              <Link to="/contact">Contact Our Team</Link>
+              <Link to="/contact">{t('hero.contactButton')}</Link>
             </Button>
           </div>
         </div>
@@ -61,9 +64,9 @@ export default function Home() {
             <Card className="border-t-4 border-accent">
               <CardContent className="pt-8">
                 <Award className="w-12 h-12 text-accent mb-4" />
-                <h3 className="font-heading text-xl font-bold mb-2">45+ Years of Engineering Excellence</h3>
+                <h3 className="font-heading text-xl font-bold mb-2">{t(`keyPillars.pillar1Title`)}</h3>
                 <p className="text-muted-foreground text-sm">
-                  Decades of proven expertise in defense-grade electronics and systems integration.
+                  {t(`keyPillars.pillar1Description`)}
                 </p>
               </CardContent>
             </Card>
@@ -71,9 +74,9 @@ export default function Home() {
             <Card className="border-t-4 border-accent">
               <CardContent className="pt-8">
                 <Factory className="w-12 h-12 text-accent mb-4" />
-                <h3 className="font-heading text-xl font-bold mb-2">Full In-House Design & Manufacturing</h3>
+                <h3 className="font-heading text-xl font-bold mb-2">{t(`keyPillars.pillar2Title`)}</h3>
                 <p className="text-muted-foreground text-sm">
-                  Complete control from concept to production with advanced SMT/DIP capabilities.
+                  {t(`keyPillars.pillar2Description`)}
                 </p>
               </CardContent>
             </Card>
@@ -81,9 +84,9 @@ export default function Home() {
             <Card className="border-t-4 border-accent">
               <CardContent className="pt-8">
                 <Shield className="w-12 h-12 text-accent mb-4" />
-                <h3 className="font-heading text-xl font-bold mb-2">Defense-Grade RF, EW & Tactical Communications</h3>
+                <h3 className="font-heading text-xl font-bold mb-2">{t(`keyPillars.pillar3Title`)}</h3>
                 <p className="text-muted-foreground text-sm">
-                  Military-spec systems for mission-critical operations and secure communications.
+                 {t(`keyPillars.pillar3Description`)}
                 </p>
               </CardContent>
             </Card>
@@ -91,9 +94,9 @@ export default function Home() {
             <Card className="border-t-4 border-accent">
               <CardContent className="pt-8">
                 <Cpu className="w-12 h-12 text-accent mb-4" />
-                <h3 className="font-heading text-xl font-bold mb-2">AI, Robotics & Synthetic Intelligence</h3>
+                <h3 className="font-heading text-xl font-bold mb-2">{t(`keyPillars.pillar4Title`)}</h3>
                 <p className="text-muted-foreground text-sm">
-                  Next-generation intelligent platforms and collaborative robotic systems.
+                 {t(`keyPillars.pillar4Description`)}
                 </p>
               </CardContent>
             </Card>
@@ -105,9 +108,9 @@ export default function Home() {
       <section className="py-20">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="font-heading text-4xl md:text-5xl font-bold mb-4">Product Categories</h2>
+            <h2 className="font-heading text-4xl md:text-5xl font-bold mb-4">{t(`featuredProducts.title`)}</h2>
             <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-              Advanced electronics systems designed for the most demanding defense and industrial applications
+              {t(`featuredProducts.description`)}
             </p>
           </div>
 
@@ -128,7 +131,7 @@ export default function Home() {
                 </p>
                 <Button variant="link" className="p-0" asChild>
                   <Link to="/products?category=radar">
-                    Learn More <ArrowRight className="ml-2 w-4 h-4" />
+                    {t(`featuredProducts.learnMore`)} <ArrowRight className="ml-2 w-4 h-4" />
                   </Link>
                 </Button>
               </CardContent>
@@ -150,7 +153,7 @@ export default function Home() {
                 </p>
                 <Button variant="link" className="p-0" asChild>
                   <Link to="/products?category=ew">
-                    Learn More <ArrowRight className="ml-2 w-4 h-4" />
+                    {t(`featuredProducts.learnMore`)} <ArrowRight className="ml-2 w-4 h-4" />
                   </Link>
                 </Button>
               </CardContent>
@@ -172,7 +175,7 @@ export default function Home() {
                 </p>
                 <Button variant="link" className="p-0" asChild>
                   <Link to="/products?category=comms">
-                    Learn More <ArrowRight className="ml-2 w-4 h-4" />
+                    {t(`featuredProducts.learnMore`)} <ArrowRight className="ml-2 w-4 h-4" />
                   </Link>
                 </Button>
               </CardContent>
@@ -194,7 +197,7 @@ export default function Home() {
                 </p>
                 <Button variant="link" className="p-0" asChild>
                   <Link to="/products?category=rf">
-                    Learn More <ArrowRight className="ml-2 w-4 h-4" />
+                    {t(`featuredProducts.learnMore`)} <ArrowRight className="ml-2 w-4 h-4" />
                   </Link>
                 </Button>
               </CardContent>
@@ -212,7 +215,7 @@ export default function Home() {
                 </p>
                 <Button variant="link" className="p-0" asChild>
                   <Link to="/products?category=optical">
-                    Learn More <ArrowRight className="ml-2 w-4 h-4" />
+                    {t(`featuredProducts.learnMore`)} <ArrowRight className="ml-2 w-4 h-4" />
                   </Link>
                 </Button>
               </CardContent>
@@ -230,7 +233,7 @@ export default function Home() {
                 </p>
                 <Button variant="link" className="p-0" asChild>
                   <Link to="/products?category=sigint">
-                    Learn More <ArrowRight className="ml-2 w-4 h-4" />
+                    {t(`featuredProducts.learnMore`)} <ArrowRight className="ml-2 w-4 h-4" />
                   </Link>
                 </Button>
               </CardContent>
@@ -239,7 +242,7 @@ export default function Home() {
 
           <div className="text-center mt-12">
             <Button variant="default" size="lg" asChild>
-              <Link to="/products">View All Products</Link>
+              <Link to="/products">{t(`featuredProducts.viewAll`)}</Link>
             </Button>
           </div>
         </div>
@@ -249,9 +252,9 @@ export default function Home() {
       <section className="py-20 bg-primary text-primary-foreground">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="font-heading text-4xl md:text-5xl font-bold mb-4">Industries We Serve</h2>
+            <h2 className="font-heading text-4xl md:text-5xl font-bold mb-4">{t(`industries.title`)}</h2>
             <p className="text-primary-foreground/90 text-lg max-w-2xl mx-auto">
-              Trusted by defense, security, and critical infrastructure organizations worldwide
+              {t(`industries.description`)}
             </p>
           </div>
 
@@ -274,7 +277,7 @@ export default function Home() {
 
           <div className="text-center mt-12">
             <Button variant="hero-outline" size="lg" asChild>
-              <Link to="/industries">Explore All Industries</Link>
+              <Link to="/industries"> {t(`industries.explore`)}</Link>
             </Button>
           </div>
         </div>
@@ -355,8 +358,8 @@ export default function Home() {
        <section className="py-16 bg-muted">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="font-heading text-3xl font-bold mb-2">Global Trust & Quality Assurance</h2>
-            <p className="text-muted-foreground">Certified excellence in defense electronics manufacturing</p>
+            <h2 className="font-heading text-3xl font-bold mb-2">{t(`globalTrust.title`)}</h2>
+            <p className="text-muted-foreground">{t(`globalTrust.description`)}</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -400,25 +403,25 @@ export default function Home() {
     {/* Section Header */}
     <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
       <div>
-        <p className="text-accent font-semibold mb-2">Our Network</p>
+        <p className="text-accent font-semibold mb-2">{t(`network.ourNetwork`)}</p>
         <h2 className="font-heading text-4xl md:text-5xl font-bold">
-          Trusted Partners
+          {t(`network.title`)}
         </h2>
       </div>
       <div className="flex items-center gap-8 text-muted-foreground">
           <div className="text-center">
             <p className="text-3xl font-bold text-foreground">50+</p>
-            <p className="text-sm">Partners</p>
+            <p className="text-sm">{t(`network.partners`)}</p>
           </div>
           <div className="h-10 w-px bg-border" />
           <div className="text-center">
             <p className="text-3xl font-bold text-foreground">30+</p>
-            <p className="text-sm">Countries</p>
+            <p className="text-sm">{t(`network.countries`)}</p>
           </div>
           <div className="h-10 w-px bg-border" />
           <div className="text-center">
             <p className="text-3xl font-bold text-foreground">100%</p>
-            <p className="text-sm">Satisfaction</p>
+            <p className="text-sm">{t(`network.satisfaction`)}</p>
           </div>
         </div>
     </div>
@@ -508,16 +511,16 @@ export default function Home() {
       <section className="py-20 bg-gradient-to-br from-primary via-secondary to-primary">
         <div className="container mx-auto px-4 text-center text-primary-foreground">
           <Users className="w-16 h-16 mx-auto mb-6 text-accent" />
-          <h2 className="font-heading text-4xl md:text-5xl font-bold mb-4">Ready to Partner with TeleWind?</h2>
+          <h2 className="font-heading text-4xl md:text-5xl font-bold mb-4">{t(`ctaSection.title`)}</h2>
           <p className="text-lg text-primary-foreground/90 mb-8 max-w-2xl mx-auto">
-            Let's discuss how our defense-grade electronics can meet your mission-critical requirements
+            {t(`ctaSection.description`)}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button variant="hero" size="lg" asChild>
-              <Link to="/contact">Contact Our Team</Link>
+              <Link to="/contact">{t(`ctaSection.contact`)}</Link>
             </Button>
             <Button variant="hero-outline" size="lg" asChild>
-              <Link to="/products">Browse Products</Link>
+              <Link to="/products">{t(`ctaSection.browse`)}</Link>
             </Button>
           </div>
         </div>
