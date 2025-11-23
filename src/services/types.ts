@@ -111,3 +111,10 @@ export interface Partner {
   translations: PartnerTranslation[];
   creationDate?: string;
 }
+export interface Product {
+  id: number;
+  image: string;
+  supported_bands:string[]
+  translations: PartnerTranslation[];
+  creationDate?: string;
+}

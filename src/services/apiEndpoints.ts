@@ -44,3 +44,11 @@ export const PARTNER_URLS = {
   CREATE_PARTNER: "/admin/partners",
   UPDATE_PARTNER: (id: number) => `/admin/partners/${id}`,
 };
+
+export const PRODUCT_URLS = {
+  GET_ALL_PRODUCT: "/admin/products",
+  GET_PRODUCT: (id: number) => `/admin/products/${id}`,
+  DELETE_PRODUCT: (id: number) => `/admin/products/${id}`,
+  CREATE_PRODUCT: "/admin/products",
+  UPDATE_PRODUCT: (id: number) => `/admin/products/${id}`,
+};
