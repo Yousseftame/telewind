@@ -168,6 +168,54 @@ export function buildPartnerFormData(
 }
 
 /**
+ * Helper to build FormData for Product
+ */
+export function buildProductFormData(
+  data: any,
+  languages: string[] = ["en", "ar", "tw"]
+): FormData {
+  const formData = new FormData();
+
+  // Handle image field
+  if (data.image) {
+    // If image is a File object (from file input)
+    if (data.image instanceof File) {
+      formData.append("image", data.image);
+    } 
+    // If image is a base64 string or URL (from existing product or preview)
+    else if (typeof data.image === "string") {
+      formData.append("image", data.image);
+    }
+  }
+
+  // Handle supported_bands array
+  if (data.supported_bands && Array.isArray(data.supported_bands)) {
+    data.supported_bands.forEach((band: string, index: number) => {
+      formData.append(`supported_bands[${index}]`, band);
+    });
+  }
+
+  // Handle translations
+  languages.forEach((lang, index) => {
+    if (data.translations?.[lang]) {
+      const trans = data.translations[lang];
+      formData.append(`translations[${index}][locale]`, lang);
+      formData.append(`translations[${index}][title]`, trans.title || "");
+      formData.append(`translations[${index}][description]`, trans.description || "");
+      
+      // Handle key_features array
+      if (trans.key_features && Array.isArray(trans.key_features)) {
+        trans.key_features.forEach((feature: string, featureIndex: number) => {
+          formData.append(`translations[${index}][key_features][${featureIndex}]`, feature);
+        });
+      }
+    }
+  });
+
+  return formData;
+}
+
+/**
  * Helper to extract translation for a specific language
  */
 export function getTranslation<T extends { translations?: Array<{ locale: string; [key: string]: any }> }>(

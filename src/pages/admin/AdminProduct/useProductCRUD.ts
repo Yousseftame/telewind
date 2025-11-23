@@ -1,7 +1,7 @@
 import { useCRUD } from "@/hooks/useCRUD";
-import {  PRODUCT_URLS } from "@/services/apiEndpoints";
+import { PRODUCT_URLS } from "@/services/apiEndpoints";
 import { Product } from "@/services/types";
-import { buildPartnerFormData } from "@/utils/formDataHelpers";
+import { buildProductFormData } from "@/utils/formDataHelpers";
 
 export function useProductCRUD() {
   return useCRUD<Product>({
@@ -19,7 +19,7 @@ export function useProductCRUD() {
       updateSuccess: "Product updated successfully",
       deleteSuccess: "Product deleted successfully",
     },
-    // transformForCreate: (data) => buildPartnerFormData(data),
-    // transformForUpdate: (id, data) => buildPartnerFormData(data),
+    transformForCreate: (data) => buildProductFormData(data),
+    transformForUpdate: (id, data) => buildProductFormData(data),
   });
 }
