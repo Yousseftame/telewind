@@ -66,35 +66,34 @@ export default function Certifications() {
 
   // Table columns
   const columns: Column<Certification>[] = [
-    {
-      key: "id",
-      label: "ID",
-      sortable: true,
+  {
+    key: "id",
+    label: "ID",
+    sortable: true,
+  },
+  {
+    key: "image",
+    label: "Image",
+    render: (_, cert) =>  // Use second param (cert), ignore first (_)
+      cert.image ? (
+        <img src={cert.image} alt="Certification" className="w-16 h-16 object-cover rounded" />
+      ) : (
+        "-"
+      ),
+  },
+  {
+    key: "id" as keyof Certification,  // Use any valid key, we ignore the value anyway
+    label: "Title",
+    render: (_, cert) => {  // Use second param (cert)
+      try {
+        const translation = getTranslation(cert, selectedLang);
+        return translation?.title || "-";
+      } catch {
+        return "-";
+      }
     },
-    {
-      key: "image",
-      label: "Image",
-      render: (cert) =>
-        cert.image ? (
-          <img src={cert.image} alt="Certification" className="w-16 h-16 object-cover rounded" />
-        ) : (
-          "-"
-        ),
-    },
-    {
-      key: "title" as keyof Certification,
-      label: "Title",
-      render: (cert) => {
-        try {
-          const translation = getTranslation(cert, selectedLang);
-          return translation?.title || "-";
-        } catch {
-          return "-";
-        }
-      },
-    },
-  ];
-
+  },
+];
   const viewCert = viewCertId ? sortedCertifications.find((c) => c.id === viewCertId) : null;
 
   return (
