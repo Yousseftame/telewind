@@ -1,3 +1,5 @@
+// src/utils/formDataHelpers.ts
+
 /**
  * Helper to build FormData for multi-language entities with images
  */
@@ -121,6 +123,51 @@ export function buildAnnouncementFormData(
 }
 
 /**
+ * Helper to build FormData for partners
+ */
+export function buildPartnerFormData(
+  data: any,
+  languages: string[] = ["en", "ar", "fr"]
+): FormData {
+  const formData = new FormData();
+
+  // Handle basic fields
+  if (data.email) {
+    formData.append("email", data.email);
+  }
+  if (data.type) {
+    formData.append("type", data.type);
+  }
+  if (data.phone) {
+    formData.append("phone", data.phone);
+  }
+  if (data.website) {
+    formData.append("website", data.website);
+  }
+
+  // Handle translations
+  languages.forEach((lang, index) => {
+    if (data.translations?.[lang]) {
+      const trans = data.translations[lang];
+      formData.append(`translations[${index}][locale]`, lang);
+      formData.append(`translations[${index}][name]`, trans.name || "");
+      formData.append(`translations[${index}][region]`, trans.region || "");
+      formData.append(`translations[${index}][country]`, trans.country || "");
+      formData.append(`translations[${index}][contact]`, trans.contact || "");
+      
+      // Handle focus array
+      if (trans.focus && Array.isArray(trans.focus)) {
+        trans.focus.forEach((focusItem: string, focusIndex: number) => {
+          formData.append(`translations[${index}][focus][${focusIndex}]`, focusItem);
+        });
+      }
+    }
+  });
+
+  return formData;
+}
+
+/**
  * Helper to extract translation for a specific language
  */
 export function getTranslation<T extends { translations?: Array<{ locale: string; [key: string]: any }> }>(
@@ -128,7 +175,18 @@ export function getTranslation<T extends { translations?: Array<{ locale: string
   locale: string
 ) {
   if (!item.translations || item.translations.length === 0) {
-    return { locale, title: "", description: "", location: "", details: "" };
+    return { 
+      locale, 
+      title: "", 
+      description: "", 
+      location: "", 
+      details: "",
+      name: "",
+      region: "",
+      country: "",
+      contact: "",
+      focus: [] as string[]
+    };
   }
   return item.translations.find((t) => t.locale === locale) || item.translations[0];
 }

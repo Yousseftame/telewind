@@ -92,3 +92,22 @@ export interface Announcement {
   translations: AnnouncementTranslation[];
   creationDate?: string;
 }
+
+export interface PartnerTranslation {
+  locale: string;
+  name: string;
+  region: string;
+  country: string;
+  contact: string;
+  focus: string[];
+}
+
+export interface Partner {
+  id: number;
+  email: string;
+  type: string;
+  phone: string;
+  website: string;
+  translations: PartnerTranslation[];
+  creationDate?: string;
+}

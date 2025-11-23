@@ -36,3 +36,11 @@ export const ANNOUNCEMENT_URLS = {
   CREATE_ANNOUNCEMENT: "/admin/announcements",
   UPDATE_ANNOUNCEMENT: (id: number) => `/admin/announcements/${id}`,
 };
+
+export const PARTNER_URLS = {
+  GET_ALL_PARTNER: "/admin/partners",
+  GET_PARTNER: (id: number) => `/admin/partners/${id}`,
+  DELETE_PARTNER: (id: number) => `/admin/partners/${id}`,
+  CREATE_PARTNER: "/admin/partners",
+  UPDATE_PARTNER: (id: number) => `/admin/partners/${id}`,
+};
