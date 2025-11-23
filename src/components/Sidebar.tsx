@@ -17,6 +17,7 @@ import {
   Target,
   ChartColumnStacked,
   Globe,
+  Megaphone,
 } from "lucide-react";
 import { AuthContextType } from "@/services/types";
 import { useAuth } from "@/store/AuthContext/AuthContext";
@@ -84,6 +85,7 @@ const Sidebar = ({ collapsed, setCollapsed }: SidebarProps) => {
     { label: "Events", icon: <Layers size={20} />, path: "/adminEvents" },
     { label: "Partners", icon: <Handshake size={20} />, path: "/AdminPartner" },
     { label: "Certifications", icon: <ShieldCheck size={20} />, path: "/certifications" },
+    { label: "Announcements", icon: <Megaphone  size={20} />, path: "/announcements" },
     { label: "Contacts", icon: <UserPen size={20} />, path: "/Contacts" },
     { label: "Logout", icon: <LogOut size={20} />, onClick: handleLogout },
   ];
