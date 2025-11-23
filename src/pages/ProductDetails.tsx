@@ -65,7 +65,7 @@ export default function ProductDetails() {
   }
 
   return (
-    <div className="container mx-auto px-4 py-12 pt-20">
+    <div className="container mx-auto px-4 py-12 pt-20 pb-20">
       {/* Header Section */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start pt-10">
         {/* Image */}

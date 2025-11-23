@@ -30,8 +30,12 @@ interface MenuItem {
   onClick?: () => void;
 }
 
-const Sidebar = () => {
-  const [collapsed, setCollapsed] = useState(false);
+interface SidebarProps {
+  collapsed: boolean;
+  setCollapsed: (collapsed: boolean) => void;
+}
+
+const Sidebar = ({ collapsed, setCollapsed }: SidebarProps) => {
   const { logOutUser }: AuthContextType = useAuth();
   const navigate = useNavigate();
   const location = useLocation(); // For active state
@@ -88,12 +92,12 @@ const Sidebar = () => {
 
   return (
     <div
-      className={`h-screen bg-[#011449] text-white flex flex-col transition-all duration-300 ${
+      className={`fixed top-0 left-0 h-screen bg-[#011449] text-white flex flex-col transition-all duration-300 overflow-hidden z-50 ${
         collapsed ? "w-20" : "w-64"
       }`}
     >
       {/* Logo / Brand Area */}
-      <div className="flex items-center justify-between p-4 border-b border-white/10">
+      <div className="flex items-center justify-between p-4 border-b border-white/10 flex-shrink-0">
         {!collapsed && (
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 bg-indigo-500 rounded-xl flex items-center justify-center font-bold text-lg shadow-lg shadow-indigo-500/30">
@@ -110,7 +114,7 @@ const Sidebar = () => {
       </div>
 
       {/* Toggle Button */}
-      <div className="flex justify-end px-3 py-4">
+      <div className="flex justify-end px-3 py-4 flex-shrink-0">
         <button
           onClick={() => setCollapsed(!collapsed)}
           className="text-white/70 hover:text-white hover:bg-white/10 p-2 rounded-lg transition-all"
@@ -121,7 +125,7 @@ const Sidebar = () => {
 
       {/* Section Label */}
       {!collapsed && (
-        <div className="px-5 mb-2">
+        <div className="px-5 mb-2 flex-shrink-0">
           <span className="text-xs font-medium text-white/40 uppercase tracking-wider">
             Menu
           </span>
@@ -129,7 +133,7 @@ const Sidebar = () => {
       )}
 
       {/* Menu Items */}
-      <ul className="flex-1 px-3 space-y-1">
+      <ul className="flex-1 px-3 space-y-1 overflow-y-auto scrollbar-hide">
         {menuItems.filter(item => !item.onClick).map((item) => {
           const active = isActive(item.path);
           
@@ -173,10 +177,10 @@ const Sidebar = () => {
       </ul>
 
       {/* Divider */}
-      <div className="mx-4 border-t border-white/10"></div>
+      <div className="mx-4 border-t border-white/10 flex-shrink-0"></div>
 
       {/* Bottom Actions */}
-      <div className="p-3 mb-4 space-y-1">
+      <div className="p-3 mb-4 space-y-1 flex-shrink-0">
         {/* Logout */}
         <button
           onClick={handleLogout}
@@ -214,7 +218,7 @@ const Sidebar = () => {
 
       {/* User Profile Section (Optional) */}
       {!collapsed && (
-        <div className="p-4 mx-3 mb-4 bg-white/5 rounded-2xl">
+        <div className="p-4 mx-3 mb-4 bg-white/5 rounded-2xl flex-shrink-0">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 bg-gradient-to-br from-indigo-400 to-purple-500 rounded-full flex items-center justify-center text-sm font-bold shadow-lg">
               A
@@ -226,6 +230,16 @@ const Sidebar = () => {
           </div>
         </div>
       )}
+
+      <style>{`
+        .scrollbar-hide::-webkit-scrollbar {
+          display: none;
+        }
+        .scrollbar-hide {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+        }
+      `}</style>
     </div>
   );
 };

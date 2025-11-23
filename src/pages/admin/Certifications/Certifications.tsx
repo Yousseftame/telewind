@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Plus } from "lucide-react";
@@ -59,6 +59,11 @@ export default function Certifications() {
     }
   };
 
+  // Sort certifications (newest first)
+  const sortedCertifications = useMemo(() => {
+    return [...certifications].sort((a, b) => b.id - a.id);
+  }, [certifications]);
+
   // Table columns
   const columns: Column<Certification>[] = [
     {
@@ -90,7 +95,7 @@ export default function Certifications() {
     },
   ];
 
-  const viewCert = viewCertId ? certifications.find((c) => c.id === viewCertId) : null;
+  const viewCert = viewCertId ? sortedCertifications.find((c) => c.id === viewCertId) : null;
 
   return (
     <div className="flex min-h-screen bg-background">
@@ -133,7 +138,7 @@ export default function Certifications() {
       <div className="w-full overflow-x-auto">
         <DataTable
           columns={columns}
-          data={certifications}
+          data={sortedCertifications}
           loading={isLoading}
           actions={[
             {
