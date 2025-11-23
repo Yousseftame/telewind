@@ -78,4 +78,35 @@
     "privacyPolicy": "隐私政策",
     "termsOfService": "服务条款"
   }
+  , "productsSection": {
+    "title": "产品与解决方案",
+    "description": "基于45年以上工程卓越经验的国防级电子设备",
+    "showingProducts": "显示4个产品",
+    "cantFind": "找不到您需要的？",
+    "customSolution": "我们的工程团队可以设计定制解决方案以满足您的特定需求",
+    "contactButton": "联系工程团队"
+  },
+  "industriesApplications": {
+    "title": "行业与应用",
+    "description": "TeleWind Electronics 使用国防级技术服务全球关键领域",
+    "keyApplications": "主要应用",
+    "viewProducts": "查看相关产品",
+    "yearsExperience": "经验年数",
+    "systemsDeployed": "部署系统",
+    "countriesServed": "服务国家",
+    "systemReliability": "系统可靠性",
+    "discussRequirements": "讨论您的行业需求",
+    "consultationDescription": "我们的技术团队可以帮助识别针对您特定行业挑战的最佳解决方案",
+    "scheduleConsultation": "安排咨询"
+  },
+  "eventsMedia": {
+    "title": "活动与媒体",
+    "description": "随时了解 TeleWind 最新的活动、新闻和行业洞察",
+    "upcomingEvents": "即将举行的活动",
+    "latestNews": "最新新闻与公告",
+    "readMore": "阅读更多",
+    "mediaInquiries": "媒体咨询",
+    "mediaDescription": "有关新闻稿、采访或媒体信息，请联系通讯团队",
+    "contactMedia": "联系媒体关系"
+  }
 }

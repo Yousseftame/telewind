@@ -1,4 +1,4 @@
-export const baseURL: string = "https://c331c108574a.ngrok-free.app/api"; // Updated base URL based on Postman
+export const baseURL: string = "172.104.234.172/api"; // Updated base URL based on Postman
 
 export const ADMIN_URL = {
   LOGIN: "/login",

@@ -77,5 +77,36 @@
     "copyright": "TeleWind Electronics. 版權所有。",
     "privacyPolicy": "隱私政策",
     "termsOfService": "服務條款"
+  },
+  "productsSection": {
+    "title": "產品與解決方案",
+    "description": "基於45年以上工程卓越經驗的國防級電子設備",
+    "showingProducts": "顯示4個產品",
+    "cantFind": "找不到您需要的？",
+    "customSolution": "我們的工程團隊可以設計客製化解決方案以滿足您的特定需求",
+    "contactButton": "聯絡工程團隊"
+  },
+   "industriesApplications": {
+    "title": "產業與應用",
+    "description": "TeleWind Electronics 使用國防級技術服務全球關鍵領域",
+    "keyApplications": "主要應用",
+    "viewProducts": "查看相關產品",
+    "yearsExperience": "經驗年數",
+    "systemsDeployed": "部署系統",
+    "countriesServed": "服務國家",
+    "systemReliability": "系統可靠性",
+    "discussRequirements": "討論您的產業需求",
+    "consultationDescription": "我們的技術團隊可以幫助識別針對您特定產業挑戰的最佳解決方案",
+    "scheduleConsultation": "安排諮詢"
+  },
+  "eventsMedia": {
+    "title": "活動與媒體",
+    "description": "隨時了解 TeleWind 最新的活動、新聞與產業洞察",
+    "upcomingEvents": "即將舉行的活動",
+    "latestNews": "最新新聞與公告",
+    "readMore": "閱讀更多",
+    "mediaInquiries": "媒體諮詢",
+    "mediaDescription": "有關新聞稿、採訪或媒體資訊，請聯絡通訊團隊",
+    "contactMedia": "聯絡媒體關係"
   }
 }

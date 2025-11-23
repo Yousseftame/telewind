@@ -78,4 +78,35 @@
     "privacyPolicy": "سياسة الخصوصية",
     "termsOfService": "شروط الخدمة"
   }
+  ,"productsSection": {
+    "title": "المنتجات والحلول",
+    "description": "إلكترونيات بمستوى الدفاع مبنية على أكثر من 45 عامًا من التميز الهندسي",
+    "showingProducts": "عرض 4 منتجات",
+    "cantFind": "لا يمكنك العثور على ما تحتاجه؟",
+    "customSolution": "يمكن لفريق الهندسة لدينا تصميم حلول مخصصة لتلبية متطلباتك الخاصة",
+    "contactButton": "اتصل بفريق الهندسة"
+  },
+  "industriesApplications": {
+    "title": "القطاعات والتطبيقات",
+    "description": "تقدم تيليويند إلكترونيكس التكنولوجيا الدفاعية للقطاعات الحيوية حول العالم",
+    "keyApplications": "التطبيقات الرئيسية",
+    "viewProducts": "عرض المنتجات ذات الصلة",
+    "yearsExperience": "سنوات الخبرة",
+    "systemsDeployed": "الأنظمة المنشورة",
+    "countriesServed": "الدول المخدومة",
+    "systemReliability": "موثوقية النظام",
+    "discussRequirements": "ناقش متطلبات صناعتك",
+    "consultationDescription": "يمكن لفريقنا الفني المساعدة في تحديد الحلول المثلى لتحديات صناعتك الخاصة",
+    "scheduleConsultation": "حدد موعد استشارة"
+  },
+  "eventsMedia": {
+    "title": "الأحداث والإعلام",
+    "description": "تابع أحدث الأحداث والأخبار والرؤى الصناعية لشركة تيليويند",
+    "upcomingEvents": "الأحداث القادمة",
+    "latestNews": "آخر الأخبار والإعلانات",
+    "readMore": "اقرأ المزيد",
+    "mediaInquiries": "استفسارات الإعلام",
+    "mediaDescription": "للنشرات الصحفية أو المقابلات أو معلومات الإعلام، اتصل بفريق الاتصالات لدينا",
+    "contactMedia": "اتصل بالعلاقات الإعلامية"
+  }
 }

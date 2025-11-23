@@ -10,6 +10,8 @@ import tacticalComms from "@/assets/tactical-comms.jpg";
 import rfAmplifiers from "@/assets/rf-amplifiers.jpg";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import jsPDF from "jspdf";
+import { useTranslation } from "react-i18next";
+
 
 
 
@@ -56,10 +58,13 @@ const products = [
 const categories = ["All", "Radar & Microwave", "Electronic Warfare", "Tactical Communications", "RF Power Amplifiers"];
 
 export default function Products() {
+
   const [searchParams] = useSearchParams();
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
   const navigate = useNavigate();
+       const { t } = useTranslation();
+  
 
   useEffect(() => {
     const categoryParam = searchParams.get("category");
@@ -113,9 +118,9 @@ export default function Products() {
       {/* Header */}
       <section className="bg-primary text-primary-foreground py-20">
         <div className="container mx-auto px-4">
-          <h1 className="font-heading text-5xl font-bold mb-4 pt-5">Products & Solutions</h1>
+          <h1 className="font-heading text-5xl font-bold mb-4 pt-5">{t(`productsSection.title`)}</h1>
           <p className="text-lg text-primary-foreground/90 max-w-2xl">
-            Defense-grade electronics built on 45+ years of engineering excellence
+           {t(`productsSection.description`)}
           </p>
         </div>
       </section>
@@ -206,7 +211,7 @@ export default function Products() {
                             () => navigate(`/products/${product.id}`)
                             // // console.log(task.id)
                           }>
-                      View Details
+                      View Details 
                     </Button>
                     <Button variant="outline" size="sm"  onClick={() => generateProductPDF(product)}>
                       <Download className="w-4 h-4" />
@@ -228,12 +233,12 @@ export default function Products() {
       {/* CTA Section */}
       <section className="py-16 bg-muted">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="font-heading text-3xl font-bold mb-4">Can't Find What You Need?</h2>
+          <h2 className="font-heading text-3xl font-bold mb-4">{t(`productsSection.cantFind`)}</h2>
           <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
-            Our engineering team can design custom solutions to meet your specific requirements
+            {t(`productsSection.customSolution`)}
           </p>
           <Button variant="default" size="lg" onClick={ () => navigate('/contact') }>
-            Contact Engineering Team
+            {t(`productsSection.contactButton`)}
           </Button>
         </div>
       </section>

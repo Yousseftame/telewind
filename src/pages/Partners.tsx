@@ -3,6 +3,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Globe, Mail, Phone, ExternalLink, MapPin } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 const regions = ["All Regions", "Americas", "Europe", "Middle East", "Asia-Pacific", "Africa"];
 
@@ -83,6 +84,8 @@ const partners = [
 
 export default function Partners() {
   const [selectedRegion, setSelectedRegion] = useState("All Regions");
+         const { t } = useTranslation();
+  
 
   const filteredPartners = partners.filter((partner) =>
     selectedRegion === "All Regions" || partner.region === selectedRegion

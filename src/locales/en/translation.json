@@ -78,5 +78,35 @@
     "privacyPolicy": "Privacy Policy",
     "termsOfService": "Terms of Service"
   }
-  
+  ,"productsSection": {
+    "title": "Products & Solutions",
+    "description": "Defense-grade electronics built on 45+ years of engineering excellence",
+    "showingProducts": "Showing 4 products",
+    "cantFind": "Can't Find What You Need?",
+    "customSolution": "Our engineering team can design custom solutions to meet your specific requirements",
+    "contactButton": "Contact Engineering Team"
+  },
+  "industriesApplications": {
+    "title": "Industries & Applications",
+    "description": "TeleWind Electronics serves critical sectors worldwide with defense-grade technology",
+    "keyApplications": "Key Applications",
+    "viewProducts": "View Related Products",
+    "yearsExperience": "Years of Experience",
+    "systemsDeployed": "Systems Deployed",
+    "countriesServed": "Countries Served",
+    "systemReliability": "System Reliability",
+    "discussRequirements": "Discuss Your Industry Requirements",
+    "consultationDescription": "Our technical team can help identify the optimal solutions for your specific industry challenges",
+    "scheduleConsultation": "Schedule a Consultation"
+  }
+  ,"eventsMedia": {
+    "title": "Events & Media",
+    "description": "Stay updated on TeleWind's latest events, news, and industry insights",
+    "upcomingEvents": "Upcoming Events",
+    "latestNews": "Latest News & Announcements",
+    "readMore": "Read More",
+    "mediaInquiries": "Media Inquiries",
+    "mediaDescription": "For press releases, interviews, or media information, contact our communications team",
+    "contactMedia": "Contact Media Relations"
+  }
 }

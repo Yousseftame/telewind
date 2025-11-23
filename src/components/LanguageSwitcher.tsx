@@ -10,8 +10,8 @@ import {
 import { Button } from "@/components/ui/button";
 
 const languages = [
-  { code: "en", name: "English", flag: "🇬🇧" },
-  { code: "ar", name: "العربية", flag: "🇸🇦", dir: "rtl" },
+  { code: "en", name: "English", flag: "" },
+  { code: "ar", name: "العربية", flag: "", dir: "rtl" },
   { code: "zh-TW", name: "繁體中文", flag: "🇹🇼" },
   { code: "zh-CN", name: "简体中文", flag: "🇨🇳" },
 ];

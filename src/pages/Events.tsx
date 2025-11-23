@@ -2,6 +2,8 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Calendar, MapPin, ExternalLink, FileText, Download } from "lucide-react";
+import { useTranslation } from "react-i18next";
+
 
 const upcomingEvents = [
   {
@@ -65,14 +67,16 @@ const newsArticles = [
 ];
 
 export default function Events() {
+         const { t } = useTranslation();
+
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
       <section className="bg-primary text-primary-foreground py-20">
         <div className="container mx-auto px-4">
-          <h1 className="font-heading text-5xl font-bold mb-4 pt-5">Events & Media</h1>
+          <h1 className="font-heading text-5xl font-bold mb-4 pt-5">{t(`eventsMedia.title`)}</h1>
           <p className="text-lg text-primary-foreground/90 max-w-2xl">
-            Stay updated on TeleWind's latest events, news, and industry insights
+            {t(`eventsMedia.description`)}
           </p>
         </div>
       </section>
@@ -81,7 +85,7 @@ export default function Events() {
       <section className="py-16">
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between mb-8">
-            <h2 className="font-heading text-3xl font-bold">Upcoming Events</h2>
+            <h2 className="font-heading text-3xl font-bold">{t(`eventsMedia.upcomingEvents`)}</h2>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -128,7 +132,7 @@ export default function Events() {
       <section className="py-16 bg-muted">
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between mb-8">
-            <h2 className="font-heading text-3xl font-bold">Latest News & Announcements</h2>
+            <h2 className="font-heading text-3xl font-bold">{t(`eventsMedia.latestNews`)}</h2>
           </div>
 
           <div className="space-y-4">
@@ -145,7 +149,7 @@ export default function Events() {
                       <p className="text-muted-foreground text-sm">{article.excerpt}</p>
                     </div>
                     <Button variant="ghost" size="sm">
-                      Read More →
+                      {t(`eventsMedia.readMore`)} →
                     </Button>
                   </div>
                 </CardContent>
@@ -156,7 +160,7 @@ export default function Events() {
       </section>
 
       {/* Media Resources */}
-      <section className="py-16">
+      {/* <section className="py-16">
         <div className="container mx-auto px-4">
           <h2 className="font-heading text-3xl font-bold mb-8">Media Resources</h2>
 
@@ -210,17 +214,17 @@ export default function Events() {
             </Card>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* CTA */}
       <section className="py-16 bg-primary text-primary-foreground">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="font-heading text-4xl font-bold mb-4">Media Inquiries</h2>
+          <h2 className="font-heading text-4xl font-bold mb-4">{t(`eventsMedia.mediaInquiries`)}</h2>
           <p className="text-lg text-primary-foreground/90 mb-8 max-w-2xl mx-auto">
-            For press releases, interviews, or media information, contact our communications team
+           {t(`eventsMedia.mediaDescription`)}
           </p>
           <Button variant="hero" size="lg">
-            Contact Media Relations
+            {t(`eventsMedia.contactMedia`)}
           </Button>
         </div>
       </section>

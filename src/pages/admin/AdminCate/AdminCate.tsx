@@ -44,6 +44,7 @@ export default function AdminCate() {
   const { data: viewCategory, isLoading: isLoadingView } = useItem(
     viewCategoryId,
     showViewDialog
+    
   );
 
   // Handle form submit
@@ -78,6 +79,7 @@ export default function AdminCate() {
     return [...categories].sort((a, b) => b.id - a.id);
   }, [categories]);
 
+  console.log(categories)
   // Table columns
   const columns: Column<Category>[] = [
     {
@@ -137,6 +139,7 @@ export default function AdminCate() {
       () => isManager
     ),
   ];
+  
 
   return (
     <div className="flex min-h-screen bg-slate-50/50">

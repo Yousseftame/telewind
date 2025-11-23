@@ -2,6 +2,8 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Shield, Radio, Satellite, Globe, Radar, Zap, Building2, Factory } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+
 
 const industries = [
   {
@@ -103,14 +105,16 @@ const industries = [
 ];
 
 export default function Industries() {
+         const { t } = useTranslation();
+
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
       <section className="bg-primary text-primary-foreground py-20">
         <div className="container mx-auto px-4">
-          <h1 className="font-heading text-5xl font-bold mb-4 pt-5">Industries & Applications</h1>
+          <h1 className="font-heading text-5xl font-bold mb-4 pt-5">{t(`industriesApplications.title`)}</h1>
           <p className="text-lg text-primary-foreground/90 max-w-2xl">
-            TeleWind Electronics serves critical sectors worldwide with defense-grade technology
+           {t(`industriesApplications.description`)}
           </p>
         </div>
       </section>
@@ -134,7 +138,7 @@ export default function Industries() {
 
                   <div className="mb-6">
                     <p className="text-sm font-semibold text-muted-foreground mb-3 uppercase tracking-wide">
-                      Key Applications
+                      {t(`industriesApplications.keyApplications`)}
                     </p>
                     <ul className="space-y-2">
                       {industry.applications.map((app, appIdx) => (
@@ -147,7 +151,7 @@ export default function Industries() {
                   </div>
 
                   <Button variant="link" className="p-0" asChild>
-                    <Link to="/products">View Related Products →</Link>
+                    <Link to="/products">{t(`industriesApplications.viewProducts`)} →</Link>
                   </Button>
                 </CardContent>
               </Card>
@@ -162,19 +166,19 @@ export default function Industries() {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 text-center">
             <div>
               <div className="text-4xl font-heading font-bold text-accent mb-2">45+</div>
-              <p className="text-muted-foreground">Years of Experience</p>
+              <p className="text-muted-foreground">{t(`industriesApplications.yearsExperience`)}</p>
             </div>
             <div>
               <div className="text-4xl font-heading font-bold text-accent mb-2">1000+</div>
-              <p className="text-muted-foreground">Systems Deployed</p>
+              <p className="text-muted-foreground">{t(`industriesApplications.systemsDeployed`)}</p>
             </div>
             <div>
               <div className="text-4xl font-heading font-bold text-accent mb-2">50+</div>
-              <p className="text-muted-foreground">Countries Served</p>
+              <p className="text-muted-foreground">{t(`industriesApplications.countriesServed`)}</p>
             </div>
             <div>
               <div className="text-4xl font-heading font-bold text-accent mb-2">99.9%</div>
-              <p className="text-muted-foreground">System Reliability</p>
+              <p className="text-muted-foreground">{t(`industriesApplications.systemReliability`)}</p>
             </div>
           </div>
         </div>
