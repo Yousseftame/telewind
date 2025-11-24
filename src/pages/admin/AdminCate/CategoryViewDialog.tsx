@@ -47,12 +47,19 @@ export default function CategoryViewDialog({
   }
 
   const getTranslation = (locale: string) => {
-    return category.translations.find((t) => t.locale === locale) || category.translations[0];
+    return (
+      category.translations.find((t) => t.locale === locale) || {
+        locale,
+        title: "",
+        description: "",
+      }
+    );
   };
 
   const enTranslation = getTranslation("en");
   const arTranslation = getTranslation("ar");
   const twTranslation = getTranslation("tw");
+  const chTranslation = getTranslation("ch");
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -65,7 +72,9 @@ export default function CategoryViewDialog({
           {/* Image Section */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-3">
-              <h3 className="text-lg font-semibold text-foreground">Category Image</h3>
+              <h3 className="text-lg font-semibold text-foreground">
+                Category Image
+              </h3>
               <img
                 src={category.image}
                 alt={enTranslation.title}
@@ -74,7 +83,9 @@ export default function CategoryViewDialog({
             </div>
 
             <div className="space-y-3">
-              <h3 className="text-lg font-semibold text-foreground">Category Icon</h3>
+              <h3 className="text-lg font-semibold text-foreground">
+                Category Icon
+              </h3>
               <div className="flex items-center justify-center h-64 bg-muted rounded-lg">
                 <img
                   src={category.icon}
@@ -94,22 +105,25 @@ export default function CategoryViewDialog({
 
           {/* Translations Tabs */}
           <div className="space-y-2">
-            <h3 className="text-lg font-semibold text-foreground">Translations</h3>
+            <h3 className="text-lg font-semibold text-foreground">
+              Translations
+            </h3>
             <Tabs defaultValue="en" className="w-full">
-              <TabsList className="grid w-full grid-cols-3">
+              <TabsList className="grid w-full grid-cols-2 md:grid-cols-4">
                 <TabsTrigger value="en">English</TabsTrigger>
                 <TabsTrigger value="ar">العربية</TabsTrigger>
-                <TabsTrigger value="fr">Taiwan</TabsTrigger>
+                <TabsTrigger value="tw">Taiwan</TabsTrigger>
+                <TabsTrigger value="ch">Chinese</TabsTrigger>
               </TabsList>
 
               {/* English Content */}
               <TabsContent value="en" className="space-y-4 pt-4">
                 <div>
                   <h4 className="text-xl font-bold text-foreground mb-2">
-                   Title :  {enTranslation.title}
+                    Title : {enTranslation.title}
                   </h4>
                   <p className="text-muted-foreground leading-relaxed">
-                   Description :  {enTranslation.description}
+                    Description : {enTranslation.description}
                   </p>
                 </div>
               </TabsContent>
@@ -118,22 +132,35 @@ export default function CategoryViewDialog({
               <TabsContent value="ar" className="space-y-4 pt-4">
                 <div dir="rtl">
                   <h4 className="text-xl font-bold text-foreground mb-2">
-                  عنوان :  {arTranslation.title}
+                    عنوان : {arTranslation.title}
                   </h4>
                   <p className="text-muted-foreground leading-relaxed">
-                   الوصف : {arTranslation.description}
+                    الوصف : {arTranslation.description}
                   </p>
                 </div>
               </TabsContent>
 
               {/* taiwan Content */}
-              <TabsContent value="fr" className="space-y-4 pt-4">
+              <TabsContent value="tw" className="space-y-4 pt-4">
                 <div>
                   <h4 className="text-xl font-bold text-foreground mb-2">
-                   標題 :  {twTranslation.title}
+                    標題 : {twTranslation.title}
                   </h4>
                   <p className="text-muted-foreground leading-relaxed">
-                  描述 :  {twTranslation.description}
+                    描述 : {twTranslation.description}
+                  </p>
+                </div>
+              </TabsContent>
+
+              {/* Simplified / Chinese Content */}
+              <TabsContent value="ch" className="space-y-4 pt-4">
+                <div>
+                  <h4 className="text-xl font-bold text-foreground mb-2">
+                    标题 : {chTranslation.title}
+                  </h4>
+
+                  <p className="text-muted-foreground leading-relaxed">
+                    描述 : {chTranslation.description}
                   </p>
                 </div>
               </TabsContent>

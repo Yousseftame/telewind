@@ -28,6 +28,7 @@ export default function EventViewDialog({
   const enTranslation = getTranslation(event, "en");
   const arTranslation = getTranslation(event, "ar");
   const twTranslation = getTranslation(event, "tw");
+  const chTranslation = getTranslation(event, "ch");
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -78,16 +79,19 @@ export default function EventViewDialog({
 
             {/* Multi-language Content */}
             <Tabs defaultValue="en" className="w-full">
-              <TabsList className="grid w-full grid-cols-3">
+              <TabsList className="grid w-full grid-cols-2 md:grid-cols-4">
                 <TabsTrigger value="en">English</TabsTrigger>
                 <TabsTrigger value="ar">العربية</TabsTrigger>
-                <TabsTrigger value="tw">台灣</TabsTrigger>
+                <TabsTrigger value="tw">Taiwan</TabsTrigger>
+                <TabsTrigger value="ch">Chinese</TabsTrigger>
               </TabsList>
 
               {/* English Content */}
               <TabsContent value="en" className="space-y-4">
                 <div>
-                  <h3 className="text-xl font-bold mb-2">{enTranslation.title}</h3>
+                  <h3 className="text-xl font-bold mb-2">
+                    {enTranslation.title}
+                  </h3>
                   {enTranslation.location && (
                     <div className="flex items-center gap-2 text-muted-foreground mb-4">
                       <MapPin className="h-4 w-4" />
@@ -110,7 +114,9 @@ export default function EventViewDialog({
                     <h4 className="font-semibold mb-2">Additional Details</h4>
                     <div
                       className="prose prose-sm max-w-none text-muted-foreground"
-                      dangerouslySetInnerHTML={{ __html: enTranslation.details }}
+                      dangerouslySetInnerHTML={{
+                        __html: enTranslation.details,
+                      }}
                     />
                   </div>
                 )}
@@ -119,7 +125,9 @@ export default function EventViewDialog({
               {/* Arabic Content */}
               <TabsContent value="ar" className="space-y-4" dir="rtl">
                 <div>
-                  <h3 className="text-xl font-bold mb-2">{arTranslation.title}</h3>
+                  <h3 className="text-xl font-bold mb-2">
+                    {arTranslation.title}
+                  </h3>
                   {arTranslation.location && (
                     <div className="flex items-center gap-2 text-muted-foreground mb-4">
                       <MapPin className="h-4 w-4" />
@@ -142,7 +150,9 @@ export default function EventViewDialog({
                     <h4 className="font-semibold mb-2">تفاصيل إضافية</h4>
                     <div
                       className="prose prose-sm max-w-none text-muted-foreground whitespace-pre-wrap"
-                      dangerouslySetInnerHTML={{ __html: arTranslation.details }}
+                      dangerouslySetInnerHTML={{
+                        __html: arTranslation.details,
+                      }}
                     />
                   </div>
                 )}
@@ -151,7 +161,9 @@ export default function EventViewDialog({
               {/* Taiwan / Chinese Content */}
               <TabsContent value="tw" className="space-y-4">
                 <div>
-                  <h3 className="text-xl font-bold mb-2">{twTranslation.title}</h3>
+                  <h3 className="text-xl font-bold mb-2">
+                    {twTranslation.title}
+                  </h3>
                   {twTranslation.location && (
                     <div className="flex items-center gap-2 text-muted-foreground mb-4">
                       <MapPin className="h-4 w-4" />
@@ -174,7 +186,45 @@ export default function EventViewDialog({
                     <h4 className="font-semibold mb-2">額外詳情</h4>
                     <div
                       className="prose prose-sm max-w-none text-muted-foreground whitespace-pre-wrap"
-                      dangerouslySetInnerHTML={{ __html: twTranslation.details }}
+                      dangerouslySetInnerHTML={{
+                        __html: twTranslation.details,
+                      }}
+                    />
+                  </div>
+                )}
+              </TabsContent>
+
+              {/* Simplified / Chinese Content */}
+              <TabsContent value="ch" className="space-y-4">
+                <div>
+                  <h3 className="text-xl font-bold mb-2">
+                    {chTranslation.title}
+                  </h3>
+                  {chTranslation.location && (
+                    <div className="flex items-center gap-2 text-muted-foreground mb-4">
+                      <MapPin className="h-4 w-4" />
+                      <span>{chTranslation.location}</span>
+                    </div>
+                  )}
+                </div>
+
+                {chTranslation.description && (
+                  <div>
+                    <h4 className="font-semibold mb-2">描述</h4>
+                    <p className="text-muted-foreground leading-relaxed">
+                      {chTranslation.description}
+                    </p>
+                  </div>
+                )}
+
+                {chTranslation.details && (
+                  <div>
+                    <h4 className="font-semibold mb-2">额外详情</h4>
+                    <div
+                      className="prose prose-sm max-w-none text-muted-foreground whitespace-pre-wrap"
+                      dangerouslySetInnerHTML={{
+                        __html: chTranslation.details,
+                      }}
                     />
                   </div>
                 )}

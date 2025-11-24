@@ -15,7 +15,7 @@ import CategoryFormDialog from "./CategoryFormDialog";
 import CategoryViewDialog from "./CategoryViewDialog";
 import { useCategoryCRUD } from "./useCategoryCRUD";
 
-type Language = "en" | "ar" | "tw";
+type Language = "en" | "ar" | "tw" | "ch";
 
 export default function AdminCate() {
   const [selectedLanguage, setSelectedLanguage] = useState<Language>("en");
@@ -67,6 +67,7 @@ export default function AdminCate() {
         },
       });
     }
+    console.log(data);
   };
 
   // Get translation for selected language
@@ -204,6 +205,12 @@ export default function AdminCate() {
               className="rounded-lg px-4 py-2 text-sm font-medium data-[state=active]:bg-white data-[state=active]:text-indigo-600 data-[state=active]:shadow-sm"
             >
               🇹🇼 Taiwan
+            </TabsTrigger>
+            <TabsTrigger 
+              value="ch"
+              className="rounded-lg px-4 py-2 text-sm font-medium data-[state=active]:bg-white data-[state=active]:text-indigo-600 data-[state=active]:shadow-sm"
+            >
+              CH Chinese
             </TabsTrigger>
           </TabsList>
         </Tabs>

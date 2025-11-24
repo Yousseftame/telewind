@@ -31,9 +31,30 @@ interface EventFormData {
   date: string;
   type: string;
   translations: {
-    en: { title: string; description: string; location: string; details: string };
-    ar: { title: string; description: string; location: string; details: string };
-    tw: { title: string; description: string; location: string; details: string };
+    en: {
+      title: string;
+      description: string;
+      location: string;
+      details: string;
+    };
+    ar: {
+      title: string;
+      description: string;
+      location: string;
+      details: string;
+    };
+    tw: {
+      title: string;
+      description: string;
+      location: string;
+      details: string;
+    };
+    ch: {
+      title: string;
+      description: string;
+      location: string;
+      details: string;
+    };
   };
 }
 
@@ -57,6 +78,7 @@ export default function EventFormDialog({
   const [detailsEn, setDetailsEn] = useState("");
   const [detailsAr, setDetailsAr] = useState("");
   const [detailsTw, setDetailsTw] = useState("");
+  const [detailsCh, setDetailsCh] = useState("");
 
   const getDefaultTranslations = () => {
     if (!event) {
@@ -64,6 +86,7 @@ export default function EventFormDialog({
         en: { title: "", description: "", location: "", details: "" },
         ar: { title: "", description: "", location: "", details: "" },
         tw: { title: "", description: "", location: "", details: "" },
+        ch: { title: "", description: "", location: "", details: "" },
       };
     }
 
@@ -71,6 +94,7 @@ export default function EventFormDialog({
       en: { title: "", description: "", location: "", details: "" },
       ar: { title: "", description: "", location: "", details: "" },
       tw: { title: "", description: "", location: "", details: "" },
+      ch: { title: "", description: "", location: "", details: "" },
     };
 
     event.translations.forEach((t) => {
@@ -106,10 +130,11 @@ export default function EventFormDialog({
         type: event?.type || "",
         translations,
       });
-      
+
       setDetailsEn(translations.en.details);
       setDetailsAr(translations.ar.details);
       setDetailsTw(translations.tw.details);
+      setDetailsCh(translations.ch.details);
     }
   }, [open, reset, event]);
 
@@ -120,6 +145,7 @@ export default function EventFormDialog({
         en: { ...data.translations.en, details: detailsEn },
         ar: { ...data.translations.ar, details: detailsAr },
         tw: { ...data.translations.tw, details: detailsTw },
+        ch: { ...data.translations.ch, details: detailsCh },
       },
     });
   };
@@ -154,7 +180,9 @@ export default function EventFormDialog({
                 className="mt-1"
               />
               {errors.date && (
-                <p className="text-sm text-destructive mt-1">{errors.date.message}</p>
+                <p className="text-sm text-destructive mt-1">
+                  {errors.date.message}
+                </p>
               )}
             </div>
 
@@ -167,17 +195,20 @@ export default function EventFormDialog({
                 className="mt-1"
               />
               {errors.type && (
-                <p className="text-sm text-destructive mt-1">{errors.type.message}</p>
+                <p className="text-sm text-destructive mt-1">
+                  {errors.type.message}
+                </p>
               )}
             </div>
           </div>
 
           {/* Multi-language Tabs */}
           <Tabs defaultValue="en" className="w-full">
-            <TabsList className="grid w-full grid-cols-3">
+            <TabsList className="grid w-full grid-cols-2 md:grid-cols-4">
               <TabsTrigger value="en">English</TabsTrigger>
               <TabsTrigger value="ar">العربية</TabsTrigger>
-              <TabsTrigger value="tw">台灣</TabsTrigger>
+              <TabsTrigger value="tw">Taiwan</TabsTrigger>
+              <TabsTrigger value="ch">Chinese</TabsTrigger>
             </TabsList>
 
             {/* English */}
@@ -186,7 +217,9 @@ export default function EventFormDialog({
                 <Label htmlFor="title-en">Title (English)</Label>
                 <Input
                   id="title-en"
-                  {...register("translations.en.title", { required: "Title is required" })}
+                  {...register("translations.en.title", {
+                    required: "Title is required",
+                  })}
                   className="mt-1"
                 />
                 {errors.translations?.en?.title && (
@@ -319,15 +352,67 @@ export default function EventFormDialog({
                 </div>
               </div>
             </TabsContent>
+
+            {/* Simplified / Chinese Content */}
+            <TabsContent value="ch" className="space-y-4">
+              <div>
+                <Label htmlFor="title-ch">标题 (Chinese)</Label>
+                <Input
+                  id="title-ch"
+                  {...register("translations.ch.title")}
+                  className="mt-1"
+                />
+              </div>
+
+              <div>
+                <Label htmlFor="location-ch">地点 (Chinese)</Label>
+                <Input
+                  id="location-ch"
+                  {...register("translations.ch.location")}
+                  className="mt-1"
+                />
+              </div>
+
+              <div>
+                <Label htmlFor="description-ch">描述 (Chinese)</Label>
+                <Textarea
+                  id="description-ch"
+                  {...register("translations.ch.description")}
+                  rows={3}
+                  className="mt-1"
+                />
+              </div>
+
+              <div>
+                <Label htmlFor="details-ch">详情 (Chinese)</Label>
+                <div className="mt-1">
+                  <ReactQuill
+                    theme="snow"
+                    value={detailsCh} // You need a state for ch details, like `const [detailsCh, setDetailsCh] = useState("")`
+                    onChange={setDetailsCh}
+                    modules={quillModules}
+                    className="bg-background"
+                  />
+                </div>
+              </div>
+            </TabsContent>
           </Tabs>
 
           {/* Actions */}
           <div className="flex justify-end gap-3 pt-4">
-            <Button type="button" variant="outline" onClick={() => onOpenChange(false)}>
+            <Button
+              type="button"
+              variant="outline"
+              onClick={() => onOpenChange(false)}
+            >
               Cancel
             </Button>
             <Button type="submit" disabled={isSubmitting}>
-              {isSubmitting ? "Saving..." : isEditMode ? "Update Event" : "Create Event"}
+              {isSubmitting
+                ? "Saving..."
+                : isEditMode
+                ? "Update Event"
+                : "Create Event"}
             </Button>
           </div>
         </form>
