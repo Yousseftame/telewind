@@ -1,25 +1,44 @@
+// src/pages/Home.tsx - UPDATED with Dynamic API Data
+
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Shield, Cpu, Radio, Radar, Zap, Target, Eye, Satellite, ArrowRight, Factory, Globe, Award, Users, MapPin, Building2, X } from 'lucide-react';
+import { Shield, Cpu, Radio, Radar, Zap, Target, Eye, Satellite, ArrowRight, Factory, Globe, Award, Users, MapPin, Building2, Loader2 } from 'lucide-react';
 import heroBg from "@/assets/hero-bg.jpg";
-import radarSystems from "@/assets/radar-systems.jpg";
-import electronicWarfare from "@/assets/electronic-warfare.jpg";
-import tacticalComms from "@/assets/tactical-comms.jpg";
-import rfAmplifiers from "@/assets/rf-amplifiers.jpg";
 import { useState } from 'react';
 import { useTranslation } from "react-i18next";
+import { useHomeCategories, useHomeIndustries, useHomeCertificates } from "@/hooks/useSiteHome";
 
+// Icon mapping for categories (fallback if API doesn't provide icon component)
+const categoryIconMap: Record<string, any> = {
+  radar: Radar,
+  ew: Zap,
+  comms: Radio,
+  rf: Satellite,
+  optical: Eye,
+  sigint: Target,
+};
+
+// Icon mapping for industries
+const industryIconMap: Record<string, any> = {
+  defense: Shield,
+  communications: Radio,
+  aerospace: Satellite,
+  industrial: Globe,
+};
 
 export default function Home() {
-    const [selectedImage, setSelectedImage] = useState<string | null>(null);
-     const { t } = useTranslation();
-
-
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const { t } = useTranslation();
+  
+  // ✅ Fetch dynamic data with language support
+  const { data: categories = [], isLoading: categoriesLoading } = useHomeCategories();
+  const { data: industries = [], isLoading: industriesLoading } = useHomeIndustries();
+  const { data: certificates = [], isLoading: certificatesLoading } = useHomeCertificates();
 
   return (
     <div className="min-h-screen">
-      {/* Hero Section */}
+      {/* Hero Section - UNCHANGED */}
       <section 
         className="relative h-screen flex items-center justify-center text-center overflow-hidden"
         style={{
@@ -28,16 +47,14 @@ export default function Home() {
           backgroundPosition: "center",
         }}
       >
-        {/* Dark Overlay */}
         <div className="absolute inset-0 bg-primary/90"></div>
         
-        {/* Content */}
         <div className="relative z-10 container mx-auto px-4 text-primary-foreground">
           <h1 className="font-heading text-5xl md:text-7xl font-bold mb-6 tracking-tight">
-           {t('hero.title')}
+            {t('hero.title')}
           </h1>
           <p className="text-lg md:text-xl mb-8 max-w-3xl mx-auto text-primary-foreground/90 leading-relaxed">
-          {t('hero.description')}
+            {t('hero.description')}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <Button variant="hero" size="lg" asChild>
@@ -49,7 +66,6 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Scroll Indicator */}
         <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
           <div className="w-6 h-10 border-2 border-primary-foreground/50 rounded-full flex justify-center pt-2">
             <div className="w-1 h-3 bg-primary-foreground/50 rounded-full"></div>
@@ -57,428 +73,263 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Key Pillars */}
+      {/* Key Pillars - UNCHANGED */}
       <section className="py-20 bg-muted">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             <Card className="border-t-4 border-accent">
               <CardContent className="pt-8">
                 <Award className="w-12 h-12 text-accent mb-4" />
-                <h3 className="font-heading text-xl font-bold mb-2">{t(`keyPillars.pillar1Title`)}</h3>
-                <p className="text-muted-foreground text-sm">
-                  {t(`keyPillars.pillar1Description`)}
-                </p>
+                <h3 className="font-heading text-xl font-bold mb-2">{t('keyPillars.pillar1Title')}</h3>
+                <p className="text-muted-foreground text-sm">{t('keyPillars.pillar1Description')}</p>
               </CardContent>
             </Card>
 
             <Card className="border-t-4 border-accent">
               <CardContent className="pt-8">
                 <Factory className="w-12 h-12 text-accent mb-4" />
-                <h3 className="font-heading text-xl font-bold mb-2">{t(`keyPillars.pillar2Title`)}</h3>
-                <p className="text-muted-foreground text-sm">
-                  {t(`keyPillars.pillar2Description`)}
-                </p>
+                <h3 className="font-heading text-xl font-bold mb-2">{t('keyPillars.pillar2Title')}</h3>
+                <p className="text-muted-foreground text-sm">{t('keyPillars.pillar2Description')}</p>
               </CardContent>
             </Card>
 
             <Card className="border-t-4 border-accent">
               <CardContent className="pt-8">
                 <Shield className="w-12 h-12 text-accent mb-4" />
-                <h3 className="font-heading text-xl font-bold mb-2">{t(`keyPillars.pillar3Title`)}</h3>
-                <p className="text-muted-foreground text-sm">
-                 {t(`keyPillars.pillar3Description`)}
-                </p>
+                <h3 className="font-heading text-xl font-bold mb-2">{t('keyPillars.pillar3Title')}</h3>
+                <p className="text-muted-foreground text-sm">{t('keyPillars.pillar3Description')}</p>
               </CardContent>
             </Card>
 
             <Card className="border-t-4 border-accent">
               <CardContent className="pt-8">
                 <Cpu className="w-12 h-12 text-accent mb-4" />
-                <h3 className="font-heading text-xl font-bold mb-2">{t(`keyPillars.pillar4Title`)}</h3>
-                <p className="text-muted-foreground text-sm">
-                 {t(`keyPillars.pillar4Description`)}
-                </p>
+                <h3 className="font-heading text-xl font-bold mb-2">{t('keyPillars.pillar4Title')}</h3>
+                <p className="text-muted-foreground text-sm">{t('keyPillars.pillar4Description')}</p>
               </CardContent>
             </Card>
           </div>
         </div>
       </section>
 
-      {/* Featured Product Categories */}
+      {/* ✅ UPDATED: Featured Product Categories - NOW DYNAMIC */}
       <section className="py-20">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="font-heading text-4xl md:text-5xl font-bold mb-4">{t(`featuredProducts.title`)}</h2>
+            <h2 className="font-heading text-4xl md:text-5xl font-bold mb-4">{t('featuredProducts.title')}</h2>
             <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-              {t(`featuredProducts.description`)}
+              {t('featuredProducts.description')}
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <Card className="group hover:shadow-xl transition-shadow overflow-hidden">
-              <div className="h-48 overflow-hidden">
-                <img 
-                  src={radarSystems} 
-                  alt="Radar & Microwave Systems" 
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                />
-              </div>
-              <CardContent className="p-6">
-                <Radar className="w-10 h-10 text-accent mb-3" />
-                <h3 className="font-heading text-xl font-bold mb-2">Radar & Microwave Systems</h3>
-                <p className="text-muted-foreground text-sm mb-4">
-                  High-performance radar solutions for surveillance, tracking, and detection applications.
-                </p>
-                <Button variant="link" className="p-0" asChild>
-                  <Link to="/products?category=radar">
-                    {t(`featuredProducts.learnMore`)} <ArrowRight className="ml-2 w-4 h-4" />
-                  </Link>
-                </Button>
-              </CardContent>
-            </Card>
-
-            <Card className="group hover:shadow-xl transition-shadow overflow-hidden">
-              <div className="h-48 overflow-hidden">
-                <img 
-                  src={electronicWarfare} 
-                  alt="Electronic Warfare" 
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                />
-              </div>
-              <CardContent className="p-6">
-                <Zap className="w-10 h-10 text-accent mb-3" />
-                <h3 className="font-heading text-xl font-bold mb-2">Electronic Warfare & Jamming</h3>
-                <p className="text-muted-foreground text-sm mb-4">
-                  Advanced EW systems for signal intelligence and spectrum dominance operations.
-                </p>
-                <Button variant="link" className="p-0" asChild>
-                  <Link to="/products?category=ew">
-                    {t(`featuredProducts.learnMore`)} <ArrowRight className="ml-2 w-4 h-4" />
-                  </Link>
-                </Button>
-              </CardContent>
-            </Card>
-
-            <Card className="group hover:shadow-xl transition-shadow overflow-hidden">
-              <div className="h-48 overflow-hidden">
-                <img 
-                  src={tacticalComms} 
-                  alt="Tactical Communications" 
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                />
-              </div>
-              <CardContent className="p-6">
-                <Radio className="w-10 h-10 text-accent mb-3" />
-                <h3 className="font-heading text-xl font-bold mb-2">Tactical Communication</h3>
-                <p className="text-muted-foreground text-sm mb-4">
-                  Secure HF, VHF, and UHF communication systems for mission-critical operations.
-                </p>
-                <Button variant="link" className="p-0" asChild>
-                  <Link to="/products?category=comms">
-                    {t(`featuredProducts.learnMore`)} <ArrowRight className="ml-2 w-4 h-4" />
-                  </Link>
-                </Button>
-              </CardContent>
-            </Card>
-
-            <Card className="group hover:shadow-xl transition-shadow overflow-hidden">
-              <div className="h-48 overflow-hidden">
-                <img 
-                  src={rfAmplifiers} 
-                  alt="RF Power Amplifiers" 
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                />
-              </div>
-              <CardContent className="p-6">
-                <Satellite className="w-10 h-10 text-accent mb-3" />
-                <h3 className="font-heading text-xl font-bold mb-2">RF Power Amplifiers</h3>
-                <p className="text-muted-foreground text-sm mb-4">
-                  High-power RF amplification systems for demanding transmission requirements.
-                </p>
-                <Button variant="link" className="p-0" asChild>
-                  <Link to="/products?category=rf">
-                    {t(`featuredProducts.learnMore`)} <ArrowRight className="ml-2 w-4 h-4" />
-                  </Link>
-                </Button>
-              </CardContent>
-            </Card>
-
-            <Card className="group hover:shadow-xl transition-shadow overflow-hidden">
-              <div className="h-48 bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
-                <Eye className="w-24 h-24 text-primary-foreground opacity-50" />
-              </div>
-              <CardContent className="p-6">
-                <Eye className="w-10 h-10 text-accent mb-3" />
-                <h3 className="font-heading text-xl font-bold mb-2">Optical & High-Speed Shutter Systems</h3>
-                <p className="text-muted-foreground text-sm mb-4">
-                  Precision optical systems for high-speed imaging and sensing applications.
-                </p>
-                <Button variant="link" className="p-0" asChild>
-                  <Link to="/products?category=optical">
-                    {t(`featuredProducts.learnMore`)} <ArrowRight className="ml-2 w-4 h-4" />
-                  </Link>
-                </Button>
-              </CardContent>
-            </Card>
-
-            <Card className="group hover:shadow-xl transition-shadow overflow-hidden">
-              <div className="h-48 bg-gradient-to-br from-secondary to-accent/20 flex items-center justify-center">
-                <Target className="w-24 h-24 text-primary opacity-50" />
-              </div>
-              <CardContent className="p-6">
-                <Target className="w-10 h-10 text-accent mb-3" />
-                <h3 className="font-heading text-xl font-bold mb-2">Direction Finding & Signal Intelligence</h3>
-                <p className="text-muted-foreground text-sm mb-4">
-                  Advanced DF systems for precise signal location and intelligence gathering.
-                </p>
-                <Button variant="link" className="p-0" asChild>
-                  <Link to="/products?category=sigint">
-                    {t(`featuredProducts.learnMore`)} <ArrowRight className="ml-2 w-4 h-4" />
-                  </Link>
-                </Button>
-              </CardContent>
-            </Card>
-          </div>
+          {categoriesLoading ? (
+            <div className="flex justify-center items-center py-20">
+              <Loader2 className="w-12 h-12 animate-spin text-primary" />
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {categories.map((category) => {
+                // Use category.icon from API if available, otherwise use default icon
+                const hasApiIcon = category.icon && category.icon.trim() !== '';
+                
+                return (
+                  <Card key={category.id} className="group hover:shadow-xl transition-shadow overflow-hidden">
+                    <div className="h-48 overflow-hidden">
+                      <img 
+                        src={category.image || "/placeholder.svg"} 
+                        alt={category.title} 
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                      />
+                    </div>
+                    <CardContent className="p-6">
+                      {/* Display icon from API or fallback to Radar */}
+                      {hasApiIcon ? (
+                        <img 
+                          src={category.icon} 
+                          alt={`${category.title} icon`}
+                          className="w-10 h-10 text-accent mb-3 object-contain"
+                        />
+                      ) : (
+                        <Radar className="w-10 h-10 text-accent mb-3" />
+                      )}
+                      
+                      <h3 className="font-heading text-xl font-bold mb-2">{category.title}</h3>
+                      <p className="text-muted-foreground text-sm mb-4">
+                        {category.description}
+                      </p>
+                      <Button variant="link" className="p-0" asChild>
+                        <Link to={`/products?category=${category.id}`}>
+                          {t('featuredProducts.learnMore')} <ArrowRight className="ml-2 w-4 h-4" />
+                        </Link>
+                      </Button>
+                    </CardContent>
+                  </Card>
+                );
+              })}
+            </div>
+          )}
 
           <div className="text-center mt-12">
             <Button variant="default" size="lg" asChild>
-              <Link to="/products">{t(`featuredProducts.viewAll`)}</Link>
+              <Link to="/products">{t('featuredProducts.viewAll')}</Link>
             </Button>
           </div>
         </div>
       </section>
 
-      {/* Industries & Applications Teaser */}
+      {/* ✅ UPDATED: Industries & Applications - NOW DYNAMIC */}
       <section className="py-20 bg-primary text-primary-foreground">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="font-heading text-4xl md:text-5xl font-bold mb-4">{t(`industries.title`)}</h2>
+            <h2 className="font-heading text-4xl md:text-5xl font-bold mb-4">{t('industries.title')}</h2>
             <p className="text-primary-foreground/90 text-lg max-w-2xl mx-auto">
-              {t(`industries.description`)}
+              {t('industries.description')}
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              { icon: Shield, title: "Defense & Security", desc: "Military-grade systems" },
-              { icon: Radio, title: "Critical Communications", desc: "Secure tactical links" },
-              { icon: Satellite, title: "Aerospace & Surveillance", desc: "Advanced detection" },
-              { icon: Globe, title: "Industrial Systems", desc: "High-reliability solutions" }
-            ].map((industry, idx) => (
-              <Card key={idx} className="bg-primary-foreground/10 border-primary-foreground/20 hover:bg-primary-foreground/20 transition-colors">
-                <CardContent className="p-6 text-center">
-                  <industry.icon className="w-12 h-12 text-accent mx-auto mb-3" />
-                  <h3 className="font-heading text-primary-foreground/80 text-lg font-bold mb-2">{industry.title}</h3>
-                  <p className="text-sm text-primary-foreground/80">{industry.desc}</p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+          {industriesLoading ? (
+            <div className="flex justify-center items-center py-20">
+              <Loader2 className="w-12 h-12 animate-spin text-primary-foreground" />
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {industries.slice(0, 4).map((industry) => {
+                // Use industry.icon from API if available
+                const hasApiIcon = industry.icon && industry.icon.trim() !== '';
+                const IconComponent = industryIconMap[industry.slug] || Shield;
+                
+                return (
+                  <Card key={industry.id} className="bg-primary-foreground/10 border-primary-foreground/20 hover:bg-primary-foreground/20 transition-colors">
+                    <CardContent className="p-6 text-center">
+                      {/* Display icon from API or fallback to component icon */}
+                      {hasApiIcon ? (
+                        <img 
+                          src={industry.icon} 
+                          alt={`${industry.title} icon`}
+                          className="w-12 h-12 mx-auto mb-3 object-contain brightness-0 invert opacity-80"
+                        />
+                      ) : (
+                        <IconComponent className="w-12 h-12 text-accent mx-auto mb-3" />
+                      )}
+                      
+                      <h3 className="font-heading text-primary-foreground/80 text-lg font-bold mb-2">
+                        {industry.title}
+                      </h3>
+                      <p className="text-sm text-primary-foreground/80">
+                        {industry.description.substring(0, 80)}...
+                      </p>
+                    </CardContent>
+                  </Card>
+                );
+              })}
+            </div>
+          )}
 
           <div className="text-center mt-12">
             <Button variant="hero-outline" size="lg" asChild>
-              <Link to="/industries"> {t(`industries.explore`)}</Link>
+              <Link to="/industries">{t('industries.explore')}</Link>
             </Button>
           </div>
         </div>
       </section>
 
-      {/* Case Studies Highlight */}
-      {/* <section className="py-20">
+      {/* ✅ UPDATED: Global Trust / Certifications - NOW DYNAMIC */}
+      <section className="py-16 bg-muted">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="font-heading text-4xl md:text-5xl font-bold mb-4">Proven Results</h2>
-            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-              Real-world deployments demonstrating reliability and performance
-            </p>
+            <h2 className="font-heading text-3xl font-bold mb-2">{t('globalTrust.title')}</h2>
+            <p className="text-muted-foreground">{t('globalTrust.description')}</p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <Card className="hover:shadow-xl transition-shadow">
-              <CardContent className="p-6">
-                <div className="bg-accent/10 w-12 h-12 rounded-full flex items-center justify-center mb-4">
-                  <Shield className="w-6 h-6 text-accent" />
+          {certificatesLoading ? (
+            <div className="flex justify-center items-center py-20">
+              <Loader2 className="w-12 h-12 animate-spin text-primary" />
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {certificates.map((cert) => (
+                <div 
+                  key={cert.id}
+                  className="bg-background rounded-lg overflow-hidden hover:shadow-lg transition-shadow cursor-pointer hover:scale-105 transition-transform duration-300"
+                  onClick={() => setSelectedImage(cert.image)}
+                >
+                  <img
+                    src={cert.image || "/placeholder.svg"}
+                    alt={cert.title}
+                    className="w-full h-48 object-cover"
+                  />
+                  <div className="p-4 text-center">
+                    <h3 className="font-heading font-bold text-sm tracking-wide">{cert.title}</h3>
+                  </div>
                 </div>
-                <h3 className="font-heading text-xl font-bold mb-2">Secure Tactical Link Deployment</h3>
-                <p className="text-muted-foreground text-sm mb-4">
-                  Successfully deployed encrypted tactical communication systems across multiple theater operations with zero downtime.
-                </p>
-                <Button variant="link" className="p-0" asChild>
-                  <Link to="/case-studies">
-                    Read Case Study <ArrowRight className="ml-2 w-4 h-4" />
-                  </Link>
-                </Button>
-              </CardContent>
-            </Card>
-
-            <Card className="hover:shadow-xl transition-shadow">
-              <CardContent className="p-6">
-                <div className="bg-accent/10 w-12 h-12 rounded-full flex items-center justify-center mb-4">
-                  <Radar className="w-6 h-6 text-accent" />
-                </div>
-                <h3 className="font-heading text-xl font-bold mb-2">Advanced EW Integration</h3>
-                <p className="text-muted-foreground text-sm mb-4">
-                  Integrated electronic warfare suite providing comprehensive spectrum dominance capabilities for critical operations.
-                </p>
-                <Button variant="link" className="p-0" asChild>
-                  <Link to="/case-studies">
-                    Read Case Study <ArrowRight className="ml-2 w-4 h-4" />
-                  </Link>
-                </Button>
-              </CardContent>
-            </Card>
-
-            <Card className="hover:shadow-xl transition-shadow">
-              <CardContent className="p-6">
-                <div className="bg-accent/10 w-12 h-12 rounded-full flex items-center justify-center mb-4">
-                  <Satellite className="w-6 h-6 text-accent" />
-                </div>
-                <h3 className="font-heading text-xl font-bold mb-2">Radar System Modernization</h3>
-                <p className="text-muted-foreground text-sm mb-4">
-                  Upgraded legacy radar infrastructure with next-generation detection and tracking capabilities.
-                </p>
-                <Button variant="link" className="p-0" asChild>
-                  <Link to="/case-studies">
-                    Read Case Study <ArrowRight className="ml-2 w-4 h-4" />
-                  </Link>
-                </Button>
-              </CardContent>
-            </Card>
-          </div>
-
-          <div className="text-center mt-12">
-            <Button variant="default" size="lg" asChild>
-              <Link to="/case-studies">View All Case Studies</Link>
-            </Button>
-          </div>
+              ))}
+            </div>
+          )}
         </div>
-      </section> */}
+      </section>
 
-      {/* Global Trust / Certifications */}
-       <section className="py-16 bg-muted">
+      {/* Partners & Distributors - UNCHANGED */}
+      <section className="py-20 overflow-hidden">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="font-heading text-3xl font-bold mb-2">{t(`globalTrust.title`)}</h2>
-            <p className="text-muted-foreground">{t(`globalTrust.description`)}</p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[
-              {
-                title: "ISO 9001 Certification",
-                image: "/trust1.webp",
-              },
-              {
-                title: "ISO 13485 Certification",
-                image: "/trust2.webp",
-              },
-              {
-                title: "Industry 4.0 Compliance",
-                image: "/trust3.webp",
-              },
-            ].map((cert, idx) => (
-              <div 
-                key={idx} 
-                className="bg-background rounded-lg overflow-hidden hover:shadow-lg transition-shadow cursor-pointer hover:scale-105 transition-transform duration-300"
-                onClick={() => setSelectedImage(cert.image)}
-              >
-                <img
-                  src={cert.image || "/placeholder.svg"}
-                  alt={cert.title}
-                  className="w-full h-48 object-cover"
-                />
-                <div className="p-4 text-center">
-                  <h3 className="font-heading font-bold text-sm tracking-wide">{cert.title}</h3>
-                </div>
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
+            <div>
+              <p className="text-accent font-semibold mb-2">{t('network.ourNetwork')}</p>
+              <h2 className="font-heading text-4xl md:text-5xl font-bold">
+                {t('network.title')}
+              </h2>
+            </div>
+            <div className="flex items-center gap-8 text-muted-foreground">
+              <div className="text-center">
+                <p className="text-3xl font-bold text-foreground">50+</p>
+                <p className="text-sm">{t('network.partners')}</p>
               </div>
-            ))}
+              <div className="h-10 w-px bg-border" />
+              <div className="text-center">
+                <p className="text-3xl font-bold text-foreground">30+</p>
+                <p className="text-sm">{t('network.countries')}</p>
+              </div>
+              <div className="h-10 w-px bg-border" />
+              <div className="text-center">
+                <p className="text-3xl font-bold text-foreground">100%</p>
+                <p className="text-sm">{t('network.satisfaction')}</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="relative">
+            <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-accent via-accent/50 to-transparent rounded-full" />
+            
+            <div className="pl-8 md:pl-12">
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+                {[
+                  { name: "Partner 1", logo: "/secure.png" },
+                  { name: "Partner 2", logo: "/shield (1).png" },
+                  { name: "Partner 3", logo: "/army.png" },
+                  { name: "Partner 4", logo: "/secure-shield.png" },
+                  { name: "Partner 5", logo: "/army.png" },
+                  { name: "Partner 6", logo: "/secure-shield.png" },
+                  { name: "Partner 7", logo: "/shield (1).png" },
+                  { name: "Partner 8", logo: "/secure.png" },
+                ].map((partner, idx) => (
+                  <div
+                    key={idx}
+                    className="group relative bg-muted/50 hover:bg-background rounded-xl aspect-[2/1] flex items-center justify-center p-6 transition-all duration-300 hover:shadow-lg cursor-pointer"
+                  >
+                    <img
+                      src={partner.logo}
+                      alt={partner.name}
+                      className="max-w-[80%] max-h-[60%] object-contain filter grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500"
+                    />
+                    <div className="absolute inset-x-0 bottom-0 h-1 bg-accent scale-x-0 group-hover:scale-x-100 transition-transform duration-300 rounded-b-xl" />
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Partners & Distributors */}
-{/* Partners & Distributors - Modern Marquee Style */}
-<section className="py-20 overflow-hidden">
-  <div className="container mx-auto px-4">
-    {/* Section Header */}
-    <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
-      <div>
-        <p className="text-accent font-semibold mb-2">{t(`network.ourNetwork`)}</p>
-        <h2 className="font-heading text-4xl md:text-5xl font-bold">
-          {t(`network.title`)}
-        </h2>
-      </div>
-      <div className="flex items-center gap-8 text-muted-foreground">
-          <div className="text-center">
-            <p className="text-3xl font-bold text-foreground">50+</p>
-            <p className="text-sm">{t(`network.partners`)}</p>
-          </div>
-          <div className="h-10 w-px bg-border" />
-          <div className="text-center">
-            <p className="text-3xl font-bold text-foreground">30+</p>
-            <p className="text-sm">{t(`network.countries`)}</p>
-          </div>
-          <div className="h-10 w-px bg-border" />
-          <div className="text-center">
-            <p className="text-3xl font-bold text-foreground">100%</p>
-            <p className="text-sm">{t(`network.satisfaction`)}</p>
-          </div>
-        </div>
-    </div>
-
-    {/* Logo Grid with Accent Border */}
-    <div className="relative">
-      {/* Decorative accent line */}
-      <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-accent via-accent/50 to-transparent rounded-full" />
-      
-      <div className="pl-8 md:pl-12">
-        {/* Main Grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
-          {[
-            { name: "Partner 1", logo: "/secure.png" },
-            { name: "Partner 2", logo: "/shield (1).png" },
-            { name: "Partner 3", logo: "/army.png" },
-            { name: "Partner 4", logo: "/secure-shield.png" },
-            { name: "Partner 5", logo: "/army.png" },
-            { name: "Partner 6", logo: "/secure-shield.png" },
-            { name: "Partner 7", logo: "/shield (1).png" },
-            { name: "Partner 8", logo: "/secure.png" },
-          ].map((partner, idx) => (
-            <div
-              key={idx}
-              className="group relative bg-muted/50 hover:bg-background rounded-xl aspect-[2/1] flex items-center justify-center p-6 transition-all duration-300 hover:shadow-lg cursor-pointer"
-            >
-              <img
-                src={partner.logo}
-                alt={partner.name}
-                className="max-w-[80%] max-h-[60%] object-contain filter grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500"
-              />
-              
-              {/* Hover overlay with name */}
-              <div className="absolute inset-x-0 bottom-0 h-1 bg-accent scale-x-0 group-hover:scale-x-100 transition-transform duration-300 rounded-b-xl" />
-            </div>
-          ))}
-        </div>
-
-        {/* Bottom Row - Become a Partner CTA */}
-        {/* <div className="mt-8 pt-8 border-t border-border/50">
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-6 bg-gradient-to-r from-primary/5 via-accent/5 to-primary/5 rounded-2xl p-6 md:p-8">
-            <div className="text-center sm:text-left">
-              <h3 className="font-heading text-xl font-bold mb-1">Interested in Partnership?</h3>
-              <p className="text-muted-foreground text-sm">Join our global network of authorized distributors</p>
-            </div>
-            <Button variant="default" size="lg" asChild>
-              <Link to="/contact">
-                Get in Touch <ArrowRight className="ml-2 w-4 h-4" />
-              </Link>
-            </Button>
-          </div>
-        </div> */}
-      </div>
-    </div>
-  </div>
-</section>
-
+      {/* Image Lightbox */}
       {selectedImage && (
         <div 
           className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4 backdrop-blur-sm"
@@ -506,21 +357,20 @@ export default function Home() {
         </div>
       )}
 
-
-      {/* CTA Section */}
+      {/* CTA Section - UNCHANGED */}
       <section className="py-20 bg-gradient-to-br from-primary via-secondary to-primary">
         <div className="container mx-auto px-4 text-center text-primary-foreground">
           <Users className="w-16 h-16 mx-auto mb-6 text-accent" />
-          <h2 className="font-heading text-4xl md:text-5xl font-bold mb-4">{t(`ctaSection.title`)}</h2>
+          <h2 className="font-heading text-4xl md:text-5xl font-bold mb-4">{t('ctaSection.title')}</h2>
           <p className="text-lg text-primary-foreground/90 mb-8 max-w-2xl mx-auto">
-            {t(`ctaSection.description`)}
+            {t('ctaSection.description')}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button variant="hero" size="lg" asChild>
-              <Link to="/contact">{t(`ctaSection.contact`)}</Link>
+              <Link to="/contact">{t('ctaSection.contact')}</Link>
             </Button>
             <Button variant="hero-outline" size="lg" asChild>
-              <Link to="/products">{t(`ctaSection.browse`)}</Link>
+              <Link to="/products">{t('ctaSection.browse')}</Link>
             </Button>
           </div>
         </div>

@@ -1,7 +1,8 @@
-// src/components/LanguageSwitcher.tsx
+// src/components/LanguageSwitcher.tsx - UPDATED with query invalidation
 
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useQueryClient } from "@tanstack/react-query";
 import { Globe, Check } from "lucide-react";
 import {
   DropdownMenu,
@@ -12,26 +13,35 @@ import {
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
+// ✅ Map i18next language codes to API Accept-Language codes
 const languages = [
-  { code: "en", name: "English", flag: "🇬🇧" },
-  { code: "ar", name: "العربية", flag: "🇸🇦", dir: "rtl" },
-  { code: "zh-TW", name: "繁體中文", flag: "🇹🇼" },
-  { code: "zh-CN", name: "简体中文", flag: "🇨🇳" },
+  { code: "en", name: "English", flag: "🇬🇧", apiCode: "en" },
+  { code: "ar", name: "العربية", flag: "🇸🇦", dir: "rtl", apiCode: "ar" },
+  { code: "zh-TW", name: "繁體中文", flag: "🇹🇼", apiCode: "tw" },
+  { code: "zh-CN", name: "简体中文", flag: "🇨🇳", apiCode: "ch" },
 ];
 
 export default function LanguageSwitcher() {
   const { i18n } = useTranslation();
+  const queryClient = useQueryClient();
   const [open, setOpen] = useState(false);
 
   const currentLanguage = languages.find((lang) => lang.code === i18n.language) || languages[0];
 
   const changeLanguage = (langCode: string) => {
+    // Change i18next language
     i18n.changeLanguage(langCode);
     
     // Update document direction for RTL languages
     const selectedLang = languages.find((lang) => lang.code === langCode);
     document.documentElement.dir = selectedLang?.dir || "ltr";
     document.documentElement.lang = langCode;
+    
+    // ✅ CRITICAL: Invalidate all queries that depend on language
+    // This will trigger re-fetch with new Accept-Language header
+    queryClient.invalidateQueries({ queryKey: ["home-categories"] });
+    queryClient.invalidateQueries({ queryKey: ["home-industries"] });
+    queryClient.invalidateQueries({ queryKey: ["home-certificates"] });
     
     setOpen(false);
   };
@@ -46,7 +56,7 @@ export default function LanguageSwitcher() {
         >
           <Globe size={18} className="text-slate-600" />
           <span className="hidden md:inline font-medium">
-            {currentLanguage.flag}{currentLanguage.name}
+            {currentLanguage.flag} {currentLanguage.name}
           </span>
           <span className="md:hidden text-lg">{currentLanguage.flag}</span>
         </Button>

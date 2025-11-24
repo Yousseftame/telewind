@@ -96,10 +96,20 @@ export interface Announcement {
 export interface PartnerTranslation {
   locale: string;
   name: string;
-  region: string;
   country: string;
   contact: string;
   focus: string[];
+}
+
+export interface Partner {
+  id: number;
+  email: string;
+  type: string;
+  region: string | null; // ✅ MOVED: region is now top-level, not in translations
+  phone: string;
+  website: string;
+  translations: PartnerTranslation[];
+  creationDate?: string;
 }
 
 export interface ProductTranslation {
@@ -109,15 +119,7 @@ export interface ProductTranslation {
   key_features: string[];
 }
 
-export interface Partner {
-  id: number;
-  email: string;
-  type: string;
-  phone: string;
-  website: string;
-  translations: PartnerTranslation[];
-  creationDate?: string;
-}
+
 export interface Product {
   id: number;
  category_id: number;
