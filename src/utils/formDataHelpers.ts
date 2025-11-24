@@ -46,7 +46,7 @@ export function buildMultiLangFormData(
  */
 export function buildEventFormData(
   data: any,
-  languages: string[] = ["en", "ar", "tw"]
+  languages: string[] = ["en", "ar", "tw" , "ch"]
 ): FormData {
   const formData = new FormData();
 
