@@ -1,4 +1,9 @@
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Certification } from "@/services/types";
 import { getTranslation } from "@/utils/formDataHelpers";
@@ -9,12 +14,17 @@ interface Props {
   certification: Certification | null;
 }
 
-export function CertificationViewDialog({ open, onOpenChange, certification }: Props) {
+export function CertificationViewDialog({
+  open,
+  onOpenChange,
+  certification,
+}: Props) {
   if (!certification) return null;
 
   const enTrans = getTranslation(certification, "en");
   const arTrans = getTranslation(certification, "ar");
   const twTrans = getTranslation(certification, "tw");
+  const chTrans = getTranslation(certification, "ch");
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -48,19 +58,24 @@ export function CertificationViewDialog({ open, onOpenChange, certification }: P
           <div>
             <h3 className="text-sm font-medium mb-2">Translations</h3>
             <Tabs defaultValue="en" className="w-full">
-              <TabsList className="grid w-full grid-cols-3">
+              <TabsList className="grid w-full grid-cols-2 md:grid-cols-4">
                 <TabsTrigger value="en">English</TabsTrigger>
                 <TabsTrigger value="ar">Arabic</TabsTrigger>
                 <TabsTrigger value="tw">Taiwan</TabsTrigger>
+                <TabsTrigger value="ch">Chinese</TabsTrigger>
               </TabsList>
 
+              {/* English Tab */}
               <TabsContent value="en" className="space-y-4">
                 <div>
                   <h4 className="text-sm font-medium">Title</h4>
-                  <p className="text-muted-foreground">{enTrans?.title || "-"}</p>
+                  <p className="text-muted-foreground">
+                    {enTrans?.title || "-"}
+                  </p>
                 </div>
               </TabsContent>
 
+              {/* Arabic Tab */}
               <TabsContent value="ar" className="space-y-4">
                 <div>
                   <h4 className="text-sm font-medium">Title</h4>
@@ -70,10 +85,23 @@ export function CertificationViewDialog({ open, onOpenChange, certification }: P
                 </div>
               </TabsContent>
 
+              {/* Taiwan / Traditional Chinese Tab */}
               <TabsContent value="tw" className="space-y-4">
                 <div>
                   <h4 className="text-sm font-medium">Title</h4>
-                  <p className="text-muted-foreground">{twTrans?.title || "-"}</p>
+                  <p className="text-muted-foreground">
+                    {twTrans?.title || "-"}
+                  </p>
+                </div>
+              </TabsContent>
+
+              {/* Simplified / Chinese Content Tab */}
+              <TabsContent value="ch" className="space-y-4">
+                <div>
+                  <h4 className="text-sm font-medium">Title</h4>
+                  <p className="text-muted-foreground">
+                    {chTrans?.title || "-"}
+                  </p>
                 </div>
               </TabsContent>
             </Tabs>
