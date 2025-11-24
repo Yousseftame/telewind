@@ -170,7 +170,7 @@ export function buildPartnerFormData(
 
 export function buildIndustryFormData(
   data: any,
-  languages: string[] = ["en", "ar", "tw"]
+  languages: string[] = ["en", "ar", "tw" , "ch"]
 ): FormData {
   const formData = new FormData();
 

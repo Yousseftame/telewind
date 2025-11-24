@@ -3,7 +3,14 @@
 import { useState, useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Plus, Eye, ChevronRight, ChevronLeft, Search, Factory } from "lucide-react";
+import {
+  Plus,
+  Eye,
+  ChevronRight,
+  ChevronLeft,
+  Search,
+  Factory,
+} from "lucide-react";
 import {
   DataTable,
   Column,
@@ -18,7 +25,7 @@ import IndustryViewDialog from "./IndustryViewDialog";
 import { useIndustryCRUD } from "./useIndustryCRUD";
 import { Badge } from "@/components/ui/badge";
 
-type Language = "en" | "ar" | "tw";
+type Language = "en" | "ar" | "tw" | "ch";
 
 export default function AdminIndustries() {
   const [selectedLanguage, setSelectedLanguage] = useState<Language>("en");
@@ -26,7 +33,9 @@ export default function AdminIndustries() {
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
   const [showFormDialog, setShowFormDialog] = useState(false);
   const [showViewDialog, setShowViewDialog] = useState(false);
-  const [selectedIndustry, setSelectedIndustry] = useState<Industry | null>(null);
+  const [selectedIndustry, setSelectedIndustry] = useState<Industry | null>(
+    null
+  );
   const [viewIndustryId, setViewIndustryId] = useState<number | null>(null);
 
   const isManager = true; // Mock authentication
@@ -97,7 +106,9 @@ export default function AdminIndustries() {
       label: "Title",
       sortable: true,
       render: (_, industry) => (
-        <span className="font-medium">{getIndustryTranslation(industry).title}</span>
+        <span className="font-medium">
+          {getIndustryTranslation(industry).title}
+        </span>
       ),
     },
     {
@@ -217,6 +228,12 @@ export default function AdminIndustries() {
                 >
                   🇹🇼 Taiwan
                 </TabsTrigger>
+                <TabsTrigger
+                  value="ch"
+                  className="rounded-lg px-4 py-2 text-sm font-medium data-[state=active]:bg-white data-[state=active]:text-indigo-600 data-[state=active]:shadow-sm"
+                >
+                 ch Chinese
+                </TabsTrigger>
               </TabsList>
             </Tabs>
 
@@ -272,8 +289,12 @@ export default function AdminIndustries() {
             {/* Custom Pagination Footer */}
             <div className="px-6 py-4 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-4">
               <p className="text-sm text-slate-500">
-                Showing <span className="font-medium text-slate-700">1-10</span> of{" "}
-                <span className="font-medium text-slate-700">{sortedIndustries.length}</span> results
+                Showing <span className="font-medium text-slate-700">1-10</span>{" "}
+                of{" "}
+                <span className="font-medium text-slate-700">
+                  {sortedIndustries.length}
+                </span>{" "}
+                results
               </p>
 
               <div className="flex items-center gap-2">

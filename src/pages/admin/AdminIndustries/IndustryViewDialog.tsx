@@ -50,12 +50,16 @@ export default function IndustryViewDialog({
   }
 
   const getTranslation = (locale: string) => {
-    return industry.translations.find((t) => t.locale === locale) || industry.translations[0];
+    return (
+      industry.translations.find((t) => t.locale === locale) ||
+      industry.translations[0]
+    );
   };
 
   const enTranslation = getTranslation("en");
   const arTranslation = getTranslation("ar");
   const twTranslation = getTranslation("tw");
+  const chTranslation = getTranslation("ch");
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -67,7 +71,9 @@ export default function IndustryViewDialog({
         <div className="space-y-6">
           {/* Icon Section */}
           <div className="space-y-3">
-            <h3 className="text-lg font-semibold text-foreground">Industry Icon</h3>
+            <h3 className="text-lg font-semibold text-foreground">
+              Industry Icon
+            </h3>
             <div className="flex items-center justify-center h-32 bg-muted rounded-lg">
               <img
                 src={industry.icon}
@@ -93,12 +99,15 @@ export default function IndustryViewDialog({
 
           {/* Translations Tabs */}
           <div className="space-y-2">
-            <h3 className="text-lg font-semibold text-foreground">Industry Information</h3>
+            <h3 className="text-lg font-semibold text-foreground">
+              Industry Information
+            </h3>
             <Tabs defaultValue="en" className="w-full">
-              <TabsList className="grid w-full grid-cols-3">
+              <TabsList className="grid w-full grid-cols-2 sm:grid-cols-4">
                 <TabsTrigger value="en">English</TabsTrigger>
                 <TabsTrigger value="ar">العربية</TabsTrigger>
                 <TabsTrigger value="tw">Taiwan</TabsTrigger>
+                <TabsTrigger value="ch">Chinese</TabsTrigger>
               </TabsList>
 
               {/* English Content */}
@@ -112,18 +121,19 @@ export default function IndustryViewDialog({
                   </p>
                 </div>
 
-                {enTranslation.applications && enTranslation.applications.length > 0 && (
-                  <div>
-                    <h5 className="font-semibold mb-2">Applications</h5>
-                    <div className="flex flex-wrap gap-2">
-                      {enTranslation.applications.map((app, index) => (
-                        <Badge key={index} variant="secondary">
-                          {app}
-                        </Badge>
-                      ))}
+                {enTranslation.applications &&
+                  enTranslation.applications.length > 0 && (
+                    <div>
+                      <h5 className="font-semibold mb-2">Applications</h5>
+                      <div className="flex flex-wrap gap-2">
+                        {enTranslation.applications.map((app, index) => (
+                          <Badge key={index} variant="secondary">
+                            {app}
+                          </Badge>
+                        ))}
+                      </div>
                     </div>
-                  </div>
-                )}
+                  )}
               </TabsContent>
 
               {/* Arabic Content */}
@@ -137,18 +147,19 @@ export default function IndustryViewDialog({
                   </p>
                 </div>
 
-                {arTranslation.applications && arTranslation.applications.length > 0 && (
-                  <div>
-                    <h5 className="font-semibold mb-2">التطبيقات</h5>
-                    <div className="flex flex-wrap gap-2">
-                      {arTranslation.applications.map((app, index) => (
-                        <Badge key={index} variant="secondary">
-                          {app}
-                        </Badge>
-                      ))}
+                {arTranslation.applications &&
+                  arTranslation.applications.length > 0 && (
+                    <div>
+                      <h5 className="font-semibold mb-2">التطبيقات</h5>
+                      <div className="flex flex-wrap gap-2">
+                        {arTranslation.applications.map((app, index) => (
+                          <Badge key={index} variant="secondary">
+                            {app}
+                          </Badge>
+                        ))}
+                      </div>
                     </div>
-                  </div>
-                )}
+                  )}
               </TabsContent>
 
               {/* Taiwan Content */}
@@ -162,18 +173,45 @@ export default function IndustryViewDialog({
                   </p>
                 </div>
 
-                {twTranslation.applications && twTranslation.applications.length > 0 && (
-                  <div>
-                    <h5 className="font-semibold mb-2">應用</h5>
-                    <div className="flex flex-wrap gap-2">
-                      {twTranslation.applications.map((app, index) => (
-                        <Badge key={index} variant="secondary">
-                          {app}
-                        </Badge>
-                      ))}
+                {twTranslation.applications &&
+                  twTranslation.applications.length > 0 && (
+                    <div>
+                      <h5 className="font-semibold mb-2">應用</h5>
+                      <div className="flex flex-wrap gap-2">
+                        {twTranslation.applications.map((app, index) => (
+                          <Badge key={index} variant="secondary">
+                            {app}
+                          </Badge>
+                        ))}
+                      </div>
                     </div>
-                  </div>
-                )}
+                  )}
+              </TabsContent>
+
+              {/* Simplified / Chinese Content */}
+              <TabsContent value="ch" className="space-y-4 pt-4">
+                <div>
+                  <h4 className="text-xl font-bold text-foreground mb-2">
+                    {chTranslation.title}
+                  </h4>
+                  <p className="text-muted-foreground leading-relaxed">
+                    {chTranslation.description}
+                  </p>
+                </div>
+
+                {chTranslation.applications &&
+                  chTranslation.applications.length > 0 && (
+                    <div>
+                      <h5 className="font-semibold mb-2">应用</h5>
+                      <div className="flex flex-wrap gap-2">
+                        {chTranslation.applications.map((app, index) => (
+                          <Badge key={index} variant="secondary">
+                            {app}
+                          </Badge>
+                        ))}
+                      </div>
+                    </div>
+                  )}
               </TabsContent>
             </Tabs>
           </div>
