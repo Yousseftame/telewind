@@ -24,7 +24,7 @@ import {
   deleteAction,
 } from "@/components/shared/DataTable";
 
-type Language = "en" | "ar" | "tw";
+type Language = "en" | "ar" | "tw"  | "ch";
 
 export default function AdminProduct() {
   const [selectedLanguage, setSelectedLanguage] = useState<Language>("en");
@@ -57,7 +57,7 @@ export default function AdminProduct() {
   const handleFormSubmit = (data: ProductFormData) => {
     if (selectedProduct) {
       updateMutation.mutate(
-       { id: selectedProduct.id, data },
+        { id: selectedProduct.id, data },
         {
           onSuccess: () => {
             setShowFormDialog(false);
@@ -82,7 +82,7 @@ export default function AdminProduct() {
 
   // Sort products by ID descending (newest first)
   const sortedProducts = useMemo(() => {
-   return [...products].sort((a, b) => b.id - a.id);
+    return [...products].sort((a, b) => b.id - a.id);
   }, [products]);
 
   // Table columns
@@ -244,7 +244,13 @@ export default function AdminProduct() {
                   value="tw"
                   className="rounded-lg px-4 py-2 text-sm font-medium data-[state=active]:bg-white data-[state=active]:text-indigo-600 data-[state=active]:shadow-sm"
                 >
-                  🇹🇼 繁體中文
+                  🇹🇼 Taiwan
+                </TabsTrigger>
+                <TabsTrigger
+                  value="ch"
+                  className="rounded-lg px-4 py-2 text-sm font-medium data-[state=active]:bg-white data-[state=active]:text-indigo-600 data-[state=active]:shadow-sm"
+                >
+                  ch Chinese
                 </TabsTrigger>
               </TabsList>
             </Tabs>

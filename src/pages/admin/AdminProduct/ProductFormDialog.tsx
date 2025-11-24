@@ -29,6 +29,7 @@ export interface ProductFormData {
     en: localizedContent;
     ar: localizedContent;
     tw: localizedContent;
+    ch: localizedContent;
   };
 }
 
@@ -54,6 +55,7 @@ export default function ProductFormDialog({
   const [keyFeaturesEn, setKeyFeaturesEn] = useState<string[]>([""]);
   const [keyFeaturesAr, setKeyFeaturesAr] = useState<string[]>([""]);
   const [keyFeaturesTw, setKeyFeaturesTw] = useState<string[]>([""]);
+  const [keyFeaturesCh, setKeyFeaturesCh] = useState<string[]>([""]);
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string>("");
 
@@ -64,6 +66,7 @@ export default function ProductFormDialog({
       en: { title: "", description: "", key_features: [] },
       ar: { title: "", description: "", key_features: [] },
       tw: { title: "", description: "", key_features: [] },
+      ch: { title: "", description: "", key_features: [] },
     };
 
     if (!product) return base;
@@ -128,6 +131,11 @@ export default function ProductFormDialog({
           ? translations.tw.key_features
           : [""]
       );
+      setKeyFeaturesCh(
+        translations.ch.key_features.length > 0
+          ? translations.ch.key_features
+          : [""]
+      );
       setImagePreview(product?.image ? product.image : "");
       setImageFile(null);
     }
@@ -150,6 +158,10 @@ export default function ProductFormDialog({
         tw: {
           ...data.translations.tw,
           key_features: keyFeaturesTw.filter((f) => f.trim()),
+        },
+        ch: {
+          ...data.translations.ch,
+          key_features: keyFeaturesCh.filter((f) => f.trim()),
         },
       },
     });
@@ -181,23 +193,26 @@ export default function ProductFormDialog({
   };
 
   // Key Features handlers
-  const addKeyFeature = (lang: "en" | "ar" | "tw") => {
+  const addKeyFeature = (lang: "en" | "ar" | "tw" | "ch") => {
     if (lang === "en") setKeyFeaturesEn([...keyFeaturesEn, ""]);
     if (lang === "ar") setKeyFeaturesAr([...keyFeaturesAr, ""]);
     if (lang === "tw") setKeyFeaturesTw([...keyFeaturesTw, ""]);
+    if (lang === "ch") setKeyFeaturesCh([...keyFeaturesCh, ""]);
   };
 
-  const removeKeyFeature = (lang: "en" | "ar" | "tw", index: number) => {
+  const removeKeyFeature = (lang: "en" | "ar" | "tw" | "ch", index: number) => {
     if (lang === "en")
       setKeyFeaturesEn(keyFeaturesEn.filter((_, i) => i !== index));
     if (lang === "ar")
       setKeyFeaturesAr(keyFeaturesAr.filter((_, i) => i !== index));
     if (lang === "tw")
       setKeyFeaturesTw(keyFeaturesTw.filter((_, i) => i !== index));
+    if (lang === "ch")
+      setKeyFeaturesCh(keyFeaturesCh.filter((_, i) => i !== index));
   };
 
   const updateKeyFeature = (
-    lang: "en" | "ar" | "tw",
+    lang: "en" | "ar" | "tw" | "ch",
     index: number,
     value: string
   ) => {
@@ -215,6 +230,11 @@ export default function ProductFormDialog({
       const newFeatures = [...keyFeaturesTw];
       newFeatures[index] = value;
       setKeyFeaturesTw(newFeatures);
+    }
+    if (lang === "ch") {
+      const newFeatures = [...keyFeaturesCh];
+      newFeatures[index] = value;
+      setKeyFeaturesCh(newFeatures);
     }
   };
 
@@ -249,7 +269,7 @@ export default function ProductFormDialog({
                 </option>
                 {categories.map((category) => (
                   <option key={category.id} value={category.id}>
-                    {category.id} 
+                    {category.id}
                   </option>
                 ))}
               </select>
@@ -327,10 +347,11 @@ export default function ProductFormDialog({
           <div className="space-y-2">
             <Label>Translations *</Label>
             <Tabs defaultValue="en" className="w-full">
-              <TabsList className="grid w-full grid-cols-3">
+              <TabsList className="grid w-full grid-cols-4">
                 <TabsTrigger value="en">English</TabsTrigger>
                 <TabsTrigger value="ar">العربية</TabsTrigger>
-                <TabsTrigger value="tw">繁體中文</TabsTrigger>
+                <TabsTrigger value="tw">Taiwan</TabsTrigger>
+                <TabsTrigger value="ch">Chinese</TabsTrigger>
               </TabsList>
 
               {/* English Tab */}
@@ -472,7 +493,7 @@ export default function ProductFormDialog({
                 </div>
               </TabsContent>
 
-              {/* Taiwan/Chinese Tab */}
+              {/* Taiwan / Traditional Chinese Tab */}
               <TabsContent value="tw" className="space-y-4">
                 <div className="space-y-2">
                   <Label htmlFor="translations.tw.title">標題 (TW) *</Label>
@@ -527,6 +548,79 @@ export default function ProductFormDialog({
                     variant="outline"
                     size="sm"
                     onClick={() => addKeyFeature("tw")}
+                    className="w-full"
+                  >
+                    <Plus className="h-4 w-4 mr-2" />
+                    添加主要功能
+                  </Button>
+                </div>
+              </TabsContent>
+
+              {/* Simplified Chinese Tab */}
+              <TabsContent value="ch" className="space-y-4">
+                <div className="space-y-2">
+                  <Label htmlFor="translations.ch.title">标题 (CH) *</Label>
+                  <Input
+                    id="translations.ch.title"
+                    {...register("translations.ch.title", {
+                      required: "标题为必填项",
+                    })}
+                    placeholder="产品标题（简体中文）"
+                  />
+                  {errors.translations?.ch?.title && (
+                    <p className="text-sm text-destructive">
+                      {errors.translations.ch.title.message}
+                    </p>
+                  )}
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="translations.ch.description">
+                    描述 (CH) *
+                  </Label>
+                  <Textarea
+                    id="translations.ch.description"
+                    {...register("translations.ch.description", {
+                      required: "描述为必填项",
+                    })}
+                    placeholder="产品描述（简体中文）"
+                    rows={4}
+                  />
+                  {errors.translations?.ch?.description && (
+                    <p className="text-sm text-destructive">
+                      {errors.translations.ch.description.message}
+                    </p>
+                  )}
+                </div>
+
+                <div className="space-y-2">
+                  <Label>主要功能 (CH)</Label>
+                  {keyFeaturesCh.map((feature, index) => (
+                    <div key={index} className="flex gap-2">
+                      <Input
+                        value={feature}
+                        onChange={(e) =>
+                          updateKeyFeature("ch", index, e.target.value)
+                        }
+                        placeholder="主要功能"
+                      />
+                      {keyFeaturesCh.length > 1 && (
+                        <Button
+                          type="button"
+                          variant="outline"
+                          size="icon"
+                          onClick={() => removeKeyFeature("ch", index)}
+                        >
+                          <X className="h-4 w-4" />
+                        </Button>
+                      )}
+                    </div>
+                  ))}
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    onClick={() => addKeyFeature("ch")}
                     className="w-full"
                   >
                     <Plus className="h-4 w-4 mr-2" />

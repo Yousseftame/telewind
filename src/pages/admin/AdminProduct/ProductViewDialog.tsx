@@ -48,12 +48,16 @@ export default function ProductViewDialog({
   }
 
   const getTranslation = (locale: string) => {
-    return product.translations.find((t) => t.locale === locale) || product.translations[0];
+    return (
+      product.translations.find((t) => t.locale === locale) ||
+      product.translations[0]
+    );
   };
 
   const enTranslation = getTranslation("en");
   const arTranslation = getTranslation("ar");
   const twTranslation = getTranslation("tw");
+  const chTranslation = getTranslation("ch");
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -81,16 +85,21 @@ export default function ProductViewDialog({
             <div className="flex items-start gap-2">
               <Radio className="h-5 w-5 text-muted-foreground mt-0.5" />
               <div className="flex-1">
-                <p className="text-xs text-muted-foreground mb-2">Supported Bands</p>
+                <p className="text-xs text-muted-foreground mb-2">
+                  Supported Bands
+                </p>
                 <div className="flex flex-wrap gap-2">
-                  {product.supported_bands && product.supported_bands.length > 0 ? (
+                  {product.supported_bands &&
+                  product.supported_bands.length > 0 ? (
                     product.supported_bands.map((band, index) => (
                       <Badge key={index} variant="secondary">
                         {band}
                       </Badge>
                     ))
                   ) : (
-                    <p className="text-sm text-muted-foreground">No bands specified</p>
+                    <p className="text-sm text-muted-foreground">
+                      No bands specified
+                    </p>
                   )}
                 </div>
               </div>
@@ -106,12 +115,15 @@ export default function ProductViewDialog({
 
           {/* Translations Tabs */}
           <div className="space-y-2">
-            <h3 className="text-lg font-semibold text-foreground">Product Information</h3>
+            <h3 className="text-lg font-semibold text-foreground">
+              Product Information
+            </h3>
             <Tabs defaultValue="en" className="w-full">
-              <TabsList className="grid w-full grid-cols-3">
+              <TabsList className="grid w-full grid-cols-4">
                 <TabsTrigger value="en">English</TabsTrigger>
                 <TabsTrigger value="ar">العربية</TabsTrigger>
-                <TabsTrigger value="tw">繁體中文</TabsTrigger>
+                <TabsTrigger value="tw">Taiwan</TabsTrigger>
+                <TabsTrigger value="ch">Chinese</TabsTrigger>
               </TabsList>
 
               {/* English Content */}
@@ -120,30 +132,35 @@ export default function ProductViewDialog({
                   <h4 className="text-xl font-bold text-foreground mb-4">
                     {enTranslation.title}
                   </h4>
-                  
+
                   <div className="p-4 bg-background border rounded-lg mb-4">
-                    <p className="text-xs text-muted-foreground mb-2">Description</p>
+                    <p className="text-xs text-muted-foreground mb-2">
+                      Description
+                    </p>
                     <p className="text-sm leading-relaxed whitespace-pre-wrap">
                       {enTranslation.description}
                     </p>
                   </div>
 
-                  {enTranslation.key_features && enTranslation.key_features.length > 0 && (
-                    <div>
-                      <h5 className="font-semibold mb-3">Key Features</h5>
-                      <ul className="space-y-2">
-                        {enTranslation.key_features.map((feature, index) => (
-                          <li
-                            key={index}
-                            className="flex items-start gap-2 p-3 bg-background border rounded-lg"
-                          >
-                            <span className="text-primary font-bold mt-0.5">•</span>
-                            <span className="flex-1">{feature}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
+                  {enTranslation.key_features &&
+                    enTranslation.key_features.length > 0 && (
+                      <div>
+                        <h5 className="font-semibold mb-3">Key Features</h5>
+                        <ul className="space-y-2">
+                          {enTranslation.key_features.map((feature, index) => (
+                            <li
+                              key={index}
+                              className="flex items-start gap-2 p-3 bg-background border rounded-lg"
+                            >
+                              <span className="text-primary font-bold mt-0.5">
+                                •
+                              </span>
+                              <span className="flex-1">{feature}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
                 </div>
               </TabsContent>
 
@@ -153,7 +170,7 @@ export default function ProductViewDialog({
                   <h4 className="text-xl font-bold text-foreground mb-4">
                     {arTranslation.title}
                   </h4>
-                  
+
                   <div className="p-4 bg-background border rounded-lg mb-4">
                     <p className="text-xs text-muted-foreground mb-2">الوصف</p>
                     <p className="text-sm leading-relaxed whitespace-pre-wrap">
@@ -161,22 +178,25 @@ export default function ProductViewDialog({
                     </p>
                   </div>
 
-                  {arTranslation.key_features && arTranslation.key_features.length > 0 && (
-                    <div>
-                      <h5 className="font-semibold mb-3">الميزات الرئيسية</h5>
-                      <ul className="space-y-2">
-                        {arTranslation.key_features.map((feature, index) => (
-                          <li
-                            key={index}
-                            className="flex items-start gap-2 p-3 bg-background border rounded-lg"
-                          >
-                            <span className="text-primary font-bold mt-0.5">•</span>
-                            <span className="flex-1">{feature}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
+                  {arTranslation.key_features &&
+                    arTranslation.key_features.length > 0 && (
+                      <div>
+                        <h5 className="font-semibold mb-3">الميزات الرئيسية</h5>
+                        <ul className="space-y-2">
+                          {arTranslation.key_features.map((feature, index) => (
+                            <li
+                              key={index}
+                              className="flex items-start gap-2 p-3 bg-background border rounded-lg"
+                            >
+                              <span className="text-primary font-bold mt-0.5">
+                                •
+                              </span>
+                              <span className="flex-1">{feature}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
                 </div>
               </TabsContent>
 
@@ -186,7 +206,7 @@ export default function ProductViewDialog({
                   <h4 className="text-xl font-bold text-foreground mb-4">
                     {twTranslation.title}
                   </h4>
-                  
+
                   <div className="p-4 bg-background border rounded-lg mb-4">
                     <p className="text-xs text-muted-foreground mb-2">描述</p>
                     <p className="text-sm leading-relaxed whitespace-pre-wrap">
@@ -194,22 +214,61 @@ export default function ProductViewDialog({
                     </p>
                   </div>
 
-                  {twTranslation.key_features && twTranslation.key_features.length > 0 && (
-                    <div>
-                      <h5 className="font-semibold mb-3">主要功能</h5>
-                      <ul className="space-y-2">
-                        {twTranslation.key_features.map((feature, index) => (
-                          <li
-                            key={index}
-                            className="flex items-start gap-2 p-3 bg-background border rounded-lg"
-                          >
-                            <span className="text-primary font-bold mt-0.5">•</span>
-                            <span className="flex-1">{feature}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
+                  {twTranslation.key_features &&
+                    twTranslation.key_features.length > 0 && (
+                      <div>
+                        <h5 className="font-semibold mb-3">主要功能</h5>
+                        <ul className="space-y-2">
+                          {twTranslation.key_features.map((feature, index) => (
+                            <li
+                              key={index}
+                              className="flex items-start gap-2 p-3 bg-background border rounded-lg"
+                            >
+                              <span className="text-primary font-bold mt-0.5">
+                                •
+                              </span>
+                              <span className="flex-1">{feature}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+                </div>
+              </TabsContent>
+
+              {/* Simplified / Chinese Content */}
+              <TabsContent value="ch" className="space-y-4 pt-4">
+                <div>
+                  <h4 className="text-xl font-bold text-foreground mb-4">
+                    {chTranslation.title}
+                  </h4>
+
+                  <div className="p-4 bg-background border rounded-lg mb-4">
+                    <p className="text-xs text-muted-foreground mb-2">描述</p>
+                    <p className="text-sm leading-relaxed whitespace-pre-wrap">
+                      {chTranslation.description}
+                    </p>
+                  </div>
+
+                  {chTranslation.key_features &&
+                    chTranslation.key_features.length > 0 && (
+                      <div>
+                        <h5 className="font-semibold mb-3">主要功能</h5>
+                        <ul className="space-y-2">
+                          {chTranslation.key_features.map((feature, index) => (
+                            <li
+                              key={index}
+                              className="flex items-start gap-2 p-3 bg-background border rounded-lg"
+                            >
+                              <span className="text-primary font-bold mt-0.5">
+                                •
+                              </span>
+                              <span className="flex-1">{feature}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
                 </div>
               </TabsContent>
             </Tabs>
