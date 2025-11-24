@@ -1,5 +1,10 @@
 import { useEffect, useState } from "react";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
@@ -23,6 +28,7 @@ interface FormState {
     en: { title: string };
     ar: { title: string };
     tw: { title: string };
+    ch: { title: string };
   };
 }
 
@@ -40,6 +46,7 @@ export function CertificationFormDialog({
       en: { title: "" },
       ar: { title: "" },
       tw: { title: "" },
+      ch: { title: "" },
     },
   });
 
@@ -50,6 +57,7 @@ export function CertificationFormDialog({
       const enTrans = getTranslation(certification, "en");
       const arTrans = getTranslation(certification, "ar");
       const twTrans = getTranslation(certification, "tw");
+      const chTrans = getTranslation(certification, "ch");
 
       setFormState({
         image: null,
@@ -58,6 +66,7 @@ export function CertificationFormDialog({
           en: { title: enTrans?.title || "" },
           ar: { title: arTrans?.title || "" },
           tw: { title: twTrans?.title || "" },
+          ch: { title: chTrans?.title || "" },
         },
       });
     } else {
@@ -68,6 +77,7 @@ export function CertificationFormDialog({
           en: { title: "" },
           ar: { title: "" },
           tw: { title: "" },
+          ch: { title: "" },
         },
       });
     }
@@ -92,6 +102,9 @@ export function CertificationFormDialog({
     if (!formState.translations.tw.title.trim()) {
       newErrors.tw_title = "Taiwan title is required";
     }
+    if (!formState.translations.ch.title.trim()) {
+      newErrors.ch_title = "Chinese title is required";
+    }
 
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
@@ -105,7 +118,9 @@ export function CertificationFormDialog({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle>{certification ? "Edit Certification" : "Add Certification"}</DialogTitle>
+          <DialogTitle>
+            {certification ? "Edit Certification" : "Add Certification"}
+          </DialogTitle>
         </DialogHeader>
 
         <form onSubmit={handleSubmit} className="space-y-6">
@@ -114,19 +129,25 @@ export function CertificationFormDialog({
             id="cert-image"
             currentImage={certification?.image}
             onFileChange={(file) =>
-              setFormState((prev) => ({ ...prev, image: file, removeImage: !file }))
+              setFormState((prev) => ({
+                ...prev,
+                image: file,
+                removeImage: !file,
+              }))
             }
             error={errors.image}
             required={!certification}
           />
 
           <Tabs defaultValue="en" className="w-full">
-            <TabsList className="grid w-full grid-cols-3">
+            <TabsList className="grid w-full grid-cols-2 md:grid-cols-4">
               <TabsTrigger value="en">English</TabsTrigger>
               <TabsTrigger value="ar">Arabic</TabsTrigger>
               <TabsTrigger value="tw">Taiwan</TabsTrigger>
+              <TabsTrigger value="ch">Chinese </TabsTrigger>
             </TabsList>
 
+            {/* English Tab */}
             <TabsContent value="en" className="space-y-4">
               <div>
                 <Label htmlFor="en-title">Title (English) *</Label>
@@ -144,10 +165,15 @@ export function CertificationFormDialog({
                   }
                   placeholder="Enter title in English"
                 />
-                {errors.en_title && <p className="text-sm text-destructive mt-1">{errors.en_title}</p>}
+                {errors.en_title && (
+                  <p className="text-sm text-destructive mt-1">
+                    {errors.en_title}
+                  </p>
+                )}
               </div>
             </TabsContent>
 
+            {/* Arabic Tab */}
             <TabsContent value="ar" className="space-y-4">
               <div>
                 <Label htmlFor="ar-title">Title (Arabic) *</Label>
@@ -166,10 +192,15 @@ export function CertificationFormDialog({
                   placeholder="أدخل العنوان بالعربية"
                   dir="rtl"
                 />
-                {errors.ar_title && <p className="text-sm text-destructive mt-1">{errors.ar_title}</p>}
+                {errors.ar_title && (
+                  <p className="text-sm text-destructive mt-1">
+                    {errors.ar_title}
+                  </p>
+                )}
               </div>
             </TabsContent>
 
+            {/* Taiwan / Traditional Chinese Tab */}
             <TabsContent value="tw" className="space-y-4">
               <div>
                 <Label htmlFor="tw-title">Title (Taiwan) *</Label>
@@ -187,14 +218,46 @@ export function CertificationFormDialog({
                   }
                   placeholder="輸入台灣標題"
                 />
-                {errors.tw_title && <p className="text-sm text-destructive mt-1">{errors.tw_title}</p>}
+                {errors.tw_title && (
+                  <p className="text-sm text-destructive mt-1">
+                    {errors.tw_title}
+                  </p>
+                )}
+              </div>
+            </TabsContent>
+
+            {/* Simplified / Chinese Content */}
+            <TabsContent value="ch" className="space-y-4">
+              <div>
+                <Label htmlFor="ch-title">Title (Chinese) *</Label>
+                <Input
+                  id="ch-title"
+                  value={formState.translations.ch.title}
+                  onChange={(e) =>
+                    setFormState((prev) => ({
+                      ...prev,
+                      translations: {
+                        ...prev.translations,
+                        ch: { title: e.target.value },
+                      },
+                    }))
+                  }
+                  placeholder="输入中文标题"
+                />
+                {errors.ch_title && (
+                  <p className="text-sm text-destructive mt-1">
+                    {errors.ch_title}
+                  </p>
+                )}
               </div>
             </TabsContent>
           </Tabs>
 
           <SubmitBtn
             isSubmitting={isSubmitting}
-            title={certification ? "Update Certification" : "Create Certification"}
+            title={
+              certification ? "Update Certification" : "Create Certification"
+            }
             className="w-full bg-primary hover:bg-primary/90"
           />
         </form>
