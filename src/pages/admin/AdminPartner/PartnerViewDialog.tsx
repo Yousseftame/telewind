@@ -1,4 +1,4 @@
-// src/pages/admin/AdminPartner/PartnerViewDialog.tsx
+// src/pages/admin/AdminPartner/PartnerViewDialog.tsx - UPDATED
 
 import {
   Dialog,
@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/dialog";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
-import { Loader2, Mail, Phone, Globe, Tag } from "lucide-react";
+import { Loader2, Mail, Phone, Globe, Tag, MapPin } from "lucide-react";
 
 interface PartnerViewDialogProps {
   open: boolean;
@@ -17,12 +17,12 @@ interface PartnerViewDialogProps {
     id: number;
     email: string;
     type: string;
+    region: string | null; // ✅ region is now top-level
     phone: string;
     website: string;
     translations: Array<{
       locale: string;
       name: string;
-      region: string;
       country: string;
       contact: string;
       focus: string[];
@@ -117,6 +117,19 @@ export default function PartnerViewDialog({
             </div>
           </div>
 
+          {/* ✅ ADDED: Region display as top-level field */}
+          {partner.region && (
+            <div className="p-4 bg-muted/50 rounded-lg">
+              <div className="flex items-center gap-2">
+                <MapPin className="h-4 w-4 text-muted-foreground" />
+                <div className="flex-1">
+                  <p className="text-xs text-muted-foreground">Region</p>
+                  <p className="font-medium">{partner.region}</p>
+                </div>
+              </div>
+            </div>
+          )}
+
           {/* ID Badge */}
           <div>
             <Badge variant="outline" className="text-sm">
@@ -124,7 +137,7 @@ export default function PartnerViewDialog({
             </Badge>
           </div>
 
-          {/* Translations Tabs */}
+          {/* Translations Tabs - WITHOUT REGION */}
           <div className="space-y-2">
             <h3 className="text-lg font-semibold text-foreground">Partner Information</h3>
             <Tabs defaultValue="en" className="w-full">
@@ -141,11 +154,7 @@ export default function PartnerViewDialog({
                     {enTranslation.name}
                   </h4>
                   
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-                    <div className="p-3 bg-background border rounded-lg">
-                      <p className="text-xs text-muted-foreground mb-1">Region</p>
-                      <p className="font-medium">{enTranslation.region}</p>
-                    </div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                     <div className="p-3 bg-background border rounded-lg">
                       <p className="text-xs text-muted-foreground mb-1">Country</p>
                       <p className="font-medium">{enTranslation.country}</p>
@@ -178,11 +187,7 @@ export default function PartnerViewDialog({
                     {arTranslation.name}
                   </h4>
                   
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-                    <div className="p-3 bg-background border rounded-lg">
-                      <p className="text-xs text-muted-foreground mb-1">المنطقة</p>
-                      <p className="font-medium">{arTranslation.region}</p>
-                    </div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                     <div className="p-3 bg-background border rounded-lg">
                       <p className="text-xs text-muted-foreground mb-1">الدولة</p>
                       <p className="font-medium">{arTranslation.country}</p>
@@ -215,11 +220,7 @@ export default function PartnerViewDialog({
                     {frTranslation.name}
                   </h4>
                   
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-                    <div className="p-3 bg-background border rounded-lg">
-                      <p className="text-xs text-muted-foreground mb-1">Région</p>
-                      <p className="font-medium">{frTranslation.region}</p>
-                    </div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                     <div className="p-3 bg-background border rounded-lg">
                       <p className="text-xs text-muted-foreground mb-1">Pays</p>
                       <p className="font-medium">{frTranslation.country}</p>

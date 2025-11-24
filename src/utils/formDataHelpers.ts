@@ -162,12 +162,15 @@ export function buildPartnerFormData(
 ): FormData {
   const formData = new FormData();
 
-  // Handle basic fields
+  // Handle basic fields (including region)
   if (data.email) {
     formData.append("email", data.email);
   }
   if (data.type) {
     formData.append("type", data.type);
+  }
+  if (data.region !== undefined && data.region !== null) {
+    formData.append("region", data.region);
   }
   if (data.phone) {
     formData.append("phone", data.phone);
@@ -176,13 +179,12 @@ export function buildPartnerFormData(
     formData.append("website", data.website);
   }
 
-  // Handle translations
+  // Handle translations (WITHOUT region)
   languages.forEach((lang, index) => {
     if (data.translations?.[lang]) {
       const trans = data.translations[lang];
       formData.append(`translations[${index}][locale]`, lang);
       formData.append(`translations[${index}][name]`, trans.name || "");
-      formData.append(`translations[${index}][region]`, trans.region || "");
       formData.append(`translations[${index}][country]`, trans.country || "");
       formData.append(`translations[${index}][contact]`, trans.contact || "");
 
@@ -306,7 +308,6 @@ export function getTranslation<
       location: "",
       details: "",
       name: "",
-      region: "",
       country: "",
       contact: "",
       focus: [] as string[],

@@ -60,3 +60,14 @@ export const INDUSTRY_URLS = {
   CREATE_INDUSTRY: "/admin/industries",
   UPDATE_INDUSTRY: (id: number) => `/admin/industries/${id}`,
 };
+
+export const SITE_URLS = {
+  HOME_CATEGORIES: "/site/home/categories",
+  HOME_INDUSTRIES: "/site/home/industries",
+  HOME_CERTIFICATES: "/site/home/certificates",
+  PRODUCTS: "/site/products",
+  INDUSTRIES: "/site/industries",
+  EVENTS: "/site/events",
+  ANNOUNCEMENTS: "/site/announcements",
+  PARTNERS: "/site/partners",
+};

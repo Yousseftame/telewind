@@ -1,4 +1,4 @@
-// src/pages/admin/AdminPartner/PartnerFormDialog.tsx
+// src/pages/admin/AdminPartner/PartnerFormDialog.tsx - UPDATED
 
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -11,7 +11,6 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { X, Plus } from "lucide-react";
 
@@ -19,12 +18,12 @@ interface Partner {
   id: number;
   email: string;
   type: string;
+  region: string | null; // ✅ MOVED: region is now top-level
   phone: string;
   website: string;
   translations: Array<{
     locale: string;
     name: string;
-    region: string;
     country: string;
     contact: string;
     focus: string[];
@@ -34,12 +33,13 @@ interface Partner {
 interface PartnerFormData {
   email: string;
   type: string;
+  region: string; // ✅ MOVED: region is now top-level
   phone: string;
   website: string;
   translations: {
-    en: { name: string; region: string; country: string; contact: string; focus: string[] };
-    ar: { name: string; region: string; country: string; contact: string; focus: string[] };
-    fr: { name: string; region: string; country: string; contact: string; focus: string[] };
+    en: { name: string; country: string; contact: string; focus: string[] };
+    ar: { name: string; country: string; contact: string; focus: string[] };
+    fr: { name: string; country: string; contact: string; focus: string[] };
   };
 }
 
@@ -68,22 +68,21 @@ export default function PartnerFormDialog({
   const getDefaultTranslations = () => {
     if (!partner) {
       return {
-        en: { name: "", region: "", country: "", contact: "", focus: [] },
-        ar: { name: "", region: "", country: "", contact: "", focus: [] },
-        fr: { name: "", region: "", country: "", contact: "", focus: [] },
+        en: { name: "", country: "", contact: "", focus: [] },
+        ar: { name: "", country: "", contact: "", focus: [] },
+        fr: { name: "", country: "", contact: "", focus: [] },
       };
     }
 
     const translations = {
-      en: { name: "", region: "", country: "", contact: "", focus: [] as string[] },
-      ar: { name: "", region: "", country: "", contact: "", focus: [] as string[] },
-      fr: { name: "", region: "", country: "", contact: "", focus: [] as string[] },
+      en: { name: "", country: "", contact: "", focus: [] as string[] },
+      ar: { name: "", country: "", contact: "", focus: [] as string[] },
+      fr: { name: "", country: "", contact: "", focus: [] as string[] },
     };
 
     partner.translations.forEach((t) => {
       translations[t.locale as keyof typeof translations] = {
         name: t.name,
-        region: t.region,
         country: t.country,
         contact: t.contact,
         focus: t.focus || [],
@@ -102,6 +101,7 @@ export default function PartnerFormDialog({
     defaultValues: {
       email: partner?.email || "",
       type: partner?.type || "",
+      region: partner?.region || "", // ✅ region is now here
       phone: partner?.phone || "",
       website: partner?.website || "",
       translations: getDefaultTranslations(),
@@ -114,6 +114,7 @@ export default function PartnerFormDialog({
       reset({
         email: partner?.email || "",
         type: partner?.type || "",
+        region: partner?.region || "", // ✅ region is now here
         phone: partner?.phone || "",
         website: partner?.website || "",
         translations,
@@ -174,7 +175,7 @@ export default function PartnerFormDialog({
         </DialogHeader>
 
         <form onSubmit={handleSubmit(handleFormSubmit)} className="space-y-6">
-          {/* Basic Fields */}
+          {/* Basic Fields - INCLUDING REGION */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label htmlFor="email">Email *</Label>
@@ -201,6 +202,16 @@ export default function PartnerFormDialog({
               )}
             </div>
 
+            {/* ✅ ADDED: Region field as top-level */}
+            <div className="space-y-2">
+              <Label htmlFor="region">Region</Label>
+              <Input
+                id="region"
+                {...register("region")}
+                placeholder="e.g., Middle East, Europe"
+              />
+            </div>
+
             <div className="space-y-2">
               <Label htmlFor="phone">Phone *</Label>
               <Input
@@ -213,7 +224,7 @@ export default function PartnerFormDialog({
               )}
             </div>
 
-            <div className="space-y-2">
+            <div className="space-y-2 md:col-span-2">
               <Label htmlFor="website">Website *</Label>
               <Input
                 id="website"
@@ -227,7 +238,7 @@ export default function PartnerFormDialog({
             </div>
           </div>
 
-          {/* Language Tabs */}
+          {/* Language Tabs - WITHOUT REGION */}
           <div className="space-y-2">
             <Label>Translations *</Label>
             <Tabs defaultValue="en" className="w-full">
@@ -253,16 +264,7 @@ export default function PartnerFormDialog({
                   )}
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="translations.en.region">Region (EN) *</Label>
-                    <Input
-                      id="translations.en.region"
-                      {...register("translations.en.region", { required: "Region is required" })}
-                      placeholder="Middle East"
-                    />
-                  </div>
-
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <Label htmlFor="translations.en.country">Country (EN) *</Label>
                     <Input
@@ -328,17 +330,7 @@ export default function PartnerFormDialog({
                   />
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="translations.ar.region">المنطقة (AR) *</Label>
-                    <Input
-                      id="translations.ar.region"
-                      {...register("translations.ar.region", { required: "المنطقة مطلوبة" })}
-                      placeholder="الشرق الأوسط"
-                      dir="rtl"
-                    />
-                  </div>
-
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <Label htmlFor="translations.ar.country">الدولة (AR) *</Label>
                     <Input
@@ -406,16 +398,7 @@ export default function PartnerFormDialog({
                   />
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="translations.fr.region">Région (FR) *</Label>
-                    <Input
-                      id="translations.fr.region"
-                      {...register("translations.fr.region", { required: "La région est requise" })}
-                      placeholder="Moyen-Orient"
-                    />
-                  </div>
-
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <Label htmlFor="translations.fr.country">Pays (FR) *</Label>
                     <Input

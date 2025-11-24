@@ -1,4 +1,4 @@
-// src/pages/admin/AdminPartner/AdminPartner.tsx
+// src/pages/admin/AdminPartner/AdminPartner.tsx - UPDATED
 
 import { useState, useMemo } from "react";
 import { Button } from "@/components/ui/button";
@@ -70,19 +70,17 @@ export default function AdminPartner() {
   };
 
   // Get translation for selected language
- // Get translation for selected language
-const getPartnerTranslation = (partner: Partner) => {
-  const translation = getTranslation(partner, selectedLanguage);
-  // console.log('Selected Language:', selectedLanguage, 'Translation:', translation); // 👈 ADD THIS
-  return translation;
-};
+  const getPartnerTranslation = (partner: Partner) => {
+    const translation = getTranslation(partner, selectedLanguage);
+    return translation;
+  };
 
   // Sort partners by ID descending (newest first)
   const sortedPartners = useMemo(() => {
     return [...partners].sort((a, b) => b.id - a.id);
   }, [partners]);
 
-  // Table columns - NOW WITH useMemo TO FIX LANGUAGE SWITCHING
+  // ✅ UPDATED: Table columns with region as top-level field
   const columns: Column<Partner>[] = useMemo(() => [
     {
       key: "email",
@@ -100,6 +98,14 @@ const getPartnerTranslation = (partner: Partner) => {
         <Badge variant="secondary" className="capitalize">
           {partner.type}
         </Badge>
+      ),
+    },
+    {
+      key: "region", // ✅ NOW: region is a direct field on partner
+      label: "Region",
+      sortable: true,
+      render: (_, partner) => (
+        <span className="text-sm">{partner.region || "-"}</span>
       ),
     },
     {
@@ -136,11 +142,6 @@ const getPartnerTranslation = (partner: Partner) => {
     },
     {
       key: "translations" as keyof Partner,
-      label: "Region",
-      render: (_, partner) => getPartnerTranslation(partner).region,
-    },
-    {
-      key: "translations" as keyof Partner,
       label: "Country",
       render: (_, partner) => getPartnerTranslation(partner).country,
     },
@@ -172,7 +173,7 @@ const getPartnerTranslation = (partner: Partner) => {
         );
       },
     },
-  ], [selectedLanguage]); // 👈 FIX: Added dependency to recalculate when language changes
+  ], [selectedLanguage]);
 
   const actions = [
     {
