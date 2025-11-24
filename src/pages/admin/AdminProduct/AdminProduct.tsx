@@ -54,7 +54,7 @@ export default function AdminProduct() {
   );
 
   // Handle form submit
-  const handleFormSubmit = (data: any) => {
+  const handleFormSubmit = (data: Product) => {
     if (selectedProduct) {
       updateMutation.mutate(
         { id: selectedProduct.id, data },
@@ -73,6 +73,8 @@ export default function AdminProduct() {
         },
       });
     }
+    console.log(data);
+    
   };
 
   // Get translation for selected language
@@ -149,7 +151,7 @@ export default function AdminProduct() {
       },
     },
     {
-      key: "translations" as keyof Product,
+      key: "KeyFeatures" as keyof Product,
       label: "Key Features",
       render: (_, product) => {
         const features = getProductTranslation(product).key_features || [];

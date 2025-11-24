@@ -176,20 +176,13 @@ export function buildProductFormData(
 ): FormData {
   const formData = new FormData();
 
-  // Handle image field
-  if (data.image) {
-    // If image is a File object (from file input)
-    if (data.image instanceof File) {
-      formData.append("image", data.image);
-    } 
-    // If image is a base64 string or URL (from existing product or preview)
-    else if (typeof data.image === "string") {
-      formData.append("image", data.image);
-    }
+  // Handle category_id
+  if (data.category_id) {
+    formData.append("category_id", data.category_id.toString());
   }
 
-  // Handle supported_bands array
-  if (data.supported_bands && Array.isArray(data.supported_bands)) {
+  // Handle supported bands
+  if (Array.isArray(data.supported_bands)) {
     data.supported_bands.forEach((band: string, index: number) => {
       formData.append(`supported_bands[${index}]`, band);
     });
@@ -197,20 +190,28 @@ export function buildProductFormData(
 
   // Handle translations
   languages.forEach((lang, index) => {
-    if (data.translations?.[lang]) {
-      const trans = data.translations[lang];
+    const trans = data.translations?.[lang];
+    if (trans) {
       formData.append(`translations[${index}][locale]`, lang);
       formData.append(`translations[${index}][title]`, trans.title || "");
       formData.append(`translations[${index}][description]`, trans.description || "");
-      
-      // Handle key_features array
-      if (trans.key_features && Array.isArray(trans.key_features)) {
-        trans.key_features.forEach((feature: string, featureIndex: number) => {
-          formData.append(`translations[${index}][key_features][${featureIndex}]`, feature);
+
+      // Handle key_features[]
+      if (Array.isArray(trans.key_features)) {
+        trans.key_features.forEach((feat: string, featIndex: number) => {
+          formData.append(
+            `translations[${index}][key_features][${featIndex}]`,
+            feat
+          );
         });
       }
     }
   });
+
+  // Handle image (only if it's a File)
+  if (data.image instanceof File) {
+    formData.append("image", data.image);
+  }
 
   return formData;
 }
