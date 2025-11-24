@@ -122,7 +122,7 @@ export function buildCertFormData(
  */
 export function buildAnnouncementFormData(
   data: any,
-  languages: string[] = ["en", "ar", "tw"]
+  languages: string[] = ["en", "ar", "tw" , "ch"]
 ): FormData {
   const formData = new FormData();
 
