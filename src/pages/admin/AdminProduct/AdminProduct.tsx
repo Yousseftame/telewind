@@ -14,7 +14,7 @@ import {
 import { DeleteDialog } from "@/components/shared/DeleteDialog";
 import { Product } from "@/services/types";
 import { getTranslation } from "@/utils/formDataHelpers";
-import ProductFormDialog from "./ProductFormDialog";
+import ProductFormDialog, { ProductFormData } from "./ProductFormDialog";
 import ProductViewDialog from "./ProductViewDialog";
 import { useProductCRUD } from "./useProductCRUD";
 import {
@@ -54,10 +54,10 @@ export default function AdminProduct() {
   );
 
   // Handle form submit
-  const handleFormSubmit = (data: Product) => {
+  const handleFormSubmit = (data: ProductFormData) => {
     if (selectedProduct) {
       updateMutation.mutate(
-        { id: selectedProduct.id, data },
+       { id: selectedProduct.id, data },
         {
           onSuccess: () => {
             setShowFormDialog(false);
@@ -73,8 +73,6 @@ export default function AdminProduct() {
         },
       });
     }
-    console.log(data);
-    
   };
 
   // Get translation for selected language
@@ -84,7 +82,7 @@ export default function AdminProduct() {
 
   // Sort products by ID descending (newest first)
   const sortedProducts = useMemo(() => {
-    return [...products].sort((a, b) => b.id - a.id);
+   return [...products].sort((a, b) => b.id - a.id);
   }, [products]);
 
   // Table columns

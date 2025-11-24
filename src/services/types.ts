@@ -119,7 +119,8 @@ export interface Partner {
   creationDate?: string;
 }
 export interface Product {
-  category_id: number;
+  id: number;
+ category_id: number;
   image: string;
   supported_bands:string[]
   translations: ProductTranslation[];

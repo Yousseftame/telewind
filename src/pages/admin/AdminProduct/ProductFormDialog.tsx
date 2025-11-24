@@ -13,18 +13,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { X, Plus, Upload, Loader2 } from "lucide-react";
 import { useCategoryCRUD } from "../AdminCate/useCategoryCRUD";
-
-interface Product {
- category_id: number;
-  image: string;
-  supported_bands: string[];
-  translations: Array<{
-    locale: string;
-    title: string;
-    description: string;
-    key_features: string[];
-  }>;
-}
+import { Product } from "@/services/types";
 
 interface localizedContent {
   title: string;
@@ -32,9 +21,9 @@ interface localizedContent {
   key_features: string[];
 }
 
-interface ProductFormData {
+export interface ProductFormData {
   category_id: number;
-   image: File | null; 
+  image: File | null;
   supported_bands: string[];
   translations: {
     en: localizedContent;
@@ -48,7 +37,7 @@ interface ProductFormDialogProps {
   onOpenChange: (open: boolean) => void;
   onSubmit: (data: ProductFormData) => void;
   isSubmitting?: boolean;
-  product?: Product | null;
+  product?: Product;
 }
 
 export default function ProductFormDialog({
@@ -68,36 +57,31 @@ export default function ProductFormDialog({
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string>("");
 
-    const {
-      items: categories,
-      isLoading: categoriesLoading,
-    } = useCategoryCRUD(); 
+  const { items: categories, isLoading: categoriesLoading } = useCategoryCRUD();
 
-  const getDefaultTranslations = () => {
-    if (!product) {
-      return {
-        en: { title: "", description: "", key_features: [] },
-        ar: { title: "", description: "", key_features: [] },
-        tw: { title: "", description: "", key_features: [] },
-      };
-    }
-
-    const translations = {
-      en: { title: "", description: "", key_features: [] as string[] },
-      ar: { title: "", description: "", key_features: [] as string[] },
-      tw: { title: "", description: "", key_features: [] as string[] },
+  const getDefaultTranslations = (): ProductFormData["translations"] => {
+    const base = {
+      en: { title: "", description: "", key_features: [] },
+      ar: { title: "", description: "", key_features: [] },
+      tw: { title: "", description: "", key_features: [] },
     };
 
+    if (!product) return base;
+
+    const langMap: ProductFormData["translations"] = { ...base };
+
     product.translations.forEach((t) => {
-      translations[t.locale as keyof typeof translations] = {
-        title: t.title,
-        description: t.description,
-        key_features: t.key_features || [],
-      };
+      if (t.locale in langMap) {
+        langMap[t.locale as keyof typeof langMap] = {
+          title: t.title,
+          description: t.description,
+          key_features: t.key_features ?? [],
+        };
+      }
     });
 
-    return translations;
-  }
+    return langMap;
+  };
 
   const {
     register,
@@ -107,9 +91,9 @@ export default function ProductFormDialog({
     formState: { errors },
   } = useForm<ProductFormData>({
     defaultValues: {
-      category_id: product?.category_id || 8, 
+      category_id: product?.category_id ?? 0,
       image: null,
-      supported_bands: product?.supported_bands || [],
+      supported_bands: product?.supported_bands || [""],
       translations: getDefaultTranslations(),
     },
   });
@@ -118,7 +102,7 @@ export default function ProductFormDialog({
     if (open) {
       const translations = getDefaultTranslations();
       reset({
-        category_id: product?.category_id || 8,
+        category_id: product?.category_id ?? 0,
         image: null,
         supported_bands: product?.supported_bands || [],
         translations,
@@ -144,7 +128,7 @@ export default function ProductFormDialog({
           ? translations.tw.key_features
           : [""]
       );
-      setImagePreview(product?.image || "");
+      setImagePreview(product?.image ? product.image : "");
       setImageFile(null);
     }
   }, [open, reset, product]);
@@ -244,8 +228,7 @@ export default function ProductFormDialog({
         </DialogHeader>
 
         <form onSubmit={handleSubmit(handleFormSubmit)} className="space-y-6">
-
-                    {/* Category Selection - NEW */}
+          {/* Category Selection - NEW */}
           <div className="space-y-2">
             <Label htmlFor="category_id">Category *</Label>
             <div className="relative">
@@ -259,12 +242,14 @@ export default function ProductFormDialog({
                 disabled={categoriesLoading || isSubmitting}
                 className="w-full px-3 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                <option value="0">
-                  {categoriesLoading ? "Loading categories..." : "Select a category"}
+                <option value={0}>
+                  {categoriesLoading
+                    ? "Loading categories..."
+                    : "Select a category"}
                 </option>
                 {categories.map((category) => (
                   <option key={category.id} value={category.id}>
-                    {category?.id}
+                    {category.id} 
                   </option>
                 ))}
               </select>
