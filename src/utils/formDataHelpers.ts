@@ -154,11 +154,10 @@ export function buildAnnouncementFormData(
 
 /**
  * Helper to build FormData for partners
- * FIXED: Changed default languages from ["en", "ar", "tw"] to ["en", "ar", "fr"]
  */
 export function buildPartnerFormData(
   data: any,
-  languages: string[] = ["en", "ar", "fr"] // 👈 FIXED: "tw" → "fr"
+  languages: string[] = ["en", "ar", "tw" , "ch"]
 ): FormData {
   const formData = new FormData();
 

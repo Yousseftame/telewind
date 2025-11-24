@@ -3,7 +3,14 @@
 import { useState, useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Plus, Eye, ChevronRight, ChevronLeft, Search, Handshake } from "lucide-react";
+import {
+  Plus,
+  Eye,
+  ChevronRight,
+  ChevronLeft,
+  Search,
+  Handshake,
+} from "lucide-react";
 import {
   DataTable,
   Column,
@@ -18,7 +25,7 @@ import PartnerViewDialog from "./PartnerViewDialog";
 import { usePartnerCRUD } from "./usePartnerCRUD";
 import { Badge } from "@/components/ui/badge";
 
-type Language = "en" | "ar" | "fr";
+type Language = "en" | "ar" | "tw" | "ch";
 
 export default function AdminPartner() {
   const [selectedLanguage, setSelectedLanguage] = useState<Language>("en");
@@ -81,99 +88,104 @@ export default function AdminPartner() {
   }, [partners]);
 
   // ✅ UPDATED: Table columns with region as top-level field
-  const columns: Column<Partner>[] = useMemo(() => [
-    {
-      key: "email",
-      label: "Email",
-      sortable: true,
-      render: (_, partner) => (
-        <span className="text-sm break-all">{partner.email}</span>
-      ),
-    },
-    {
-      key: "type",
-      label: "Type",
-      sortable: true,
-      render: (_, partner) => (
-        <Badge variant="secondary" className="capitalize">
-          {partner.type}
-        </Badge>
-      ),
-    },
-    {
-      key: "region", // ✅ NOW: region is a direct field on partner
-      label: "Region",
-      sortable: true,
-      render: (_, partner) => (
-        <span className="text-sm">{partner.region || "-"}</span>
-      ),
-    },
-    {
-      key: "phone",
-      label: "Phone",
-      sortable: true,
-      render: (_, partner) => (
-        <span className="text-sm">{partner.phone}</span>
-      ),
-    },
-    {
-      key: "website",
-      label: "Website",
-      render: (_, partner) => (
-        <a
-          href={partner.website}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-sm text-primary hover:underline"
-        >
-          {partner.website.length > 30
-            ? `${partner.website.substring(0, 30)}...`
-            : partner.website}
-        </a>
-      ),
-    },
-    {
-      key: "id" as keyof Partner,
-      label: "Name",
-      sortable: true,
-      render: (_, partner) => (
-        <span className="font-medium">{getPartnerTranslation(partner).name}</span>
-      ),
-    },
-    {
-      key: "translations" as keyof Partner,
-      label: "Country",
-      render: (_, partner) => getPartnerTranslation(partner).country,
-    },
-    {
-      key: "translations" as keyof Partner,
-      label: "Contact",
-      render: (_, partner) => getPartnerTranslation(partner).contact,
-    },
-    {
-      key: "translations" as keyof Partner,
-      label: "Focus",
-      render: (_, partner) => {
-        const focus = getPartnerTranslation(partner).focus || [];
-        return focus.length > 0 ? (
-          <div className="flex flex-wrap gap-1">
-            {focus.slice(0, 2).map((item, idx) => (
-              <Badge key={idx} variant="outline" className="text-xs">
-                {item}
-              </Badge>
-            ))}
-            {focus.length > 2 && (
-              <Badge variant="outline" className="text-xs">
-                +{focus.length - 2}
-              </Badge>
-            )}
-          </div>
-        ) : (
-          "-"
-        );
+  const columns: Column<Partner>[] = useMemo(
+    () => [
+      {
+        key: "email",
+        label: "Email",
+        sortable: true,
+        render: (_, partner) => (
+          <span className="text-sm break-all">{partner.email}</span>
+        ),
       },
-    },
-  ], [selectedLanguage]);
+      {
+        key: "type",
+        label: "Type",
+        sortable: true,
+        render: (_, partner) => (
+          <Badge variant="secondary" className="capitalize">
+            {partner.type}
+          </Badge>
+        ),
+      },
+      {
+        key: "region", // ✅ NOW: region is a direct field on partner
+        label: "Region",
+        sortable: true,
+        render: (_, partner) => (
+          <span className="text-sm">{partner.region || "-"}</span>
+        ),
+      },
+      {
+        key: "phone",
+        label: "Phone",
+        sortable: true,
+        render: (_, partner) => (
+          <span className="text-sm">{partner.phone}</span>
+        ),
+      },
+      {
+        key: "website",
+        label: "Website",
+        render: (_, partner) => (
+          <a
+            href={partner.website}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-sm text-primary hover:underline"
+          >
+            {partner.website.length > 30
+              ? `${partner.website.substring(0, 30)}...`
+              : partner.website}
+          </a>
+        ),
+      },
+      {
+        key: "id" as keyof Partner,
+        label: "Name",
+        sortable: true,
+        render: (_, partner) => (
+          <span className="font-medium">
+            {getPartnerTranslation(partner).name}
+          </span>
+        ),
+      },
+      {
+        key: "translations" as keyof Partner,
+        label: "Country",
+        render: (_, partner) => getPartnerTranslation(partner).country,
+      },
+      {
+        key: "Contact" as keyof Partner,
+        label: "Contact",
+        render: (_, partner) => getPartnerTranslation(partner).contact,
+      },
+      {
+        key: "Focus" as keyof Partner,
+        label: "Focus",
+        render: (_, partner) => {
+          const focus = getPartnerTranslation(partner).focus || [];
+          return focus.length > 0 ? (
+            <div className="flex flex-wrap gap-1">
+              {focus.slice(0, 2).map((item, idx) => (
+                <Badge key={idx} variant="outline" className="text-xs">
+                  {item}
+                </Badge>
+              ))}
+              {focus.length > 2 && (
+                <Badge variant="outline" className="text-xs">
+                  +{focus.length - 2}
+                </Badge>
+              )}
+            </div>
+          ) : (
+            "-"
+          );
+        },
+      },
+    ],
+    [selectedLanguage]
+  );
 
   const actions = [
     {
@@ -254,10 +266,16 @@ export default function AdminPartner() {
                   🇸🇦 العربية
                 </TabsTrigger>
                 <TabsTrigger
-                  value="fr"
+                  value="tw"
                   className="rounded-lg px-4 py-2 text-sm font-medium data-[state=active]:bg-white data-[state=active]:text-indigo-600 data-[state=active]:shadow-sm"
                 >
-                  🇫🇷 Français
+                  🇹🇼 Taiwan
+                </TabsTrigger>
+                <TabsTrigger
+                  value="ch"
+                  className="rounded-lg px-4 py-2 text-sm font-medium data-[state=active]:bg-white data-[state=active]:text-indigo-600 data-[state=active]:shadow-sm"
+                >
+                  CH Chinese 
                 </TabsTrigger>
               </TabsList>
             </Tabs>
@@ -314,8 +332,12 @@ export default function AdminPartner() {
             {/* Custom Pagination Footer */}
             <div className="px-6 py-4 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-4">
               <p className="text-sm text-slate-500">
-                Showing <span className="font-medium text-slate-700">1-10</span> of{" "}
-                <span className="font-medium text-slate-700">{sortedPartners.length}</span> results
+                Showing <span className="font-medium text-slate-700">1-10</span>{" "}
+                of{" "}
+                <span className="font-medium text-slate-700">
+                  {sortedPartners.length}
+                </span>{" "}
+                results
               </p>
 
               <div className="flex items-center gap-2">

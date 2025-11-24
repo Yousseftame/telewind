@@ -54,12 +54,16 @@ export default function PartnerViewDialog({
   }
 
   const getTranslation = (locale: string) => {
-    return partner.translations.find((t) => t.locale === locale) || partner.translations[0];
+    return (
+      partner.translations.find((t) => t.locale === locale) ||
+      partner.translations[0]
+    );
   };
 
   const enTranslation = getTranslation("en");
   const arTranslation = getTranslation("ar");
-  const frTranslation = getTranslation("fr");
+  const twTranslation = getTranslation("tw");
+  const chTranslation = getTranslation("ch");
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -139,12 +143,15 @@ export default function PartnerViewDialog({
 
           {/* Translations Tabs - WITHOUT REGION */}
           <div className="space-y-2">
-            <h3 className="text-lg font-semibold text-foreground">Partner Information</h3>
+            <h3 className="text-lg font-semibold text-foreground">
+              Partner Information
+            </h3>
             <Tabs defaultValue="en" className="w-full">
-              <TabsList className="grid w-full grid-cols-3">
+              <TabsList className="grid w-full grid-cols-2 md:grid-cols-4">
                 <TabsTrigger value="en">English</TabsTrigger>
                 <TabsTrigger value="ar">العربية</TabsTrigger>
-                <TabsTrigger value="fr">Français</TabsTrigger>
+                <TabsTrigger value="tw">Taiwan</TabsTrigger>
+                <TabsTrigger value="ch">Chinese </TabsTrigger>
               </TabsList>
 
               {/* English Content */}
@@ -153,14 +160,18 @@ export default function PartnerViewDialog({
                   <h4 className="text-xl font-bold text-foreground mb-4">
                     {enTranslation.name}
                   </h4>
-                  
+
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                     <div className="p-3 bg-background border rounded-lg">
-                      <p className="text-xs text-muted-foreground mb-1">Country</p>
+                      <p className="text-xs text-muted-foreground mb-1">
+                        Country
+                      </p>
                       <p className="font-medium">{enTranslation.country}</p>
                     </div>
                     <div className="p-3 bg-background border rounded-lg">
-                      <p className="text-xs text-muted-foreground mb-1">Contact Person</p>
+                      <p className="text-xs text-muted-foreground mb-1">
+                        Contact Person
+                      </p>
                       <p className="font-medium">{enTranslation.contact}</p>
                     </div>
                   </div>
@@ -186,14 +197,18 @@ export default function PartnerViewDialog({
                   <h4 className="text-xl font-bold text-foreground mb-4">
                     {arTranslation.name}
                   </h4>
-                  
+
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                     <div className="p-3 bg-background border rounded-lg">
-                      <p className="text-xs text-muted-foreground mb-1">الدولة</p>
+                      <p className="text-xs text-muted-foreground mb-1">
+                        الدولة
+                      </p>
                       <p className="font-medium">{arTranslation.country}</p>
                     </div>
                     <div className="p-3 bg-background border rounded-lg">
-                      <p className="text-xs text-muted-foreground mb-1">جهة الاتصال</p>
+                      <p className="text-xs text-muted-foreground mb-1">
+                        جهة الاتصال
+                      </p>
                       <p className="font-medium">{arTranslation.contact}</p>
                     </div>
                   </div>
@@ -213,29 +228,66 @@ export default function PartnerViewDialog({
                 </div>
               </TabsContent>
 
-              {/* French Content */}
-              <TabsContent value="fr" className="space-y-4 pt-4">
+              {/* Taiwan / Traditional Chinese Tab */}
+              <TabsContent value="tw" className="space-y-4 pt-4">
                 <div>
                   <h4 className="text-xl font-bold text-foreground mb-4">
-                    {frTranslation.name}
+                    {twTranslation.name}
                   </h4>
-                  
+
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                     <div className="p-3 bg-background border rounded-lg">
-                      <p className="text-xs text-muted-foreground mb-1">Pays</p>
-                      <p className="font-medium">{frTranslation.country}</p>
+                      <p className="text-xs text-muted-foreground mb-1">國家</p>
+                      <p className="font-medium">{twTranslation.country}</p>
                     </div>
                     <div className="p-3 bg-background border rounded-lg">
-                      <p className="text-xs text-muted-foreground mb-1">Contact</p>
-                      <p className="font-medium">{frTranslation.contact}</p>
+                      <p className="text-xs text-muted-foreground mb-1">
+                        聯絡人
+                      </p>
+                      <p className="font-medium">{twTranslation.contact}</p>
                     </div>
                   </div>
 
-                  {frTranslation.focus && frTranslation.focus.length > 0 && (
+                  {twTranslation.focus && twTranslation.focus.length > 0 && (
                     <div>
-                      <h5 className="font-semibold mb-2">Domaines d'expertise</h5>
+                      <h5 className="font-semibold mb-2">專長領域</h5>
                       <div className="flex flex-wrap gap-2">
-                        {frTranslation.focus.map((item, index) => (
+                        {twTranslation.focus.map((item, index) => (
+                          <Badge key={index} variant="secondary">
+                            {item}
+                          </Badge>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </TabsContent>
+
+              {/* Simplified / Chinese Content Tab */}
+              <TabsContent value="ch" className="space-y-4 pt-4">
+                <div>
+                  <h4 className="text-xl font-bold text-foreground mb-4">
+                    {chTranslation.name}
+                  </h4>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                    <div className="p-3 bg-background border rounded-lg">
+                      <p className="text-xs text-muted-foreground mb-1">国家</p>
+                      <p className="font-medium">{chTranslation.country}</p>
+                    </div>
+                    <div className="p-3 bg-background border rounded-lg">
+                      <p className="text-xs text-muted-foreground mb-1">
+                        联系人
+                      </p>
+                      <p className="font-medium">{chTranslation.contact}</p>
+                    </div>
+                  </div>
+
+                  {chTranslation.focus && chTranslation.focus.length > 0 && (
+                    <div>
+                      <h5 className="font-semibold mb-2">专长领域</h5>
+                      <div className="flex flex-wrap gap-2">
+                        {chTranslation.focus.map((item, index) => (
                           <Badge key={index} variant="secondary">
                             {item}
                           </Badge>

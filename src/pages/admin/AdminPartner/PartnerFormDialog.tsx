@@ -39,7 +39,8 @@ interface PartnerFormData {
   translations: {
     en: { name: string; country: string; contact: string; focus: string[] };
     ar: { name: string; country: string; contact: string; focus: string[] };
-    fr: { name: string; country: string; contact: string; focus: string[] };
+    tw: { name: string; country: string; contact: string; focus: string[] };
+    ch: { name: string; country: string; contact: string; focus: string[] };
   };
 }
 
@@ -63,21 +64,24 @@ export default function PartnerFormDialog({
   // State for focus arrays
   const [focusEn, setFocusEn] = useState<string[]>([""]);
   const [focusAr, setFocusAr] = useState<string[]>([""]);
-  const [focusFr, setFocusFr] = useState<string[]>([""]);
+  const [focusTw, setFocusTw] = useState<string[]>([""]);
+  const [focusCh, setFocusCh] = useState<string[]>([""]);
 
   const getDefaultTranslations = () => {
     if (!partner) {
       return {
         en: { name: "", country: "", contact: "", focus: [] },
         ar: { name: "", country: "", contact: "", focus: [] },
-        fr: { name: "", country: "", contact: "", focus: [] },
+        tw: { name: "", country: "", contact: "", focus: [] },
+        ch: { name: "", country: "", contact: "", focus: [] },
       };
     }
 
     const translations = {
       en: { name: "", country: "", contact: "", focus: [] as string[] },
       ar: { name: "", country: "", contact: "", focus: [] as string[] },
-      fr: { name: "", country: "", contact: "", focus: [] as string[] },
+      tw: { name: "", country: "", contact: "", focus: [] as string[] },
+      ch: { name: "", country: "", contact: "", focus: [] as string[] },
     };
 
     partner.translations.forEach((t) => {
@@ -120,9 +124,18 @@ export default function PartnerFormDialog({
         translations,
       });
 
-      setFocusEn(translations.en.focus.length > 0 ? translations.en.focus : [""]);
-      setFocusAr(translations.ar.focus.length > 0 ? translations.ar.focus : [""]);
-      setFocusFr(translations.fr.focus.length > 0 ? translations.fr.focus : [""]);
+      setFocusEn(
+        translations.en.focus.length > 0 ? translations.en.focus : [""]
+      );
+      setFocusAr(
+        translations.ar.focus.length > 0 ? translations.ar.focus : [""]
+      );
+      setFocusTw(
+        translations.tw.focus.length > 0 ? translations.tw.focus : [""]
+      );
+      setFocusCh(
+        translations.ch.focus.length > 0 ? translations.ch.focus : [""]
+      );
     }
   }, [open, reset, partner]);
 
@@ -130,26 +143,33 @@ export default function PartnerFormDialog({
     onSubmit({
       ...data,
       translations: {
-        en: { ...data.translations.en, focus: focusEn.filter(f => f.trim()) },
-        ar: { ...data.translations.ar, focus: focusAr.filter(f => f.trim()) },
-        fr: { ...data.translations.fr, focus: focusFr.filter(f => f.trim()) },
+        en: { ...data.translations.en, focus: focusEn.filter((f) => f.trim()) },
+        ar: { ...data.translations.ar, focus: focusAr.filter((f) => f.trim()) },
+        tw: { ...data.translations.tw, focus: focusTw.filter((f) => f.trim()) },
+        ch: { ...data.translations.ch, focus: focusCh.filter((f) => f.trim()) },
       },
     });
   };
 
-  const addFocusItem = (lang: "en" | "ar" | "fr") => {
+  const addFocusItem = (lang: "en" | "ar" | "tw" | "ch") => {
     if (lang === "en") setFocusEn([...focusEn, ""]);
     if (lang === "ar") setFocusAr([...focusAr, ""]);
-    if (lang === "fr") setFocusFr([...focusFr, ""]);
+    if (lang === "tw") setFocusTw([...focusTw, ""]);
+    if (lang === "ch") setFocusCh([...focusCh, ""]);
   };
 
-  const removeFocusItem = (lang: "en" | "ar" | "fr", index: number) => {
+  const removeFocusItem = (lang: "en" | "ar" | "tw" | "ch", index: number) => {
     if (lang === "en") setFocusEn(focusEn.filter((_, i) => i !== index));
     if (lang === "ar") setFocusAr(focusAr.filter((_, i) => i !== index));
-    if (lang === "fr") setFocusFr(focusFr.filter((_, i) => i !== index));
+    if (lang === "tw") setFocusTw(focusTw.filter((_, i) => i !== index));
+    if (lang === "ch") setFocusCh(focusCh.filter((_, i) => i !== index));
   };
 
-  const updateFocusItem = (lang: "en" | "ar" | "fr", index: number, value: string) => {
+  const updateFocusItem = (
+    lang: "en" | "ar" | "tw" | "ch",
+    index: number,
+    value: string
+  ) => {
     if (lang === "en") {
       const newFocus = [...focusEn];
       newFocus[index] = value;
@@ -160,10 +180,15 @@ export default function PartnerFormDialog({
       newFocus[index] = value;
       setFocusAr(newFocus);
     }
-    if (lang === "fr") {
-      const newFocus = [...focusFr];
+    if (lang === "tw") {
+      const newFocus = [...focusTw];
       newFocus[index] = value;
-      setFocusFr(newFocus);
+      setFocusTw(newFocus);
+    }
+    if (lang === "ch") {
+      const newFocus = [...focusCh];
+      newFocus[index] = value;
+      setFocusCh(newFocus);
     }
   };
 
@@ -171,7 +196,9 @@ export default function PartnerFormDialog({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle>{isEditMode ? "Edit Partner" : "Add Partner"}</DialogTitle>
+          <DialogTitle>
+            {isEditMode ? "Edit Partner" : "Add Partner"}
+          </DialogTitle>
         </DialogHeader>
 
         <form onSubmit={handleSubmit(handleFormSubmit)} className="space-y-6">
@@ -186,7 +213,9 @@ export default function PartnerFormDialog({
                 placeholder="partner@example.com"
               />
               {errors.email && (
-                <p className="text-sm text-destructive">{errors.email.message}</p>
+                <p className="text-sm text-destructive">
+                  {errors.email.message}
+                </p>
               )}
             </div>
 
@@ -198,7 +227,9 @@ export default function PartnerFormDialog({
                 placeholder="e.g., Distributor, Reseller"
               />
               {errors.type && (
-                <p className="text-sm text-destructive">{errors.type.message}</p>
+                <p className="text-sm text-destructive">
+                  {errors.type.message}
+                </p>
               )}
             </div>
 
@@ -220,7 +251,9 @@ export default function PartnerFormDialog({
                 placeholder="+971 52 5555555"
               />
               {errors.phone && (
-                <p className="text-sm text-destructive">{errors.phone.message}</p>
+                <p className="text-sm text-destructive">
+                  {errors.phone.message}
+                </p>
               )}
             </div>
 
@@ -233,7 +266,9 @@ export default function PartnerFormDialog({
                 placeholder="https://example.com"
               />
               {errors.website && (
-                <p className="text-sm text-destructive">{errors.website.message}</p>
+                <p className="text-sm text-destructive">
+                  {errors.website.message}
+                </p>
               )}
             </div>
           </div>
@@ -242,10 +277,11 @@ export default function PartnerFormDialog({
           <div className="space-y-2">
             <Label>Translations *</Label>
             <Tabs defaultValue="en" className="w-full">
-              <TabsList className="grid w-full grid-cols-3">
+              <TabsList className="grid w-full grid-cols-2 md:grid-cols-4">
                 <TabsTrigger value="en">English</TabsTrigger>
                 <TabsTrigger value="ar">العربية</TabsTrigger>
-                <TabsTrigger value="fr">Français</TabsTrigger>
+                <TabsTrigger value="tw">Taiwan</TabsTrigger>
+                <TabsTrigger value="ch">Chinese </TabsTrigger>
               </TabsList>
 
               {/* English Tab */}
@@ -254,7 +290,9 @@ export default function PartnerFormDialog({
                   <Label htmlFor="translations.en.name">Name (EN) *</Label>
                   <Input
                     id="translations.en.name"
-                    {...register("translations.en.name", { required: "Name is required" })}
+                    {...register("translations.en.name", {
+                      required: "Name is required",
+                    })}
                     placeholder="Partner name in English"
                   />
                   {errors.translations?.en?.name && (
@@ -266,19 +304,27 @@ export default function PartnerFormDialog({
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <Label htmlFor="translations.en.country">Country (EN) *</Label>
+                    <Label htmlFor="translations.en.country">
+                      Country (EN) *
+                    </Label>
                     <Input
                       id="translations.en.country"
-                      {...register("translations.en.country", { required: "Country is required" })}
+                      {...register("translations.en.country", {
+                        required: "Country is required",
+                      })}
                       placeholder="UAE"
                     />
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="translations.en.contact">Contact (EN) *</Label>
+                    <Label htmlFor="translations.en.contact">
+                      Contact (EN) *
+                    </Label>
                     <Input
                       id="translations.en.contact"
-                      {...register("translations.en.contact", { required: "Contact is required" })}
+                      {...register("translations.en.contact", {
+                        required: "Contact is required",
+                      })}
                       placeholder="Contact person name"
                     />
                   </div>
@@ -290,7 +336,9 @@ export default function PartnerFormDialog({
                     <div key={index} className="flex gap-2">
                       <Input
                         value={item}
-                        onChange={(e) => updateFocusItem("en", index, e.target.value)}
+                        onChange={(e) =>
+                          updateFocusItem("en", index, e.target.value)
+                        }
                         placeholder="Focus area"
                       />
                       {focusEn.length > 1 && (
@@ -324,7 +372,9 @@ export default function PartnerFormDialog({
                   <Label htmlFor="translations.ar.name">الاسم (AR) *</Label>
                   <Input
                     id="translations.ar.name"
-                    {...register("translations.ar.name", { required: "الاسم مطلوب" })}
+                    {...register("translations.ar.name", {
+                      required: "الاسم مطلوب",
+                    })}
                     placeholder="اسم الشريك بالعربية"
                     dir="rtl"
                   />
@@ -332,20 +382,28 @@ export default function PartnerFormDialog({
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <Label htmlFor="translations.ar.country">الدولة (AR) *</Label>
+                    <Label htmlFor="translations.ar.country">
+                      الدولة (AR) *
+                    </Label>
                     <Input
                       id="translations.ar.country"
-                      {...register("translations.ar.country", { required: "الدولة مطلوبة" })}
+                      {...register("translations.ar.country", {
+                        required: "الدولة مطلوبة",
+                      })}
                       placeholder="الإمارات"
                       dir="rtl"
                     />
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="translations.ar.contact">جهة الاتصال (AR) *</Label>
+                    <Label htmlFor="translations.ar.contact">
+                      جهة الاتصال (AR) *
+                    </Label>
                     <Input
                       id="translations.ar.contact"
-                      {...register("translations.ar.contact", { required: "جهة الاتصال مطلوبة" })}
+                      {...register("translations.ar.contact", {
+                        required: "جهة الاتصال مطلوبة",
+                      })}
                       placeholder="اسم جهة الاتصال"
                       dir="rtl"
                     />
@@ -358,7 +416,9 @@ export default function PartnerFormDialog({
                     <div key={index} className="flex gap-2">
                       <Input
                         value={item}
-                        onChange={(e) => updateFocusItem("ar", index, e.target.value)}
+                        onChange={(e) =>
+                          updateFocusItem("ar", index, e.target.value)
+                        }
                         placeholder="مجال التركيز"
                         dir="rtl"
                       />
@@ -387,52 +447,62 @@ export default function PartnerFormDialog({
                 </div>
               </TabsContent>
 
-              {/* French Tab */}
-              <TabsContent value="fr" className="space-y-4">
+              {/* Taiwan / Traditional Chinese Tab */}
+              <TabsContent value="tw" className="space-y-4">
                 <div className="space-y-2">
-                  <Label htmlFor="translations.fr.name">Nom (FR) *</Label>
+                  <Label htmlFor="translations.tw.name">名稱 (TW) *</Label>
                   <Input
-                    id="translations.fr.name"
-                    {...register("translations.fr.name", { required: "Le nom est requis" })}
-                    placeholder="Nom du partenaire en français"
+                    id="translations.tw.name"
+                    {...register("translations.tw.name", {
+                      required: "名稱為必填",
+                    })}
+                    placeholder="合作夥伴名稱"
                   />
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <Label htmlFor="translations.fr.country">Pays (FR) *</Label>
+                    <Label htmlFor="translations.tw.country">國家 (TW) *</Label>
                     <Input
-                      id="translations.fr.country"
-                      {...register("translations.fr.country", { required: "Le pays est requis" })}
-                      placeholder="Émirats"
+                      id="translations.tw.country"
+                      {...register("translations.tw.country", {
+                        required: "國家為必填",
+                      })}
+                      placeholder="國家"
                     />
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="translations.fr.contact">Contact (FR) *</Label>
+                    <Label htmlFor="translations.tw.contact">
+                      聯絡人 (TW) *
+                    </Label>
                     <Input
-                      id="translations.fr.contact"
-                      {...register("translations.fr.contact", { required: "Le contact est requis" })}
-                      placeholder="Nom du contact"
+                      id="translations.tw.contact"
+                      {...register("translations.tw.contact", {
+                        required: "聯絡人為必填",
+                      })}
+                      placeholder="聯絡人姓名"
                     />
                   </div>
                 </div>
 
                 <div className="space-y-2">
-                  <Label>Domaines d'expertise (FR)</Label>
-                  {focusFr.map((item, index) => (
+                  <Label>專長領域 (TW)</Label>
+                  {focusTw.map((item, index) => (
                     <div key={index} className="flex gap-2">
                       <Input
                         value={item}
-                        onChange={(e) => updateFocusItem("fr", index, e.target.value)}
-                        placeholder="Domaine d'expertise"
+                        onChange={(e) =>
+                          updateFocusItem("tw", index, e.target.value)
+                        }
+                        placeholder="專長領域"
                       />
-                      {focusFr.length > 1 && (
+                      {focusTw.length > 1 && (
                         <Button
                           type="button"
                           variant="outline"
                           size="icon"
-                          onClick={() => removeFocusItem("fr", index)}
+                          onClick={() => removeFocusItem("tw", index)}
                         >
                           <X className="h-4 w-4" />
                         </Button>
@@ -443,11 +513,86 @@ export default function PartnerFormDialog({
                     type="button"
                     variant="outline"
                     size="sm"
-                    onClick={() => addFocusItem("fr")}
+                    onClick={() => addFocusItem("tw")}
                     className="w-full"
                   >
                     <Plus className="h-4 w-4 mr-2" />
-                    Ajouter un domaine
+                    新增專長
+                  </Button>
+                </div>
+              </TabsContent>
+
+              {/* Simplified / Chinese Content Tab */}
+              <TabsContent value="ch" className="space-y-4">
+                <div className="space-y-2">
+                  <Label htmlFor="translations.ch.name">名称 (CH) *</Label>
+                  <Input
+                    id="translations.ch.name"
+                    {...register("translations.ch.name", {
+                      required: "名称为必填",
+                    })}
+                    placeholder="合作伙伴名称"
+                  />
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="translations.ch.country">国家 (CH) *</Label>
+                    <Input
+                      id="translations.ch.country"
+                      {...register("translations.ch.country", {
+                        required: "国家为必填",
+                      })}
+                      placeholder="国家"
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="translations.ch.contact">
+                      联系人 (CH) *
+                    </Label>
+                    <Input
+                      id="translations.ch.contact"
+                      {...register("translations.ch.contact", {
+                        required: "联系人为必填",
+                      })}
+                      placeholder="联系人姓名"
+                    />
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <Label>专长领域 (CH)</Label>
+                  {focusCh.map((item, index) => (
+                    <div key={index} className="flex gap-2">
+                      <Input
+                        value={item}
+                        onChange={(e) =>
+                          updateFocusItem("ch", index, e.target.value)
+                        }
+                        placeholder="专长领域"
+                      />
+                      {focusCh.length > 1 && (
+                        <Button
+                          type="button"
+                          variant="outline"
+                          size="icon"
+                          onClick={() => removeFocusItem("ch", index)}
+                        >
+                          <X className="h-4 w-4" />
+                        </Button>
+                      )}
+                    </div>
+                  ))}
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    onClick={() => addFocusItem("ch")}
+                    className="w-full"
+                  >
+                    <Plus className="h-4 w-4 mr-2" />
+                    新增专长
                   </Button>
                 </div>
               </TabsContent>
@@ -465,7 +610,11 @@ export default function PartnerFormDialog({
               Cancel
             </Button>
             <Button type="submit" disabled={isSubmitting}>
-              {isSubmitting ? "Saving..." : isEditMode ? "Update Partner" : "Create Partner"}
+              {isSubmitting
+                ? "Saving..."
+                : isEditMode
+                ? "Update Partner"
+                : "Create Partner"}
             </Button>
           </div>
         </form>
