@@ -101,7 +101,7 @@ export default function AdminIndustries() {
       ),
     },
     {
-      key: "translations" as keyof Industry,
+      key: "description" as keyof Industry,
       label: "Description",
       render: (_, industry) => {
         const desc = getIndustryTranslation(industry).description || "";
@@ -109,7 +109,7 @@ export default function AdminIndustries() {
       },
     },
     {
-      key: "translations" as keyof Industry,
+      key: "applications" as keyof Industry,
       label: "Applications",
       render: (_, industry) => {
         const apps = getIndustryTranslation(industry).applications || [];

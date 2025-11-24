@@ -29,6 +29,7 @@ import AdminCate from "./pages/admin/AdminCate/AdminCate.tsx";
 import Contacts from "./pages/admin/contacts/Contacts.tsx";
 import Certifications from "./pages/admin/Certifications/Certifications.tsx";
 import Announcements from "./pages/admin/announcements/Announcements.tsx";
+import AdminLogo from "./pages/admin/AdminLogo/AdminLogo.tsx";
 
 const queryClient = new QueryClient();
 
@@ -72,6 +73,7 @@ const App = () => (
                <Route path="/adminPartner" element={<ProtectedRoute><AdminPartner /></ProtectedRoute>} />
                <Route path="/certifications" element={<ProtectedRoute><Certifications /></ProtectedRoute>} />
                <Route path="/announcements" element={<ProtectedRoute><Announcements /></ProtectedRoute>} />
+               <Route path="/adminLogo" element={<ProtectedRoute><AdminLogo /></ProtectedRoute>} />
                <Route path="/Contacts" element={<ProtectedRoute><Contacts /></ProtectedRoute>} />
 
             

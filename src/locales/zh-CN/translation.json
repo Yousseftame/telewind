@@ -71,7 +71,9 @@
       "caseStudies": "案例研究",
       "events": "活动与媒体",
       "partners": "合作伙伴",
-      "contact": "联系我们"
+      "contact": "联系我们",
+        "address": "台湾桃园市中坜区民族路六段260号 邮编320 (中华民国)"
+
     },
     "certificationsTitle": "认证",
     "copyright": "TeleWind Electronics. 版权所有。",
@@ -101,6 +103,12 @@
     "consultationDescription": "我们的技术团队可以帮助识别针对您特定行业挑战的最佳解决方案",
     "scheduleConsultation": "安排咨询"
   },
+  "industryConsultation": {
+    "title": "讨论您的行业需求",
+    "description": "我们的技术团队可帮助识别适合您行业挑战的最佳解决方案",
+    "scheduleButton": "预约咨询"
+  },
+
   "eventsMedia": {
     "title": "活动与媒体",
     "description": "随时了解 TeleWind 最新的活动、新闻和行业洞察",
@@ -110,5 +118,62 @@
     "mediaInquiries": "媒体咨询",
     "mediaDescription": "有关新闻稿、采访或媒体信息，请联系通讯团队",
     "contactMedia": "联系媒体关系"
+  },
+  "partnersDistributors": {
+    "title": "合作伙伴与分销商",
+    "description": "我们全球的授权合作伙伴网络在全球范围内提供 TeleWind 解决方案",
+    "contactPerson": "联系人",
+    "productFocus": "产品重点",
+    "visitWebsite": "访问网站",
+    "becomePartner": "成为 TeleWind 合作伙伴",
+    "becomePartnerDescription": "加入我们全球授权分销商和技术合作伙伴网络。我们正在寻找具有国防电子专业知识和强大区域影响力的合格组织。",
+    "marketAccess": "市场准入",
+    "exclusiveRights": "独占区域权利",
+    "technicalSupport": "技术支持",
+    "trainingResources": "全面培训与资源",
+    "salesSupport": "销售支持",
+    "coMarketing": "联合营销与潜在客户开发",
+    "partnerForm": "合作伙伴申请表",
+    "connectLocalPartner": "联系本地合作伙伴",
+    "localSupportDescription": "我们的合作伙伴可提供本地支持、产品演示和定制化解决方案",
+    "contactReferral": "联系我们获取合作伙伴推荐"
+  },
+  "contactUs": {
+    "title": "联系我们",
+    "description": "与我们的团队联系，讨论您的国防电子需求",
+    "contactInformation": "联系信息",
+    "headquarters": "总部",
+    "address": "台湾桃园市中坜区民族路六段260号 邮编320 (中华民国)",
+    "email": "电子邮件",
+    "businessHours": "营业时间",
+    "mondayFriday": "星期一 - 星期五",
+    "localTime": "当地时间",
+    "secureCommunications": "安全通信",
+    "secureDescription": "对于涉密或敏感的国防项目，请使用我们的安全通信渠道或联系您的专属客户经理。",
+    "requestSecureContact": "请求安全联系",
+    "sendUsMessage": "给我们留言",
+    "fullName": "姓名 *",
+    "company": "公司 *",
+    "emailAddress": "电子邮箱 *",
+    "phoneNumber": "电话号码",
+    "country": "国家 *",
+    "inquiryType": "咨询类型 *",
+    "productInformation": "产品信息",
+    "technicalSupport": "技术支持",
+    "salesInquiry": "销售咨询",
+    "partnershipOpportunity": "合作机会",
+    "other": "其他",
+    "message": "留言内容 *",
+    "sendMessage": "发送消息",
+    "otherWays": "其他联系方式",
+    "findPartner": "查找合作伙伴",
+    "findPartnerDescription": "与您所在地区的授权分销商联系",
+    "viewPartners": "查看合作伙伴",
+    "technicalSupport2": "技术支持",
+    "supportDescription": "现有客户可访问技术文档",
+    "supportPortal": "支持门户",
+    "careerOpportunities": "职业机会",
+    "careerDescription": "加入我们的国防电子专家团队",
+    "viewCareers": "查看招聘"
   }
 }

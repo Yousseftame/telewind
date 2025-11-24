@@ -15,7 +15,7 @@ import CategoryFormDialog from "./CategoryFormDialog";
 import CategoryViewDialog from "./CategoryViewDialog";
 import { useCategoryCRUD } from "./useCategoryCRUD";
 
-type Language = "en" | "ar" | "fr";
+type Language = "en" | "ar" | "tw";
 
 export default function AdminCate() {
   const [selectedLanguage, setSelectedLanguage] = useState<Language>("en");
@@ -79,7 +79,7 @@ export default function AdminCate() {
     return [...categories].sort((a, b) => b.id - a.id);
   }, [categories]);
 
-  console.log(categories)
+  // console.log(categories)
   // Table columns
   const columns: Column<Category>[] = [
     {
@@ -200,7 +200,7 @@ export default function AdminCate() {
               🇸🇦 العربية
             </TabsTrigger>
             <TabsTrigger 
-              value="fr"
+              value="tw"
               className="rounded-lg px-4 py-2 text-sm font-medium data-[state=active]:bg-white data-[state=active]:text-indigo-600 data-[state=active]:shadow-sm"
             >
               🇹🇼 Taiwan

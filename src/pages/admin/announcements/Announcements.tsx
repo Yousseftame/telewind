@@ -13,9 +13,9 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 export default function Announcements() {
   const { items, isLoading, createMutation, updateMutation, deleteMutation } = useAnnouncementCRUD();
 
-  console.log("Announcements data:", items);
-  console.log("Is loading:", isLoading);
-  console.log("Items length:", items?.length); // أضف هذا
+  // console.log("Announcements data:", items);
+  // console.log("Is loading:", isLoading);
+  // console.log("Items length:", items?.length); // أضف هذا
 
 
 
@@ -91,7 +91,7 @@ export default function Announcements() {
     render: (_, announcement) => announcement.type || "-",
   },
   {
-    key: "id" as keyof Announcement,  // غيّر الـ key لأنك بتكرر "type"
+    key: "title" as keyof Announcement,  // غيّر الـ key لأنك بتكرر "type"
     label: "Title",
     sortable: false,
     render: (_, announcement) => {
@@ -100,7 +100,7 @@ export default function Announcements() {
     },
   },
   {
-    key: "id" as keyof Announcement,  // غيّر الـ key لأنك بتكرر "type"
+    key: "description" as keyof Announcement,  // غيّر الـ key لأنك بتكرر "type"
     label: "Description",
     sortable: false,
     render: (_, announcement) => {

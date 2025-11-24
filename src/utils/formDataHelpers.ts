@@ -124,10 +124,11 @@ export function buildAnnouncementFormData(
 
 /**
  * Helper to build FormData for partners
+ * FIXED: Changed default languages from ["en", "ar", "tw"] to ["en", "ar", "fr"]
  */
 export function buildPartnerFormData(
   data: any,
-  languages: string[] = ["en", "ar", "fr"]
+  languages: string[] = ["en", "ar", "fr"]  // 👈 FIXED: "tw" → "fr"
 ): FormData {
   const formData = new FormData();
 
@@ -166,6 +167,7 @@ export function buildPartnerFormData(
 
   return formData;
 }
+
 export function buildIndustryFormData(
   data: any,
   languages: string[] = ["en", "ar", "tw"]
@@ -198,11 +200,6 @@ export function buildIndustryFormData(
 
   return formData;
 }
-
-
-
-
-
 
 /**
  * Helper to extract translation for a specific language

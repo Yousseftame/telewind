@@ -3,7 +3,7 @@
 import { useState, useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Plus, Eye, ChevronRight, ChevronLeft, Search, Briefcase, Handshake } from "lucide-react";
+import { Plus, Eye, ChevronRight, ChevronLeft, Search, Handshake } from "lucide-react";
 import {
   DataTable,
   Column,
@@ -70,17 +70,20 @@ export default function AdminPartner() {
   };
 
   // Get translation for selected language
-  const getPartnerTranslation = (partner: Partner) => {
-    return getTranslation(partner, selectedLanguage);
-  };
+ // Get translation for selected language
+const getPartnerTranslation = (partner: Partner) => {
+  const translation = getTranslation(partner, selectedLanguage);
+  console.log('Selected Language:', selectedLanguage, 'Translation:', translation); // 👈 ADD THIS
+  return translation;
+};
 
   // Sort partners by ID descending (newest first)
   const sortedPartners = useMemo(() => {
     return [...partners].sort((a, b) => b.id - a.id);
   }, [partners]);
 
-  // Table columns
-  const columns: Column<Partner>[] = [
+  // Table columns - NOW WITH useMemo TO FIX LANGUAGE SWITCHING
+  const columns: Column<Partner>[] = useMemo(() => [
     {
       key: "email",
       label: "Email",
@@ -169,7 +172,7 @@ export default function AdminPartner() {
         );
       },
     },
-  ];
+  ], [selectedLanguage]); // 👈 FIX: Added dependency to recalculate when language changes
 
   const actions = [
     {

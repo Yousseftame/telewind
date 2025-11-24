@@ -71,7 +71,9 @@
       "caseStudies": "دراسات الحالة",
       "events": "الأحداث والإعلام",
       "partners": "الشركاء",
-      "contact": "اتصل بنا"
+      "contact": "اتصل بنا",
+       "address": "رقم 260، القسم 6، طريق مينزو  منطقة تشونغلي، مدينة تاويان 320، تايوان (جمهورية الصين)"
+
     },
     "certificationsTitle": "الشهادات",
     "copyright": "تيليويند إلكترونيكس. جميع الحقوق محفوظة.",
@@ -101,6 +103,11 @@
     "consultationDescription": "يمكن لفريقنا الفني المساعدة في تحديد الحلول المثلى لتحديات صناعتك الخاصة",
     "scheduleConsultation": "حدد موعد استشارة"
   },
+  "industryConsultation": {
+    "title": "ناقش متطلبات صناعتك",
+    "description": "يمكن لفريقنا الفني المساعدة في تحديد الحلول المثلى لتحديات صناعتك الخاصة",
+    "scheduleButton": "حدد موعدًا للاستشارة"
+  },
   "eventsMedia": {
     "title": "الأحداث والإعلام",
     "description": "تابع أحدث الأحداث والأخبار والرؤى الصناعية لشركة تيليويند",
@@ -110,5 +117,62 @@
     "mediaInquiries": "استفسارات الإعلام",
     "mediaDescription": "للنشرات الصحفية أو المقابلات أو معلومات الإعلام، اتصل بفريق الاتصالات لدينا",
     "contactMedia": "اتصل بالعلاقات الإعلامية"
+  },
+  "partnersDistributors": {
+    "title": "الشركاء والموزعون",
+    "description": "شبكتنا العالمية من الشركاء المعتمدين تقدم حلول TeleWind في جميع أنحاء العالم",
+    "contactPerson": "شخص الاتصال",
+    "productFocus": "تركيز المنتج",
+    "visitWebsite": "زيارة الموقع",
+    "becomePartner": "كن شريكًا مع TeleWind",
+    "becomePartnerDescription": "انضم إلى شبكتنا العالمية من الموزعين المعتمدين وشركاء التكنولوجيا. نحن نبحث عن منظمات مؤهلة ذات خبرة في الإلكترونيات الدفاعية وحضور قوي إقليميًا.",
+    "marketAccess": "الوصول إلى السوق",
+    "exclusiveRights": "حقوق إقليمية حصرية",
+    "technicalSupport": "الدعم الفني",
+    "trainingResources": "تدريب وموارد شاملة",
+    "salesSupport": "الدعم البيعي",
+    "coMarketing": "التسويق المشترك وتوليد العملاء المحتملين",
+    "partnerForm": "نموذج طلب الشريك",
+    "connectLocalPartner": "التواصل مع شريك محلي",
+    "localSupportDescription": "يمكن لشركائنا تقديم الدعم المحلي وعروض المنتجات والحلول المخصصة",
+    "contactReferral": "اتصل بنا لإحالة الشريك"
+  },
+  "contactUs": {
+    "title": "اتصل بنا",
+    "description": "تواصل مع فريقنا لمناقشة متطلباتك في الإلكترونيات الدفاعية",
+    "contactInformation": "معلومات الاتصال",
+    "headquarters": "المقر الرئيسي",
+    "address": "رقم 260، القسم 6، طريق مينزو منطقة تشونغلي، مدينة تاويان 320، تايوان (جمهورية الصين)",
+    "email": "البريد الإلكتروني",
+    "businessHours": "ساعات العمل",
+    "mondayFriday": "الاثنين - الجمعة",
+    "localTime": "الوقت المحلي",
+    "secureCommunications": "اتصالات آمنة",
+    "secureDescription": "للمشاريع الدفاعية الحساسة أو المصنفة، يُرجى استخدام قناة الاتصال الآمنة أو التواصل مع مدير الحساب المخصص لك.",
+    "requestSecureContact": "طلب اتصال آمن",
+    "sendUsMessage": "أرسل لنا رسالة",
+    "fullName": "الاسم الكامل *",
+    "company": "الشركة *",
+    "emailAddress": "عنوان البريد الإلكتروني *",
+    "phoneNumber": "رقم الهاتف",
+    "country": "الدولة *",
+    "inquiryType": "نوع الاستفسار *",
+    "productInformation": "معلومات المنتج",
+    "technicalSupport": "الدعم الفني",
+    "salesInquiry": "استفسار المبيعات",
+    "partnershipOpportunity": "فرصة شراكة",
+    "other": "أخرى",
+    "message": "الرسالة *",
+    "sendMessage": "إرسال الرسالة",
+    "otherWays": "طرق أخرى للتواصل",
+    "findPartner": "البحث عن شريك",
+    "findPartnerDescription": "تواصل مع موزعينا المعتمدين في منطقتك",
+    "viewPartners": "عرض الشركاء",
+    "technicalSupport2": "الدعم الفني",
+    "supportDescription": "يمكن للعملاء الحاليين الوصول إلى الوثائق الفنية",
+    "supportPortal": "بوابة الدعم",
+    "careerOpportunities": "فرص العمل",
+    "careerDescription": "انضم إلى فريق خبراء الإلكترونيات الدفاعية",
+    "viewCareers": "عرض الوظائف"
   }
 }

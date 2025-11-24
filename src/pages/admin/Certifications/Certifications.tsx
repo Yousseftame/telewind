@@ -84,7 +84,7 @@ export default function Certifications() {
       ),
   },
   {
-    key: "id" as keyof Certification,  // Use any valid key, we ignore the value anyway
+    key: "title" as keyof Certification,  // Use any valid key, we ignore the value anyway
     label: "Title",
     render: (_, cert) => {  // Use second param (cert)
       try {

@@ -71,7 +71,9 @@
       "caseStudies": "案例研究",
       "events": "活動與媒體",
       "partners": "合作夥伴",
-      "contact": "聯絡我們"
+      "contact": "聯絡我們",
+       "address": "桃園市中壢區民族路六段260號 320 臺灣 (中華民國)"
+
     },
     "certificationsTitle": "認證",
     "copyright": "TeleWind Electronics. 版權所有。",
@@ -101,6 +103,11 @@
     "consultationDescription": "我們的技術團隊可以幫助識別針對您特定產業挑戰的最佳解決方案",
     "scheduleConsultation": "安排諮詢"
   },
+  "industryConsultation": {
+    "title": "討論您的產業需求",
+    "description": "我們的技術團隊可協助找出最適合您產業挑戰的最佳解決方案",
+    "scheduleButton": "預約諮詢"
+  },
   "eventsMedia": {
     "title": "活動與媒體",
     "description": "隨時了解 TeleWind 最新的活動、新聞與產業洞察",
@@ -110,5 +117,62 @@
     "mediaInquiries": "媒體諮詢",
     "mediaDescription": "有關新聞稿、採訪或媒體資訊，請聯絡通訊團隊",
     "contactMedia": "聯絡媒體關係"
+  },
+  "partnersDistributors": {
+    "title": "合作夥伴與分銷商",
+    "description": "我們全球的授權合作夥伴網絡在全球範圍內提供 TeleWind 解決方案",
+    "contactPerson": "聯絡人",
+    "productFocus": "產品重點",
+    "visitWebsite": "訪問網站",
+    "becomePartner": "成為 TeleWind 合作夥伴",
+    "becomePartnerDescription": "加入我們全球授權分銷商和技術合作夥伴網絡。我們正在尋找具有國防電子專業知識和強大區域影響力的合格組織。",
+    "marketAccess": "市場准入",
+    "exclusiveRights": "專屬區域權利",
+    "technicalSupport": "技術支援",
+    "trainingResources": "完整培訓與資源",
+    "salesSupport": "銷售支援",
+    "coMarketing": "聯合行銷與潛在客戶開發",
+    "partnerForm": "合作夥伴申請表",
+    "connectLocalPartner": "聯絡本地合作夥伴",
+    "localSupportDescription": "我們的合作夥伴可提供本地支援、產品示範與客製化解決方案",
+    "contactReferral": "聯絡我們以取得合作夥伴推薦"
+  },
+  "contactUs": {
+    "title": "聯絡我們",
+    "description": "與我們的團隊聯繫，討論您的國防電子需求",
+    "contactInformation": "聯絡資訊",
+    "headquarters": "總部",
+    "address": "桃園市中壢區民族路六段260號 320 臺灣 (中華民國)",
+    "email": "電子郵件",
+    "businessHours": "營業時間",
+    "mondayFriday": "星期一 - 星期五",
+    "localTime": "當地時間",
+    "secureCommunications": "安全通訊",
+    "secureDescription": "針對涉密或敏感的國防專案，請使用我們的安全通訊管道或聯絡您的專屬客戶經理。",
+    "requestSecureContact": "請求安全聯絡",
+    "sendUsMessage": "傳送訊息給我們",
+    "fullName": "姓名 *",
+    "company": "公司 *",
+    "emailAddress": "電子郵件地址 *",
+    "phoneNumber": "電話號碼",
+    "country": "國家 *",
+    "inquiryType": "詢問類型 *",
+    "productInformation": "產品資訊",
+    "technicalSupport": "技術支援",
+    "salesInquiry": "銷售詢問",
+    "partnershipOpportunity": "合作機會",
+    "other": "其他",
+    "message": "訊息內容 *",
+    "sendMessage": "傳送訊息",
+    "otherWays": "其他聯絡方式",
+    "findPartner": "尋找合作夥伴",
+    "findPartnerDescription": "與您所在地區的授權分銷商聯繫",
+    "viewPartners": "查看合作夥伴",
+    "technicalSupport2": "技術支援",
+    "supportDescription": "現有客戶可存取技術文件",
+    "supportPortal": "支援入口",
+    "careerOpportunities": "職涯機會",
+    "careerDescription": "加入我們的國防電子專家團隊",
+    "viewCareers": "查看職缺"
   }
 }

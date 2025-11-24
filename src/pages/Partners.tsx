@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Globe, Mail, Phone, ExternalLink, MapPin } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 
 const regions = ["All Regions", "Americas", "Europe", "Middle East", "Asia-Pacific", "Africa"];
 
@@ -96,9 +97,9 @@ export default function Partners() {
       {/* Header */}
       <section className="bg-primary text-primary-foreground py-20">
         <div className="container mx-auto px-4">
-          <h1 className="font-heading text-5xl font-bold mb-4 pt-5">Partners & Distributors</h1>
+          <h1 className="font-heading text-5xl font-bold mb-4 pt-5">{t(`partnersDistributors.title`)}</h1>
           <p className="text-lg text-primary-foreground/90 max-w-2xl">
-            Our global network of authorized partners delivers TeleWind solutions worldwide
+           {t(`partnersDistributors.description`)}
           </p>
         </div>
       </section>
@@ -145,7 +146,7 @@ export default function Partners() {
                   <div className="space-y-3 mb-4 pb-4 border-b border-border">
                     <div>
                       <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-1">
-                        Contact Person
+                        {t(`partnersDistributors.contactPerson`)}
                       </p>
                       <p className="text-sm font-medium">{partner.contact}</p>
                     </div>
@@ -180,7 +181,7 @@ export default function Partners() {
                   {/* Product Focus */}
                   <div>
                     <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">
-                      Product Focus
+                     {t(`partnersDistributors.productFocus`)}
                     </p>
                     <div className="flex flex-wrap gap-2">
                       {partner.focus.map((item, idx) => (
@@ -193,7 +194,7 @@ export default function Partners() {
 
                   <Button variant="outline" size="sm" className="w-full mt-4" onClick={() => window.open(partner.website, "_blank")}>
                     <ExternalLink className="w-4 h-4 mr-2" />
-                    Visit Website
+                    {t(`partnersDistributors.visitWebsite`)}
                   </Button>
                 </CardContent>
               </Card>
@@ -212,34 +213,35 @@ export default function Partners() {
       <section className="py-16 bg-muted">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center">
-            <h2 className="font-heading text-3xl font-bold mb-4">Become a TeleWind Partner</h2>
+            <h2 className="font-heading text-3xl font-bold mb-4">{t(`partnersDistributors.becomePartner`)}</h2>
             <p className="text-muted-foreground mb-8">
-              Join our global network of authorized distributors and technology partners. We're looking for qualified organizations with expertise in defense electronics and strong regional presence.
+               {t(`partnersDistributors.becomePartnerDescription`)}
             </p>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
               <Card>
                 <CardContent className="p-6 text-center">
-                  <h4 className="font-heading font-bold mb-2">Market Access</h4>
-                  <p className="text-sm text-muted-foreground">Exclusive territorial rights</p>
+                  <h4 className="font-heading font-bold mb-2">{t(`partnersDistributors.marketAccess`)}</h4>
+                  <p className="text-sm text-muted-foreground">{t(`partnersDistributors.exclusiveRights`)}</p>
                 </CardContent>
               </Card>
               <Card>
                 <CardContent className="p-6 text-center">
-                  <h4 className="font-heading font-bold mb-2">Technical Support</h4>
-                  <p className="text-sm text-muted-foreground">Comprehensive training & resources</p>
+                  <h4 className="font-heading font-bold mb-2">{t(`partnersDistributors.technicalSupport`)}</h4>
+                  <p className="text-sm text-muted-foreground">{t(`partnersDistributors.trainingResources`)}</p>
                 </CardContent>
               </Card>
               <Card>
                 <CardContent className="p-6 text-center">
-                  <h4 className="font-heading font-bold mb-2">Sales Support</h4>
-                  <p className="text-sm text-muted-foreground">Co-marketing & lead generation</p>
+                  <h4 className="font-heading font-bold mb-2">{t(`partnersDistributors.salesSupport`)}</h4>
+                  <p className="text-sm text-muted-foreground">{t(`partnersDistributors.coMarketing`)}</p>
                 </CardContent>
               </Card>
             </div>
 
             <Button variant="default" size="lg">
-              Partner Application Form
+              
+               <Link to="/contact"> {t(`partnersDistributors.partnerForm`)}</Link>
             </Button>
           </div>
         </div>
@@ -248,12 +250,13 @@ export default function Partners() {
       {/* CTA */}
       <section className="py-16 bg-primary text-primary-foreground">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="font-heading text-4xl font-bold mb-4">Connect with a Local Partner</h2>
+          <h2 className="font-heading text-4xl font-bold mb-4">{t(`partnersDistributors.connectLocalPartner`)}</h2>
           <p className="text-lg text-primary-foreground/90 mb-8 max-w-2xl mx-auto">
-            Our partners can provide local support, product demonstrations, and customized solutions
+            {t(`partnersDistributors.localSupportDescription`)}
           </p>
           <Button variant="hero" size="lg">
-            Contact Us for Partner Referral
+             <Link to="/contact"> {t(`partnersDistributors.contactReferral`)}</Link>
+            
           </Button>
         </div>
       </section>

@@ -3,6 +3,8 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Calendar, MapPin, ExternalLink, FileText, Download } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
+
 
 
 const upcomingEvents = [
@@ -224,7 +226,8 @@ export default function Events() {
            {t(`eventsMedia.mediaDescription`)}
           </p>
           <Button variant="hero" size="lg">
-            {t(`eventsMedia.contactMedia`)}
+            
+            <Link to="/contact"> {t(`eventsMedia.contactMedia`)}</Link>
           </Button>
         </div>
       </section>

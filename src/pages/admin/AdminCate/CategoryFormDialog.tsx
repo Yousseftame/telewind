@@ -28,7 +28,7 @@ interface CategoryFormData {
   translations: {
     en: { title: string; description: string };
     ar: { title: string; description: string };
-    fr: { title: string; description: string };
+    tw: { title: string; description: string };
   };
 }
 
@@ -65,14 +65,14 @@ export default function CategoryFormDialog({
       return {
         en: { title: "", description: "" },
         ar: { title: "", description: "" },
-        fr: { title: "", description: "" },
+        tw: { title: "", description: "" },
       };
     }
 
     const translations = {
       en: { title: "", description: "" },
       ar: { title: "", description: "" },
-      fr: { title: "", description: "" },
+      tw: { title: "", description: "" },
     };
 
     category.translations.forEach((t) => {
@@ -172,7 +172,7 @@ export default function CategoryFormDialog({
               <TabsList className="grid w-full grid-cols-3">
                 <TabsTrigger value="en">English</TabsTrigger>
                 <TabsTrigger value="ar">العربية</TabsTrigger>
-                <TabsTrigger value="fr">Français</TabsTrigger>
+                <TabsTrigger value="tw">Taiwan</TabsTrigger>
               </TabsList>
 
               {/* English Tab */}
@@ -265,45 +265,45 @@ export default function CategoryFormDialog({
                 </div>
               </TabsContent>
 
-              {/* French Tab */}
-              <TabsContent value="fr" className="space-y-4">
+              {/* Taiwan Tab */}
+              <TabsContent value="tw" className="space-y-4">
                 <div className="space-y-2">
-                  <Label htmlFor="translations.fr.title">Title (FR) *</Label>
+                  <Label htmlFor="translations.tw.title">Title (TW) *</Label>
                   <Input
-                    id="translations.fr.title"
-                    {...register("translations.fr.title", {
-                      required: "French title is required",
+                    id="translations.tw.title"
+                    {...register("translations.tw.title", {
+                      required: "Taiwan title is required",
                       maxLength: {
                         value: 100,
                         message: "Title must be less than 100 characters",
                       },
                     })}
-                    placeholder="Titre de la catégorie en français"
+                    placeholder="台灣類別標題"
                   />
-                  {errors.translations?.fr?.title && (
+                  {errors.translations?.tw?.title && (
                     <p className="text-sm text-destructive">
-                      {errors.translations.fr.title.message}
+                      {errors.translations.tw.title.message}
                     </p>
                   )}
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="translations.fr.description">Description (FR) *</Label>
+                  <Label htmlFor="translations.tw.description">Description (TW) *</Label>
                   <Textarea
-                    id="translations.fr.description"
-                    {...register("translations.fr.description", {
-                      required: "French description is required",
+                    id="translations.tw.description"
+                    {...register("translations.tw.description", {
+                      required: "Taiwan description is required",
                       maxLength: {
                         value: 500,
                         message: "Description must be less than 500 characters",
                       },
                     })}
-                    placeholder="Description de la catégorie en français"
+                    placeholder="台灣類別描述"
                     rows={4}
                   />
-                  {errors.translations?.fr?.description && (
+                  {errors.translations?.tw?.description && (
                     <p className="text-sm text-destructive">
-                      {errors.translations.fr.description.message}
+                      {errors.translations.tw.description.message}
                     </p>
                   )}
                 </div>
