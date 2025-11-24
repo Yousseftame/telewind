@@ -73,7 +73,7 @@ export default function AdminPartner() {
  // Get translation for selected language
 const getPartnerTranslation = (partner: Partner) => {
   const translation = getTranslation(partner, selectedLanguage);
-  console.log('Selected Language:', selectedLanguage, 'Translation:', translation); // 👈 ADD THIS
+  // console.log('Selected Language:', selectedLanguage, 'Translation:', translation); // 👈 ADD THIS
   return translation;
 };
 
