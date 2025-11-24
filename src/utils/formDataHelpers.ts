@@ -202,6 +202,55 @@ export function buildIndustryFormData(
 }
 
 /**
+ * Helper to build FormData for Product
+ */
+export function buildProductFormData(
+  data: any,
+  languages: string[] = ["en", "ar", "tw", "ch"]
+): FormData {
+  const formData = new FormData();
+
+  // Handle category_id
+  if (data.category_id) {
+    formData.append("category_id", data.category_id.toString());
+  }
+
+  // Handle supported bands
+  if (Array.isArray(data.supported_bands)) {
+    data.supported_bands.forEach((band: string, index: number) => {
+      formData.append(`supported_bands[${index}]`, band);
+    });
+  }
+
+  // Handle translations
+  languages.forEach((lang, index) => {
+    const trans = data.translations?.[lang];
+    if (trans) {
+      formData.append(`translations[${index}][locale]`, lang);
+      formData.append(`translations[${index}][title]`, trans.title || "");
+      formData.append(`translations[${index}][description]`, trans.description || "");
+
+      // Handle key_features[]
+      if (Array.isArray(trans.key_features)) {
+        trans.key_features.forEach((feat: string, featIndex: number) => {
+          formData.append(
+            `translations[${index}][key_features][${featIndex}]`,
+            feat
+          );
+        });
+      }
+    }
+  });
+
+  // Handle image (only if it's a File)
+  if (data.image instanceof File) {
+    formData.append("image", data.image);
+  }
+
+  return formData;
+}
+
+/**
  * Helper to extract translation for a specific language
  */
 export function getTranslation<T extends { translations?: Array<{ locale: string; [key: string]: any }> }>(

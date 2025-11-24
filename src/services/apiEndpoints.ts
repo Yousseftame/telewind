@@ -45,6 +45,14 @@ export const PARTNER_URLS = {
   UPDATE_PARTNER: (id: number) => `/admin/partners/${id}`,
 };
 
+export const PRODUCT_URLS = {
+  GET_ALL_PRODUCT: "/admin/products",
+  GET_PRODUCT: (id: number) => `/admin/products/${id}`,
+  DELETE_PRODUCT: (id: number) => `/admin/products/${id}`,
+  CREATE_PRODUCT: "/admin/products",
+  UPDATE_PRODUCT: (id: number) => `/admin/products/${id}`,
+};
+
 export const INDUSTRY_URLS = {
   GET_ALL_INDUSTRY: "/admin/industries",
   GET_INDUSTRY: (id: number) => `/admin/industries/${id}`,
