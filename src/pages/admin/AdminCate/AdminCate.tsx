@@ -210,7 +210,7 @@ export default function AdminCate() {
               value="ch"
               className="rounded-lg px-4 py-2 text-sm font-medium data-[state=active]:bg-white data-[state=active]:text-indigo-600 data-[state=active]:shadow-sm"
             >
-              ch Chinese
+              CH Chinese
             </TabsTrigger>
           </TabsList>
         </Tabs>
