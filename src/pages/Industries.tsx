@@ -187,12 +187,12 @@ export default function Industries() {
       {/* CTA Section */}
       <section className="py-16 bg-primary text-primary-foreground">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="font-heading text-4xl font-bold mb-4">Discuss Your Industry Requirements</h2>
+          <h2 className="font-heading text-4xl font-bold mb-4">{t(`industryConsultation.title`)}</h2>
           <p className="text-lg text-primary-foreground/90 mb-8 max-w-2xl mx-auto">
-            Our technical team can help identify the optimal solutions for your specific industry challenges
+           {t(`industryConsultation.description`)}
           </p>
           <Button variant="hero" size="lg" asChild>
-            <Link to="/contact">Schedule a Consultation</Link>
+            <Link to="/contact">{t(`industryConsultation.scheduleButton`)}</Link>
           </Button>
         </div>
       </section>

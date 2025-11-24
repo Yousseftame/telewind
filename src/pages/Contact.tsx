@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -7,9 +7,15 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Mail, Phone, MapPin, Clock, Shield } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { useTranslation } from "react-i18next";
+import { Link, useSearchParams } from "react-router-dom";
+
 
 export default function Contact() {
+  const { t } = useTranslation();
   const { toast } = useToast();
+  const [searchParams] = useSearchParams();
+
   const [formData, setFormData] = useState({
     name: "",
     company: "",
@@ -37,14 +43,47 @@ export default function Contact() {
     });
   };
 
+  useEffect(() => {
+    const inquiryFromUrl = searchParams.get("inquiry");
+    if (inquiryFromUrl) {
+      setFormData((prev) => ({
+        ...prev,
+        inquiryType: inquiryFromUrl,
+      }));
+
+      // scroll to the form
+      const formSection = document.getElementById("contact-form");
+      if (formSection) {
+        setTimeout(() => {
+          formSection.scrollIntoView({ behavior: "smooth" });
+        }, 200);
+      }
+    }
+  }, [searchParams]);
+
+const handleQuickLinkSelect = (type: string) => {
+  setFormData((prev) => ({
+    ...prev,
+    inquiryType: type,
+  }));
+
+  // smooth scroll to form
+  const formSection = document.getElementById("contact-form");
+  if (formSection) {
+    setTimeout(() => {
+      formSection.scrollIntoView({ behavior: "smooth" });
+    }, 100);
+  }
+};
+
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
       <section className="bg-primary text-primary-foreground py-20">
         <div className="container mx-auto px-4">
-          <h1 className="font-heading text-5xl font-bold mb-4 pt-5">Contact Us</h1>
+          <h1 className="font-heading text-5xl font-bold mb-4 pt-5">{t(`contactUs.title`)}</h1>
           <p className="text-lg text-primary-foreground/90 max-w-2xl">
-            Get in touch with our team to discuss your defense electronics requirements
+            {t(`contactUs.description`)}
           </p>
         </div>
       </section>
@@ -56,15 +95,15 @@ export default function Contact() {
             <div className="lg:col-span-1">
               <Card className="mb-6">
                 <CardContent className="p-6">
-                  <h3 className="font-heading text-xl font-bold mb-6">Contact Information</h3>
+                  <h3 className="font-heading text-xl font-bold mb-6">{t(`contactUs.contactInformation`)}</h3>
 
                   <div className="space-y-4">
                     <div className="flex items-start gap-3">
                       <MapPin className="w-5 h-5 text-accent mt-1 flex-shrink-0" />
                       <div>
-                        <p className="font-semibold text-sm mb-1">Headquarters</p>
+                        <p className="font-semibold text-sm mb-1">{t(`contactUs.headquarters`)}</p>
                         <p className="text-sm text-muted-foreground">
-                         No. 260, Sec. 6, Minzu Rd. <br /> Zhongli Dist., Taoyuan City 320,<br />TAIWAN ( R.O.C ) 
+                          {t(`contactUs.address`)}
                         </p>
                       </div>
                     </div>
@@ -72,7 +111,7 @@ export default function Contact() {
                     <div className="flex items-start gap-3">
                       <Mail className="w-5 h-5 text-accent mt-1 flex-shrink-0" />
                       <div>
-                        <p className="font-semibold text-sm mb-1">Email</p>
+                        <p className="font-semibold text-sm mb-1">{t(`contactUs.email`)}</p>
                         <a href="mailto:info@telewind.org" className="text-sm text-accent hover:underline">
                           info@telewind.com.tw
                         </a>
@@ -92,10 +131,10 @@ export default function Contact() {
                     <div className="flex items-start gap-3">
                       <Clock className="w-5 h-5 text-accent mt-1 flex-shrink-0" />
                       <div>
-                        <p className="font-semibold text-sm mb-1">Business Hours</p>
+                        <p className="font-semibold text-sm mb-1">{t(`contactUs.businessHours`)}</p>
                         <p className="text-sm text-muted-foreground">
-                          Monday - Friday<br />
-                          8:00 AM - 6:00 PM (Local Time)
+                          {t(`contactUs.mondayFriday`)}<br />
+                          8:00 AM - 6:00 PM ({t(`contactUs.localTime`)})
                         </p>
                       </div>
                     </div>
@@ -106,12 +145,12 @@ export default function Contact() {
               <Card className="bg-accent/5 border-accent">
                 <CardContent className="p-6">
                   <Shield className="w-10 h-10 text-accent mb-3" />
-                  <h4 className="font-heading font-bold mb-2">Secure Communications</h4>
+                  <h4 className="font-heading font-bold mb-2">{t(`contactUs.secureCommunications`)}</h4>
                   <p className="text-sm text-muted-foreground mb-3">
-                    For classified or sensitive defense projects, please use our secure communication channel or contact your designated account manager.
+                    {t(`contactUs.secureDescription`)}
                   </p>
                   <Button variant="outline" size="sm" className="w-full">
-                    Request Secure Contact
+                    {t(`contactUs.requestSecureContact`)}
                   </Button>
                 </CardContent>
               </Card>
@@ -119,14 +158,14 @@ export default function Contact() {
 
             {/* Contact Form */}
             <div className="lg:col-span-2">
-              <Card>
+              <Card id="contact-form">
                 <CardContent className="p-8">
-                  <h3 className="font-heading text-2xl font-bold mb-6">Send Us a Message</h3>
+                  <h3 className="font-heading text-2xl font-bold mb-6">{t(`contactUs.sendUsMessage`)}</h3>
 
                   <form onSubmit={handleSubmit} className="space-y-6">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div className="space-y-2">
-                        <Label htmlFor="name">Full Name *</Label>
+                        <Label htmlFor="name">{t(`contactUs.fullName`)}</Label>
                         <Input
                           id="name"
                           required
@@ -137,7 +176,7 @@ export default function Contact() {
                       </div>
 
                       <div className="space-y-2">
-                        <Label htmlFor="company">Company *</Label>
+                        <Label htmlFor="company">{t(`contactUs.company`)}</Label>
                         <Input
                           id="company"
                           required
@@ -150,7 +189,7 @@ export default function Contact() {
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div className="space-y-2">
-                        <Label htmlFor="email">Email Address *</Label>
+                        <Label htmlFor="email">{t(`contactUs.emailAddress`)}</Label>
                         <Input
                           id="email"
                           type="email"
@@ -162,7 +201,7 @@ export default function Contact() {
                       </div>
 
                       <div className="space-y-2">
-                        <Label htmlFor="phone">Phone Number</Label>
+                        <Label htmlFor="phone">{t(`contactUs.phoneNumber`)}</Label>
                         <Input
                           id="phone"
                           type="tel"
@@ -175,7 +214,7 @@ export default function Contact() {
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div className="space-y-2">
-                        <Label htmlFor="country">Country *</Label>
+                        <Label htmlFor="country">{t(`contactUs.country`)}</Label>
                         <Input
                           id="country"
                           required
@@ -186,7 +225,7 @@ export default function Contact() {
                       </div>
 
                       <div className="space-y-2">
-                        <Label htmlFor="inquiryType">Inquiry Type *</Label>
+                        <Label htmlFor="inquiryType">{t(`contactUs.inquiryType`)}</Label>
                         <Select
                           value={formData.inquiryType}
                           onValueChange={(value) => setFormData({ ...formData, inquiryType: value })}
@@ -196,18 +235,18 @@ export default function Contact() {
                             <SelectValue placeholder="Select inquiry type" />
                           </SelectTrigger>
                           <SelectContent>
-                            <SelectItem value="product">Product Information</SelectItem>
-                            <SelectItem value="technical">Technical Support</SelectItem>
-                            <SelectItem value="sales">Sales Inquiry</SelectItem>
-                            <SelectItem value="partnership">Partnership Opportunity</SelectItem>
-                            <SelectItem value="other">Other</SelectItem>
+                            <SelectItem value="product">{t(`contactUs.productInformation`)}</SelectItem>
+                            <SelectItem value="technical">{t(`contactUs.technicalSupport`)}</SelectItem>
+                            <SelectItem value="sales">{t(`contactUs.salesInquiry`)}</SelectItem>
+                            <SelectItem value="partnership">{t(`contactUs.partnershipOpportunity`)}</SelectItem>
+                            <SelectItem value="other">{t(`contactUs.other`)}</SelectItem>
                           </SelectContent>
                         </Select>
                       </div>
                     </div>
 
                     <div className="space-y-2">
-                      <Label htmlFor="message">Message *</Label>
+                      <Label htmlFor="message">{t(`contactUs.message`)}</Label>
                       <Textarea
                         id="message"
                         required
@@ -219,7 +258,7 @@ export default function Contact() {
                     </div>
 
                     <Button type="submit" size="lg" className="w-full md:w-auto">
-                      Send Message
+                      {t(`contactUs.sendMessage`)}
                     </Button>
                   </form>
                 </CardContent>
@@ -232,42 +271,53 @@ export default function Contact() {
       {/* Quick Links */}
       <section className="py-16 bg-muted">
         <div className="container mx-auto px-4">
-          <h2 className="font-heading text-3xl font-bold text-center mb-8">Other Ways to Connect</h2>
+          <h2 className="font-heading text-3xl font-bold text-center mb-8">{t(`contactUs.otherWays`)}</h2>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <Card className="hover:shadow-lg transition-shadow">
               <CardContent className="p-6 text-center">
-                <h4 className="font-heading font-bold mb-2">Find a Partner</h4>
+                <h4 className="font-heading font-bold mb-2">{t(`contactUs.findPartner`)}</h4>
                 <p className="text-sm text-muted-foreground mb-4">
-                  Connect with our authorized distributors in your region
+                  {t(`contactUs.findPartnerDescription`)}
                 </p>
                 <Button variant="outline" size="sm">
-                  View Partners
+                 <Link to="/partners">  {t(`contactUs.viewPartners`)}</Link>
                 </Button>
               </CardContent>
             </Card>
 
             <Card className="hover:shadow-lg transition-shadow">
               <CardContent className="p-6 text-center">
-                <h4 className="font-heading font-bold mb-2">Technical Support</h4>
+                <h4 className="font-heading font-bold mb-2">{t(`contactUs.technicalSupport2`)}</h4>
                 <p className="text-sm text-muted-foreground mb-4">
-                  Existing customers can access technical documentation
+                  {t(`contactUs.supportDescription`)}
                 </p>
-                <Button variant="outline" size="sm">
-                  Support Portal
-                </Button>
+                <Button
+  variant="outline"
+  size="sm"
+  onClick={() => handleQuickLinkSelect("technical")}
+>
+  {t(`contactUs.supportPortal`)}
+</Button>
+
               </CardContent>
             </Card>
 
             <Card className="hover:shadow-lg transition-shadow">
               <CardContent className="p-6 text-center">
-                <h4 className="font-heading font-bold mb-2">Career Opportunities</h4>
+                <h4 className="font-heading font-bold mb-2"> {t(`contactUs.careerOpportunities`)}</h4>
                 <p className="text-sm text-muted-foreground mb-4">
-                  Join our team of defense electronics experts
+                  {t(`contactUs.careerDescription`)}
                 </p>
-                <Button variant="outline" size="sm">
-                  View Careers
-                </Button>
+                <Button
+  variant="outline"
+  size="sm"
+  onClick={() => handleQuickLinkSelect("partnership")}
+>
+  {t(`contactUs.viewCareers`)}
+</Button>
+
+
               </CardContent>
             </Card>
           </div>

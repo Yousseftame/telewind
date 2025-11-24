@@ -1,7 +1,7 @@
 import { useState, useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Plus, Eye, ChevronRight, ChevronLeft, Search, Layers } from "lucide-react";
+import { Plus, Eye, ChevronRight, ChevronLeft, Search, Layers, ChartColumnStacked } from "lucide-react";
 import {
   DataTable,
   Column,
@@ -15,7 +15,7 @@ import CategoryFormDialog from "./CategoryFormDialog";
 import CategoryViewDialog from "./CategoryViewDialog";
 import { useCategoryCRUD } from "./useCategoryCRUD";
 
-type Language = "en" | "ar" | "fr";
+type Language = "en" | "ar" | "tw";
 
 export default function AdminCate() {
   const [selectedLanguage, setSelectedLanguage] = useState<Language>("en");
@@ -79,7 +79,7 @@ export default function AdminCate() {
     return [...categories].sort((a, b) => b.id - a.id);
   }, [categories]);
 
-  console.log(categories)
+  // console.log(categories)
   // Table columns
   const columns: Column<Category>[] = [
     {
@@ -152,7 +152,7 @@ export default function AdminCate() {
         <div className="space-y-1">
           <div className="flex items-center gap-3">
             <div className="p-2.5 bg-indigo-100 rounded-xl">
-              <Layers className="h-6 w-6 text-indigo-600" />
+              <ChartColumnStacked className="h-6 w-6 text-indigo-600" />
             </div>
             <h1 className="text-2xl md:text-3xl font-bold text-slate-800">
               Categories
@@ -200,7 +200,7 @@ export default function AdminCate() {
               🇸🇦 العربية
             </TabsTrigger>
             <TabsTrigger 
-              value="fr"
+              value="tw"
               className="rounded-lg px-4 py-2 text-sm font-medium data-[state=active]:bg-white data-[state=active]:text-indigo-600 data-[state=active]:shadow-sm"
             >
               🇹🇼 Taiwan

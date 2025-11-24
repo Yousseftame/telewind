@@ -27,7 +27,7 @@ export default function Footer() {
               </div> */}
               <div className="flex items-center gap-2">
                 <MapPin size={16} />
-                <span>No. 260, Sec. 6, Minzu Rd., Zhongli Dist., Taoyuan City 320,TAIWAN ( R.O.C ) </span>
+                <span> {t(`footer.links.address`)}</span>
               </div>
             </div>
           </div>

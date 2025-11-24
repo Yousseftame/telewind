@@ -52,3 +52,11 @@ export const PRODUCT_URLS = {
   CREATE_PRODUCT: "/admin/products",
   UPDATE_PRODUCT: (id: number) => `/admin/products/${id}`,
 };
+
+export const INDUSTRY_URLS = {
+  GET_ALL_INDUSTRY: "/admin/industries",
+  GET_INDUSTRY: (id: number) => `/admin/industries/${id}`,
+  DELETE_INDUSTRY: (id: number) => `/admin/industries/${id}`,
+  CREATE_INDUSTRY: "/admin/industries",
+  UPDATE_INDUSTRY: (id: number) => `/admin/industries/${id}`,
+};

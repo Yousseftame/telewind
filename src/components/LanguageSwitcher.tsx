@@ -1,3 +1,5 @@
+// src/components/LanguageSwitcher.tsx
+
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Globe, Check } from "lucide-react";
@@ -8,10 +10,11 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 const languages = [
-  { code: "en", name: "English", flag: "" },
-  { code: "ar", name: "العربية", flag: "", dir: "rtl" },
+  { code: "en", name: "English", flag: "🇬🇧" },
+  { code: "ar", name: "العربية", flag: "🇸🇦", dir: "rtl" },
   { code: "zh-TW", name: "繁體中文", flag: "🇹🇼" },
   { code: "zh-CN", name: "简体中文", flag: "🇨🇳" },
 ];
@@ -39,29 +42,47 @@ export default function LanguageSwitcher() {
         <Button
           variant="ghost"
           size="sm"
-          className="gap-2 text-muted-foreground hover:text-primary"
+          className="gap-1.5"
         >
-          <Globe size={18} />
-          <span className="hidden md:inline">{currentLanguage.flag} {currentLanguage.name}</span>
-          <span className="md:hidden">{currentLanguage.flag}</span>
+          <Globe size={18} className="text-slate-600" />
+          <span className="hidden md:inline font-medium">
+            {currentLanguage.flag}{currentLanguage.name}
+          </span>
+          <span className="md:hidden text-lg">{currentLanguage.flag}</span>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="w-48">
-        {languages.map((language) => (
-          <DropdownMenuItem
-            key={language.code}
-            onClick={() => changeLanguage(language.code)}
-            className="flex items-center justify-between cursor-pointer"
-          >
-            <span className="flex items-center gap-2">
-              <span>{language.flag}</span>
-              <span>{language.name}</span>
-            </span>
-            {i18n.language === language.code && (
-              <Check size={16} className="text-primary" />
-            )}
-          </DropdownMenuItem>
-        ))}
+
+      <DropdownMenuContent align="end" className="w-52">
+        {languages.map((language) => {
+          const isActive = i18n.language === language.code;
+          
+          return (
+            <DropdownMenuItem
+              key={language.code}
+              onClick={() => changeLanguage(language.code)}
+              className={cn(
+                "flex items-center justify-between cursor-pointer px-3 py-2.5",
+                isActive && "bg-slate-50"
+              )}
+            >
+              <span className="flex items-center gap-2.5">
+                <span className="text-lg">{language.flag}</span>
+                <span className={cn(
+                  "font-medium",
+                  isActive && "text-slate-900"
+                )}>
+                  {language.name}
+                </span>
+              </span>
+              
+              {isActive && (
+                <div className="flex-shrink-0 w-5 h-5 rounded-full bg-indigo-600 flex items-center justify-center">
+                  <Check size={12} className="text-white" />
+                </div>
+              )}
+            </DropdownMenuItem>
+          );
+        })}
       </DropdownMenuContent>
     </DropdownMenu>
   );

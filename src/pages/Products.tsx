@@ -185,7 +185,7 @@ export default function Products() {
 
                   {/* Features */}
                   <div className="mb-4">
-                    <p className="text-xs font-semibold text-muted-foreground mb-2 uppercase tracking-wide">Key Features</p>
+                    <p className="text-xs font-semibold text-muted-foreground mb-2 uppercase tracking-wide">{t(`productsSection.keyFeature`)}</p>
                     <ul className="space-y-1">
                       {product.features.map((feature, idx) => (
                         <li key={idx} className="text-sm flex items-start">
@@ -211,7 +211,7 @@ export default function Products() {
                             () => navigate(`/products/${product.id}`)
                             // // console.log(task.id)
                           }>
-                      View Details 
+                      {t(`productsSection.viewDetails`)}
                     </Button>
                     <Button variant="outline" size="sm"  onClick={() => generateProductPDF(product)}>
                       <Download className="w-4 h-4" />

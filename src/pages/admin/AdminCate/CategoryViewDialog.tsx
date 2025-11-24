@@ -52,7 +52,7 @@ export default function CategoryViewDialog({
 
   const enTranslation = getTranslation("en");
   const arTranslation = getTranslation("ar");
-  const frTranslation = getTranslation("fr");
+  const twTranslation = getTranslation("tw");
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -130,10 +130,10 @@ export default function CategoryViewDialog({
               <TabsContent value="fr" className="space-y-4 pt-4">
                 <div>
                   <h4 className="text-xl font-bold text-foreground mb-2">
-                   標題 :  {frTranslation.title}
+                   標題 :  {twTranslation.title}
                   </h4>
                   <p className="text-muted-foreground leading-relaxed">
-                  描述 :  {frTranslation.description}
+                  描述 :  {twTranslation.description}
                   </p>
                 </div>
               </TabsContent>
