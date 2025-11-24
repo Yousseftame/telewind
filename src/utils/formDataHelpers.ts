@@ -252,6 +252,38 @@ export function buildProductFormData(
   return formData;
 }
 
+// Add this function to src/utils/formDataHelpers.ts
+
+/**
+ * Helper to build FormData for Partner Logo
+ * Fields: partner_id, display_order, status, logo (File)
+ */
+export function buildLogoFormData(data: any): FormData {
+  const formData = new FormData();
+
+  // Handle partner_id
+  if (data.partner_id !== undefined) {
+    formData.append("partner_id", data.partner_id.toString());
+  }
+
+  // Handle display_order
+  if (data.display_order !== undefined) {
+    formData.append("display_order", data.display_order.toString());
+  }
+
+  // Handle status (1 = active, 0 = inactive)
+  if (data.status !== undefined) {
+    formData.append("status", data.status.toString());
+  }
+
+  // Handle logo image (only if it's a File)
+  if (data.logo instanceof File) {
+    formData.append("logo", data.logo);
+  }
+
+  return formData;
+}
+
 /**
  * Helper to extract translation for a specific language
  */

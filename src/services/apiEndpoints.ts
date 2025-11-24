@@ -71,3 +71,11 @@ export const SITE_URLS = {
   ANNOUNCEMENTS: "/site/announcements",
   PARTNERS: "/site/partners",
 };
+
+export const LOGO_URLS = {
+  GET_ALL_LOGO: "/admin/partners-logos",
+  GET_LOGO: (id: number) => `/admin/partners-logos/${id}`,
+  DELETE_LOGO: (id: number) => `/admin/partners-logos/${id}`,
+  CREATE_LOGO: "/admin/partners-logos",
+  UPDATE_LOGO: (id: number) => `/admin/partners-logos/${id}`,
+};
