@@ -29,6 +29,7 @@ interface CategoryFormData {
     en: { title: string; description: string };
     ar: { title: string; description: string };
     tw: { title: string; description: string };
+    ch: { title: string; description: string };
   };
 }
 
@@ -66,6 +67,7 @@ export default function CategoryFormDialog({
         en: { title: "", description: "" },
         ar: { title: "", description: "" },
         tw: { title: "", description: "" },
+        ch: { title: "", description: "" },
       };
     }
 
@@ -73,6 +75,7 @@ export default function CategoryFormDialog({
       en: { title: "", description: "" },
       ar: { title: "", description: "" },
       tw: { title: "", description: "" },
+      ch: { title: "", description: "" },
     };
 
     category.translations.forEach((t) => {
@@ -101,7 +104,7 @@ export default function CategoryFormDialog({
       reset({
         translations: getDefaultTranslations(),
       });
-      
+
       setImageFile(null);
       setIconFile(null);
       setImageRemoved(false);
@@ -141,7 +144,9 @@ export default function CategoryFormDialog({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle>{isEditMode ? "Edit Category" : "Add Category"}</DialogTitle>
+          <DialogTitle>
+            {isEditMode ? "Edit Category" : "Add Category"}
+          </DialogTitle>
         </DialogHeader>
 
         <form onSubmit={handleSubmit(handleFormSubmit)} className="space-y-6">
@@ -150,9 +155,15 @@ export default function CategoryFormDialog({
             label="Category Image"
             id="image"
             onFileChange={handleImageChange}
-            error={!imageFile && !isEditMode && !category?.image ? "Image is required" : undefined}
+            error={
+              !imageFile && !isEditMode && !category?.image
+                ? "Image is required"
+                : undefined
+            }
             required={!isEditMode}
-            currentImage={isEditMode && !imageRemoved ? category?.image : undefined}
+            currentImage={
+              isEditMode && !imageRemoved ? category?.image : undefined
+            }
           />
 
           {/* Icon Upload */}
@@ -160,19 +171,26 @@ export default function CategoryFormDialog({
             label="Category Icon"
             id="icon"
             onFileChange={handleIconChange}
-            error={!iconFile && !isEditMode && !category?.icon ? "Icon is required" : undefined}
+            error={
+              !iconFile && !isEditMode && !category?.icon
+                ? "Icon is required"
+                : undefined
+            }
             required={!isEditMode}
-            currentImage={isEditMode && !iconRemoved ? category?.icon : undefined}
+            currentImage={
+              isEditMode && !iconRemoved ? category?.icon : undefined
+            }
           />
 
           {/* Language Tabs */}
           <div className="space-y-2">
             <Label>Translations *</Label>
             <Tabs defaultValue="en" className="w-full">
-              <TabsList className="grid w-full grid-cols-3">
+              <TabsList className="grid w-full grid-cols-2 md:grid-cols-4">
                 <TabsTrigger value="en">English</TabsTrigger>
                 <TabsTrigger value="ar">العربية</TabsTrigger>
                 <TabsTrigger value="tw">Taiwan</TabsTrigger>
+                <TabsTrigger value="ch">Chinese</TabsTrigger>
               </TabsList>
 
               {/* English Tab */}
@@ -198,7 +216,9 @@ export default function CategoryFormDialog({
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="translations.en.description">Description (EN) *</Label>
+                  <Label htmlFor="translations.en.description">
+                    Description (EN) *
+                  </Label>
                   <Textarea
                     id="translations.en.description"
                     {...register("translations.en.description", {
@@ -243,7 +263,9 @@ export default function CategoryFormDialog({
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="translations.ar.description">Description (AR) *</Label>
+                  <Label htmlFor="translations.ar.description">
+                    Description (AR) *
+                  </Label>
                   <Textarea
                     id="translations.ar.description"
                     {...register("translations.ar.description", {
@@ -288,7 +310,9 @@ export default function CategoryFormDialog({
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="translations.tw.description">Description (TW) *</Label>
+                  <Label htmlFor="translations.tw.description">
+                    Description (TW) *
+                  </Label>
                   <Textarea
                     id="translations.tw.description"
                     {...register("translations.tw.description", {
@@ -308,6 +332,52 @@ export default function CategoryFormDialog({
                   )}
                 </div>
               </TabsContent>
+
+              {/* Simplified / Chinese Tab */}
+              <TabsContent value="ch" className="space-y-4">
+                <div className="space-y-2">
+                  <Label htmlFor="translations.ch.title">Title (CH) *</Label>
+                  <Input
+                    id="translations.ch.title"
+                    {...register("translations.ch.title", {
+                      required: "Chinese title is required",
+                      maxLength: {
+                        value: 100,
+                        message: "Title must be less than 100 characters",
+                      },
+                    })}
+                    placeholder="中国类别标题"
+                  />
+                  {errors.translations?.ch?.title && (
+                    <p className="text-sm text-destructive">
+                      {errors.translations.ch.title.message}
+                    </p>
+                  )}
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="translations.ch.description">
+                    Description (CH) *
+                  </Label>
+                  <Textarea
+                    id="translations.ch.description"
+                    {...register("translations.ch.description", {
+                      required: "Chinese description is required",
+                      maxLength: {
+                        value: 500,
+                        message: "Description must be less than 500 characters",
+                      },
+                    })}
+                    placeholder="中国类别描述"
+                    rows={4}
+                  />
+                  {errors.translations?.ch?.description && (
+                    <p className="text-sm text-destructive">
+                      {errors.translations.ch.description.message}
+                    </p>
+                  )}
+                </div>
+              </TabsContent>
             </Tabs>
           </div>
 
@@ -322,7 +392,11 @@ export default function CategoryFormDialog({
               Cancel
             </Button>
             <Button type="submit" disabled={isSubmitting}>
-              {isSubmitting ? "Saving..." : isEditMode ? "Update Category" : "Create Category"}
+              {isSubmitting
+                ? "Saving..."
+                : isEditMode
+                ? "Update Category"
+                : "Create Category"}
             </Button>
           </div>
         </form>

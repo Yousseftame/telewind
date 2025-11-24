@@ -5,7 +5,7 @@
  */
 export function buildMultiLangFormData(
   data: any,
-  languages: string[] = ["en", "ar", "tw"]
+  languages: string[] = ["en", "ar", "tw","ch"]
 ): FormData {
   const formData = new FormData();
 
@@ -27,8 +27,14 @@ export function buildMultiLangFormData(
   languages.forEach((lang, index) => {
     if (data.translations?.[lang]) {
       formData.append(`translations[${index}][locale]`, lang);
-      formData.append(`translations[${index}][title]`, data.translations[lang].title || "");
-      formData.append(`translations[${index}][description]`, data.translations[lang].description || "");
+      formData.append(
+        `translations[${index}][title]`,
+        data.translations[lang].title || ""
+      );
+      formData.append(
+        `translations[${index}][description]`,
+        data.translations[lang].description || ""
+      );
     }
   });
 
@@ -56,10 +62,22 @@ export function buildEventFormData(
   languages.forEach((lang, index) => {
     if (data.translations?.[lang]) {
       formData.append(`translations[${index}][locale]`, lang);
-      formData.append(`translations[${index}][title]`, data.translations[lang].title || "");
-      formData.append(`translations[${index}][description]`, data.translations[lang].description || "");
-      formData.append(`translations[${index}][location]`, data.translations[lang].location || "");
-      formData.append(`translations[${index}][details]`, data.translations[lang].details || "");
+      formData.append(
+        `translations[${index}][title]`,
+        data.translations[lang].title || ""
+      );
+      formData.append(
+        `translations[${index}][description]`,
+        data.translations[lang].description || ""
+      );
+      formData.append(
+        `translations[${index}][location]`,
+        data.translations[lang].location || ""
+      );
+      formData.append(
+        `translations[${index}][details]`,
+        data.translations[lang].details || ""
+      );
     }
   });
 
@@ -71,7 +89,7 @@ export function buildEventFormData(
  */
 export function buildCertFormData(
   data: any,
-  languages: string[] = ["en", "ar", "tw"]
+  languages: string[] = ["en", "ar", "tw", "ch"]
 ): FormData {
   const formData = new FormData();
 
@@ -84,10 +102,16 @@ export function buildCertFormData(
 
   // Handle translations (only title)
   languages.forEach((lang, index) => {
-    if (data.translations?.[lang]) {
-      formData.append(`translations[${index}][locale]`, lang);
-      formData.append(`translations[${index}][title]`, data.translations[lang].title || "");
-    }
+    const translation = data.translations?.[lang] || {
+      title: "",
+      description: "",
+    };
+    formData.append(`translations[${index}][locale]`, lang);
+    formData.append(`translations[${index}][title]`, translation.title);
+    formData.append(
+      `translations[${index}][description]`,
+      translation.description
+    );
   });
 
   return formData;
@@ -114,8 +138,14 @@ export function buildAnnouncementFormData(
   languages.forEach((lang, index) => {
     if (data.translations?.[lang]) {
       formData.append(`translations[${index}][locale]`, lang);
-      formData.append(`translations[${index}][title]`, data.translations[lang].title || "");
-      formData.append(`translations[${index}][description]`, data.translations[lang].description || "");
+      formData.append(
+        `translations[${index}][title]`,
+        data.translations[lang].title || ""
+      );
+      formData.append(
+        `translations[${index}][description]`,
+        data.translations[lang].description || ""
+      );
     }
   });
 
@@ -128,7 +158,7 @@ export function buildAnnouncementFormData(
  */
 export function buildPartnerFormData(
   data: any,
-  languages: string[] = ["en", "ar", "fr"]  // 👈 FIXED: "tw" → "fr"
+  languages: string[] = ["en", "ar", "fr"] // 👈 FIXED: "tw" → "fr"
 ): FormData {
   const formData = new FormData();
 
@@ -155,11 +185,14 @@ export function buildPartnerFormData(
       formData.append(`translations[${index}][region]`, trans.region || "");
       formData.append(`translations[${index}][country]`, trans.country || "");
       formData.append(`translations[${index}][contact]`, trans.contact || "");
-      
+
       // Handle focus array
       if (trans.focus && Array.isArray(trans.focus)) {
         trans.focus.forEach((focusItem: string, focusIndex: number) => {
-          formData.append(`translations[${index}][focus][${focusIndex}]`, focusItem);
+          formData.append(
+            `translations[${index}][focus][${focusIndex}]`,
+            focusItem
+          );
         });
       }
     }
@@ -170,7 +203,7 @@ export function buildPartnerFormData(
 
 export function buildIndustryFormData(
   data: any,
-  languages: string[] = ["en", "ar", "tw" , "ch"]
+  languages: string[] = ["en", "ar", "tw", "ch"]
 ): FormData {
   const formData = new FormData();
 
@@ -187,12 +220,18 @@ export function buildIndustryFormData(
       const trans = data.translations[lang];
       formData.append(`translations[${index}][locale]`, lang);
       formData.append(`translations[${index}][title]`, trans.title || "");
-      formData.append(`translations[${index}][description]`, trans.description || "");
-      
+      formData.append(
+        `translations[${index}][description]`,
+        trans.description || ""
+      );
+
       // Handle applications array
       if (trans.applications && Array.isArray(trans.applications)) {
         trans.applications.forEach((app: string, appIndex: number) => {
-          formData.append(`translations[${index}][applications][${appIndex}]`, app);
+          formData.append(
+            `translations[${index}][applications][${appIndex}]`,
+            app
+          );
         });
       }
     }
@@ -228,7 +267,10 @@ export function buildProductFormData(
     if (trans) {
       formData.append(`translations[${index}][locale]`, lang);
       formData.append(`translations[${index}][title]`, trans.title || "");
-      formData.append(`translations[${index}][description]`, trans.description || "");
+      formData.append(
+        `translations[${index}][description]`,
+        trans.description || ""
+      );
 
       // Handle key_features[]
       if (Array.isArray(trans.key_features)) {
@@ -253,23 +295,24 @@ export function buildProductFormData(
 /**
  * Helper to extract translation for a specific language
  */
-export function getTranslation<T extends { translations?: Array<{ locale: string; [key: string]: any }> }>(
-  item: T,
-  locale: string
-) {
+export function getTranslation<
+  T extends { translations?: Array<{ locale: string; [key: string]: any }> }
+>(item: T, locale: string) {
   if (!item.translations || item.translations.length === 0) {
-    return { 
-      locale, 
-      title: "", 
-      description: "", 
-      location: "", 
+    return {
+      locale,
+      title: "",
+      description: "",
+      location: "",
       details: "",
       name: "",
       region: "",
       country: "",
       contact: "",
-      focus: [] as string[]
+      focus: [] as string[],
     };
   }
-  return item.translations.find((t) => t.locale === locale) || item.translations[0];
+  return (
+    item.translations.find((t) => t.locale === locale) || item.translations[0]
+  );
 }
