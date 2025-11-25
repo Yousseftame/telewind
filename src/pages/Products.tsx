@@ -281,7 +281,7 @@ export default function Products() {
                           }}
                           disabled={!product.specification_pdf}
                         >
-                          specification 
+                          {t("productsSection.spec-pdf")} 
                         </Button>
                       </div>
                     </CardContent>
