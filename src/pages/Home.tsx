@@ -206,7 +206,7 @@ export default function Home() {
                         <img 
                           src={industry.icon} 
                           alt={`${industry.title} icon`}
-                          className="w-12 h-12 mx-auto mb-3 object-contain brightness-0 invert opacity-80"
+                          className="w-12 h-12 mx-auto mb-3 object-contain "
                         />
                       ) : (
                         <IconComponent className="w-12 h-12 text-accent mx-auto mb-3" />
@@ -216,7 +216,7 @@ export default function Home() {
                         {industry.title}
                       </h3>
                       <p className="text-sm text-primary-foreground/80">
-                        {industry.description.substring(0, 80)}...
+                        {industry.description}
                       </p>
                     </CardContent>
                   </Card>

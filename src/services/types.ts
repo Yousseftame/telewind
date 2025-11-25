@@ -141,3 +141,12 @@ export interface Industry {
   translations: IndustryTranslation[];
   creationDate?: string;
 }
+
+export interface PartnerLogo {
+  id: number;
+  partnerId: number;
+  displayOrder: number;
+  status: number; // 1 = active, 0 = inactive
+  statusText: string; // "active" or "inactive"
+  logoUrl: string;
+}

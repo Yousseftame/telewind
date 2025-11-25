@@ -4,6 +4,7 @@ import { Menu, X } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import telewindLogo from "@/assets/telewind-logo.png";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
+import { useHomeCategories } from "@/hooks/useSiteHome";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -18,6 +19,7 @@ export default function Navigation() {
   const location = useLocation();
   const [scrolled, setScrolled] = useState(false);
   const { t } = useTranslation();
+  const { data: categories = [] } = useHomeCategories();
 
   // Handle scroll effect
   if (typeof window !== "undefined") {
@@ -35,11 +37,11 @@ export default function Navigation() {
   ];
 
   const productCategories = [
-    { name: t("productCategories.all"), category: "All" },
-    { name: t("productCategories.radar"), category: "Radar & Microwave" },
-    { name: t("productCategories.warfare"), category: "Electronic Warfare" },
-    { name: t("productCategories.communications"), category: "Tactical Communications" },
-    { name: t("productCategories.amplifiers"), category: "RF Power Amplifiers" },
+    { name: t("productCategories.all"), categoryId: 0 },
+    ...categories.map(cat => ({
+      name: cat.title,
+      categoryId: cat.id
+    }))
   ];
 
   const isActive = (path: string) => location.pathname === path;
@@ -78,10 +80,10 @@ export default function Navigation() {
               <NavigationMenuContent>
                 <ul className="grid w-[400px] gap-3 p-4 bg-background border border-border shadow-lg">
                   {productCategories.map((cat) => (
-                    <li key={cat.category}>
+                    <li key={cat.categoryId}>
                       <NavigationMenuLink asChild>
                         <Link
-                          to={`/products?category=${encodeURIComponent(cat.category)}`}
+                          to={cat.categoryId === 0 ? "/products" : `/products?category=${cat.categoryId}`}
                           className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
                         >
                           <div className="text-sm font-medium leading-none">{cat.name}</div>
@@ -144,8 +146,8 @@ export default function Navigation() {
               </div>
               {productCategories.map((cat) => (
                 <Link
-                  key={cat.category}
-                  to={`/products?category=${encodeURIComponent(cat.category)}`}
+                  key={cat.categoryId}
+                  to={cat.categoryId === 0 ? "/products" : `/products?category=${cat.categoryId}`}
                   onClick={() => setMobileMenuOpen(false)}
                   className="block px-4 py-2 text-sm font-medium text-muted-foreground hover:bg-muted hover:text-primary transition-colors rounded-sm"
                 >

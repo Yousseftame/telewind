@@ -1,123 +1,107 @@
-import React from "react";
 import { useParams, Link } from "react-router-dom";
-import radarSystems from "@/assets/radar-systems.jpg";
-import electronicWarfare from "@/assets/electronic-warfare.jpg";
-import tacticalComms from "@/assets/tactical-comms.jpg";
-import rfAmplifiers from "@/assets/rf-amplifiers.jpg";
-
-const products = [
-  {
-    id: 1,
-    name: "TR-5000 Tactical Radar System",
-    category: "Radar & Microwave",
-    image: radarSystems,
-    description: "Advanced phased-array radar for surveillance and tracking",
-    features: ["360° Coverage", "Multi-target Tracking", "Weather Resistant"],
-    bands: ["X-Band", "S-Band"],
-  },
-  {
-    id: 2,
-    name: "EW-300 Electronic Warfare Suite",
-    category: "Electronic Warfare",
-    image: electronicWarfare,
-    description: "Comprehensive EW solution for spectrum dominance",
-    features: ["Signal Intelligence", "Jamming Capabilities", "Direction Finding"],
-    bands: ["HF", "VHF", "UHF"],
-  },
-  {
-    id: 3,
-    name: "TC-4000 Secure Tactical Radio",
-    category: "Tactical Communications",
-    image: tacticalComms,
-    description: "Military-grade encrypted communication system",
-    features: ["AES-256 Encryption", "Frequency Hopping", "Long Range"],
-    bands: ["HF", "VHF"],
-  },
-  {
-    id: 4,
-    name: "RFA-2000 RF Power Amplifier",
-    category: "RF Power Amplifiers",
-    image: rfAmplifiers,
-    description: "High-power solid-state RF amplification",
-    features: ["2kW Output", "Wide Bandwidth", "Remote Control"],
-    bands: ["HF", "VHF", "UHF"],
-  },
-];
+import { useSiteProductDetail } from "@/hooks/useSiteData";
+import { Loader2, ArrowLeft } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 
 export default function ProductDetails() {
   const { id } = useParams();
-  const product = products.find((p) => p.id === Number(id));
+  const { data: product, isLoading, error } = useSiteProductDetail(id);
 
-  if (!product) {
+  if (isLoading) {
     return (
-      <div className="container mx-auto px-4 py-20 text-center ">
-        <h2 className="text-3xl font-bold text-red-600 mb-4">
-          Product Not Found
-        </h2>
-        <Link
-          to="/products"
-          className="text-blue-500 underline hover:text-blue-700"
-        >
-          Back to Products
-        </Link>
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <Loader2 className="w-12 h-12 animate-spin text-primary" />
+      </div>
+    );
+  }
+
+  if (error || !product) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="text-center">
+          <h2 className="font-heading text-3xl font-bold text-destructive mb-4">
+            Product Not Found
+          </h2>
+          <Button asChild variant="default">
+            <Link to="/products">
+              <ArrowLeft className="w-4 h-4 mr-2" />
+              Back to Products
+            </Link>
+          </Button>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="container mx-auto px-4 py-12 pt-20 pb-20">
-      {/* Header Section */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start pt-10">
-        {/* Image */}
-        <div>
-          <img
-            src={product.image}
-            alt={product.name}
-            className="w-full rounded-xl shadow-lg object-cover"
-          />
-        </div>
+    <div className="min-h-screen bg-background pt-20">
+      <div className="container mx-auto px-4 py-12">
+        {/* Back Button */}
+        <Button asChild variant="ghost" className="mb-6">
+          <Link to="/products">
+            <ArrowLeft className="w-4 h-4 mr-2" />
+            Back to Products
+          </Link>
+        </Button>
 
-        {/* Text Info */}
-        <div>
-          <h1 className="text-4xl font-bold mb-3">{product.name}</h1>
-
-          <span className="inline-block text-sm bg-blue-100 text-blue-700 px-4 py-1 rounded-full mb-6">
-            {product.category}
-          </span>
-
-          <p className="text-gray-700 leading-relaxed text-lg mb-8">
-            {product.description}
-          </p>
-
-          {/* Features */}
-          <h3 className="text-xl font-semibold mb-2">Key Features</h3>
-          <ul className="list-disc list-inside mb-8 text-gray-700">
-            {product.features.map((feature, index) => (
-              <li key={index}>{feature}</li>
-            ))}
-          </ul>
-
-          {/* Bands */}
-          <h3 className="text-xl font-semibold mb-2">Supported Bands</h3>
-          <div className="flex flex-wrap gap-2">
-            {product.bands.map((band, index) => (
-              <span
-                key={index}
-                className="bg-gray-200 text-gray-800 text-sm px-3 py-1 rounded-full"
-              >
-                {band}
-              </span>
-            ))}
+        {/* Product Details */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
+          {/* Image */}
+          <div className="overflow-hidden rounded-xl shadow-lg">
+            <img
+              src={product.image || "/placeholder.svg"}
+              alt={product.title}
+              className="w-full h-auto object-cover"
+            />
           </div>
 
-          {/* Back Button */}
-          <div className="mt-10">
-            <Link
-              to="/products"
-              className="text-blue-600 hover:text-blue-800 underline text-lg"
-            >
-              ← Back to Products
-            </Link>
+          {/* Product Info */}
+          <div>
+            <Badge className="mb-3 bg-accent text-accent-foreground">
+              {product.category_name || "Product"}
+            </Badge>
+            
+            <h1 className="font-heading text-4xl font-bold mb-4">
+              {product.title}
+            </h1>
+
+            <p className="text-muted-foreground text-lg leading-relaxed mb-8">
+              {product.description}
+            </p>
+
+            {/* Key Features */}
+            {product.key_features && product.key_features.length > 0 && (
+              <div className="mb-8">
+                <h3 className="font-heading text-xl font-semibold mb-4">
+                  Key Features
+                </h3>
+                <ul className="space-y-2">
+                  {product.key_features.map((feature, index) => (
+                    <li key={index} className="flex items-start">
+                      <span className="text-accent mr-2 mt-1">•</span>
+                      <span className="text-foreground">{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            {/* Supported Bands */}
+            {product.supported_bands && product.supported_bands.length > 0 && (
+              <div>
+                <h3 className="font-heading text-xl font-semibold mb-4">
+                  Supported Bands
+                </h3>
+                <div className="flex flex-wrap gap-2">
+                  {product.supported_bands.map((band, index) => (
+                    <Badge key={index} variant="outline">
+                      {band}
+                    </Badge>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>
