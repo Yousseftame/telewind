@@ -25,6 +25,7 @@ export interface HomeCategoryItem {
   image: string;
   icon: string;
   slug: string;
+  title: string;
 }
 
 export interface HomeIndustryItem {
@@ -101,6 +102,52 @@ export function useHomeCertificates() {
         },
       });
       return response.data.data as HomeCertificateItem[];
+    },
+    staleTime: 5 * 60 * 1000,
+  });
+}
+// -------------------------------------------------------------
+// HOME PARTNER LOGOS
+// GET /site/partners-logos
+// -------------------------------------------------------------
+export interface HomePartnerLogoItem {
+  id: number;
+  logoUrl: string;
+  status: number;
+  displayOrder: number;
+}
+
+/**
+ * Hook to fetch partner logos with language support
+ */
+export function useHomePartnerLogos() {
+  const { i18n } = useTranslation();
+  const apiLang = getApiLanguage(i18n.language);
+
+  return useQuery({
+    queryKey: ["home-partner-logos", apiLang],
+    queryFn: async () => {
+      const response = await axiosInstance.get("/site/partners-logos", {
+        headers: {
+          "Accept-Language": apiLang,
+        },
+      });
+
+      let data = response.data.data || [];
+
+      // ✓ only active logos
+      data = data.filter((item: any) => item.status === 1);
+
+      // ✓ sort by display order
+      data.sort((a: any, b: any) => a.displayOrder - b.displayOrder);
+
+      // ✓ map into typed structure
+      return data.map((item: any) => ({
+        id: item.id,
+        logoUrl: item.logoUrl,
+        status: item.status,
+        displayOrder: item.displayOrder,
+      })) as HomePartnerLogoItem[];
     },
     staleTime: 5 * 60 * 1000,
   });

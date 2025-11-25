@@ -15,19 +15,19 @@ interface Props {
 
 export function LogoViewDialog({ open, onOpenChange, logo }: Props) {
   // Fetch partner details
-  const { data: partner } = useQuery({
-    queryKey: ["partner", logo?.partnerId],
-    queryFn: async () => {
-      if (!logo?.partnerId) return null;
-      const response = await axiosInstance.get(PARTNER_URLS.GET_PARTNER(logo.partnerId));
-      return response.data.data as Partner;
-    },
-    enabled: !!logo?.partnerId && open,
-  });
+  // const { data: partner } = useQuery({
+  //   queryKey: ["partner", logo?.partnerId],
+  //   queryFn: async () => {
+  //     if (!logo?.partnerId) return null;
+  //     const response = await axiosInstance.get(PARTNER_URLS.GET_PARTNER(logo.partnerId));
+  //     return response.data.data as Partner;
+  //   },
+  //   enabled: !!logo?.partnerId && open,
+  // });
 
   if (!logo) return null;
 
-  const partnerName = partner?.translations.find((t) => t.locale === "en")?.name || `Partner #${logo.partnerId}`;
+  // const partnerName = partner?.translations.find((t) => t.locale === "en")?.name || `Partner #${logo.partnerId}`;
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -58,10 +58,10 @@ export function LogoViewDialog({ open, onOpenChange, logo }: Props) {
           </div>
 
           {/* Partner */}
-          <div>
+          {/* <div>
             <h3 className="text-sm font-medium">Partner</h3>
             <p className="text-muted-foreground">{partnerName}</p>
-          </div>
+          </div> */}
 
           {/* Display Order */}
           <div>

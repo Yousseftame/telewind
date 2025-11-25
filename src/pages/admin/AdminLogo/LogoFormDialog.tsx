@@ -26,7 +26,7 @@ export function LogoFormDialog({
   logo,
   isSubmitting,
 }: Props) {
-  const [partnerId, setPartnerId] = useState("");
+  // const [partnerId, setPartnerId] = useState("");
   const [displayOrder, setDisplayOrder] = useState("");
   const [status, setStatus] = useState(1); // 1 = active, 0 = inactive
   const [logoFile, setLogoFile] = useState<File | null>(null);
@@ -43,12 +43,12 @@ export function LogoFormDialog({
 
   useEffect(() => {
     if (logo) {
-      setPartnerId(logo.partnerId.toString());
+      // setPartnerId(logo.partnerId.toString());
       setDisplayOrder(logo.displayOrder.toString());
       setStatus(logo.status);
       setLogoFile(null);
     } else {
-      setPartnerId("");
+      // setPartnerId("");
       setDisplayOrder("");
       setStatus(1);
       setLogoFile(null);
@@ -62,9 +62,9 @@ export function LogoFormDialog({
 
     // Validation
     const newErrors: Record<string, string> = {};
-    if (!partnerId) {
-      newErrors.partner_id = "Partner is required";
-    }
+    // if (!partnerId) {
+    //   newErrors.partner_id = "Partner is required";
+    // }
     if (!displayOrder) {
       newErrors.display_order = "Display order is required";
     }
@@ -78,7 +78,7 @@ export function LogoFormDialog({
     }
 
     await onSubmit({
-      partner_id: parseInt(partnerId),
+      // partner_id: parseInt(partnerId),
       display_order: parseInt(displayOrder),
       status: status,
       logo: logoFile,
@@ -94,7 +94,7 @@ export function LogoFormDialog({
 
         <form onSubmit={handleSubmit} className="space-y-6">
           {/* Partner Selection */}
-          <div>
+          {/* <div>
             <Label htmlFor="partner">Partner *</Label>
             <select
               id="partner"
@@ -115,7 +115,7 @@ export function LogoFormDialog({
             {errors.partner_id && (
               <p className="text-sm text-destructive mt-1">{errors.partner_id}</p>
             )}
-          </div>
+          </div> */}
 
           {/* Display Order */}
           <div>

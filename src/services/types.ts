@@ -126,6 +126,7 @@ export interface Product {
   supported_bands: string[];
   translations: ProductTranslation[];
 }
+
 export interface IndustryTranslation {
   locale: string;
   title: string;
@@ -143,7 +144,7 @@ export interface Industry {
 
 export interface PartnerLogo {
   id: number;
-  partnerId: number;
+  // partnerId: number;
   displayOrder: number;
   status: number; // 1 = active, 0 = inactive
   statusText: string; // "active" or "inactive"
