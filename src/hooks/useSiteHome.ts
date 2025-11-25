@@ -25,6 +25,7 @@ export interface HomeCategoryItem {
   image: string;
   icon: string;
   slug: string;
+  title: string;
 }
 
 export interface HomeIndustryItem {

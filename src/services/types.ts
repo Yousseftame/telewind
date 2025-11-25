@@ -144,7 +144,7 @@ export interface Industry {
 
 export interface PartnerLogo {
   id: number;
-  partnerId: number;
+  // partnerId: number;
   displayOrder: number;
   status: number; // 1 = active, 0 = inactive
   statusText: string; // "active" or "inactive"

@@ -22,6 +22,7 @@ import {
   Calendar,
   Award,
   Crop,
+  Package,
 } from "lucide-react";
 import { AuthContextType } from "@/services/types";
 import { useAuth } from "@/store/AuthContext/AuthContext";
@@ -83,7 +84,7 @@ const Sidebar = ({ collapsed, setCollapsed }: SidebarProps) => {
   };
 
   const menuItems: MenuItem[] = [
-    { label: "Products", icon: <Target size={20} />, path: "/adminProduct" },
+    { label: "Products", icon: <Package size={20} />, path: "/adminProduct" },
     { label: "Industries", icon: <Factory size={20} />, path: "/adminindustries" },
     { label: "Category", icon: <ChartColumnStacked size={20} />, path: "/AdminCate" },
     { label: "Events", icon: <Calendar size={20} />, path: "/adminEvents" },

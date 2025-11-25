@@ -70,11 +70,11 @@ export default function AdminLogo() {
   };
 
   // Helper to get partner name
-  const getPartnerName = (partnerId: number) => {
-    const partner = partners.find((p) => p.id === partnerId);
-    const enTranslation = partner?.translations.find((t) => t.locale === "en");
-    return enTranslation?.name || `Partner #${partnerId}`;
-  };
+  // const getPartnerName = (partnerId: number) => {
+  //   const partner = partners.find((p) => p.id === partnerId);
+  //   const enTranslation = partner?.translations.find((t) => t.locale === "en");
+  //   return enTranslation?.name || `Partner #${partnerId}`;
+  // };
 
   // Sort logos by display order
   const sortedLogos = useMemo(() => {
@@ -86,9 +86,9 @@ export default function AdminLogo() {
     if (!searchQuery.trim()) return sortedLogos;
     
     return sortedLogos.filter((logo) => {
-      const partnerName = getPartnerName(logo.partnerId).toLowerCase();
+      // const partnerName = getPartnerName(logo.partnerId).toLowerCase();
       const search = searchQuery.toLowerCase();
-      return partnerName.includes(search) || 
+      // return partnerName.includes(search) || 
              logo.id.toString().includes(search) ||
              logo.displayOrder.toString().includes(search);
     });
@@ -112,12 +112,12 @@ export default function AdminLogo() {
           </div>
         ),
     },
-    {
-      key: "partnerId",
-      label: "Partner",
-      sortable: true,
-      render: (_, logo) => getPartnerName(logo.partnerId),
-    },
+    // {
+    //   key: "partnerId",
+    //   label: "Partner",
+    //   sortable: true,
+    //   render: (_, logo) => getPartnerName(logo.partnerId),
+    // },
     {
       key: "displayOrder",
       label: "Display Order",
