@@ -83,4 +83,8 @@ export const LOGO_URLS = {
 //contact
 export const CONTACT_URLS = {
   CREATE_CONTACT: "/site/contact-us",
+
+  GET_ALL_CONTACT: "/admin/contacts",
+  GET_CONTACT: (id: number) => `/admin/contacts/${id}`,
+  DELETE_CONTACT: (id: number) => `/admin/contacts/${id}`,
 };
