@@ -16,14 +16,15 @@ const getApiLanguage = (i18nLang: string): string => {
   return langMap[i18nLang] || "en"; // Default to English
 };
 
-// ✅ Type definitions based on API structure
+// ✅ Type definitions based on ACTUAL API structure
+// API Response: { id, slug, image, icon, name, description }
 export interface HomeCategoryItem {
   id: number;
-  title: string;
+  name: string;        // ⚠️ API returns "name", not "title"
   description: string;
   image: string;
-  icon: string; // URL to icon image from API
-  slug?: string; // Optional slug field
+  icon: string;
+  slug: string;
 }
 
 export interface HomeIndustryItem {
@@ -50,13 +51,16 @@ export function useHomeCategories() {
   return useQuery({
     queryKey: ["home-categories", apiLang],
     queryFn: async () => {
+      console.log('Fetching categories with language:', apiLang);
       const response = await axiosInstance.get(SITE_URLS.HOME_CATEGORIES, {
         headers: {
           "Accept-Language": apiLang,
         },
       });
+      console.log('Categories response:', response.data);
       return response.data.data as HomeCategoryItem[];
     },
+    staleTime: 5 * 60 * 1000, // 5 minutes
   });
 }
 
@@ -77,6 +81,7 @@ export function useHomeIndustries() {
       });
       return response.data.data as HomeIndustryItem[];
     },
+    staleTime: 5 * 60 * 1000,
   });
 }
 
@@ -97,5 +102,6 @@ export function useHomeCertificates() {
       });
       return response.data.data as HomeCertificateItem[];
     },
+    staleTime: 5 * 60 * 1000,
   });
 }

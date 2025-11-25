@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { useTranslation } from "react-i18next";
@@ -19,14 +19,17 @@ export default function Navigation() {
   const location = useLocation();
   const [scrolled, setScrolled] = useState(false);
   const { t } = useTranslation();
-  const { data: categories = [] } = useHomeCategories();
+  const { data: categories = [], isLoading: categoriesLoading } = useHomeCategories();
 
   // Handle scroll effect
-  if (typeof window !== "undefined") {
-    window.addEventListener("scroll", () => {
+  useEffect(() => {
+    const handleScroll = () => {
       setScrolled(window.scrollY > 50);
-    });
-  }
+    };
+    
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const navLinks = [
     { name: t("nav.home"), path: "/" },
@@ -37,14 +40,16 @@ export default function Navigation() {
   ];
 
   const productCategories = [
-    { name: t("productCategories.all"), categoryId: 0 },
+    { name: t("productCategories.all"), categoryId: 0, path: "/products" },
     ...categories.map(cat => ({
-      name: cat.title,
-      categoryId: cat.id
+      name: cat.name, // ✅ Use "name" from API, not "title"
+      categoryId: cat.id,
+      path: `/products?category=${cat.id}`
     }))
   ];
 
   const isActive = (path: string) => location.pathname === path;
+  const isProductsActive = location.pathname === "/products" || location.pathname.startsWith("/products/");
 
   return (
     <header
@@ -73,24 +78,30 @@ export default function Navigation() {
 
             <NavigationMenuItem>
               <NavigationMenuTrigger className={`px-4 py-2 text-sm font-medium tracking-wide transition-colors bg-transparent hover:bg-transparent data-[state=open]:bg-transparent focus:bg-transparent data-[active]:bg-transparent ${
-                isActive("/products") ? "text-primary" : "text-muted-foreground hover:text-primary"
+                isProductsActive ? "text-primary" : "text-muted-foreground hover:text-primary"
               }`}>
                 {t("nav.products")}
               </NavigationMenuTrigger>
               <NavigationMenuContent>
-                <ul className="grid w-[400px] gap-3 p-4 bg-background border border-border shadow-lg">
-                  {productCategories.map((cat) => (
-                    <li key={cat.categoryId}>
-                      <NavigationMenuLink asChild>
-                        <Link
-                          to={cat.categoryId === 0 ? "/products" : `/products?category=${cat.categoryId}`}
-                          className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
-                        >
-                          <div className="text-sm font-medium leading-none">{cat.name}</div>
-                        </Link>
-                      </NavigationMenuLink>
-                    </li>
-                  ))}
+                <ul className="grid w-[400px] gap-3 p-4 bg-background border border-border shadow-lg rounded-md">
+                  {categoriesLoading ? (
+                    <li className="p-3 text-sm text-muted-foreground">Loading categories...</li>
+                  ) : productCategories.length === 0 ? (
+                    <li className="p-3 text-sm text-muted-foreground">No categories available</li>
+                  ) : (
+                    productCategories.map((cat) => (
+                      <li key={cat.categoryId}>
+                        <NavigationMenuLink asChild>
+                          <Link
+                            to={cat.path}
+                            className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                          >
+                            <div className="text-sm font-medium leading-none">{cat.name}</div>
+                          </Link>
+                        </NavigationMenuLink>
+                      </li>
+                    ))
+                  )}
                 </ul>
               </NavigationMenuContent>
             </NavigationMenuItem>
@@ -144,16 +155,22 @@ export default function Navigation() {
               <div className="px-4 py-2 text-xs font-semibold text-muted-foreground uppercase tracking-wide">
                 {t("nav.products")}
               </div>
-              {productCategories.map((cat) => (
-                <Link
-                  key={cat.categoryId}
-                  to={cat.categoryId === 0 ? "/products" : `/products?category=${cat.categoryId}`}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="block px-4 py-2 text-sm font-medium text-muted-foreground hover:bg-muted hover:text-primary transition-colors rounded-sm"
-                >
-                  {cat.name}
-                </Link>
-              ))}
+              {categoriesLoading ? (
+                <div className="px-4 py-2 text-sm text-muted-foreground">Loading...</div>
+              ) : productCategories.length === 0 ? (
+                <div className="px-4 py-2 text-sm text-muted-foreground">No categories</div>
+              ) : (
+                productCategories.map((cat) => (
+                  <Link
+                    key={cat.categoryId}
+                    to={cat.path}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="block px-4 py-2 text-sm font-medium text-muted-foreground hover:bg-muted hover:text-primary transition-colors rounded-sm"
+                  >
+                    {cat.name}
+                  </Link>
+                ))
+              )}
             </div>
 
             {navLinks.filter(link => link.path !== "/").map((link) => (
