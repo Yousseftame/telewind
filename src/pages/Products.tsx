@@ -214,9 +214,9 @@ export default function Products() {
                       />
                     </div>
                     <CardContent className="p-6">
-                      <Badge className="mb-3 bg-accent text-accent-foreground hover:text-white">
+                      {/* <Badge className="mb-3 bg-accent text-accent-foreground hover:text-white">
                         ID : {product.category_id || "Product Id"}
-                      </Badge>
+                      </Badge> */}
                       <h3 className="font-heading text-xl font-bold mb-2">
                         {product.title}
                       </h3>
