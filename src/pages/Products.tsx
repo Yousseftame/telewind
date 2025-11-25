@@ -270,15 +270,18 @@ export default function Products() {
                         >
                           {t("productsSection.viewDetails")}
                         </Button>
-                        <Button
+                          <Button
                           variant="outline"
                           size="sm"
                           onClick={(e) => {
                             e.stopPropagation();
-                            generateProductPDF(product);
+                            if (product.specification_pdf) {
+                              window.open(product.specification_pdf, '_blank');
+                            }
                           }}
+                          disabled={!product.specification_pdf}
                         >
-                          <Download className="w-4 h-4" />
+                          specification 
                         </Button>
                       </div>
                     </CardContent>

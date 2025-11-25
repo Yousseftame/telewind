@@ -11,7 +11,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { X, Plus, Upload, Loader2 } from "lucide-react";
+import { X, Plus, Upload, Loader2, FileText } from "lucide-react";
 import { useCategoryCRUD } from "../AdminCate/useCategoryCRUD";
 import { Product } from "@/services/types";
 
@@ -21,9 +21,11 @@ interface localizedContent {
   key_features: string[];
 }
 
+// ✅ UPDATED: Added specification_pdf to form data
 export interface ProductFormData {
   category_id: number;
   image: File | null;
+  specification_pdf: File | null; // ✅ NEW
   supported_bands: string[];
   translations: {
     en: localizedContent;
@@ -58,6 +60,10 @@ export default function ProductFormDialog({
   const [keyFeaturesCh, setKeyFeaturesCh] = useState<string[]>([""]);
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string>("");
+  
+  // ✅ NEW: State for PDF file
+  const [pdfFile, setPdfFile] = useState<File | null>(null);
+  const [pdfFileName, setPdfFileName] = useState<string>("");
 
   const { items: categories, isLoading: categoriesLoading } = useCategoryCRUD();
 
@@ -96,6 +102,7 @@ export default function ProductFormDialog({
     defaultValues: {
       category_id: product?.category_id ?? 0,
       image: null,
+      specification_pdf: null, // ✅ NEW
       supported_bands: product?.supported_bands || [""],
       translations: getDefaultTranslations(),
     },
@@ -107,6 +114,7 @@ export default function ProductFormDialog({
       reset({
         category_id: product?.category_id ?? 0,
         image: null,
+        specification_pdf: null, // ✅ NEW
         supported_bands: product?.supported_bands || [],
         translations,
       });
@@ -138,6 +146,15 @@ export default function ProductFormDialog({
       );
       setImagePreview(product?.image ? product.image : "");
       setImageFile(null);
+      
+      // ✅ NEW: Set PDF info if exists
+      if (product?.specification_pdf) {
+        const fileName = product.specification_pdf.split('/').pop() || "Existing PDF";
+        setPdfFileName(fileName);
+      } else {
+        setPdfFileName("");
+      }
+      setPdfFile(null);
     }
   }, [open, reset, product]);
 
@@ -145,6 +162,7 @@ export default function ProductFormDialog({
     onSubmit({
       ...data,
       image: imageFile,
+      specification_pdf: pdfFile, // ✅ NEW
       supported_bands: supportedBands.filter((b) => b.trim()),
       translations: {
         en: {
@@ -170,16 +188,28 @@ export default function ProductFormDialog({
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      // Store the File object (not base64!)
       setImageFile(file);
-
-      // Create preview for display only
       const reader = new FileReader();
       reader.onloadend = () => {
         setImagePreview(reader.result as string);
       };
       reader.readAsDataURL(file);
     }
+  };
+
+  // ✅ NEW: Handle PDF file change
+  const handlePdfChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setPdfFile(file);
+      setPdfFileName(file.name);
+    }
+  };
+
+  // ✅ NEW: Remove PDF file
+  const handleRemovePdf = () => {
+    setPdfFile(null);
+    setPdfFileName("");
   };
 
   // Supported Bands handlers
@@ -248,7 +278,7 @@ export default function ProductFormDialog({
         </DialogHeader>
 
         <form onSubmit={handleSubmit(handleFormSubmit)} className="space-y-6">
-          {/* Category Selection - NEW */}
+          {/* Category Selection */}
           <div className="space-y-2">
             <Label htmlFor="category_id">Category *</Label>
             <div className="relative">
@@ -269,7 +299,7 @@ export default function ProductFormDialog({
                 </option>
                 {categories.map((category) => (
                   <option key={category.id} value={category.id}>
-                    {category.id}
+                    {category.translations[0]?.title || `Category ${category.id}`}
                   </option>
                 ))}
               </select>
@@ -283,6 +313,7 @@ export default function ProductFormDialog({
               </p>
             )}
           </div>
+
           {/* Image Upload */}
           <div className="space-y-2">
             <Label htmlFor="image">Product Image *</Label>
@@ -304,6 +335,42 @@ export default function ProductFormDialog({
                 />
                 <p className="text-sm text-muted-foreground mt-1">
                   Upload a product image (JPG, PNG, WebP)
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* ✅ NEW: PDF Upload Section */}
+          <div className="space-y-2">
+            <Label htmlFor="specification_pdf">Specification PDF</Label>
+            <div className="space-y-3">
+              {pdfFileName && (
+                <div className="flex items-center gap-3 p-3 bg-slate-50 border border-slate-200 rounded-lg">
+                  <FileText className="h-5 w-5 text-slate-500" />
+                  <span className="flex-1 text-sm text-slate-700 truncate">
+                    {pdfFileName}
+                  </span>
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="sm"
+                    onClick={handleRemovePdf}
+                    className="text-red-600 hover:text-red-700 hover:bg-red-50"
+                  >
+                    <X className="h-4 w-4" />
+                  </Button>
+                </div>
+              )}
+              <div className="flex-1">
+                <Input
+                  id="specification_pdf"
+                  type="file"
+                  accept="application/pdf"
+                  onChange={handlePdfChange}
+                  className="cursor-pointer"
+                />
+                <p className="text-sm text-muted-foreground mt-1">
+                  Upload product specification (PDF only)
                 </p>
               </div>
             </div>
@@ -493,7 +560,7 @@ export default function ProductFormDialog({
                 </div>
               </TabsContent>
 
-              {/* Taiwan / Traditional Chinese Tab */}
+              {/* Taiwan Tab */}
               <TabsContent value="tw" className="space-y-4">
                 <div className="space-y-2">
                   <Label htmlFor="translations.tw.title">標題 (TW) *</Label>
@@ -556,7 +623,7 @@ export default function ProductFormDialog({
                 </div>
               </TabsContent>
 
-              {/* Simplified Chinese Tab */}
+              {/* Chinese Tab */}
               <TabsContent value="ch" className="space-y-4">
                 <div className="space-y-2">
                   <Label htmlFor="translations.ch.title">标题 (CH) *</Label>

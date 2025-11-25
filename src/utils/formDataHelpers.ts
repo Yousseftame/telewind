@@ -268,10 +268,7 @@ export function buildProductFormData(
     if (trans) {
       formData.append(`translations[${index}][locale]`, lang);
       formData.append(`translations[${index}][title]`, trans.title || "");
-      formData.append(
-        `translations[${index}][description]`,
-        trans.description || ""
-      );
+      formData.append(`translations[${index}][description]`, trans.description || "");
 
       // Handle key_features[]
       if (Array.isArray(trans.key_features)) {
@@ -286,10 +283,13 @@ export function buildProductFormData(
   });
 
   // Handle image (only if it's a File)
-  // IMPORTANT: Only append image if a new file is provided
-  // Don't send image field at all if no new file (to preserve existing image)
   if (data.image instanceof File) {
     formData.append("image", data.image);
+  }
+
+  // ✅ NEW: Handle specification_pdf (only if it's a File)
+  if (data.specification_pdf instanceof File) {
+    formData.append("specification_pdf", data.specification_pdf);
   }
 
   return formData;

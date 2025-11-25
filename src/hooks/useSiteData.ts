@@ -22,6 +22,7 @@ export interface SiteProduct {
   title: string;
   description: string;
   image: string;
+  specification_pdf:string;
   category_id: number;
   category_name?: string;
   key_features: string[];

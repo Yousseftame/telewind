@@ -122,11 +122,14 @@ export interface ProductTranslation {
 
 export interface Product {
   id: number;
- category_id: number;
+  slug: string;
+  category_id: number;
   image: string;
-  supported_bands:string[]
+  specification_pdf: string | null; // ✅ NEW: PDF specification file URL
+  supported_bands: string[];
   translations: ProductTranslation[];
 }
+
 export interface IndustryTranslation {
   locale: string;
   title: string;
