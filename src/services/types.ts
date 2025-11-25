@@ -160,3 +160,14 @@ export interface FormContactProps {
   inquiry_type_text: string;
   inquiry_type?:string
 }
+
+export interface Contact {
+  id: number;
+  name: string;
+  email: string;
+  phone: string;
+  message: string;
+  company:string;
+  country:string;
+  inquiry_type:string;
+}
