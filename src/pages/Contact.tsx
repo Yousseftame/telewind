@@ -79,8 +79,6 @@ export default function Contact() {
             : data.inquiry_type,
       };
 
-      console.log("Submitting contact form:", payload);
-
       await axiosInstance.post(CONTACT_URLS.CREATE_CONTACT, payload);
 
       toast("Message Sent", {
@@ -91,7 +89,6 @@ export default function Contact() {
       // Reset form after successful submission
       reset();
     } catch (error) {
-      console.error("Contact form error:", error);
       if (isAxiosError(error)) {
         toast.error(error.response?.data?.message || "Something went wrong");
       } else {
