@@ -78,7 +78,7 @@ export default function Events() {
                           <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-1">
                             Event Details
                           </p>
-                          <p className="text-sm font-medium">{event.details}</p>
+                          <p className="text-sm font-medium" dangerouslySetInnerHTML={{ __html:event.details}}></p>
                         </div>
                       )}
                     </CardContent>

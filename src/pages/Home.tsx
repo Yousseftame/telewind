@@ -7,7 +7,7 @@ import { Shield, Cpu, Radio, Radar, Zap, Target, Eye, Satellite, ArrowRight, Fac
 import heroBg from "@/assets/hero-bg.jpg";
 import { useState } from 'react';
 import { useTranslation } from "react-i18next";
-import { useHomeCategories, useHomeIndustries, useHomeCertificates } from "@/hooks/useSiteHome";
+import { useHomeCategories, useHomeIndustries, useHomeCertificates, useHomePartnerLogos } from "@/hooks/useSiteHome";
 
 // Icon mapping for categories (fallback if API doesn't provide icon component)
 const categoryIconMap: Record<string, any> = {
@@ -35,6 +35,8 @@ export default function Home() {
   const { data: categories = [], isLoading: categoriesLoading } = useHomeCategories();
   const { data: industries = [], isLoading: industriesLoading } = useHomeIndustries();
   const { data: certificates = [], isLoading: certificatesLoading } = useHomeCertificates();
+  const { data: partnerLogos = [], isLoading: logosLoading } = useHomePartnerLogos();
+
 
   return (
     <div className="min-h-screen">
@@ -297,35 +299,35 @@ export default function Home() {
           </div>
 
           <div className="relative">
-            <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-accent via-accent/50 to-transparent rounded-full" />
-            
-            <div className="pl-8 md:pl-12">
-              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
-                {[
-                  { name: "Partner 1", logo: "/secure.png" },
-                  { name: "Partner 2", logo: "/shield (1).png" },
-                  { name: "Partner 3", logo: "/army.png" },
-                  { name: "Partner 4", logo: "/secure-shield.png" },
-                  { name: "Partner 5", logo: "/army.png" },
-                  { name: "Partner 6", logo: "/secure-shield.png" },
-                  { name: "Partner 7", logo: "/shield (1).png" },
-                  { name: "Partner 8", logo: "/secure.png" },
-                ].map((partner, idx) => (
-                  <div
-                    key={idx}
-                    className="group relative bg-muted/50 hover:bg-background rounded-xl aspect-[2/1] flex items-center justify-center p-6 transition-all duration-300 hover:shadow-lg cursor-pointer"
-                  >
-                    <img
-                      src={partner.logo}
-                      alt={partner.name}
-                      className="max-w-[80%] max-h-[60%] object-contain filter grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500"
-                    />
-                    <div className="absolute inset-x-0 bottom-0 h-1 bg-accent scale-x-0 group-hover:scale-x-100 transition-transform duration-300 rounded-b-xl" />
-                  </div>
-                ))}
-              </div>
-            </div>
+  <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-accent via-accent/50 to-transparent rounded-full" />
+  
+  <div className="pl-8 md:pl-12">
+
+    {logosLoading ? (
+      <div className="flex justify-center py-20">
+        <Loader2 className="w-10 h-10 animate-spin text-primary" />
+      </div>
+    ) : (
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+        {partnerLogos.map((logo) => (
+          <div
+            key={logo.id}
+            className="group relative bg-muted/50 hover:bg-background rounded-xl aspect-[2/1] flex items-center justify-center p-6 transition-all duration-300 hover:shadow-lg cursor-pointer"
+          >
+            <img
+              src={logo.logoUrl}
+              alt={`Partner Logo ${logo.id}`}
+              className="max-w-[80%] max-h-[60%] object-contain filter grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500"
+            />
+            <div className="absolute inset-x-0 bottom-0 h-1 bg-accent scale-x-0 group-hover:scale-x-100 transition-transform duration-300 rounded-b-xl" />
           </div>
+        ))}
+      </div>
+    )}
+
+  </div>
+</div>
+
         </div>
       </section>
 
