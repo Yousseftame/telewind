@@ -52,13 +52,14 @@ export default function Products() {
     const doc = new jsPDF();
 
     doc.setFontSize(20);
-    doc.text(product.title, 10, 20);
+    doc.text(product.title || "Untitled Product", 10, 20);
 
     doc.setFontSize(12);
-    doc.text(`Category: ${product.category_name || "N/A"}`, 10, 35);
+    doc.text(`Category: ${product.category_name || "Uncategorized"}`, 10, 35);
 
     doc.text("Description:", 10, 50);
-    const splitDescription = doc.splitTextToSize(product.description, 180);
+    const description = product.description || "No description available";
+    const splitDescription = doc.splitTextToSize(description, 180);
     doc.text(splitDescription, 10, 58);
 
     let yPos = 75 + splitDescription.length * 7;
@@ -67,17 +68,23 @@ export default function Products() {
       doc.text("Key Features:", 10, yPos);
       yPos += 10;
       product.key_features.forEach((f: string, i: number) => {
-        doc.text(`- ${f}`, 12, yPos + i * 8);
+        const feature = f || "No feature description";
+        doc.text(`- ${feature}`, 12, yPos + i * 8);
       });
       yPos += product.key_features.length * 8 + 10;
+    } else {
+      doc.text("Key Features: Not specified", 10, yPos);
+      yPos += 15;
     }
 
     if (product.supported_bands && product.supported_bands.length > 0) {
       doc.text("Supported Bands:", 10, yPos);
       doc.text(product.supported_bands.join(", "), 12, yPos + 10);
+    } else {
+      doc.text("Supported Bands: Not specified", 10, yPos);
     }
 
-    doc.save(`${product.title}.pdf`);
+    doc.save(`${product.title || "product"}.pdf`);
   };
 
   const isLoading = categoriesLoading || productsLoading;
@@ -134,6 +141,16 @@ export default function Products() {
               ))}
             </div>
           </div>
+          
+          {/* Selected Category Display */}
+          {selectedCategory !== 0 && (
+            <div className="mt-4 flex items-center gap-2">
+              <span className="text-sm text-muted-foreground">Filtered by:</span>
+              <Badge variant="secondary" className="text-sm">
+                {categories.find(cat => cat.id === selectedCategory)?.title || "Category"}
+              </Badge>
+            </div>
+          )}
         </div>
       </section>
 

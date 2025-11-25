@@ -36,8 +36,16 @@ export function useSiteProducts(categoryId?: number, searchQuery?: string) {
     queryKey: ["site-products", apiLang, categoryId, searchQuery],
     queryFn: async () => {
       const params = new URLSearchParams();
-      if (categoryId !== undefined) params.append("category", categoryId.toString());
-      if (searchQuery) params.append("search", searchQuery);
+      
+      // Only add category parameter if it's not 0 (0 means "all categories")
+      if (categoryId && categoryId !== 0) {
+        params.append("category", categoryId.toString());
+      }
+      
+      // Add search parameter if provided
+      if (searchQuery && searchQuery.trim()) {
+        params.append("search", searchQuery.trim());
+      }
       
       const response = await axiosInstance.get(
         `${SITE_URLS.PRODUCTS}?${params.toString()}`,
@@ -122,6 +130,39 @@ export function useSiteAnnouncements() {
       });
       return response.data.data as SiteAnnouncement[];
     },
+  });
+}
+
+// ========== PRODUCT DETAILS ==========
+export interface SiteProductDetail {
+  id: number;
+  title: string;
+  description: string;
+  image: string;
+  category_id: number;
+  category_name?: string;
+  key_features: string[];
+  supported_bands: string[];
+}
+
+export function useSiteProductDetail(productId: string | undefined) {
+  const { i18n } = useTranslation();
+  const apiLang = getApiLanguage(i18n.language);
+  
+  return useQuery({
+    queryKey: ["site-product-detail", apiLang, productId],
+    queryFn: async () => {
+      if (!productId) throw new Error("Product ID is required");
+      
+      const response = await axiosInstance.get(
+        `${SITE_URLS.PRODUCTS}/${productId}`,
+        {
+          headers: { "Accept-Language": apiLang },
+        }
+      );
+      return response.data.data as SiteProductDetail;
+    },
+    enabled: !!productId,
   });
 }
 

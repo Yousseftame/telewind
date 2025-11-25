@@ -245,6 +245,8 @@ export function buildProductFormData(
   });
 
   // Handle image (only if it's a File)
+  // IMPORTANT: Only append image if a new file is provided
+  // Don't send image field at all if no new file (to preserve existing image)
   if (data.image instanceof File) {
     formData.append("image", data.image);
   }
