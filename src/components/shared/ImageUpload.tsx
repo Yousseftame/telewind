@@ -87,13 +87,13 @@ export default function ImageUpload({
               <Upload className="h-4 w-4" />
               Change
             </button>
-            <button
+            {/* <button
               type="button"
               onClick={handleRemove}
               className="px-4 py-2 bg-destructive text-destructive-foreground rounded-md hover:bg-destructive/90 transition-colors"
             >
               <X className="h-4 w-4" />
-            </button>
+            </button> */}
           </div>
           <input
             {...getInputProps()}

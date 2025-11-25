@@ -201,7 +201,7 @@ export default function Announcements() {
             </Tabs>
 
             {/* SEARCH INPUT */}
-            <div className="relative w-full sm:w-72">
+            {/* <div className="relative w-full sm:w-72">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
               <input
                 type="text"
@@ -210,7 +210,7 @@ export default function Announcements() {
                 onChange={(e) => setSearchTitle(e.target.value)}
                 className="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
               />
-            </div>
+            </div> */}
           </div>
 
           {/* TABLE CARD */}

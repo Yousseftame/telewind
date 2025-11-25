@@ -244,6 +244,10 @@ export function buildIndustryFormData(
 /**
  * Helper to build FormData for Product
  */
+/**
+ * Helper to build FormData for Product
+ * ✅ FIXED: Only append image/PDF if they are actual File objects
+ */
 export function buildProductFormData(
   data: any,
   languages: string[] = ["en", "ar", "tw", "ch"]
@@ -282,15 +286,23 @@ export function buildProductFormData(
     }
   });
 
-  // Handle image (only if it's a File)
+  // ✅ FIXED: Only append image if it's a new File (not null/undefined)
   if (data.image instanceof File) {
     formData.append("image", data.image);
   }
+  // If you want to explicitly remove the image, handle it separately:
+  // else if (data.removeImage === true) {
+  //   formData.append("remove_image", "1");
+  // }
 
-  // ✅ NEW: Handle specification_pdf (only if it's a File)
+  // ✅ FIXED: Only append specification_pdf if it's a new File (not null/undefined)
   if (data.specification_pdf instanceof File) {
     formData.append("specification_pdf", data.specification_pdf);
   }
+  // If you want to explicitly remove the PDF, handle it separately:
+  // else if (data.removeSpecificationPdf === true) {
+  //   formData.append("remove_specification_pdf", "1");
+  // }
 
   return formData;
 }

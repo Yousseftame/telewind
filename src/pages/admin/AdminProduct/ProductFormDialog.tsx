@@ -158,32 +158,34 @@ export default function ProductFormDialog({
     }
   }, [open, reset, product]);
 
-  const handleFormSubmit = (data: ProductFormData) => {
-    onSubmit({
-      ...data,
-      image: imageFile,
-      specification_pdf: pdfFile, // ✅ NEW
-      supported_bands: supportedBands.filter((b) => b.trim()),
-      translations: {
-        en: {
-          ...data.translations.en,
-          key_features: keyFeaturesEn.filter((f) => f.trim()),
-        },
-        ar: {
-          ...data.translations.ar,
-          key_features: keyFeaturesAr.filter((f) => f.trim()),
-        },
-        tw: {
-          ...data.translations.tw,
-          key_features: keyFeaturesTw.filter((f) => f.trim()),
-        },
-        ch: {
-          ...data.translations.ch,
-          key_features: keyFeaturesCh.filter((f) => f.trim()),
-        },
+const handleFormSubmit = (data: ProductFormData) => {
+  onSubmit({
+    ...data,
+    // ✅ FIXED: Only include image if a new file was selected
+    image: imageFile, // This will be null if no new image was selected
+    // ✅ FIXED: Only include PDF if a new file was selected  
+    specification_pdf: pdfFile, // This will be null if no new PDF was selected
+    supported_bands: supportedBands.filter((b) => b.trim()),
+    translations: {
+      en: {
+        ...data.translations.en,
+        key_features: keyFeaturesEn.filter((f) => f.trim()),
       },
-    });
-  };
+      ar: {
+        ...data.translations.ar,
+        key_features: keyFeaturesAr.filter((f) => f.trim()),
+      },
+      tw: {
+        ...data.translations.tw,
+        key_features: keyFeaturesTw.filter((f) => f.trim()),
+      },
+      ch: {
+        ...data.translations.ch,
+        key_features: keyFeaturesCh.filter((f) => f.trim()),
+      },
+    },
+  });
+};
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
