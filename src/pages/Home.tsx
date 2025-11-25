@@ -194,7 +194,7 @@ export default function Home() {
               <Loader2 className="w-12 h-12 animate-spin text-primary-foreground" />
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6   text-yellow-300">
               {industries.slice(0, 4).map((industry) => {
                 // Use industry.icon from API if available
                 const hasApiIcon = industry.icon && industry.icon.trim() !== '';
@@ -211,7 +211,7 @@ export default function Home() {
                           className="w-12 h-12 mx-auto mb-3 object-contain "
                         />
                       ) : (
-                        <IconComponent className="w-12 h-12 text-accent mx-auto mb-3" />
+                        <IconComponent className="w-12 h-12 text-yellow-300 mx-auto mb-3" />
                       )}
                       
                       <h3 className="font-heading text-primary-foreground/80 text-lg font-bold mb-2">
