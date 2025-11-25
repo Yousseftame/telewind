@@ -159,12 +159,9 @@ export default function ProductFormDialog({
   }, [open, reset, product]);
 
 const handleFormSubmit = (data: ProductFormData) => {
-  onSubmit({
-    ...data,
-    // ✅ FIXED: Only include image if a new file was selected
-    image: imageFile, // This will be null if no new image was selected
-    // ✅ FIXED: Only include PDF if a new file was selected  
-    specification_pdf: pdfFile, // This will be null if no new PDF was selected
+  // Build submission data WITHOUT spreading the form data
+  const submissionData: any = {
+    category_id: data.category_id,
     supported_bands: supportedBands.filter((b) => b.trim()),
     translations: {
       en: {
@@ -184,7 +181,19 @@ const handleFormSubmit = (data: ProductFormData) => {
         key_features: keyFeaturesCh.filter((f) => f.trim()),
       },
     },
-  });
+  };
+
+  // Only include image if a new file was selected
+  if (imageFile) {
+    submissionData.image = imageFile;
+  }
+
+  // Only include PDF if a new file was selected  
+  if (pdfFile) {
+    submissionData.specification_pdf = pdfFile;
+  }
+
+  onSubmit(submissionData);
 };
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
