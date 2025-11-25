@@ -1,5 +1,5 @@
 import { useParams, Link, useNavigate } from "react-router-dom";
-import { useSiteProductDetail } from "@/hooks/useSiteData";
+import { useSiteProducts } from "@/hooks/useSiteData";
 import { Loader2, ArrowLeft, AlertCircle } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -9,7 +9,10 @@ export default function ProductDetails() {
   const { id } = useParams();
   const navigate = useNavigate();
   const { t } = useTranslation();
-  const { data: product, isLoading, error } = useSiteProductDetail(id);
+  
+  // ✅ Fetch all products and find the specific one
+  const { data: allProducts, isLoading, error } = useSiteProducts();
+  const product = allProducts?.find(p => p.id === Number(id));
 
   // Show loading state
   if (isLoading) {
@@ -54,7 +57,7 @@ export default function ProductDetails() {
     );
   }
 
-  // Show not found state
+  // Show not found state (when products loaded but specific product not found)
   if (!product) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center pt-20">
