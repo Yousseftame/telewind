@@ -1,4 +1,4 @@
-// src/hooks/useSiteData.ts - Custom hooks for all Site pages
+// src/hooks/useSiteData.ts - Custom hooks for all Site pages with improved error handling
 
 import { useQuery } from "@tanstack/react-query";
 import { axiosInstance } from "@/services/axiosInstance";
@@ -47,14 +47,18 @@ export function useSiteProducts(categoryId?: number, searchQuery?: string) {
         params.append("search", searchQuery.trim());
       }
       
-      const response = await axiosInstance.get(
-        `${SITE_URLS.PRODUCTS}?${params.toString()}`,
-        {
-          headers: { "Accept-Language": apiLang },
-        }
-      );
+      const url = `${SITE_URLS.PRODUCTS}${params.toString() ? `?${params.toString()}` : ''}`;
+      console.log('Fetching products from:', url);
+      
+      const response = await axiosInstance.get(url, {
+        headers: { "Accept-Language": apiLang },
+      });
+      
+      console.log('Products response:', response.data);
       return response.data.data as SiteProduct[];
     },
+    retry: 2,
+    staleTime: 5 * 60 * 1000, // 5 minutes
   });
 }
 
@@ -80,6 +84,7 @@ export function useSiteIndustries() {
       });
       return response.data.data as SiteIndustry[];
     },
+    staleTime: 5 * 60 * 1000,
   });
 }
 
@@ -106,6 +111,7 @@ export function useSiteEvents() {
       });
       return response.data.data as SiteEvent[];
     },
+    staleTime: 5 * 60 * 1000,
   });
 }
 
@@ -130,6 +136,7 @@ export function useSiteAnnouncements() {
       });
       return response.data.data as SiteAnnouncement[];
     },
+    staleTime: 5 * 60 * 1000,
   });
 }
 
@@ -152,17 +159,45 @@ export function useSiteProductDetail(productId: string | undefined) {
   return useQuery({
     queryKey: ["site-product-detail", apiLang, productId],
     queryFn: async () => {
-      if (!productId) throw new Error("Product ID is required");
+      if (!productId) {
+        throw new Error("Product ID is required");
+      }
       
-      const response = await axiosInstance.get(
-        `${SITE_URLS.PRODUCTS}/${productId}`,
-        {
+      const url = `${SITE_URLS.PRODUCTS}/${productId}`;
+      console.log('Fetching product detail from:', url);
+      console.log('With language:', apiLang);
+      
+      try {
+        const response = await axiosInstance.get(url, {
           headers: { "Accept-Language": apiLang },
+        });
+        
+        console.log('Product detail response:', response.data);
+        
+        // Check if response has the expected structure
+        if (!response.data || !response.data.data) {
+          throw new Error("Invalid response structure");
         }
-      );
-      return response.data.data as SiteProductDetail;
+        
+        return response.data.data as SiteProductDetail;
+      } catch (error: any) {
+        console.error('Error fetching product detail:', error);
+        
+        // Provide more specific error messages
+        if (error.response?.status === 404) {
+          throw new Error("Product not found");
+        } else if (error.response?.status === 500) {
+          throw new Error("Server error. Please try again later");
+        } else if (!error.response) {
+          throw new Error("Network error. Please check your connection");
+        }
+        
+        throw error;
+      }
     },
-    enabled: !!productId,
+    enabled: !!productId, // Only run query if productId exists
+    retry: 1, // Only retry once for product details
+    staleTime: 5 * 60 * 1000, // 5 minutes
   });
 }
 
@@ -202,5 +237,6 @@ export function useSitePartners(region?: string) {
       );
       return response.data.data as SitePartner[];
     },
+    staleTime: 5 * 60 * 1000,
   });
 }

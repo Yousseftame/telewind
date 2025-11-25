@@ -1,4 +1,4 @@
-// src/pages/Products.tsx - UPDATED with Dynamic API Data
+// src/pages/Products.tsx - FIXED VERSION
 
 import { useState, useEffect } from "react";
 import { Card, CardContent } from "@/components/ui/card";
@@ -23,28 +23,36 @@ export default function Products() {
   const { data: categories = [], isLoading: categoriesLoading } = useHomeCategories();
   
   // ✅ Fetch products based on filters
-  const { data: products = [], isLoading: productsLoading } = useSiteProducts(
+  const { data: products = [], isLoading: productsLoading, error: productsError } = useSiteProducts(
     selectedCategory,
     searchQuery
   );
 
-  // ✅ Initialize category from URL
+  // ✅ Initialize category from URL on mount and when searchParams change
   useEffect(() => {
     const categoryParam = searchParams.get("category");
     if (categoryParam) {
-      setSelectedCategory(Number(categoryParam));
+      const categoryId = Number(categoryParam);
+      if (!isNaN(categoryId)) {
+        setSelectedCategory(categoryId);
+      }
+    } else {
+      setSelectedCategory(0);
     }
   }, [searchParams]);
 
   // ✅ Update URL when category changes
   const handleCategoryChange = (categoryId: number) => {
     setSelectedCategory(categoryId);
+    const newSearchParams = new URLSearchParams(searchParams);
+    
     if (categoryId === 0) {
-      searchParams.delete("category");
+      newSearchParams.delete("category");
     } else {
-      searchParams.set("category", categoryId.toString());
+      newSearchParams.set("category", categoryId.toString());
     }
-    setSearchParams(searchParams);
+    
+    setSearchParams(newSearchParams);
   };
 
   // ✅ PDF Download Function
@@ -122,6 +130,8 @@ export default function Products() {
             {/* Category Filters */}
             <div className="flex items-center gap-2 flex-wrap">
               <Filter className="w-4 h-4 text-muted-foreground" />
+              
+              {/* All Products Button */}
               <Button
                 variant={selectedCategory === 0 ? "default" : "outline"}
                 size="sm"
@@ -129,16 +139,31 @@ export default function Products() {
               >
                 {t("productCategories.all")}
               </Button>
-              {categories.map((category) => (
+              
+              {/* Loading State */}
+              {categoriesLoading && (
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                  Loading categories...
+                </div>
+              )}
+              
+              {/* Category Buttons */}
+              {!categoriesLoading && categories.length > 0 && categories.map((category) => (
                 <Button
                   key={category.id}
                   variant={selectedCategory === category.id ? "default" : "outline"}
                   size="sm"
                   onClick={() => handleCategoryChange(category.id)}
                 >
-                  {category.title}
+                  {category.name}
                 </Button>
               ))}
+              
+              {/* No Categories Message */}
+              {!categoriesLoading && categories.length === 0 && (
+                <span className="text-sm text-muted-foreground">No categories available</span>
+              )}
             </div>
           </div>
           
@@ -147,7 +172,7 @@ export default function Products() {
             <div className="mt-4 flex items-center gap-2">
               <span className="text-sm text-muted-foreground">Filtered by:</span>
               <Badge variant="secondary" className="text-sm">
-                {categories.find(cat => cat.id === selectedCategory)?.title || "Category"}
+                {categories.find(cat => cat.id === selectedCategory)?.name || "Category"}
               </Badge>
             </div>
           )}
@@ -161,6 +186,11 @@ export default function Products() {
             <div className="flex justify-center items-center py-20">
               <Loader2 className="w-12 h-12 animate-spin text-primary" />
             </div>
+          ) : productsError ? (
+            <div className="text-center py-12">
+              <p className="text-destructive text-lg mb-4">Error loading products</p>
+              <p className="text-muted-foreground">Please try again later</p>
+            </div>
           ) : (
             <>
               <div className="mb-6">
@@ -173,7 +203,8 @@ export default function Products() {
                 {products.map((product) => (
                   <Card
                     key={product.id}
-                    className="group hover:shadow-xl transition-all overflow-hidden"
+                    className="group hover:shadow-xl transition-all overflow-hidden cursor-pointer"
+                    onClick={() => navigate(`/products/${product.id}`)}
                   >
                     <div className="h-56 overflow-hidden">
                       <img
@@ -183,13 +214,13 @@ export default function Products() {
                       />
                     </div>
                     <CardContent className="p-6">
-                      <Badge className="mb-3 bg-accent text-accent-foreground btnHover">
+                      <Badge className="mb-3 bg-accent text-accent-foreground">
                         {product.category_name || "Product"}
                       </Badge>
                       <h3 className="font-heading text-xl font-bold mb-2">
                         {product.title}
                       </h3>
-                      <p className="text-muted-foreground text-sm mb-4">
+                      <p className="text-muted-foreground text-sm mb-4 line-clamp-3">
                         {product.description}
                       </p>
 
@@ -200,10 +231,10 @@ export default function Products() {
                             {t("productsSection.keyFeature")}
                           </p>
                           <ul className="space-y-1">
-                            {product.key_features.map((feature, idx) => (
+                            {product.key_features.slice(0, 3).map((feature, idx) => (
                               <li key={idx} className="text-sm flex items-start">
                                 <span className="text-accent mr-2">•</span>
-                                <span>{feature}</span>
+                                <span className="line-clamp-1">{feature}</span>
                               </li>
                             ))}
                           </ul>
@@ -213,28 +244,39 @@ export default function Products() {
                       {/* Bands */}
                       {product.supported_bands && product.supported_bands.length > 0 && (
                         <div className="flex gap-2 flex-wrap mb-4">
-                          {product.supported_bands.map((band, idx) => (
+                          {product.supported_bands.slice(0, 3).map((band, idx) => (
                             <Badge key={idx} variant="outline" className="text-xs">
                               {band}
                             </Badge>
                           ))}
+                          {product.supported_bands.length > 3 && (
+                            <Badge variant="outline" className="text-xs">
+                              +{product.supported_bands.length - 3} more
+                            </Badge>
+                          )}
                         </div>
                       )}
 
                       {/* Actions */}
-                      <div className="flex gap-2">
+                      <div className="flex gap-2" onClick={(e) => e.stopPropagation()}>
                         <Button
                           variant="default"
                           size="sm"
                           className="flex-1"
-                          onClick={() => navigate(`/products/${product.id}`)}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            navigate(`/products/${product.id}`);
+                          }}
                         >
                           {t("productsSection.viewDetails")}
                         </Button>
                         <Button
                           variant="outline"
                           size="sm"
-                          onClick={() => generateProductPDF(product)}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            generateProductPDF(product);
+                          }}
                         >
                           <Download className="w-4 h-4" />
                         </Button>
@@ -249,6 +291,19 @@ export default function Products() {
                   <p className="text-muted-foreground text-lg">
                     No products found matching your criteria
                   </p>
+                  {(selectedCategory !== 0 || searchQuery) && (
+                    <Button
+                      variant="outline"
+                      className="mt-4"
+                      onClick={() => {
+                        setSelectedCategory(0);
+                        setSearchQuery("");
+                        setSearchParams(new URLSearchParams());
+                      }}
+                    >
+                      Clear Filters
+                    </Button>
+                  )}
                 </div>
               )}
             </>
