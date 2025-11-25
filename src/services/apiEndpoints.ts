@@ -79,3 +79,8 @@ export const LOGO_URLS = {
   CREATE_LOGO: "/admin/partners-logos",
   UPDATE_LOGO: (id: number) => `/admin/partners-logos/${id}`,
 };
+
+//contact
+export const CONTACT_URLS = {
+  CREATE_CONTACT: "/site/contact-us",
+};

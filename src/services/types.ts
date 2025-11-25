@@ -25,7 +25,9 @@ export interface AuthContextType {
   saveLoginData: () => void;
   isLoading: boolean;
   fullUserData: FullUserDataType | null;
-  setFullUserData: React.Dispatch<React.SetStateAction<FullUserDataType | null>>;
+  setFullUserData: React.Dispatch<
+    React.SetStateAction<FullUserDataType | null>
+  >;
   logOutUser: () => void;
 }
 
@@ -48,7 +50,6 @@ export interface Category {
   creationDate?: string;
 }
 
-
 export interface EventTranslation {
   locale: string;
   title: string;
@@ -64,7 +65,6 @@ export interface Event {
   translations: EventTranslation[];
   creationDate?: string;
 }
-
 
 export interface CertificationTranslation {
   locale: string;
@@ -119,12 +119,11 @@ export interface ProductTranslation {
   key_features: string[];
 }
 
-
 export interface Product {
   id: number;
- category_id: number;
+  category_id: number;
   image: string;
-  supported_bands:string[]
+  supported_bands: string[];
   translations: ProductTranslation[];
 }
 export interface IndustryTranslation {
@@ -149,4 +148,15 @@ export interface PartnerLogo {
   status: number; // 1 = active, 0 = inactive
   statusText: string; // "active" or "inactive"
   logoUrl: string;
+}
+
+export interface FormContactProps {
+  name: string;
+  email: string;
+  company: string;
+  phone: string;
+  message: string;
+  country: string;
+  inquiry_type_text: string;
+  inquiry_type?:string
 }
