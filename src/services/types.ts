@@ -125,6 +125,7 @@ export interface Product {
   image: string;
   supported_bands: string[];
   translations: ProductTranslation[];
+  specification_pdf:string
 }
 
 export interface IndustryTranslation {
