@@ -172,7 +172,7 @@ export default function ProductDetails() {
             )}
 
             {/* Action Buttons */}
-            <div className="flex gap-4 pt-4">
+            <div className="flex flex-col gap-3 pt-4 md:flex-row md:items-center md:gap-4">
               <Button 
                 size="lg"
                 onClick={() => navigate("/contact")}
