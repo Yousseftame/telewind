@@ -99,7 +99,9 @@ export default function Partners() {
                           <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-1">
                             {t("partnersDistributors.contactPerson")}
                           </p>
-                          <p className="text-sm font-medium">{partner.contact}</p>
+                          <p className="text-sm font-medium">
+                            {partner.contact}
+                          </p>
                         </div>
 
                         <div className="flex items-center gap-2 text-sm">
@@ -131,7 +133,11 @@ export default function Partners() {
                           </p>
                           <div className="flex flex-wrap gap-2">
                             {partner.focus.map((item, idx) => (
-                              <Badge key={idx} variant="outline" className="text-xs">
+                              <Badge
+                                key={idx}
+                                variant="outline"
+                                className="text-xs"
+                              >
                                 {item}
                               </Badge>
                             ))}
@@ -212,9 +218,7 @@ export default function Partners() {
             </div>
 
             <Button variant="default" size="lg">
-              <Link to="/contact">
-                {t("partnersDistributors.partnerForm")}
-              </Link>
+              <Link to="/contact">{t("partnersDistributors.partnerForm")}</Link>
             </Button>
           </div>
         </div>
@@ -229,7 +233,12 @@ export default function Partners() {
           <p className="text-lg text-primary-foreground/90 mb-8 max-w-2xl mx-auto">
             {t("partnersDistributors.localSupportDescription")}
           </p>
-          <Button variant="hero" size="lg">
+          <Button
+            asChild
+            variant="hero"
+            size="lg"
+            className="w-full md:w-auto text-center"
+          >
             <Link to="/contact">
               {t("partnersDistributors.contactReferral")}
             </Link>
