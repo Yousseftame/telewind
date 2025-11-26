@@ -373,7 +373,8 @@ export default function Home() {
                 </div>
               ) : (
                 <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
-                  {partnerLogos.map((logo) => (
+                        {partnerLogos.slice(0, 12).map((logo) => (
+
                     <div
                       key={logo.id}
                       className="group relative bg-muted/50 hover:bg-background rounded-xl aspect-[2/1] flex items-center justify-center p-6 transition-all duration-300 hover:shadow-lg cursor-pointer"
