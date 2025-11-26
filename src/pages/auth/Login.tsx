@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Eye, EyeOff } from 'lucide-react';
+import { Eye, EyeOff } from "lucide-react";
 import heroBg from "@/assets/hero-bg.jpg";
 import { useAuth } from "@/store/AuthContext/AuthContext";
 import { AuthContextType, FormLoginProps } from "@/services/types";
@@ -11,6 +11,7 @@ import { toast } from "@/components/ui/sonner";
 import { isAxiosError } from "axios";
 import validation from "@/services/validation";
 import SubmitBtn from "@/components/shared/SubmitBtn";
+import logoImage from "@/assets/telewind-logo.png";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -22,7 +23,7 @@ const Login = () => {
     formState: { errors, isSubmitting },
   } = useForm<FormLoginProps>({ mode: "onChange" });
 
-  const handleTogglePassword = () => setShowPassword(prev => !prev);
+  const handleTogglePassword = () => setShowPassword((prev) => !prev);
 
   const onSubmit = async (data: FormLoginProps) => {
     try {
@@ -52,14 +53,11 @@ const Login = () => {
         <div className="w-full max-w-md">
           {/* Header */}
           <div className="mt-6 text-center">
-            <div className="inline-flex items-center justify-center w-16 h-16 bg-indigo-100 rounded-2xl mb-4">
-              <svg className="w-8 h-8 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-              </svg>
-            </div>
+            <img className="w-1/2 mx-auto" src={logoImage} alt="" />
             <h2 className="text-3xl font-bold text-gray-800">Welcome back</h2>
             <p className="mt-2 text-gray-500">
-              Sign in to access your <span className="text-indigo-600 font-medium">Dashboard</span>
+              Sign in to access your{" "}
+              <span className="text-indigo-600 font-medium">Dashboard</span>
             </p>
           </div>
 
@@ -77,7 +75,10 @@ const Login = () => {
                 {...register("email", validation.EMAIL_VALIDATION)}
               />
               {errors.email && (
-                <p className="text-red-500 pt-2 text-xs font-medium" role="alert">
+                <p
+                  className="text-red-500 pt-2 text-xs font-medium"
+                  role="alert"
+                >
                   {errors.email.message}
                 </p>
               )}
@@ -93,7 +94,10 @@ const Login = () => {
                   type={showPassword ? "text" : "password"}
                   placeholder="Enter your Password"
                   className="w-full px-4 py-3.5 rounded-xl bg-slate-50 border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent pr-12 placeholder:text-gray-400"
-                  {...register("password", validation.PASSWORD_VALIDATION("Password is Required"))}
+                  {...register(
+                    "password",
+                    validation.PASSWORD_VALIDATION("Password is Required")
+                  )}
                 />
                 <button
                   type="button"
@@ -105,7 +109,10 @@ const Login = () => {
                 </button>
               </div>
               {errors.password && (
-                <p className="text-red-500 pt-2 text-xs font-medium" role="alert">
+                <p
+                  className="text-red-500 pt-2 text-xs font-medium"
+                  role="alert"
+                >
                   {errors.password.message}
                 </p>
               )}
@@ -113,17 +120,20 @@ const Login = () => {
 
             {/* Link */}
             <div className="text-center pt-2">
-              <Link to="/" className="text-gray-500 text-sm hover:text-indigo-600 font-medium">
+              <Link
+                to="/"
+                className="text-gray-500 text-sm hover:text-indigo-600 font-medium"
+              >
                 ← Go Back to Home
               </Link>
             </div>
 
             {/* Submit Button */}
             <div className="pt-2">
-              <SubmitBtn 
-                className="w-full py-3.5 rounded-xl bg-[#010A11]  text-white font-semibold shadow-lg shadow-indigo-200 " 
-                isSubmitting={isSubmitting} 
-                title="Sign In" 
+              <SubmitBtn
+                className="w-full py-3.5 rounded-xl bg-[#010A11]  text-white font-semibold shadow-lg shadow-indigo-200 "
+                isSubmitting={isSubmitting}
+                title="Sign In"
               />
             </div>
           </form>
