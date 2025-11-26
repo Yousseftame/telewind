@@ -1,0 +1,179 @@
+{
+  "nav": {
+    "home": "Home",
+    "products": "Products & Solutions",
+    "industries": "Industries & Applications",
+    "events": "Events & Media",
+    "partners": "Partners & Distributors",
+    "contact": "Contact"
+  },
+  "productCategories": {
+    "all": "All Products",
+    "radar": "Radar & Microwave",
+    "warfare": "Electronic Warfare",
+    "communications": "Tactical Communications",
+    "amplifiers": "RF Power Amplifiers"
+  },
+  "hero": {
+    "title": "WE DEFEND WITH TECHNOLOGY",
+    "description": "TeleWind Electronics delivers radar, electronic warfare, tactical communications, and intelligent systems built on 45+ years of in-house engineering and manufacturing.",
+    "exploreButton": "Explore Products & Solutions",
+    "contactButton": "Contact Our Team"
+  },
+  "keyPillars": {
+    "pillar1Title": "45+ Years of Engineering Excellence",
+    "pillar1Description": "Decades of proven expertise in defense-grade electronics and systems integration.",
+    
+    "pillar2Title": "Full In-House Design & Manufacturing",
+    "pillar2Description": "Complete control from concept to production with advanced SMT/DIP capabilities.",
+    
+    "pillar3Title": "Defense-Grade RF, EW & Tactical Communications",
+    "pillar3Description": "Military-spec systems for mission-critical operations and secure communications.",
+    
+    "pillar4Title": "AI, Robotics & Synthetic Intelligence",
+    "pillar4Description": "Next-generation intelligent platforms and collaborative robotic systems."
+  },
+  "featuredProducts": {
+    "title": "Product Categories",
+    "description": "Advanced electronics systems designed for the most demanding defense and industrial applications",
+    "learnMore": "Learn More",
+    "viewAll": "View All Products"
+  }
+  ,"industries": {
+    "title": "Industries We Serve",
+    "description": "Trusted by defense, security, and critical infrastructure organizations worldwide",
+    "explore": "Explore All Industries"
+  },
+  "globalTrust": {
+    "title": "Global Trust & Quality Assurance",
+    "description": "Certified excellence in defense electronics manufacturing"
+  },
+  "network": {
+    "title": "Trusted Partners",
+    "ourNetwork": "Our Network",
+    "partners": "Partners",
+    "countries": "Countries",
+    "satisfaction": "Satisfaction"
+  }
+  ,"ctaSection": {
+    "title": "Ready to Partner with TeleWind?",
+    "description": "Let's discuss how our defense-grade electronics can meet your mission-critical requirements",
+    "contact": "Contact Our Team",
+    "browse": "Browse Products"
+  },
+  "footer": {
+    "companyName": "TELEWIND ELECTRONICS",
+    "description": "45+ years of defense-grade engineering excellence in radar, electronic warfare, and tactical communications.",
+    "quickLinksTitle": "QUICK LINKS",
+    "links": {
+      "products": "Products & Solutions",
+      "industries": "Industries",
+      "caseStudies": "Case Studies",
+      "events": "Events & Media",
+      "partners": "Partners",
+      "contact": "Contact Us",
+      "address": "No. 260, Sec. 6, Minzu Rd. <br /> Zhongli Dist., Taoyuan City 320,<br />TAIWAN ( R.O.C )"
+
+    },
+    "certificationsTitle": "CERTIFICATIONS",
+    "copyright": "TeleWind Electronics. All rights reserved.",
+    "privacyPolicy": "Privacy Policy",
+    "termsOfService": "Terms of Service"
+  }
+  ,"productsSection": {
+    "title": "Products & Solutions",
+    "description": "Defense-grade electronics built on 45+ years of engineering excellence",
+    "showingProducts": "Showing 4 products",
+    "cantFind": "Can't Find What You Need?",
+    "keyFeature" :"KEY FEATURES",
+     "viewDetails": "VIEW DETAILS",
+     "spec-pdf":"specification",
+    "customSolution": "Our engineering team can design custom solutions to meet your specific requirements",
+    "contactButton": "Contact Engineering Team"
+  },
+  "industriesApplications": {
+    "title": "Industries & Applications",
+    "description": "TeleWind Electronics serves critical sectors worldwide with defense-grade technology",
+    "keyApplications": "Key Applications",
+    "viewProducts": "View Related Products",
+    "yearsExperience": "Years of Experience",
+    "systemsDeployed": "Systems Deployed",
+    "countriesServed": "Countries Served",
+    "systemReliability": "System Reliability",
+    "discussRequirements": "Discuss Your Industry Requirements",
+    "consultationDescription": "Our technical team can help identify the optimal solutions for your specific industry challenges",
+    "scheduleConsultation": "Schedule a Consultation"
+  },
+  "industryConsultation": {
+    "title": "Discuss Your Industry Requirements",
+    "description": "Our technical team can help identify the optimal solutions for your specific industry challenges",
+    "scheduleButton": "Schedule a Consultation"
+  }
+  ,"eventsMedia": {
+    "title": "Events & Media",
+    "description": "Stay updated on TeleWind's latest events, news, and industry insights",
+    "upcomingEvents": "Upcoming Events",
+    "latestNews": "Latest News & Announcements",
+    "readMore": "Read More",
+    "mediaInquiries": "Media Inquiries",
+    "mediaDescription": "For press releases, interviews, or media information, contact our communications team",
+    "contactMedia": "Contact Media Relations"
+  },
+  "partnersDistributors": {
+    "title": "Partners & Distributors",
+    "description": "Our global network of authorized partners delivers TeleWind solutions worldwide",
+    "contactPerson": "Contact Person",
+    "productFocus": "Product Focus",
+    "visitWebsite": "Visit Website",
+    "becomePartner": "Become a TeleWind Partner",
+    "becomePartnerDescription": "Join our global network of authorized distributors and technology partners. We're looking for qualified organizations with expertise in defense electronics and strong regional presence.",
+    "marketAccess": "Market Access",
+    "exclusiveRights": "Exclusive territorial rights",
+    "technicalSupport": "Technical Support",
+    "trainingResources": "Comprehensive training & resources",
+    "salesSupport": "Sales Support",
+    "coMarketing": "Co-marketing & lead generation",
+    "partnerForm": "Partner Application Form",
+    "connectLocalPartner": "Connect with a Local Partner",
+    "localSupportDescription": "Our partners can provide local support, product demonstrations, and customized solutions",
+    "contactReferral": "Contact Us for Partner Referral"
+  },
+  "contactUs": {
+    "title": "Contact Us",
+    "description": "Get in touch with our team to discuss your defense electronics requirements",
+    "contactInformation": "Contact Information",
+    "headquarters": "Headquarters",
+    "address": "No. 260, Sec. 6, Minzu Rd.  Zhongli Dist., Taoyuan City 320,TAIWAN ( R.O.C )",
+    "email": "Email",
+    "businessHours": "Business Hours",
+    "mondayFriday": "Monday - Friday",
+    "localTime": "Local Time",
+    "secureCommunications": "Secure Communications",
+    "secureDescription": "For classified or sensitive defense projects, please use our secure communication channel or contact your designated account manager.",
+    "requestSecureContact": "Request Secure Contact",
+    "sendUsMessage": "Send Us a Message",
+    "fullName": "Full Name *",
+    "company": "Company *",
+    "emailAddress": "Email Address *",
+    "phoneNumber": "Phone Number",
+    "country": "Country *",
+    "inquiryType": "Inquiry Type *",
+    "productInformation": "Product Information",
+    "technicalSupport": "Technical Support",
+    "salesInquiry": "Sales Inquiry",
+    "partnershipOpportunity": "Partnership Opportunity",
+    "other": "Other",
+    "message": "Message *",
+    "sendMessage": "Send Message",
+    "otherWays": "Other Ways to Connect",
+    "findPartner": "Find a Partner",
+    "findPartnerDescription": "Connect with our authorized distributors in your region",
+    "viewPartners": "View Partners",
+    "technicalSupport2": "Technical Support",
+    "supportDescription": "Existing customers can access technical documentation",
+    "supportPortal": "Support Portal",
+    "careerOpportunities": "Career Opportunities",
+    "careerDescription": "Join our team of defense electronics experts",
+    "viewCareers": "View Careers"
+  }
+}

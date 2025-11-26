@@ -70,3 +70,62 @@ All colors MUST be HSL.
     @apply font-heading font-bold tracking-tight;
   }
 }
+
+.custom-btn {
+  width: 100%;               /* w-full */
+  padding-top: 0.75rem;      /* py-3 */
+  padding-bottom: 0.75rem;
+  background-color: #010A11;
+  color: white;              /* text-white */
+  font-weight: 600;          /* font-semibold */
+  
+  border-radius: 0.5rem;     /* rounded-lg */
+  
+  transition: color 0.2s, background-color 0.2s; /* transition-colors */
+}
+
+.ql-toolbar {
+  @apply border-border bg-muted/30 rounded-t-md;
+}
+
+.ql-container {
+  @apply border-border rounded-b-md;
+}
+
+.ql-editor {
+  @apply min-h-[200px] bg-background text-foreground;
+}
+
+.dark .ql-toolbar {
+  @apply bg-muted/50;
+}
+
+.dark .ql-stroke {
+  @apply stroke-foreground;
+}
+
+.dark .ql-fill {
+  @apply fill-foreground;
+}
+
+.dark .ql-picker-label {
+  @apply text-foreground;
+}
+
+.btnHover:hover{
+   color: white;
+
+}
+
+.searchBtn:focus-visible {
+  box-shadow: none !important;
+}
+
+[dir="rtl"] {
+  direction: rtl;
+  text-align: right;
+}
+
+[dir="rtl"] .flex {
+  flex-direction: row-reverse;
+}

@@ -1,0 +1,180 @@
+{
+  "nav": {
+    "home": "首页",
+    "products": "产品与解决方案",
+    "industries": "行业与应用",
+    "events": "活动与媒体",
+    "partners": "合作伙伴与经销商",
+    "contact": "联系我们"
+  },
+  "productCategories": {
+    "all": "所有产品",
+    "radar": "雷达与微波",
+    "warfare": "电子战",
+    "communications": "战术通信",
+    "amplifiers": "射频功率放大器"
+  },
+  "hero": {
+    "title": "以科技防御",
+    "description": "TeleWind Electronics 提供雷达、电子战、战术通信和智能系统，建立在超过 45 年的内部工程和制造经验之上。",
+    "exploreButton": "探索产品与解决方案",
+    "contactButton": "联系我们的团队"
+  },
+  "keyPillars": {
+    "pillar1Title": "45年以上的工程卓越",
+    "pillar1Description": "数十年在国防级电子设备和系统集成方面的成熟经验。",
+    
+    "pillar2Title": "全程自主设计与制造",
+    "pillar2Description": "从概念到生产的全流程掌控，具备先进的SMT/DIP能力。",
+    
+    "pillar3Title": "国防级射频、电子战和战术通信",
+    "pillar3Description": "用于关键任务和安全通信的军规系统。",
+    
+    "pillar4Title": "人工智能、机器人与合成智能",
+    "pillar4Description": "新一代智能平台和协作式机器人系统。"
+  },
+  "featuredProducts": {
+    "title": "产品类别",
+    "description": "为最严苛的国防与工业应用而设计的先进电子系统",
+    "learnMore": "了解更多",
+    "viewAll": "查看所有产品"
+  },
+   "industries": {
+    "title": "我们服务的行业",
+    "description": "深受全球国防、安全及关键基础设施机构的信赖",
+    "explore": "探索所有行业"
+  },
+  "globalTrust": {
+    "title": "全球信任与质量保障",
+    "description": "在国防电子制造领域具备认证的卓越品质"
+  },
+  "network": {
+    "title": "可信赖的合作伙伴",
+    "ourNetwork": "我们的网络",
+    "partners": "合作伙伴",
+    "countries": "国家",
+    "satisfaction": "满意度"
+  },
+   "ctaSection": {
+    "title": "准备好与 TeleWind 合作了吗？",
+    "description": "让我们讨论我们的国防级电子设备如何满足您关键任务的需求",
+    "contact": "联系我们的团队",
+    "browse": "浏览产品"
+  },
+  "footer": {
+    "companyName": "TELEWIND ELECTRONICS",
+    "description": "在雷达、电子战和战术通信领域拥有45年以上的国防级工程卓越经验。",
+    "quickLinksTitle": "快速链接",
+    "links": {
+      "products": "产品与解决方案",
+      "industries": "行业",
+      "caseStudies": "案例研究",
+      "events": "活动与媒体",
+      "partners": "合作伙伴",
+      "contact": "联系我们",
+        "address": "台湾桃园市中坜区民族路六段260号 邮编320 (中华民国)"
+
+    },
+    "certificationsTitle": "认证",
+    "copyright": "TeleWind Electronics. 版权所有。",
+    "privacyPolicy": "隐私政策",
+    "termsOfService": "服务条款"
+  }
+  , "productsSection": {
+    "title": "产品与解决方案",
+    "description": "基于45年以上工程卓越经验的国防级电子设备",
+    "showingProducts": "显示4个产品",
+    "keyFeature" :"主要特性",
+    "viewDetails": "查看详情",
+    "spec-pdf":"规格说明",
+    "cantFind": "找不到您需要的？",
+    "customSolution": "我们的工程团队可以设计定制解决方案以满足您的特定需求",
+    "contactButton": "联系工程团队"
+  },
+  "industriesApplications": {
+    "title": "行业与应用",
+    "description": "TeleWind Electronics 使用国防级技术服务全球关键领域",
+    "keyApplications": "主要应用",
+    "viewProducts": "查看相关产品",
+    "yearsExperience": "经验年数",
+    "systemsDeployed": "部署系统",
+    "countriesServed": "服务国家",
+    "systemReliability": "系统可靠性",
+    "discussRequirements": "讨论您的行业需求",
+    "consultationDescription": "我们的技术团队可以帮助识别针对您特定行业挑战的最佳解决方案",
+    "scheduleConsultation": "安排咨询"
+  },
+  "industryConsultation": {
+    "title": "讨论您的行业需求",
+    "description": "我们的技术团队可帮助识别适合您行业挑战的最佳解决方案",
+    "scheduleButton": "预约咨询"
+  },
+
+  "eventsMedia": {
+    "title": "活动与媒体",
+    "description": "随时了解 TeleWind 最新的活动、新闻和行业洞察",
+    "upcomingEvents": "即将举行的活动",
+    "latestNews": "最新新闻与公告",
+    "readMore": "阅读更多",
+    "mediaInquiries": "媒体咨询",
+    "mediaDescription": "有关新闻稿、采访或媒体信息，请联系通讯团队",
+    "contactMedia": "联系媒体关系"
+  },
+  "partnersDistributors": {
+    "title": "合作伙伴与分销商",
+    "description": "我们全球的授权合作伙伴网络在全球范围内提供 TeleWind 解决方案",
+    "contactPerson": "联系人",
+    "productFocus": "产品重点",
+    "visitWebsite": "访问网站",
+    "becomePartner": "成为 TeleWind 合作伙伴",
+    "becomePartnerDescription": "加入我们全球授权分销商和技术合作伙伴网络。我们正在寻找具有国防电子专业知识和强大区域影响力的合格组织。",
+    "marketAccess": "市场准入",
+    "exclusiveRights": "独占区域权利",
+    "technicalSupport": "技术支持",
+    "trainingResources": "全面培训与资源",
+    "salesSupport": "销售支持",
+    "coMarketing": "联合营销与潜在客户开发",
+    "partnerForm": "合作伙伴申请表",
+    "connectLocalPartner": "联系本地合作伙伴",
+    "localSupportDescription": "我们的合作伙伴可提供本地支持、产品演示和定制化解决方案",
+    "contactReferral": "联系我们获取合作伙伴推荐"
+  },
+  "contactUs": {
+    "title": "联系我们",
+    "description": "与我们的团队联系，讨论您的国防电子需求",
+    "contactInformation": "联系信息",
+    "headquarters": "总部",
+    "address": "台湾桃园市中坜区民族路六段260号 邮编320 (中华民国)",
+    "email": "电子邮件",
+    "businessHours": "营业时间",
+    "mondayFriday": "星期一 - 星期五",
+    "localTime": "当地时间",
+    "secureCommunications": "安全通信",
+    "secureDescription": "对于涉密或敏感的国防项目，请使用我们的安全通信渠道或联系您的专属客户经理。",
+    "requestSecureContact": "请求安全联系",
+    "sendUsMessage": "给我们留言",
+    "fullName": "姓名 *",
+    "company": "公司 *",
+    "emailAddress": "电子邮箱 *",
+    "phoneNumber": "电话号码",
+    "country": "国家 *",
+    "inquiryType": "咨询类型 *",
+    "productInformation": "产品信息",
+    "technicalSupport": "技术支持",
+    "salesInquiry": "销售咨询",
+    "partnershipOpportunity": "合作机会",
+    "other": "其他",
+    "message": "留言内容 *",
+    "sendMessage": "发送消息",
+    "otherWays": "其他联系方式",
+    "findPartner": "查找合作伙伴",
+    "findPartnerDescription": "与您所在地区的授权分销商联系",
+    "viewPartners": "查看合作伙伴",
+    "technicalSupport2": "技术支持",
+    "supportDescription": "现有客户可访问技术文档",
+    "supportPortal": "支持门户",
+    "careerOpportunities": "职业机会",
+    "careerDescription": "加入我们的国防电子专家团队",
+    "viewCareers": "查看招聘"
+  }
+}
