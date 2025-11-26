@@ -25,10 +25,10 @@ export default function Footer() {
                 <Phone size={16} />
                 <span>+1 (XXX) XXX-XXXX</span>
               </div> */}
-              <div className="flex items-center gap-2">
-                <MapPin size={16} />
-                <span> {t(`footer.links.address`)}</span>
-              </div>
+              {/*<div className="flex items-center gap-2">*/}
+              {/*  <MapPin size={16} />*/}
+              {/*  <span> {t(`footer.links.address`)}</span>*/}
+              {/*</div>*/}
             </div>
           </div>
 
