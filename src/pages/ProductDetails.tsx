@@ -9,10 +9,10 @@ export default function ProductDetails() {
   const { id } = useParams();
   const navigate = useNavigate();
   const { t } = useTranslation();
-  
+
   // ✅ Fetch all products and find the specific one
   const { data: allProducts, isLoading, error } = useSiteProducts();
-  const product = allProducts?.find(p => p.id === Number(id));
+  const product = allProducts?.find((p) => p.id === Number(id));
 
   // Show loading state
   if (isLoading) {
@@ -36,7 +36,9 @@ export default function ProductDetails() {
             Error Loading Product
           </h2>
           <p className="text-muted-foreground mb-6">
-            {error instanceof Error ? error.message : "Unable to load product details. Please try again."}
+            {error instanceof Error
+              ? error.message
+              : "Unable to load product details. Please try again."}
           </p>
           <div className="flex gap-3 justify-center">
             <Button asChild variant="default">
@@ -45,10 +47,7 @@ export default function ProductDetails() {
                 Back to Products
               </Link>
             </Button>
-            <Button 
-              variant="outline"
-              onClick={() => window.location.reload()}
-            >
+            <Button variant="outline" onClick={() => window.location.reload()}>
               Try Again
             </Button>
           </div>
@@ -67,7 +66,8 @@ export default function ProductDetails() {
             Product Not Found
           </h2>
           <p className="text-muted-foreground mb-6">
-            The product you're looking for doesn't exist or may have been removed.
+            The product you're looking for doesn't exist or may have been
+            removed.
           </p>
           <Button asChild variant="default">
             <Link to="/products">
@@ -85,11 +85,7 @@ export default function ProductDetails() {
     <div className="min-h-screen bg-background pt-24 pb-12">
       <div className="container mx-auto px-4 py-8">
         {/* Back Button */}
-        <Button 
-          asChild 
-          variant="ghost" 
-          className="mb-6 hover:bg-muted"
-        >
+        <Button asChild variant="ghost" className="mb-6 hover:bg-muted">
           <Link to="/products">
             <ArrowLeft className="w-4 h-4 mr-2" />
             Back to Products
@@ -119,7 +115,7 @@ export default function ProductDetails() {
                 {product.category_name}
               </Badge>
             )}
-            
+
             {/* Title */}
             <h1 className="font-heading text-4xl md:text-5xl font-bold leading-tight">
               {product.title}
@@ -142,8 +138,12 @@ export default function ProductDetails() {
                 <ul className="space-y-3">
                   {product.key_features.map((feature, index) => (
                     <li key={index} className="flex items-start gap-3">
-                      <span className="text-accent text-xl mt-0.5 flex-shrink-0">✓</span>
-                      <span className="text-foreground leading-relaxed">{feature}</span>
+                      <span className="text-accent text-xl mt-0.5 flex-shrink-0">
+                        ✓
+                      </span>
+                      <span className="text-foreground leading-relaxed">
+                        {feature}
+                      </span>
                     </li>
                   ))}
                 </ul>
@@ -159,9 +159,9 @@ export default function ProductDetails() {
                 </h3>
                 <div className="flex flex-wrap gap-2">
                   {product.supported_bands.map((band, index) => (
-                    <Badge 
-                      key={index} 
-                      variant="outline" 
+                    <Badge
+                      key={index}
+                      variant="outline"
                       className="text-sm px-3 py-1 hover:bg-accent hover:text-accent-foreground transition-colors"
                     >
                       {band}
@@ -173,17 +173,19 @@ export default function ProductDetails() {
 
             {/* Action Buttons */}
             <div className="flex flex-col gap-3 pt-4 md:flex-row md:items-center md:gap-4">
-              <Button 
+              <Button
                 size="lg"
                 onClick={() => navigate("/contact")}
-                className="flex-1"
+                className="w-full md:w-auto flex-1"
               >
                 Contact Us
               </Button>
-              <Button 
-                variant="outline" 
+
+              <Button
+                variant="outline"
                 size="lg"
                 onClick={() => navigate("/products")}
+                className="w-full md:w-auto flex-1"
               >
                 View All Products
               </Button>
@@ -199,10 +201,11 @@ export default function ProductDetails() {
                 Need More Information?
               </h2>
               <p className="text-muted-foreground mb-6">
-                Our team is here to help you find the perfect solution for your needs.
-                Get in touch with us for detailed specifications, pricing, or custom solutions.
+                Our team is here to help you find the perfect solution for your
+                needs. Get in touch with us for detailed specifications,
+                pricing, or custom solutions.
               </p>
-              <Button 
+              <Button
                 variant="default"
                 size="lg"
                 onClick={() => navigate("/contact")}
