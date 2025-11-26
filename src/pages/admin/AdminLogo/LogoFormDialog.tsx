@@ -26,7 +26,6 @@ export function LogoFormDialog({
   logo,
   isSubmitting,
 }: Props) {
-  // const [partnerId, setPartnerId] = useState("");
   const [displayOrder, setDisplayOrder] = useState("");
   const [status, setStatus] = useState(1); // 1 = active, 0 = inactive
   const [logoFile, setLogoFile] = useState<File | null>(null);
@@ -43,12 +42,10 @@ export function LogoFormDialog({
 
   useEffect(() => {
     if (logo) {
-      // setPartnerId(logo.partnerId.toString());
       setDisplayOrder(logo.displayOrder.toString());
       setStatus(logo.status);
       setLogoFile(null);
     } else {
-      // setPartnerId("");
       setDisplayOrder("");
       setStatus(1);
       setLogoFile(null);
@@ -62,12 +59,9 @@ export function LogoFormDialog({
 
     // Validation
     const newErrors: Record<string, string> = {};
-    // if (!partnerId) {
-    //   newErrors.partner_id = "Partner is required";
-    // }
-    if (!displayOrder) {
-      newErrors.display_order = "Display order is required";
-    }
+    
+    // ✅ REMOVED: Display order validation - now optional
+    
     if (!logo && !logoFile) {
       newErrors.logo = "Logo image is required";
     }
@@ -77,12 +71,17 @@ export function LogoFormDialog({
       return;
     }
 
-    await onSubmit({
-      // partner_id: parseInt(partnerId),
-      display_order: parseInt(displayOrder),
+    // ✅ UPDATED: Only include display_order if it has a value
+    const formData: any = {
       status: status,
       logo: logoFile,
-    });
+    };
+
+    if (displayOrder) {
+      formData.display_order = parseInt(displayOrder);
+    }
+
+    await onSubmit(formData);
   };
 
   return (
@@ -93,41 +92,20 @@ export function LogoFormDialog({
         </DialogHeader>
 
         <form onSubmit={handleSubmit} className="space-y-6">
-          {/* Partner Selection */}
-          {/* <div>
-            <Label htmlFor="partner">Partner *</Label>
-            <select
-              id="partner"
-              value={partnerId}
-              onChange={(e) => setPartnerId(e.target.value)}
-              className="w-full mt-1 px-3 py-2 border border-input bg-background rounded-md focus:outline-none focus:ring-2 focus:ring-ring"
-            >
-              <option value="">Select a partner</option>
-              {partners.map((partner) => {
-                const enTranslation = partner.translations.find((t) => t.locale === "en");
-                return (
-                  <option key={partner.id} value={partner.id}>
-                    {enTranslation?.name || `Partner #${partner.id}`}
-                  </option>
-                );
-              })}
-            </select>
-            {errors.partner_id && (
-              <p className="text-sm text-destructive mt-1">{errors.partner_id}</p>
-            )}
-          </div> */}
-
-          {/* Display Order */}
+          {/* Display Order - Now Optional */}
           <div>
-            <Label htmlFor="display-order">Display Order *</Label>
+            <Label htmlFor="display-order">Display Order</Label>
             <Input
               id="display-order"
               type="number"
               min="1"
               value={displayOrder}
               onChange={(e) => setDisplayOrder(e.target.value)}
-              placeholder="Enter display order (e.g., 1, 2, 3)"
+              placeholder="Enter display order (optional)"
             />
+            <p className="text-xs text-muted-foreground mt-1 text-green-500">
+              Leave it empty to add at the end
+            </p>
             {errors.display_order && (
               <p className="text-sm text-destructive mt-1">{errors.display_order}</p>
             )}
