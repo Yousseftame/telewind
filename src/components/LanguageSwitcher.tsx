@@ -17,8 +17,8 @@ import { cn } from "@/lib/utils";
 const languages = [
   { code: "en", name: "English", flag: "🇬🇧", apiCode: "en" },
   { code: "ar", name: "العربية", flag: "🇸🇦", dir: "rtl", apiCode: "ar" },
-  { code: "zh-TW", name: "繁體中文", flag: "🇹🇼", apiCode: "tw" },
-  { code: "zh-CN", name: "简体中文", flag: "🇨🇳", apiCode: "ch" },
+  // { code: "zh-TW", name: "繁體中文", flag: "🇹🇼", apiCode: "tw" },
+  // { code: "zh-CN", name: "简体中文", flag: "🇨🇳", apiCode: "ch" },
 ];
 
 export default function LanguageSwitcher() {
