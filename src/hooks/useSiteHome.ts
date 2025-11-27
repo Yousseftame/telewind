@@ -5,13 +5,13 @@ import { axiosInstance } from "@/services/axiosInstance";
 import { SITE_URLS } from "@/services/apiEndpoints";
 import { useTranslation } from "react-i18next";
 
-// ✅ Map i18next language codes to API Accept-Language codes
+// ✅ FIXED: Map i18next language codes to API Accept-Language codes
 const getApiLanguage = (i18nLang: string): string => {
   const langMap: Record<string, string> = {
     "en": "en",
     "ar": "ar",
-    "zh-TW": "tw",  // Traditional Chinese → tw
-    "zh-CN": "ch",  // Simplified Chinese → ch
+    "fr-FR": "fr",  // ✅ Changed from zh-TW → tw to fr-FR → fr
+    "de-DE": "de",  // ✅ Changed from zh-CN → ch to de-DE → de
   };
   return langMap[i18nLang] || "en"; // Default to English
 };
@@ -75,11 +75,13 @@ export function useHomeIndustries() {
   return useQuery({
     queryKey: ["home-industries", apiLang],
     queryFn: async () => {
+      console.log('Fetching industries with language:', apiLang);
       const response = await axiosInstance.get(SITE_URLS.HOME_INDUSTRIES, {
         headers: {
           "Accept-Language": apiLang,
         },
       });
+      console.log('Industries response:', response.data);
       return response.data.data as HomeIndustryItem[];
     },
     staleTime: 5 * 60 * 1000,
@@ -96,16 +98,19 @@ export function useHomeCertificates() {
   return useQuery({
     queryKey: ["home-certificates", apiLang],
     queryFn: async () => {
+      console.log('Fetching certificates with language:', apiLang);
       const response = await axiosInstance.get(SITE_URLS.HOME_CERTIFICATES, {
         headers: {
           "Accept-Language": apiLang,
         },
       });
+      console.log('Certificates response:', response.data);
       return response.data.data as HomeCertificateItem[];
     },
     staleTime: 5 * 60 * 1000,
   });
 }
+
 // -------------------------------------------------------------
 // HOME PARTNER LOGOS
 // GET /site/partners-logos
@@ -127,6 +132,7 @@ export function useHomePartnerLogos() {
   return useQuery({
     queryKey: ["home-partner-logos", apiLang],
     queryFn: async () => {
+      console.log('Fetching partner logos with language:', apiLang);
       const response = await axiosInstance.get("/site/partners-logos", {
         headers: {
           "Accept-Language": apiLang,

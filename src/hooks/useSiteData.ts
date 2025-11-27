@@ -5,13 +5,13 @@ import { axiosInstance } from "@/services/axiosInstance";
 import { SITE_URLS } from "@/services/apiEndpoints";
 import { useTranslation } from "react-i18next";
 
-// ✅ Map i18next language codes to API Accept-Language codes
+// ✅ FIXED: Map i18next language codes to API Accept-Language codes
 const getApiLanguage = (i18nLang: string): string => {
   const langMap: Record<string, string> = {
     "en": "en",
     "ar": "ar",
-     "fr-FR": "fr",  // ✅ Changed from zh-TW → tw
-    "de-DE": "de",  // ✅ Changed from zh-CN → ch
+    "fr-FR": "fr",  // ✅ Changed from zh-TW → tw to fr-FR → fr
+    "de-DE": "de",  // ✅ Changed from zh-CN → ch to de-DE → de
   };
   return langMap[i18nLang] || "en";
 };
@@ -49,7 +49,7 @@ export function useSiteProducts(categoryId?: number, searchQuery?: string) {
       }
       
       const url = `${SITE_URLS.PRODUCTS}${params.toString() ? `?${params.toString()}` : ''}`;
-      console.log('Fetching products from:', url);
+      console.log('Fetching products from:', url, 'with language:', apiLang);
       
       const response = await axiosInstance.get(url, {
         headers: { "Accept-Language": apiLang },
@@ -80,9 +80,11 @@ export function useSiteIndustries() {
   return useQuery({
     queryKey: ["site-industries", apiLang],
     queryFn: async () => {
+      console.log('Fetching industries with language:', apiLang);
       const response = await axiosInstance.get(SITE_URLS.INDUSTRIES, {
         headers: { "Accept-Language": apiLang },
       });
+      console.log('Industries response:', response.data);
       return response.data.data as SiteIndustry[];
     },
     staleTime: 5 * 60 * 1000,
@@ -107,9 +109,11 @@ export function useSiteEvents() {
   return useQuery({
     queryKey: ["site-events", apiLang],
     queryFn: async () => {
+      console.log('Fetching events with language:', apiLang);
       const response = await axiosInstance.get(SITE_URLS.EVENTS, {
         headers: { "Accept-Language": apiLang },
       });
+      console.log('Events response:', response.data);
       return response.data.data as SiteEvent[];
     },
     staleTime: 5 * 60 * 1000,
@@ -132,9 +136,11 @@ export function useSiteAnnouncements() {
   return useQuery({
     queryKey: ["site-announcements", apiLang],
     queryFn: async () => {
+      console.log('Fetching announcements with language:', apiLang);
       const response = await axiosInstance.get(SITE_URLS.ANNOUNCEMENTS, {
         headers: { "Accept-Language": apiLang },
       });
+      console.log('Announcements response:', response.data);
       return response.data.data as SiteAnnouncement[];
     },
     staleTime: 5 * 60 * 1000,
@@ -230,12 +236,14 @@ export function useSitePartners(region?: string) {
         params.append("region", "all");
       }
       
+      console.log('Fetching partners with language:', apiLang, 'and region:', region);
       const response = await axiosInstance.get(
         `${SITE_URLS.PARTNERS}?${params.toString()}`,
         {
           headers: { "Accept-Language": apiLang },
         }
       );
+      console.log('Partners response:', response.data);
       return response.data.data as SitePartner[];
     },
     staleTime: 5 * 60 * 1000,

@@ -35,8 +35,8 @@ export function AnnouncementFormDialog({
   const [translations, setTranslations] = useState({
     en: { title: "", description: "" },
     ar: { title: "", description: "" },
-    tw: { title: "", description: "" },
-    ch: { title: "", description: "" },
+    fr: { title: "", description: "" },
+    de: { title: "", description: "" },
   });
 
   useEffect(() => {
@@ -46,8 +46,8 @@ export function AnnouncementFormDialog({
 
       const enTrans = getTranslation(announcement, "en");
       const arTrans = getTranslation(announcement, "ar");
-      const twTrans = getTranslation(announcement, "tw");
-      const chTrans = getTranslation(announcement, "ch");
+      const frTrans = getTranslation(announcement, "fr");
+      const deTrans = getTranslation(announcement, "de");
 
       setTranslations({
         en: {
@@ -58,13 +58,13 @@ export function AnnouncementFormDialog({
           title: arTrans?.title || "",
           description: arTrans?.description || "",
         },
-        tw: {
-          title: twTrans?.title || "",
-          description: twTrans?.description || "",
+        fr: {
+          title: frTrans?.title || "",
+          description: frTrans?.description || "",
         },
-        ch: {
-          title: chTrans?.title || "",
-          description: chTrans?.description || "",
+        de: {
+          title: deTrans?.title || "",
+          description: deTrans?.description || "",
         },
       });
     } else {
@@ -73,8 +73,8 @@ export function AnnouncementFormDialog({
       setTranslations({
         en: { title: "", description: "" },
         ar: { title: "", description: "" },
-        tw: { title: "", description: "" },
-        ch: { title: "", description: "" },
+        fr: { title: "", description: "" },
+        de: { title: "", description: "" },
       });
     }
   }, [announcement, mode, open]);
@@ -85,7 +85,7 @@ export function AnnouncementFormDialog({
   };
 
   const updateTranslation = (
-    lang: "en" | "ar" | "tw" | "ch",
+    lang: "en" | "ar" | "fr" | "de",
     field: "title" | "description",
     value: string
   ) => {
@@ -136,8 +136,8 @@ export function AnnouncementFormDialog({
               <TabsList className="grid w-full grid-cols-2 md:grid-cols-4">
                 <TabsTrigger value="en">English</TabsTrigger>
                 <TabsTrigger value="ar">Arabic</TabsTrigger>
-                <TabsTrigger value="tw">Taiwan</TabsTrigger>
-                <TabsTrigger value="ch">Chinese </TabsTrigger>
+                <TabsTrigger value="fr">French</TabsTrigger>
+                <TabsTrigger value="de">German</TabsTrigger>
               </TabsList>
 
               {/* English Tab */}
@@ -196,26 +196,26 @@ export function AnnouncementFormDialog({
                 </div>
               </TabsContent>
 
-              {/* Taiwan / Traditional Chinese Tab */}
-              <TabsContent value="tw" className="space-y-4">
+              {/* French Tab */}
+              <TabsContent value="fr" className="space-y-4">
                 <div>
-                  <Label htmlFor="tw-title">Title (TW) *</Label>
+                  <Label htmlFor="fr-title">Title (FR) *</Label>
                   <Input
-                    id="tw-title"
-                    value={translations.tw.title}
+                    id="fr-title"
+                    value={translations.fr.title}
                     onChange={(e) =>
-                      updateTranslation("tw", "title", e.target.value)
+                      updateTranslation("fr", "title", e.target.value)
                     }
                     required
                   />
                 </div>
                 <div>
-                  <Label htmlFor="tw-description">Description (TW) *</Label>
+                  <Label htmlFor="fr-description">Description (FR) *</Label>
                   <Textarea
-                    id="tw-description"
-                    value={translations.tw.description}
+                    id="fr-description"
+                    value={translations.fr.description}
                     onChange={(e) =>
-                      updateTranslation("tw", "description", e.target.value)
+                      updateTranslation("fr", "description", e.target.value)
                     }
                     rows={4}
                     required
@@ -223,26 +223,26 @@ export function AnnouncementFormDialog({
                 </div>
               </TabsContent>
 
-              {/* Simplified / Chinese Content Tab */}
-              <TabsContent value="ch" className="space-y-4">
+              {/* German Tab */}
+              <TabsContent value="de" className="space-y-4">
                 <div>
-                  <Label htmlFor="ch-title">Title (CH) *</Label>
+                  <Label htmlFor="de-title">Title (DE) *</Label>
                   <Input
-                    id="ch-title"
-                    value={translations.ch.title}
+                    id="de-title"
+                    value={translations.de.title}
                     onChange={(e) =>
-                      updateTranslation("ch", "title", e.target.value)
+                      updateTranslation("de", "title", e.target.value)
                     }
                     required
                   />
                 </div>
                 <div>
-                  <Label htmlFor="ch-description">Description (CH) *</Label>
+                  <Label htmlFor="de-description">Description (DE) *</Label>
                   <Textarea
-                    id="ch-description"
-                    value={translations.ch.description}
+                    id="de-description"
+                    value={translations.de.description}
                     onChange={(e) =>
-                      updateTranslation("ch", "description", e.target.value)
+                      updateTranslation("de", "description", e.target.value)
                     }
                     rows={4}
                     required

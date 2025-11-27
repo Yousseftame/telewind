@@ -23,8 +23,8 @@ export function AnnouncementViewDialog({
 
   const enTrans = getTranslation(announcement, "en");
   const arTrans = getTranslation(announcement, "ar");
-  const twTrans = getTranslation(announcement, "tw");
-  const chTrans = getTranslation(announcement, "ch");
+  const frTrans = getTranslation(announcement, "fr");
+  const deTrans = getTranslation(announcement, "de");
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -59,8 +59,8 @@ export function AnnouncementViewDialog({
               <TabsList className="grid w-full grid-cols-2 md:grid-cols-4">
                 <TabsTrigger value="en">English</TabsTrigger>
                 <TabsTrigger value="ar">Arabic</TabsTrigger>
-                <TabsTrigger value="tw">Taiwan</TabsTrigger>
-                <TabsTrigger value="ch">Chinese</TabsTrigger>
+                <TabsTrigger value="fr">French</TabsTrigger>
+                <TabsTrigger value="de">German</TabsTrigger>
               </TabsList>
 
               {/* English Tab */}
@@ -98,34 +98,34 @@ export function AnnouncementViewDialog({
                 </div>
               </TabsContent>
 
-              {/* Taiwan / Traditional Chinese Tab */}
-              <TabsContent value="tw" className="space-y-4">
+              {/* French Tab */}
+              <TabsContent value="fr" className="space-y-4">
                 <div>
                   <h4 className="text-sm font-medium">Title</h4>
                   <p className="text-muted-foreground">
-                    {twTrans?.title || "-"}
+                    {frTrans?.title || "-"}
                   </p>
                 </div>
                 <div>
                   <h4 className="text-sm font-medium">Description</h4>
                   <p className="text-muted-foreground whitespace-pre-wrap">
-                    {twTrans?.description || "-"}
+                    {frTrans?.description || "-"}
                   </p>
                 </div>
               </TabsContent>
 
-              {/* Simplified / Chinese Content Tab */}
-              <TabsContent value="ch" className="space-y-4">
+              {/* German Tab */}
+              <TabsContent value="de" className="space-y-4">
                 <div>
                   <h4 className="text-sm font-medium">Title</h4>
                   <p className="text-muted-foreground">
-                    {chTrans?.title || "-"}
+                    {deTrans?.title || "-"}
                   </p>
                 </div>
                 <div>
                   <h4 className="text-sm font-medium">Description</h4>
                   <p className="text-muted-foreground whitespace-pre-wrap">
-                    {chTrans?.description || "-"}
+                    {deTrans?.description || "-"}
                   </p>
                 </div>
               </TabsContent>
