@@ -126,6 +126,6 @@ All colors MUST be HSL.
   text-align: right;
 }
 
-[dir="rtl"] .flex {
+/* [dir="rtl"] .flex {
   flex-direction: row-reverse;
-}
+} */

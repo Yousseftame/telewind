@@ -42,7 +42,7 @@ export default function Navigation() {
   const productCategories = [
     { name: t("productCategories.all"), categoryId: 0, path: "/products" },
     ...categories.map(cat => ({
-      name: cat.name, // ✅ Use "name" from API, not "title"
+      name: cat.name,
       categoryId: cat.id,
       path: `/products?category=${cat.id}`
     }))
@@ -66,20 +66,44 @@ export default function Navigation() {
         {/* Desktop Navigation */}
         <NavigationMenu className="hidden lg:flex">
           <NavigationMenuList>
+
+            {/* HOME */}
             <NavigationMenuItem>
               <Link to="/" className="px-4 py-2 text-sm font-medium tracking-wide transition-colors relative group/item">
                 <span className={`${isActive("/") ? "text-primary" : "text-muted-foreground group-hover/item:text-primary"}`}>
                   {t("nav.home")}
                 </span>
-                {isActive("/") && <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-accent"></span>}
-                {!isActive("/") && <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-accent scale-x-0 group-hover/item:scale-x-100 transition-transform duration-300 origin-left"></span>}
+
+                {/* Underline */}
+               <span className="absolute bottom-0 left-0 right-0 h-1.5 flex flex-col">
+
+  {/* BLUE LINE */}
+  <span
+    className={`h-0.5 bg-[#000d63] transition-transform duration-300 origin-left
+      ${isActive("/") ? "scale-x-100" : "scale-x-0 group-hover/item:scale-x-100"}
+    `}
+  ></span>
+
+  {/* YELLOW LINE */}
+  {!isActive("/") ? (
+    <span className="h-0.5 bg-accent scale-x-0 group-hover/item:scale-x-100 transition-transform duration-300 origin-left"></span>
+  ) : (
+    <span className="h-0.5 bg-accent"></span>
+  )}
+
+</span>
+
               </Link>
             </NavigationMenuItem>
 
+            {/* PRODUCTS DROPDOWN */}
             <NavigationMenuItem>
-              <NavigationMenuTrigger className={`px-4 py-2 text-sm font-medium tracking-wide transition-colors bg-transparent hover:bg-transparent data-[state=open]:bg-transparent focus:bg-transparent data-[active]:bg-transparent ${
-                isProductsActive ? "text-primary" : "text-muted-foreground hover:text-primary"
-              }`}>
+              <NavigationMenuTrigger
+                className={`px-4 py-2 text-sm font-medium tracking-wide transition-colors bg-transparent hover:bg-transparent 
+                data-[state=open]:bg-transparent focus:bg-transparent data-[active]:bg-transparent ${
+                  isProductsActive ? "text-primary" : "text-muted-foreground hover:text-primary"
+                }`}
+              >
                 {t("nav.products")}
               </NavigationMenuTrigger>
               <NavigationMenuContent>
@@ -106,6 +130,7 @@ export default function Navigation() {
               </NavigationMenuContent>
             </NavigationMenuItem>
 
+            {/* OTHER LINKS */}
             {navLinks.filter(link => link.path !== "/").map((link) => (
               <NavigationMenuItem key={link.path}>
                 <Link
@@ -115,11 +140,31 @@ export default function Navigation() {
                   <span className={`${isActive(link.path) ? "text-primary" : "text-muted-foreground group-hover/item:text-primary"}`}>
                     {link.name}
                   </span>
-                  {isActive(link.path) && <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-accent"></span>}
-                  {!isActive(link.path) && <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-accent scale-x-0 group-hover/item:scale-x-100 transition-transform duration-300 origin-left"></span>}
+
+                  {/* Underline */}
+                 <span className="absolute bottom-0 left-0 right-0 h-1.5 flex flex-col">
+
+  {/* BLUE LINE */}
+  <span
+    className={`h-0.5 bg-[#000d63] transition-transform duration-300 origin-left
+      ${isActive(link.path) ? "scale-x-100" : "scale-x-0 group-hover/item:scale-x-100"}
+    `}
+  ></span>
+
+  {/* YELLOW LINE */}
+  {isActive(link.path) ? (
+    <span className="h-0.5 bg-accent scale-x-100"></span>
+  ) : (
+    <span className="h-0.5 bg-accent scale-x-0 group-hover/item:scale-x-100 transition-transform duration-300 origin-left"></span>
+  )}
+
+</span>
+
+
                 </Link>
               </NavigationMenuItem>
             ))}
+
           </NavigationMenuList>
         </NavigationMenu>
 
