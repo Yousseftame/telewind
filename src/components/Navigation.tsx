@@ -60,7 +60,7 @@ export default function Navigation() {
       <nav className="container h-10 mx-auto px-4 flex items-center justify-between">
         {/* Logo */}
         <Link to="/" className="flex items-center">
-          <img src={telewindLogo} alt="TeleWind Electronics" className="h-20 w-auto" />
+          <img src={telewindLogo} alt="TeleWind Electronics" className="h-16 w-auto" />
         </Link>
 
         {/* Desktop Navigation */}
