@@ -17,7 +17,7 @@ import {
 import { Mail, MapPin, Clock, Shield } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { useForm } from "react-hook-form";
-
+import countries from "./CountryList";
 import { axiosInstance } from "@/services/axiosInstance";
 import { CONTACT_URLS } from "@/services/apiEndpoints";
 import validation from "@/services/validation";
@@ -44,7 +44,7 @@ export default function Contact() {
       phone: "",
       country: "",
       message: "",
-      inquiry_type: "",
+      inquiry_type: "product",
       inquiry_type_text: "",
     },
   });
@@ -148,7 +148,7 @@ export default function Contact() {
                     {t(`contactUs.contactInformation`)}
                   </h3>
                   <div className="space-y-4">
-                    <div className="flex items-start gap-3">
+                    {/* <div className="flex items-start gap-3">
                       <MapPin className="w-5 h-5 text-accent mt-1" />
                       <div>
                         <p className="font-semibold text-sm mb-1">
@@ -158,7 +158,7 @@ export default function Contact() {
                           {t(`contactUs.address`)}
                         </p>
                       </div>
-                    </div>
+                    </div> */}
                     <div className="flex items-start gap-3">
                       <Mail className="w-5 h-5 text-accent mt-1" />
                       <div>
@@ -166,10 +166,10 @@ export default function Contact() {
                           {t(`contactUs.email`)}
                         </p>
                         <a
-                          href="mailto:info@telewind.com.tw"
+                          href="mailto:info@telewind.org"
                           className="text-sm text-accent hover:underline"
                         >
-                          info@telewind.com.tw
+                          info@telewind.org
                         </a>
                       </div>
                     </div>
@@ -189,7 +189,7 @@ export default function Contact() {
                 </CardContent>
               </Card>
 
-              <Card className="bg-accent/5 border-accent">
+              {/* <Card className="bg-accent/5 border-accent">
                 <CardContent className="p-6">
                   <Shield className="w-10 h-10 text-accent mb-3" />
                   <h4 className="font-heading font-bold mb-2">
@@ -202,7 +202,7 @@ export default function Contact() {
                     {t(`contactUs.requestSecureContact`)}
                   </Button>
                 </CardContent>
-              </Card>
+              </Card> */}
             </div>
 
             {/* Contact Form */}
@@ -300,12 +300,26 @@ export default function Contact() {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       {/* Country */}
                       <div className="space-y-2">
-                        <Label htmlFor="country">
-                          {t(`contactUs.country`)}
-                        </Label>
-                        <Input
-                          id="country"
-                          placeholder="United States"
+                        <Label htmlFor="country">{t(`contactUs.country`)}</Label>
+                        <Select
+                          value={watch("country")}
+                          onValueChange={(v) => setValue("country", v)}
+                        >
+                          <SelectTrigger id="country">
+                            <SelectValue placeholder={t(`contactUs.selectCountry`)} />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {countries.map((country) => (
+                              <SelectItem key={country.code} value={country.label}>
+                                {country.label}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+
+                        {/* Hidden input to register with react-hook-form */}
+                        <input
+                          type="hidden"
                           {...register("country", {
                             required: "Country is required",
                           })}
@@ -369,17 +383,17 @@ export default function Contact() {
                         </Label>
                         <Input
                           id="inquiry_type_text"
-                          placeholder="Please specify your inquiry type"
+                          placeholder={t(`contactUs.specifyOther`)}
                           {...register("inquiry_type_text", {
                             required: isOther
                               ? "Please specify your inquiry"
                               : false,
                             minLength: isOther
                               ? {
-                                  value: 3,
-                                  message:
-                                    "Please provide more details (at least 3 characters)",
-                                }
+                                value: 3,
+                                message:
+                                  "Please provide more details (at least 3 characters)",
+                              }
                               : undefined,
                           })}
                         />
@@ -397,7 +411,7 @@ export default function Contact() {
                       <Textarea
                         id="message"
                         rows={6}
-                        placeholder="Please provide details..."
+                        placeholder={t(`contactUs.placeMessage`)}
                         {...register("message", {
                           required: "Message is required",
                           minLength: {

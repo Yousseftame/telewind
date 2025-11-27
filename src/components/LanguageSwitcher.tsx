@@ -89,8 +89,8 @@ export default function LanguageSwitcher() {
               </span>
               
               {isActive && (
-                <div className="flex-shrink-0 w-5 h-5 rounded-full bg-indigo-600 flex items-center justify-center">
-                  <Check size={12} className="text-white" />
+                <div className="flex-shrink-0 w-5 h-5 rounded-full bg-[#192B5E]  flex items-center justify-center">
+                  <Check size={12} className="text-white " />
                 </div>
               )}
             </DropdownMenuItem>
