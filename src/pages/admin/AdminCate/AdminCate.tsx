@@ -15,7 +15,7 @@ import CategoryFormDialog from "./CategoryFormDialog";
 import CategoryViewDialog from "./CategoryViewDialog";
 import { useCategoryCRUD } from "./useCategoryCRUD";
 
-type Language = "en" | "ar" | "tw" | "ch";
+type Language = "en" | "ar" | "fr" | "de"; // ⚠️ Changed from "tw" | "ch"
 
 export default function AdminCate() {
   const [selectedLanguage, setSelectedLanguage] = useState<Language>("en");
@@ -184,36 +184,36 @@ export default function AdminCate() {
         
         {/* LANGUAGE TABS */}
         <Tabs
-          value={selectedLanguage}
-          onValueChange={(value) => setSelectedLanguage(value as Language)}
-        >
-          <TabsList className="bg-slate-100 p-1 rounded-xl">
-            <TabsTrigger 
-              value="en" 
-              className="rounded-lg px-4 py-2 text-sm font-medium data-[state=active]:bg-white data-[state=active]:text-indigo-600 data-[state=active]:shadow-sm"
-            >
-              🇬🇧 English
-            </TabsTrigger>
-            <TabsTrigger 
-              value="ar"
-              className="rounded-lg px-4 py-2 text-sm font-medium data-[state=active]:bg-white data-[state=active]:text-indigo-600 data-[state=active]:shadow-sm"
-            >
-              🇸🇦 العربية
-            </TabsTrigger>
-            <TabsTrigger 
-              value="tw"
-              className="rounded-lg px-4 py-2 text-sm font-medium data-[state=active]:bg-white data-[state=active]:text-indigo-600 data-[state=active]:shadow-sm"
-            >
-              🇹🇼 Taiwan
-            </TabsTrigger>
-            <TabsTrigger 
-              value="ch"
-              className="rounded-lg px-4 py-2 text-sm font-medium data-[state=active]:bg-white data-[state=active]:text-indigo-600 data-[state=active]:shadow-sm"
-            >
-              CH Chinese
-            </TabsTrigger>
-          </TabsList>
-        </Tabs>
+  value={selectedLanguage}
+  onValueChange={(value) => setSelectedLanguage(value as Language)}
+>
+  <TabsList className="bg-slate-100 p-1 rounded-xl">
+    <TabsTrigger 
+      value="en" 
+      className="rounded-lg px-4 py-2 text-sm font-medium data-[state=active]:bg-white data-[state=active]:text-indigo-600 data-[state=active]:shadow-sm"
+    >
+      🇬🇧 English
+    </TabsTrigger>
+    <TabsTrigger 
+      value="ar"
+      className="rounded-lg px-4 py-2 text-sm font-medium data-[state=active]:bg-white data-[state=active]:text-indigo-600 data-[state=active]:shadow-sm"
+    >
+      🇸🇦 العربية
+    </TabsTrigger>
+    <TabsTrigger 
+      value="fr"
+      className="rounded-lg px-4 py-2 text-sm font-medium data-[state=active]:bg-white data-[state=active]:text-indigo-600 data-[state=active]:shadow-sm"
+    >
+      🇫🇷 Français
+    </TabsTrigger>
+    <TabsTrigger 
+      value="de"
+      className="rounded-lg px-4 py-2 text-sm font-medium data-[state=active]:bg-white data-[state=active]:text-indigo-600 data-[state=active]:shadow-sm"
+    >
+      🇩🇪 Deutsch
+    </TabsTrigger>
+  </TabsList>
+</Tabs>
 
         {/* SEARCH INPUT */}
         {/* <div className="relative w-full sm:w-72">

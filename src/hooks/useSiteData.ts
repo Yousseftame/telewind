@@ -10,8 +10,8 @@ const getApiLanguage = (i18nLang: string): string => {
   const langMap: Record<string, string> = {
     "en": "en",
     "ar": "ar",
-    "zh-TW": "tw",
-    "zh-CN": "ch",
+     "fr-FR": "fr",  // ✅ Changed from zh-TW → tw
+    "de-DE": "de",  // ✅ Changed from zh-CN → ch
   };
   return langMap[i18nLang] || "en";
 };

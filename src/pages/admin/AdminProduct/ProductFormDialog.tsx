@@ -25,15 +25,16 @@ interface localizedContent {
 export interface ProductFormData {
   category_id: number;
   image: File | null;
-  specification_pdf: File | null; // ✅ NEW
+  specification_pdf: File | null;
   supported_bands: string[];
   translations: {
     en: localizedContent;
     ar: localizedContent;
-    tw: localizedContent;
-    ch: localizedContent;
+    fr: localizedContent;  // ⚠️ Changed from tw
+    de: localizedContent;  // ⚠️ Changed from ch
   };
 }
+
 
 interface ProductFormDialogProps {
   open: boolean;
@@ -56,8 +57,8 @@ export default function ProductFormDialog({
   const [supportedBands, setSupportedBands] = useState<string[]>([""]);
   const [keyFeaturesEn, setKeyFeaturesEn] = useState<string[]>([""]);
   const [keyFeaturesAr, setKeyFeaturesAr] = useState<string[]>([""]);
-  const [keyFeaturesTw, setKeyFeaturesTw] = useState<string[]>([""]);
-  const [keyFeaturesCh, setKeyFeaturesCh] = useState<string[]>([""]);
+  const [keyFeaturesFr, setKeyFeaturesFr] = useState<string[]>([""]);  // ⚠️ Changed from Tw
+const [keyFeaturesDe, setKeyFeaturesDe] = useState<string[]>([""]);  
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string>("");
   
@@ -68,29 +69,29 @@ export default function ProductFormDialog({
   const { items: categories, isLoading: categoriesLoading } = useCategoryCRUD();
 
   const getDefaultTranslations = (): ProductFormData["translations"] => {
-    const base = {
-      en: { title: "", description: "", key_features: [] },
-      ar: { title: "", description: "", key_features: [] },
-      tw: { title: "", description: "", key_features: [] },
-      ch: { title: "", description: "", key_features: [] },
-    };
-
-    if (!product) return base;
-
-    const langMap: ProductFormData["translations"] = { ...base };
-
-    product.translations.forEach((t) => {
-      if (t.locale in langMap) {
-        langMap[t.locale as keyof typeof langMap] = {
-          title: t.title,
-          description: t.description,
-          key_features: t.key_features ?? [],
-        };
-      }
-    });
-
-    return langMap;
+  const base = {
+    en: { title: "", description: "", key_features: [] },
+    ar: { title: "", description: "", key_features: [] },
+    fr: { title: "", description: "", key_features: [] },  // ⚠️ Changed from tw
+    de: { title: "", description: "", key_features: [] },  // ⚠️ Changed from ch
   };
+
+  if (!product) return base;
+
+  const langMap: ProductFormData["translations"] = { ...base };
+
+  product.translations.forEach((t) => {
+    if (t.locale in langMap) {
+      langMap[t.locale as keyof typeof langMap] = {
+        title: t.title,
+        description: t.description,
+        key_features: t.key_features ?? [],
+      };
+    }
+  });
+
+  return langMap;
+};
 
   const {
     register,
@@ -109,57 +110,55 @@ export default function ProductFormDialog({
   });
 
   useEffect(() => {
-    if (open) {
-      const translations = getDefaultTranslations();
-      reset({
-        category_id: product?.category_id ?? 0,
-        image: null,
-        specification_pdf: null, // ✅ NEW
-        supported_bands: product?.supported_bands || [],
-        translations,
-      });
+  if (open) {
+    const translations = getDefaultTranslations();
+    reset({
+      category_id: product?.category_id ?? 0,
+      image: null,
+      specification_pdf: null,
+      supported_bands: product?.supported_bands || [],
+      translations,
+    });
 
-      setSupportedBands(
-        product?.supported_bands && product.supported_bands.length > 0
-          ? product.supported_bands
-          : [""]
-      );
-      setKeyFeaturesEn(
-        translations.en.key_features.length > 0
-          ? translations.en.key_features
-          : [""]
-      );
-      setKeyFeaturesAr(
-        translations.ar.key_features.length > 0
-          ? translations.ar.key_features
-          : [""]
-      );
-      setKeyFeaturesTw(
-        translations.tw.key_features.length > 0
-          ? translations.tw.key_features
-          : [""]
-      );
-      setKeyFeaturesCh(
-        translations.ch.key_features.length > 0
-          ? translations.ch.key_features
-          : [""]
-      );
-      setImagePreview(product?.image ? product.image : "");
-      setImageFile(null);
-      
-      // ✅ NEW: Set PDF info if exists
-      if (product?.specification_pdf) {
-        const fileName = product.specification_pdf.split('/').pop() || "Existing PDF";
-        setPdfFileName(fileName);
-      } else {
-        setPdfFileName("");
-      }
-      setPdfFile(null);
+    setSupportedBands(
+      product?.supported_bands && product.supported_bands.length > 0
+        ? product.supported_bands
+        : [""]
+    );
+    setKeyFeaturesEn(
+      translations.en.key_features.length > 0
+        ? translations.en.key_features
+        : [""]
+    );
+    setKeyFeaturesAr(
+      translations.ar.key_features.length > 0
+        ? translations.ar.key_features
+        : [""]
+    );
+    setKeyFeaturesFr(  // ⚠️ Changed from Tw
+      translations.fr.key_features.length > 0
+        ? translations.fr.key_features
+        : [""]
+    );
+    setKeyFeaturesDe(  // ⚠️ Changed from Ch
+      translations.de.key_features.length > 0
+        ? translations.de.key_features
+        : [""]
+    );
+    setImagePreview(product?.image ? product.image : "");
+    setImageFile(null);
+    
+    if (product?.specification_pdf) {
+      const fileName = product.specification_pdf.split('/').pop() || "Existing PDF";
+      setPdfFileName(fileName);
+    } else {
+      setPdfFileName("");
     }
-  }, [open, reset, product]);
+    setPdfFile(null);
+  }
+}, [open, reset, product]);
 
 const handleFormSubmit = (data: ProductFormData) => {
-  // Build submission data WITHOUT spreading the form data
   const submissionData: any = {
     category_id: data.category_id,
     supported_bands: supportedBands.filter((b) => b.trim()),
@@ -172,23 +171,21 @@ const handleFormSubmit = (data: ProductFormData) => {
         ...data.translations.ar,
         key_features: keyFeaturesAr.filter((f) => f.trim()),
       },
-      tw: {
-        ...data.translations.tw,
-        key_features: keyFeaturesTw.filter((f) => f.trim()),
+      fr: {  // ⚠️ Changed from tw
+        ...data.translations.fr,
+        key_features: keyFeaturesFr.filter((f) => f.trim()),
       },
-      ch: {
-        ...data.translations.ch,
-        key_features: keyFeaturesCh.filter((f) => f.trim()),
+      de: {  // ⚠️ Changed from ch
+        ...data.translations.de,
+        key_features: keyFeaturesDe.filter((f) => f.trim()),
       },
     },
   };
 
-  // Only include image if a new file was selected
   if (imageFile) {
     submissionData.image = imageFile;
   }
 
-  // Only include PDF if a new file was selected  
   if (pdfFile) {
     submissionData.specification_pdf = pdfFile;
   }
@@ -234,50 +231,50 @@ const handleFormSubmit = (data: ProductFormData) => {
   };
 
   // Key Features handlers
-  const addKeyFeature = (lang: "en" | "ar" | "tw" | "ch") => {
-    if (lang === "en") setKeyFeaturesEn([...keyFeaturesEn, ""]);
-    if (lang === "ar") setKeyFeaturesAr([...keyFeaturesAr, ""]);
-    if (lang === "tw") setKeyFeaturesTw([...keyFeaturesTw, ""]);
-    if (lang === "ch") setKeyFeaturesCh([...keyFeaturesCh, ""]);
-  };
+ const addKeyFeature = (lang: "en" | "ar" | "fr" | "de") => {  // ⚠️ Changed from "tw" | "ch"
+  if (lang === "en") setKeyFeaturesEn([...keyFeaturesEn, ""]);
+  if (lang === "ar") setKeyFeaturesAr([...keyFeaturesAr, ""]);
+  if (lang === "fr") setKeyFeaturesFr([...keyFeaturesFr, ""]);  // ⚠️ Changed from tw
+  if (lang === "de") setKeyFeaturesDe([...keyFeaturesDe, ""]);  // ⚠️ Changed from ch
+};
 
-  const removeKeyFeature = (lang: "en" | "ar" | "tw" | "ch", index: number) => {
-    if (lang === "en")
-      setKeyFeaturesEn(keyFeaturesEn.filter((_, i) => i !== index));
-    if (lang === "ar")
-      setKeyFeaturesAr(keyFeaturesAr.filter((_, i) => i !== index));
-    if (lang === "tw")
-      setKeyFeaturesTw(keyFeaturesTw.filter((_, i) => i !== index));
-    if (lang === "ch")
-      setKeyFeaturesCh(keyFeaturesCh.filter((_, i) => i !== index));
-  };
+  const removeKeyFeature = (lang: "en" | "ar" | "fr" | "de", index: number) => {  // ⚠️ Changed
+  if (lang === "en")
+    setKeyFeaturesEn(keyFeaturesEn.filter((_, i) => i !== index));
+  if (lang === "ar")
+    setKeyFeaturesAr(keyFeaturesAr.filter((_, i) => i !== index));
+  if (lang === "fr")  // ⚠️ Changed from tw
+    setKeyFeaturesFr(keyFeaturesFr.filter((_, i) => i !== index));
+  if (lang === "de")  // ⚠️ Changed from ch
+    setKeyFeaturesDe(keyFeaturesDe.filter((_, i) => i !== index));
+};
 
   const updateKeyFeature = (
-    lang: "en" | "ar" | "tw" | "ch",
-    index: number,
-    value: string
-  ) => {
-    if (lang === "en") {
-      const newFeatures = [...keyFeaturesEn];
-      newFeatures[index] = value;
-      setKeyFeaturesEn(newFeatures);
-    }
-    if (lang === "ar") {
-      const newFeatures = [...keyFeaturesAr];
-      newFeatures[index] = value;
-      setKeyFeaturesAr(newFeatures);
-    }
-    if (lang === "tw") {
-      const newFeatures = [...keyFeaturesTw];
-      newFeatures[index] = value;
-      setKeyFeaturesTw(newFeatures);
-    }
-    if (lang === "ch") {
-      const newFeatures = [...keyFeaturesCh];
-      newFeatures[index] = value;
-      setKeyFeaturesCh(newFeatures);
-    }
-  };
+  lang: "en" | "ar" | "fr" | "de",  // ⚠️ Changed from "tw" | "ch"
+  index: number,
+  value: string
+) => {
+  if (lang === "en") {
+    const newFeatures = [...keyFeaturesEn];
+    newFeatures[index] = value;
+    setKeyFeaturesEn(newFeatures);
+  }
+  if (lang === "ar") {
+    const newFeatures = [...keyFeaturesAr];
+    newFeatures[index] = value;
+    setKeyFeaturesAr(newFeatures);
+  }
+  if (lang === "fr") {  // ⚠️ Changed from tw
+    const newFeatures = [...keyFeaturesFr];
+    newFeatures[index] = value;
+    setKeyFeaturesFr(newFeatures);
+  }
+  if (lang === "de") {  // ⚠️ Changed from ch
+    const newFeatures = [...keyFeaturesDe];
+    newFeatures[index] = value;
+    setKeyFeaturesDe(newFeatures);
+  }
+};
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -426,11 +423,11 @@ const handleFormSubmit = (data: ProductFormData) => {
             <Label>Translations *</Label>
             <Tabs defaultValue="en" className="w-full">
               <TabsList className="grid w-full grid-cols-4">
-                <TabsTrigger value="en">English</TabsTrigger>
-                <TabsTrigger value="ar">العربية</TabsTrigger>
-                <TabsTrigger value="tw">Taiwan</TabsTrigger>
-                <TabsTrigger value="ch">Chinese</TabsTrigger>
-              </TabsList>
+  <TabsTrigger value="en">English</TabsTrigger>
+  <TabsTrigger value="ar">العربية</TabsTrigger>
+  <TabsTrigger value="fr">Français</TabsTrigger>  {/* ⚠️ Changed from Taiwan */}
+  <TabsTrigger value="de">Deutsch</TabsTrigger>   {/* ⚠️ Changed from Chinese */}
+</TabsList>
 
               {/* English Tab */}
               <TabsContent value="en" className="space-y-4">
@@ -571,141 +568,151 @@ const handleFormSubmit = (data: ProductFormData) => {
                 </div>
               </TabsContent>
 
-              {/* Taiwan Tab */}
-              <TabsContent value="tw" className="space-y-4">
-                <div className="space-y-2">
-                  <Label htmlFor="translations.tw.title">標題 (TW) *</Label>
-                  <Input
-                    id="translations.tw.title"
-                    {...register("translations.tw.title", {
-                      required: "標題為必填項",
-                    })}
-                    placeholder="產品標題（繁體中文）"
-                  />
-                </div>
+             {/* French Tab */}
+<TabsContent value="fr" className="space-y-4">
+  <div className="space-y-2">
+    <Label htmlFor="translations.fr.title">Titre (FR) *</Label>
+    <Input
+      id="translations.fr.title"
+      {...register("translations.fr.title", {
+        required: "Le titre est requis",
+      })}
+      placeholder="Titre du produit en français"
+    />
+    {errors.translations?.fr?.title && (
+      <p className="text-sm text-destructive">
+        {errors.translations.fr.title.message}
+      </p>
+    )}
+  </div>
 
-                <div className="space-y-2">
-                  <Label htmlFor="translations.tw.description">
-                    描述 (TW) *
-                  </Label>
-                  <Textarea
-                    id="translations.tw.description"
-                    {...register("translations.tw.description", {
-                      required: "描述為必填項",
-                    })}
-                    placeholder="產品描述（繁體中文）"
-                    rows={4}
-                  />
-                </div>
+  <div className="space-y-2">
+    <Label htmlFor="translations.fr.description">
+      Description (FR) *
+    </Label>
+    <Textarea
+      id="translations.fr.description"
+      {...register("translations.fr.description", {
+        required: "La description est requise",
+      })}
+      placeholder="Description du produit en français"
+      rows={4}
+    />
+    {errors.translations?.fr?.description && (
+      <p className="text-sm text-destructive">
+        {errors.translations.fr.description.message}
+      </p>
+    )}
+  </div>
 
-                <div className="space-y-2">
-                  <Label>主要功能 (TW)</Label>
-                  {keyFeaturesTw.map((feature, index) => (
-                    <div key={index} className="flex gap-2">
-                      <Input
-                        value={feature}
-                        onChange={(e) =>
-                          updateKeyFeature("tw", index, e.target.value)
-                        }
-                        placeholder="主要功能"
-                      />
-                      {keyFeaturesTw.length > 1 && (
-                        <Button
-                          type="button"
-                          variant="outline"
-                          size="icon"
-                          onClick={() => removeKeyFeature("tw", index)}
-                        >
-                          <X className="h-4 w-4" />
-                        </Button>
-                      )}
-                    </div>
-                  ))}
-                  <Button
-                    type="button"
-                    variant="outline"
-                    size="sm"
-                    onClick={() => addKeyFeature("tw")}
-                    className="w-full"
-                  >
-                    <Plus className="h-4 w-4 mr-2" />
-                    添加主要功能
-                  </Button>
-                </div>
-              </TabsContent>
+  <div className="space-y-2">
+    <Label>Caractéristiques principales (FR)</Label>
+    {keyFeaturesFr.map((feature, index) => (
+      <div key={index} className="flex gap-2">
+        <Input
+          value={feature}
+          onChange={(e) =>
+            updateKeyFeature("fr", index, e.target.value)
+          }
+          placeholder="Caractéristique principale"
+        />
+        {keyFeaturesFr.length > 1 && (
+          <Button
+            type="button"
+            variant="outline"
+            size="icon"
+            onClick={() => removeKeyFeature("fr", index)}
+          >
+            <X className="h-4 w-4" />
+          </Button>
+        )}
+      </div>
+    ))}
+    <Button
+      type="button"
+      variant="outline"
+      size="sm"
+      onClick={() => addKeyFeature("fr")}
+      className="w-full"
+    >
+      <Plus className="h-4 w-4 mr-2" />
+      Ajouter une caractéristique
+    </Button>
+  </div>
+</TabsContent>
 
-              {/* Chinese Tab */}
-              <TabsContent value="ch" className="space-y-4">
-                <div className="space-y-2">
-                  <Label htmlFor="translations.ch.title">标题 (CH) *</Label>
-                  <Input
-                    id="translations.ch.title"
-                    {...register("translations.ch.title", {
-                      required: "标题为必填项",
-                    })}
-                    placeholder="产品标题（简体中文）"
-                  />
-                  {errors.translations?.ch?.title && (
-                    <p className="text-sm text-destructive">
-                      {errors.translations.ch.title.message}
-                    </p>
-                  )}
-                </div>
+              {/* German Tab */}
+<TabsContent value="de" className="space-y-4">
+  <div className="space-y-2">
+    <Label htmlFor="translations.de.title">Titel (DE) *</Label>
+    <Input
+      id="translations.de.title"
+      {...register("translations.de.title", {
+        required: "Titel ist erforderlich",
+      })}
+      placeholder="Produkttitel auf Deutsch"
+    />
+    {errors.translations?.de?.title && (
+      <p className="text-sm text-destructive">
+        {errors.translations.de.title.message}
+      </p>
+    )}
+  </div>
 
-                <div className="space-y-2">
-                  <Label htmlFor="translations.ch.description">
-                    描述 (CH) *
-                  </Label>
-                  <Textarea
-                    id="translations.ch.description"
-                    {...register("translations.ch.description", {
-                      required: "描述为必填项",
-                    })}
-                    placeholder="产品描述（简体中文）"
-                    rows={4}
-                  />
-                  {errors.translations?.ch?.description && (
-                    <p className="text-sm text-destructive">
-                      {errors.translations.ch.description.message}
-                    </p>
-                  )}
-                </div>
+  <div className="space-y-2">
+    <Label htmlFor="translations.de.description">
+      Beschreibung (DE) *
+    </Label>
+    <Textarea
+      id="translations.de.description"
+      {...register("translations.de.description", {
+        required: "Beschreibung ist erforderlich",
+      })}
+      placeholder="Produktbeschreibung auf Deutsch"
+      rows={4}
+    />
+    {errors.translations?.de?.description && (
+      <p className="text-sm text-destructive">
+        {errors.translations.de.description.message}
+      </p>
+    )}
+  </div>
 
-                <div className="space-y-2">
-                  <Label>主要功能 (CH)</Label>
-                  {keyFeaturesCh.map((feature, index) => (
-                    <div key={index} className="flex gap-2">
-                      <Input
-                        value={feature}
-                        onChange={(e) =>
-                          updateKeyFeature("ch", index, e.target.value)
-                        }
-                        placeholder="主要功能"
-                      />
-                      {keyFeaturesCh.length > 1 && (
-                        <Button
-                          type="button"
-                          variant="outline"
-                          size="icon"
-                          onClick={() => removeKeyFeature("ch", index)}
-                        >
-                          <X className="h-4 w-4" />
-                        </Button>
-                      )}
-                    </div>
-                  ))}
-                  <Button
-                    type="button"
-                    variant="outline"
-                    size="sm"
-                    onClick={() => addKeyFeature("ch")}
-                    className="w-full"
-                  >
-                    <Plus className="h-4 w-4 mr-2" />
-                    添加主要功能
-                  </Button>
-                </div>
-              </TabsContent>
+  <div className="space-y-2">
+    <Label>Hauptmerkmale (DE)</Label>
+    {keyFeaturesDe.map((feature, index) => (
+      <div key={index} className="flex gap-2">
+        <Input
+          value={feature}
+          onChange={(e) =>
+            updateKeyFeature("de", index, e.target.value)
+          }
+          placeholder="Hauptmerkmal"
+        />
+        {keyFeaturesDe.length > 1 && (
+          <Button
+            type="button"
+            variant="outline"
+            size="icon"
+            onClick={() => removeKeyFeature("de", index)}
+          >
+            <X className="h-4 w-4" />
+          </Button>
+        )}
+      </div>
+    ))}
+    <Button
+      type="button"
+      variant="outline"
+      size="sm"
+      onClick={() => addKeyFeature("de")}
+      className="w-full"
+    >
+      <Plus className="h-4 w-4 mr-2" />
+      Merkmal hinzufügen
+    </Button>
+  </div>
+</TabsContent>
             </Tabs>
           </div>
 

@@ -84,11 +84,11 @@ const Sidebar = ({ collapsed, setCollapsed }: SidebarProps) => {
   };
 
   const menuItems: MenuItem[] = [
+    { label: "Products", icon: <Package size={20} />, path: "/adminProduct" },
     { label: "Category", icon: <ChartColumnStacked size={20} />, path: "/AdminCate" },
     { label: "Industries", icon: <Factory size={20} />, path: "/adminindustries" },
     { label: "Certifications", icon: <Award size={20} />, path: "/certifications" },
     { label: "Logos", icon: <Crop  size={20} />, path: "/adminLogo" },
-    { label: "Products", icon: <Package size={20} />, path: "/adminProduct" },
     { label: "Events", icon: <Calendar size={20} />, path: "/adminEvents" },
     { label: "Announcements", icon: <Megaphone  size={20} />, path: "/announcements" },
     { label: "Partners", icon: <Handshake size={20} />, path: "/AdminPartner" },

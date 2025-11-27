@@ -56,10 +56,10 @@ export default function CategoryViewDialog({
     );
   };
 
-  const enTranslation = getTranslation("en");
-  const arTranslation = getTranslation("ar");
-  const twTranslation = getTranslation("tw");
-  const chTranslation = getTranslation("ch");
+ const enTranslation = getTranslation("en");
+const arTranslation = getTranslation("ar");
+const frTranslation = getTranslation("fr"); // ⚠️ Changed from twTranslation
+const deTranslation = getTranslation("de"); // ⚠️ Changed from chTranslation
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -109,12 +109,12 @@ export default function CategoryViewDialog({
               Translations
             </h3>
             <Tabs defaultValue="en" className="w-full">
-              <TabsList className="grid w-full grid-cols-2 md:grid-cols-4">
-                <TabsTrigger value="en">English</TabsTrigger>
-                <TabsTrigger value="ar">العربية</TabsTrigger>
-                <TabsTrigger value="tw">Taiwan</TabsTrigger>
-                <TabsTrigger value="ch">Chinese</TabsTrigger>
-              </TabsList>
+             <TabsList className="grid w-full grid-cols-2 md:grid-cols-4">
+  <TabsTrigger value="en">English</TabsTrigger>
+  <TabsTrigger value="ar">العربية</TabsTrigger>
+  <TabsTrigger value="fr">Français</TabsTrigger>
+  <TabsTrigger value="de">Deutsch</TabsTrigger>
+</TabsList>
 
               {/* English Content */}
               <TabsContent value="en" className="space-y-4 pt-4">
@@ -141,29 +141,28 @@ export default function CategoryViewDialog({
               </TabsContent>
 
               {/* taiwan Content */}
-              <TabsContent value="tw" className="space-y-4 pt-4">
-                <div>
-                  <h4 className="text-xl font-bold text-foreground mb-2">
-                    標題 : {twTranslation.title}
-                  </h4>
-                  <p className="text-muted-foreground leading-relaxed">
-                    描述 : {twTranslation.description}
-                  </p>
-                </div>
-              </TabsContent>
+             <TabsContent value="fr" className="space-y-4 pt-4">
+  <div>
+    <h4 className="text-xl font-bold text-foreground mb-2">
+      Titre : {frTranslation.title}
+    </h4>
+    <p className="text-muted-foreground leading-relaxed">
+      Description : {frTranslation.description}
+    </p>
+  </div>
+</TabsContent>
 
               {/* Simplified / Chinese Content */}
-              <TabsContent value="ch" className="space-y-4 pt-4">
-                <div>
-                  <h4 className="text-xl font-bold text-foreground mb-2">
-                    标题 : {chTranslation.title}
-                  </h4>
-
-                  <p className="text-muted-foreground leading-relaxed">
-                    描述 : {chTranslation.description}
-                  </p>
-                </div>
-              </TabsContent>
+              <TabsContent value="de" className="space-y-4 pt-4">
+  <div>
+    <h4 className="text-xl font-bold text-foreground mb-2">
+      Titel : {deTranslation.title}
+    </h4>
+    <p className="text-muted-foreground leading-relaxed">
+      Beschreibung : {deTranslation.description}
+    </p>
+  </div>
+</TabsContent>
             </Tabs>
           </div>
         </div>
