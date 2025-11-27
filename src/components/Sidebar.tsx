@@ -91,7 +91,7 @@ const Sidebar = ({ collapsed, setCollapsed }: SidebarProps) => {
     { label: "Logos", icon: <Crop  size={20} />, path: "/adminLogo" },
     { label: "Events", icon: <Calendar size={20} />, path: "/adminEvents" },
     { label: "Announcements", icon: <Megaphone  size={20} />, path: "/announcements" },
-    { label: "Partners", icon: <Handshake size={20} />, path: "/AdminPartner" },
+    // { label: "Partners", icon: <Handshake size={20} />, path: "/AdminPartner" },
     { label: "Contacts", icon: <UserPen size={20} />, path: "/Contacts" },
     { label: "Logout", icon: <LogOut size={20} />, onClick: handleLogout },
   ];
