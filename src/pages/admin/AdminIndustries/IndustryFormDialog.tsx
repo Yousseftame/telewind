@@ -28,12 +28,13 @@ interface Industry {
   }>;
 }
 
+// ✅ UPDATED: Changed from tw/ch to fr/de
 interface IndustryFormData {
   translations: {
     en: { title: string; description: string; applications: string[] };
     ar: { title: string; description: string; applications: string[] };
-    tw: { title: string; description: string; applications: string[] };
-    ch: { title: string; description: string; applications: string[] };
+    fr: { title: string; description: string; applications: string[] };
+    de: { title: string; description: string; applications: string[] };
   };
 }
 
@@ -61,27 +62,27 @@ export default function IndustryFormDialog({
   const [iconFile, setIconFile] = useState<File | null>(null);
   const [iconRemoved, setIconRemoved] = useState(false);
 
-  // State for applications arrays
+  // ✅ UPDATED: State for applications arrays (fr/de instead of tw/ch)
   const [appsEn, setAppsEn] = useState<string[]>([""]);
   const [appsAr, setAppsAr] = useState<string[]>([""]);
-  const [appsTw, setAppsTw] = useState<string[]>([""]);
-  const [appsCh, setAppsCh] = useState<string[]>([""]);
+  const [appsFr, setAppsFr] = useState<string[]>([""]);
+  const [appsDe, setAppsDe] = useState<string[]>([""]);
 
   const getDefaultTranslations = () => {
     if (!industry) {
       return {
         en: { title: "", description: "", applications: [] },
         ar: { title: "", description: "", applications: [] },
-        tw: { title: "", description: "", applications: [] },
-        ch: { title: "", description: "", applications: [] },
+        fr: { title: "", description: "", applications: [] },
+        de: { title: "", description: "", applications: [] },
       };
     }
 
     const translations = {
       en: { title: "", description: "", applications: [] as string[] },
       ar: { title: "", description: "", applications: [] as string[] },
-      tw: { title: "", description: "", applications: [] as string[] },
-      ch: { title: "", description: "", applications: [] as string[] },
+      fr: { title: "", description: "", applications: [] as string[] },
+      de: { title: "", description: "", applications: [] as string[] },
     };
 
     industry.translations.forEach((t) => {
@@ -125,14 +126,14 @@ export default function IndustryFormDialog({
           ? translations.ar.applications
           : [""]
       );
-      setAppsTw(
-        translations.tw.applications.length > 0
-          ? translations.tw.applications
+      setAppsFr(
+        translations.fr.applications.length > 0
+          ? translations.fr.applications
           : [""]
       );
-      setAppsCh(
-        translations.ch.applications.length > 0
-          ? translations.ch.applications
+      setAppsDe(
+        translations.de.applications.length > 0
+          ? translations.de.applications
           : [""]
       );
     }
@@ -152,13 +153,13 @@ export default function IndustryFormDialog({
           ...data.translations.ar,
           applications: appsAr.filter((a) => a.trim()),
         },
-        tw: {
-          ...data.translations.tw,
-          applications: appsTw.filter((a) => a.trim()),
+        fr: {
+          ...data.translations.fr,
+          applications: appsFr.filter((a) => a.trim()),
         },
-        ch: {
-          ...data.translations.ch,
-          applications: appsCh.filter((a) => a.trim()),
+        de: {
+          ...data.translations.de,
+          applications: appsDe.filter((a) => a.trim()),
         },
       },
     });
@@ -173,22 +174,23 @@ export default function IndustryFormDialog({
     }
   };
 
-  const addApp = (lang: "en" | "ar" | "tw" | "ch") => {
+  // ✅ UPDATED: Changed type from tw/ch to fr/de
+  const addApp = (lang: "en" | "ar" | "fr" | "de") => {
     if (lang === "en") setAppsEn([...appsEn, ""]);
     if (lang === "ar") setAppsAr([...appsAr, ""]);
-    if (lang === "tw") setAppsTw([...appsTw, ""]);
-    if (lang === "ch") setAppsCh([...appsCh, ""]);
+    if (lang === "fr") setAppsFr([...appsFr, ""]);
+    if (lang === "de") setAppsDe([...appsDe, ""]);
   };
 
-  const removeApp = (lang: "en" | "ar" | "tw" | "ch", index: number) => {
+  const removeApp = (lang: "en" | "ar" | "fr" | "de", index: number) => {
     if (lang === "en") setAppsEn(appsEn.filter((_, i) => i !== index));
     if (lang === "ar") setAppsAr(appsAr.filter((_, i) => i !== index));
-    if (lang === "tw") setAppsTw(appsTw.filter((_, i) => i !== index));
-    if (lang === "ch") setAppsCh(appsCh.filter((_, i) => i !== index));
+    if (lang === "fr") setAppsFr(appsFr.filter((_, i) => i !== index));
+    if (lang === "de") setAppsDe(appsDe.filter((_, i) => i !== index));
   };
 
   const updateApp = (
-    lang: "en" | "ar" | "tw" | "ch",
+    lang: "en" | "ar" | "fr" | "de",
     index: number,
     value: string
   ) => {
@@ -202,15 +204,15 @@ export default function IndustryFormDialog({
       newApps[index] = value;
       setAppsAr(newApps);
     }
-    if (lang === "tw") {
-      const newApps = [...appsTw];
+    if (lang === "fr") {
+      const newApps = [...appsFr];
       newApps[index] = value;
-      setAppsTw(newApps);
+      setAppsFr(newApps);
     }
-    if (lang === "ch") {
-      const newApps = [...appsCh];
+    if (lang === "de") {
+      const newApps = [...appsDe];
       newApps[index] = value;
-      setAppsCh(newApps);
+      setAppsDe(newApps);
     }
   };
 
@@ -240,15 +242,15 @@ export default function IndustryFormDialog({
             }
           />
 
-          {/* Language Tabs */}
+          {/* Language Tabs - ✅ UPDATED */}
           <div className="space-y-2">
             <Label>Translations *</Label>
             <Tabs defaultValue="en" className="w-full">
               <TabsList className="grid w-full grid-cols-4">
                 <TabsTrigger value="en">English</TabsTrigger>
                 <TabsTrigger value="ar">العربية</TabsTrigger>
-                <TabsTrigger value="tw">Taiwan</TabsTrigger>
-                <TabsTrigger value="ch">Chinese</TabsTrigger>
+                <TabsTrigger value="fr">Français</TabsTrigger>
+                <TabsTrigger value="de">Deutsch</TabsTrigger>
               </TabsList>
 
               {/* English Tab */}
@@ -413,66 +415,66 @@ export default function IndustryFormDialog({
                 </div>
               </TabsContent>
 
-              {/* Taiwan Tab */}
-              <TabsContent value="tw" className="space-y-4">
+              {/* French Tab - ✅ NEW */}
+              <TabsContent value="fr" className="space-y-4">
                 <div className="space-y-2">
-                  <Label htmlFor="translations.tw.title">標題 (TW) *</Label>
+                  <Label htmlFor="translations.fr.title">Titre (FR) *</Label>
                   <Input
-                    id="translations.tw.title"
-                    {...register("translations.tw.title", {
-                      required: "台灣標題為必填項",
+                    id="translations.fr.title"
+                    {...register("translations.fr.title", {
+                      required: "Le titre en français est requis",
                       maxLength: {
                         value: 200,
-                        message: "標題必須少於200個字符",
+                        message: "Le titre doit contenir moins de 200 caractères",
                       },
                     })}
-                    placeholder="台灣產業標題"
+                    placeholder="Titre de l'industrie en français"
                   />
-                  {errors.translations?.tw?.title && (
+                  {errors.translations?.fr?.title && (
                     <p className="text-sm text-destructive">
-                      {errors.translations.tw.title.message}
+                      {errors.translations.fr.title.message}
                     </p>
                   )}
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="translations.tw.description">
-                    描述 (TW) *
+                  <Label htmlFor="translations.fr.description">
+                    Description (FR) *
                   </Label>
                   <Textarea
-                    id="translations.tw.description"
-                    {...register("translations.tw.description", {
-                      required: "台灣描述為必填項",
+                    id="translations.fr.description"
+                    {...register("translations.fr.description", {
+                      required: "La description en français est requise",
                       maxLength: {
                         value: 1000,
-                        message: "描述必須少於1000個字符",
+                        message: "La description doit contenir moins de 1000 caractères",
                       },
                     })}
-                    placeholder="台灣產業描述"
+                    placeholder="Description de l'industrie en français"
                     rows={4}
                   />
-                  {errors.translations?.tw?.description && (
+                  {errors.translations?.fr?.description && (
                     <p className="text-sm text-destructive">
-                      {errors.translations.tw.description.message}
+                      {errors.translations.fr.description.message}
                     </p>
                   )}
                 </div>
 
                 <div className="space-y-2">
-                  <Label>應用 (TW)</Label>
-                  {appsTw.map((item, index) => (
+                  <Label>Applications (FR)</Label>
+                  {appsFr.map((item, index) => (
                     <div key={index} className="flex gap-2">
                       <Input
                         value={item}
-                        onChange={(e) => updateApp("tw", index, e.target.value)}
-                        placeholder="應用名稱"
+                        onChange={(e) => updateApp("fr", index, e.target.value)}
+                        placeholder="Nom de l'application"
                       />
-                      {appsTw.length > 1 && (
+                      {appsFr.length > 1 && (
                         <Button
                           type="button"
                           variant="outline"
                           size="icon"
-                          onClick={() => removeApp("tw", index)}
+                          onClick={() => removeApp("fr", index)}
                         >
                           <X className="h-4 w-4" />
                         </Button>
@@ -483,75 +485,75 @@ export default function IndustryFormDialog({
                     type="button"
                     variant="outline"
                     size="sm"
-                    onClick={() => addApp("tw")}
+                    onClick={() => addApp("fr")}
                     className="w-full"
                   >
                     <Plus className="h-4 w-4 mr-2" />
-                    新增應用
+                    Ajouter une application
                   </Button>
                 </div>
               </TabsContent>
 
-              {/* Simplified / Chinese Tab */}
-              <TabsContent value="ch" className="space-y-4">
+              {/* German Tab - ✅ NEW */}
+              <TabsContent value="de" className="space-y-4">
                 <div className="space-y-2">
-                  <Label htmlFor="translations.ch.title">标题 (CH) *</Label>
+                  <Label htmlFor="translations.de.title">Titel (DE) *</Label>
                   <Input
-                    id="translations.ch.title"
-                    {...register("translations.ch.title", {
-                      required: "标题为必填项",
+                    id="translations.de.title"
+                    {...register("translations.de.title", {
+                      required: "Deutscher Titel ist erforderlich",
                       maxLength: {
                         value: 200,
-                        message: "标题必须少于200个字符",
+                        message: "Der Titel muss weniger als 200 Zeichen enthalten",
                       },
                     })}
-                    placeholder="中国行业标题"
+                    placeholder="Industrietitel auf Deutsch"
                   />
-                  {errors.translations?.ch?.title && (
+                  {errors.translations?.de?.title && (
                     <p className="text-sm text-destructive">
-                      {errors.translations.ch.title.message}
+                      {errors.translations.de.title.message}
                     </p>
                   )}
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="translations.ch.description">
-                    描述 (CH) *
+                  <Label htmlFor="translations.de.description">
+                    Beschreibung (DE) *
                   </Label>
                   <Textarea
-                    id="translations.ch.description"
-                    {...register("translations.ch.description", {
-                      required: "描述为必填项",
+                    id="translations.de.description"
+                    {...register("translations.de.description", {
+                      required: "Deutsche Beschreibung ist erforderlich",
                       maxLength: {
                         value: 1000,
-                        message: "描述必须少于1000个字符",
+                        message: "Die Beschreibung muss weniger als 1000 Zeichen enthalten",
                       },
                     })}
-                    placeholder="中国行业描述"
+                    placeholder="Industriebeschreibung auf Deutsch"
                     rows={4}
                   />
-                  {errors.translations?.ch?.description && (
+                  {errors.translations?.de?.description && (
                     <p className="text-sm text-destructive">
-                      {errors.translations.ch.description.message}
+                      {errors.translations.de.description.message}
                     </p>
                   )}
                 </div>
 
                 <div className="space-y-2">
-                  <Label>应用 (CH)</Label>
-                  {appsCh.map((item, index) => (
+                  <Label>Anwendungen (DE)</Label>
+                  {appsDe.map((item, index) => (
                     <div key={index} className="flex gap-2">
                       <Input
                         value={item}
-                        onChange={(e) => updateApp("ch", index, e.target.value)}
-                        placeholder="应用名称"
+                        onChange={(e) => updateApp("de", index, e.target.value)}
+                        placeholder="Anwendungsname"
                       />
-                      {appsCh.length > 1 && (
+                      {appsDe.length > 1 && (
                         <Button
                           type="button"
                           variant="outline"
                           size="icon"
-                          onClick={() => removeApp("ch", index)}
+                          onClick={() => removeApp("de", index)}
                         >
                           <X className="h-4 w-4" />
                         </Button>
@@ -563,11 +565,11 @@ export default function IndustryFormDialog({
                     type="button"
                     variant="outline"
                     size="sm"
-                    onClick={() => addApp("ch")}
+                    onClick={() => addApp("de")}
                     className="w-full"
                   >
                     <Plus className="h-4 w-4 mr-2" />
-                    新增应用
+                    Anwendung hinzufügen
                   </Button>
                 </div>
               </TabsContent>

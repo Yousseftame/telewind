@@ -31,7 +31,7 @@ export default function Announcements() {
   const [selectedAnnouncement, setSelectedAnnouncement] =
     useState<Announcement | null>(null);
   const [formMode, setFormMode] = useState<"create" | "edit">("create");
-  const [currentLang, setCurrentLang] = useState<"en" | "ar" | "tw" | "ch">("en");
+  const [currentLang, setCurrentLang] = useState<"en" | "ar" | "fr" | "de">("en");
   const [searchTitle, setSearchTitle] = useState("");
 
   const handleCreate = () => {
@@ -170,7 +170,7 @@ export default function Announcements() {
             {/* LANGUAGE TABS WITH FLAGS */}
             <Tabs
               value={currentLang}
-              onValueChange={(v) => setCurrentLang(v as "en" | "ar" | "tw" | "ch")}
+              onValueChange={(v) => setCurrentLang(v as "en" | "ar" | "fr" | "de")}
             >
               <TabsList className="bg-slate-100 p-1 rounded-xl">
                 <TabsTrigger
@@ -186,16 +186,16 @@ export default function Announcements() {
                   🇸🇦 العربية
                 </TabsTrigger>
                 <TabsTrigger
-                  value="tw"
+                  value="fr"
                   className="rounded-lg px-4 py-2 text-sm font-medium data-[state=active]:bg-white data-[state=active]:text-indigo-600 data-[state=active]:shadow-sm"
                 >
-                  🇹🇼 Taiwan
+                  🇫🇷 Français
                 </TabsTrigger>
                 <TabsTrigger
-                  value="ch"
+                  value="de"
                   className="rounded-lg px-4 py-2 text-sm font-medium data-[state=active]:bg-white data-[state=active]:text-indigo-600 data-[state=active]:shadow-sm"
                 >
-                  CH Chinese
+                   🇩🇪 Deutsch
                 </TabsTrigger>
               </TabsList>
             </Tabs>

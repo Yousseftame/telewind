@@ -21,10 +21,11 @@ export function CertificationViewDialog({
 }: Props) {
   if (!certification) return null;
 
+  // ✅ UPDATED: Changed from tw/ch to fr/de
   const enTrans = getTranslation(certification, "en");
   const arTrans = getTranslation(certification, "ar");
-  const twTrans = getTranslation(certification, "tw");
-  const chTrans = getTranslation(certification, "ch");
+  const frTrans = getTranslation(certification, "fr");
+  const deTrans = getTranslation(certification, "de");
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -54,15 +55,15 @@ export function CertificationViewDialog({
             <p className="text-muted-foreground">{certification.id}</p>
           </div>
 
-          {/* Translations */}
+          {/* Translations - ✅ UPDATED */}
           <div>
             <h3 className="text-sm font-medium mb-2">Translations</h3>
             <Tabs defaultValue="en" className="w-full">
               <TabsList className="grid w-full grid-cols-2 md:grid-cols-4">
                 <TabsTrigger value="en">English</TabsTrigger>
-                <TabsTrigger value="ar">Arabic</TabsTrigger>
-                <TabsTrigger value="tw">Taiwan</TabsTrigger>
-                <TabsTrigger value="ch">Chinese</TabsTrigger>
+                <TabsTrigger value="ar">العربية</TabsTrigger>
+                <TabsTrigger value="fr">Français</TabsTrigger>
+                <TabsTrigger value="de">Deutsch</TabsTrigger>
               </TabsList>
 
               {/* English Tab */}
@@ -85,22 +86,22 @@ export function CertificationViewDialog({
                 </div>
               </TabsContent>
 
-              {/* Taiwan / Traditional Chinese Tab */}
-              <TabsContent value="tw" className="space-y-4">
+              {/* French Tab - ✅ NEW */}
+              <TabsContent value="fr" className="space-y-4">
                 <div>
                   <h4 className="text-sm font-medium">Title</h4>
                   <p className="text-muted-foreground">
-                    {twTrans?.title || "-"}
+                    {frTrans?.title || "-"}
                   </p>
                 </div>
               </TabsContent>
 
-              {/* Simplified / Chinese Content Tab */}
-              <TabsContent value="ch" className="space-y-4">
+              {/* German Tab - ✅ NEW */}
+              <TabsContent value="de" className="space-y-4">
                 <div>
                   <h4 className="text-sm font-medium">Title</h4>
                   <p className="text-muted-foreground">
-                    {chTrans?.title || "-"}
+                    {deTrans?.title || "-"}
                   </p>
                 </div>
               </TabsContent>

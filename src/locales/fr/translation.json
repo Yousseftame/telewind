@@ -1,0 +1,181 @@
+{
+  "nav": {
+    "home": "Accueil",
+    "products": "Produits & Solutions",
+    "industries": "Industries & Applications",
+    "events": "Événements & Médias",
+    "partners": "Partenaires & Distributeurs",
+    "contact": "Contact"
+  },
+  "productCategories": {
+    "all": "Tous les Produits",
+    "radar": "Radar & Micro-ondes",
+    "warfare": "Guerre Électronique",
+    "communications": "Communications Tactiques",
+    "amplifiers": "Amplificateurs RF"
+  },
+  "hero": {
+    "title": "NOUS DÉFENDONS AVEC LA TECHNOLOGIE",
+    "description": "TeleWind Electronics fournit des radars, systèmes de guerre électronique, communications tactiques et systèmes intelligents, basés sur plus de 45 ans d'ingénierie et de fabrication internes.",
+    "exploreButton": "Explorer Produits & Solutions",
+    "contactButton": "Contactez Notre Équipe"
+  },
+  "keyPillars": {
+    "pillar1Title": "Plus de 45 Ans d'Excellence en Ingénierie",
+    "pillar1Description": "Des décennies d'expertise éprouvée en électronique de défense et intégration de systèmes.",
+    
+    "pillar2Title": "Conception & Fabrication Complètes en Interne",
+    "pillar2Description": "Contrôle total du concept à la production avec des capacités avancées SMT/DIP.",
+    
+    "pillar3Title": "RF, Guerre Électronique & Communications Tactiques de Qualité Défense",
+    "pillar3Description": "Systèmes conformes aux normes militaires pour des opérations critiques et des communications sécurisées.",
+    
+    "pillar4Title": "IA, Robotique & Intelligence Synthétique",
+    "pillar4Description": "Plateformes intelligentes de nouvelle génération et systèmes robotiques collaboratifs."
+  },
+  "featuredProducts": {
+    "title": "Catégories de Produits",
+    "description": "Systèmes électroniques avancés conçus pour les applications de défense et industrielles les plus exigeantes",
+    "learnMore": "En Savoir Plus",
+    "viewAll": "Voir Tous les Produits"
+  },
+  "industries": {
+    "title": "Industries que Nous Servons",
+    "description": "Fiable pour les organisations de défense, de sécurité et d'infrastructures critiques dans le monde entier",
+    "explore": "Explorer Toutes les Industries"
+  },
+  "globalTrust": {
+    "title": "Confiance Globale & Assurance Qualité",
+    "description": "Excellence certifiée dans la fabrication d'électronique de défense"
+  },
+  "network": {
+    "title": "Partenaires de Confiance",
+    "ourNetwork": "Notre Réseau",
+    "partners": "Partenaires",
+    "countries": "Pays",
+    "satisfaction": "Satisfaction"
+  },
+  "ctaSection": {
+    "title": "Prêt à Partenariat avec TeleWind ?",
+    "description": "Discutons de la façon dont notre électronique de qualité défense peut répondre à vos exigences critiques",
+    "contact": "Contactez Notre Équipe",
+    "browse": "Parcourir les Produits"
+  },
+  "footer": {
+    "companyName": "TELEWIND ELECTRONICS",
+    "description": "Plus de 45 ans d'excellence en ingénierie de défense dans le radar, la guerre électronique et les communications tactiques.",
+    "quickLinksTitle": "LIENS RAPIDES",
+    "links": {
+      "products": "Produits & Solutions",
+      "industries": "Industries",
+      "caseStudies": "Études de Cas",
+      "events": "Événements & Médias",
+      "partners": "Partenaires",
+      "contact": "Contactez-nous",
+      "address": "No. 260, Sec. 6, Minzu Rd. Zhongli Dist., Taoyuan City 320, TAIWAN (R.O.C)"
+    },
+    "certificationsTitle": "CERTIFICATIONS",
+    "copyright": "TeleWind Electronics. Tous droits réservés.",
+    "privacyPolicy": "Politique de Confidentialité",
+    "termsOfService": "Conditions d'Utilisation"
+  },
+  "productsSection": {
+    "title": "Produits & Solutions",
+    "description": "Électronique de qualité défense basée sur plus de 45 ans d'excellence en ingénierie",
+    "showingProducts": "Affichage de 4 produits",
+    "cantFind": "Vous ne trouvez pas ce dont vous avez besoin ?",
+    "keyFeature": "CARACTÉRISTIQUES CLÉS",
+    "viewDetails": "VOIR LES DÉTAILS",
+    "spec-pdf": "spécification",
+    "customSolution": "Notre équipe d'ingénierie peut concevoir des solutions personnalisées pour répondre à vos besoins spécifiques",
+    "contactButton": "Contacter l'Équipe d'Ingénierie"
+  },
+  "industriesApplications": {
+    "title": "Industries & Applications",
+    "description": "TeleWind Electronics sert des secteurs critiques dans le monde entier avec une technologie de qualité défense",
+    "keyApplications": "Applications Clés",
+    "viewProducts": "Voir Produits Connexes",
+    "yearsExperience": "Années d'Expérience",
+    "systemsDeployed": "Systèmes Déployés",
+    "countriesServed": "Pays Desservis",
+    "systemReliability": "Fiabilité du Système",
+    "discussRequirements": "Discutez de Vos Exigences Sectorielles",
+    "consultationDescription": "Notre équipe technique peut aider à identifier les solutions optimales pour vos défis industriels spécifiques",
+    "scheduleConsultation": "Planifier une Consultation"
+  },
+  "industryConsultation": {
+    "title": "Discutez de Vos Exigences Sectorielles",
+    "description": "Notre équipe technique peut aider à identifier les solutions optimales pour vos défis industriels spécifiques",
+    "scheduleButton": "Planifier une Consultation"
+  },
+  "eventsMedia": {
+    "title": "Événements & Médias",
+    "description": "Restez informé des derniers événements, actualités et perspectives sectorielles de TeleWind",
+    "upcomingEvents": "Événements à Venir",
+    "latestNews": "Dernières Nouvelles & Annonces",
+    "readMore": "Lire la Suite",
+    "mediaInquiries": "Demandes des Médias",
+    "mediaDescription": "Pour les communiqués de presse, interviews ou informations médias, contactez notre équipe de communication",
+    "contactMedia": "Contacter les Relations Médias"
+  },
+  "partnersDistributors": {
+    "title": "Partenaires & Distributeurs",
+    "description": "Notre réseau mondial de partenaires autorisés fournit les solutions TeleWind dans le monde entier",
+    "contactPerson": "Personne de Contact",
+    "productFocus": "Focus Produit",
+    "visitWebsite": "Visiter le Site",
+    "becomePartner": "Devenir Partenaire TeleWind",
+    "becomePartnerDescription": "Rejoignez notre réseau mondial de distributeurs et partenaires technologiques autorisés. Nous recherchons des organisations qualifiées ayant une expertise en électronique de défense et une forte présence régionale.",
+    "marketAccess": "Accès au Marché",
+    "exclusiveRights": "Droits territoriaux exclusifs",
+    "technicalSupport": "Support Technique",
+    "trainingResources": "Formation & Ressources Complètes",
+    "salesSupport": "Support Commercial",
+    "coMarketing": "Co-marketing & génération de prospects",
+    "partnerForm": "Formulaire de Candidature Partenaire",
+    "connectLocalPartner": "Se Connecter à un Partenaire Local",
+    "localSupportDescription": "Nos partenaires peuvent fournir un support local, des démonstrations de produits et des solutions personnalisées",
+    "contactReferral": "Contactez-nous pour une Référence Partenaire"
+  },
+  "contactUs": {
+    "title": "Contactez-Nous",
+    "description": "Prenez contact avec notre équipe pour discuter de vos besoins en électronique de défense",
+    "contactInformation": "Informations de Contact",
+    "headquarters": "Siège Social",
+    "address": "No. 260, Sec. 6, Minzu Rd. Zhongli Dist., Taoyuan City 320, TAIWAN (R.O.C)",
+    "email": "Email",
+    "businessHours": "Heures d'Ouverture",
+    "mondayFriday": "Lundi - Vendredi",
+    "localTime": "Heure Locale",
+    "secureCommunications": "Communications Sécurisées",
+    "secureDescription": "Pour des projets classifiés ou sensibles en défense, veuillez utiliser notre canal de communication sécurisé ou contacter votre gestionnaire de compte désigné.",
+    "requestSecureContact": "Demander un Contact Sécurisé",
+    "sendUsMessage": "Envoyez-nous un Message",
+    "fullName": "Nom Complet *",
+    "company": "Entreprise *",
+    "emailAddress": "Adresse Email *",
+    "phoneNumber": "Numéro de Téléphone",
+    "country": "Pays *",
+    "selectCountry":"Sélectionner un pays",
+    "specifyOther":"Précisez les détails de votre demande ",
+    "inquiryType": "Type de Demande *",
+    "productInformation": "Information Produit",
+    "technicalSupport": "Support Technique",
+    "salesInquiry": "Demande Commerciale",
+    "partnershipOpportunity": "Opportunité de Partenariat",
+    "other": "Autre",
+    "message": "Message *",
+    "sendMessage": "Envoyer le Message",
+    "placeMessage":"Veuillez fournir des détails...",
+    "otherWays": "Autres Moyens de Connexion",
+    "findPartner": "Trouver un Partenaire",
+    "findPartnerDescription": "Connectez-vous avec nos distributeurs autorisés dans votre région",
+    "viewPartners": "Voir les Partenaires",
+    "technicalSupport2": "Support Technique",
+    "supportDescription": "Les clients existants peuvent accéder à la documentation technique",
+    "supportPortal": "Portail de Support",
+    "careerOpportunities": "Opportunités de Carrière",
+    "careerDescription": "Rejoignez notre équipe d'experts en électronique de défense",
+    "viewCareers": "Voir les Offres d'Emploi"
+  }
+}

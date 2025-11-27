@@ -25,10 +25,11 @@ export default function EventViewDialog({
 }: EventViewDialogProps) {
   if (!event) return null;
 
+  // ✅ UPDATED: Changed from tw/ch to fr/de
   const enTranslation = getTranslation(event, "en");
   const arTranslation = getTranslation(event, "ar");
-  const twTranslation = getTranslation(event, "tw");
-  const chTranslation = getTranslation(event, "ch");
+  const frTranslation = getTranslation(event, "fr");
+  const deTranslation = getTranslation(event, "de");
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -77,13 +78,13 @@ export default function EventViewDialog({
               </div>
             </div>
 
-            {/* Multi-language Content */}
+            {/* Multi-language Content - ✅ UPDATED */}
             <Tabs defaultValue="en" className="w-full">
               <TabsList className="grid w-full grid-cols-2 md:grid-cols-4">
                 <TabsTrigger value="en">English</TabsTrigger>
                 <TabsTrigger value="ar">العربية</TabsTrigger>
-                <TabsTrigger value="tw">Taiwan</TabsTrigger>
-                <TabsTrigger value="ch">Chinese</TabsTrigger>
+                <TabsTrigger value="fr">Français</TabsTrigger>
+                <TabsTrigger value="de">Deutsch</TabsTrigger>
               </TabsList>
 
               {/* English Content */}
@@ -158,72 +159,72 @@ export default function EventViewDialog({
                 )}
               </TabsContent>
 
-              {/* Taiwan / Chinese Content */}
-              <TabsContent value="tw" className="space-y-4">
+              {/* French Content - ✅ UPDATED */}
+              <TabsContent value="fr" className="space-y-4">
                 <div>
                   <h3 className="text-xl font-bold mb-2">
-                    {twTranslation.title}
+                    {frTranslation.title}
                   </h3>
-                  {twTranslation.location && (
+                  {frTranslation.location && (
                     <div className="flex items-center gap-2 text-muted-foreground mb-4">
                       <MapPin className="h-4 w-4" />
-                      <span>{twTranslation.location}</span>
+                      <span>{frTranslation.location}</span>
                     </div>
                   )}
                 </div>
 
-                {twTranslation.description && (
+                {frTranslation.description && (
                   <div>
-                    <h4 className="font-semibold mb-2">描述</h4>
+                    <h4 className="font-semibold mb-2">Description</h4>
                     <p className="text-muted-foreground leading-relaxed">
-                      {twTranslation.description}
+                      {frTranslation.description}
                     </p>
                   </div>
                 )}
 
-                {twTranslation.details && (
+                {frTranslation.details && (
                   <div>
-                    <h4 className="font-semibold mb-2">額外詳情</h4>
+                    <h4 className="font-semibold mb-2">Détails supplémentaires</h4>
                     <div
                       className="prose prose-sm max-w-none text-muted-foreground whitespace-pre-wrap"
                       dangerouslySetInnerHTML={{
-                        __html: twTranslation.details,
+                        __html: frTranslation.details,
                       }}
                     />
                   </div>
                 )}
               </TabsContent>
 
-              {/* Simplified / Chinese Content */}
-              <TabsContent value="ch" className="space-y-4">
+              {/* German Content - ✅ UPDATED */}
+              <TabsContent value="de" className="space-y-4">
                 <div>
                   <h3 className="text-xl font-bold mb-2">
-                    {chTranslation.title}
+                    {deTranslation.title}
                   </h3>
-                  {chTranslation.location && (
+                  {deTranslation.location && (
                     <div className="flex items-center gap-2 text-muted-foreground mb-4">
                       <MapPin className="h-4 w-4" />
-                      <span>{chTranslation.location}</span>
+                      <span>{deTranslation.location}</span>
                     </div>
                   )}
                 </div>
 
-                {chTranslation.description && (
+                {deTranslation.description && (
                   <div>
-                    <h4 className="font-semibold mb-2">描述</h4>
+                    <h4 className="font-semibold mb-2">Beschreibung</h4>
                     <p className="text-muted-foreground leading-relaxed">
-                      {chTranslation.description}
+                      {deTranslation.description}
                     </p>
                   </div>
                 )}
 
-                {chTranslation.details && (
+                {deTranslation.details && (
                   <div>
-                    <h4 className="font-semibold mb-2">额外详情</h4>
+                    <h4 className="font-semibold mb-2">Zusätzliche Details</h4>
                     <div
                       className="prose prose-sm max-w-none text-muted-foreground whitespace-pre-wrap"
                       dangerouslySetInnerHTML={{
-                        __html: chTranslation.details,
+                        __html: deTranslation.details,
                       }}
                     />
                   </div>

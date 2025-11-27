@@ -28,8 +28,8 @@ interface CategoryFormData {
   translations: {
     en: { title: string; description: string };
     ar: { title: string; description: string };
-    tw: { title: string; description: string };
-    ch: { title: string; description: string };
+    fr: { title: string; description: string }; // ⚠️ Changed from tw
+    de: { title: string; description: string }; // ⚠️ Changed from ch
   };
 }
 
@@ -62,31 +62,31 @@ export default function CategoryFormDialog({
   const isEditMode = !!category;
 
   const getDefaultTranslations = () => {
-    if (!category) {
-      return {
-        en: { title: "", description: "" },
-        ar: { title: "", description: "" },
-        tw: { title: "", description: "" },
-        ch: { title: "", description: "" },
-      };
-    }
-
-    const translations = {
+  if (!category) {
+    return {
       en: { title: "", description: "" },
       ar: { title: "", description: "" },
-      tw: { title: "", description: "" },
-      ch: { title: "", description: "" },
+      fr: { title: "", description: "" }, // ⚠️ Changed from tw
+      de: { title: "", description: "" }, // ⚠️ Changed from ch
     };
+  }
 
-    category.translations.forEach((t) => {
-      translations[t.locale as keyof typeof translations] = {
-        title: t.title,
-        description: t.description,
-      };
-    });
-
-    return translations;
+     const translations = {
+    en: { title: "", description: "" },
+    ar: { title: "", description: "" },
+    fr: { title: "", description: "" }, // ⚠️ Changed from tw
+    de: { title: "", description: "" }, // ⚠️ Changed from ch
   };
+
+   category.translations.forEach((t) => {
+    translations[t.locale as keyof typeof translations] = {
+      title: t.title,
+      description: t.description,
+    };
+  });
+
+  return translations;
+};
 
   const {
     register,
@@ -186,12 +186,12 @@ export default function CategoryFormDialog({
           <div className="space-y-2">
             <Label>Translations *</Label>
             <Tabs defaultValue="en" className="w-full">
-              <TabsList className="grid w-full grid-cols-2 md:grid-cols-4">
-                <TabsTrigger value="en">English</TabsTrigger>
-                <TabsTrigger value="ar">العربية</TabsTrigger>
-                <TabsTrigger value="tw">Taiwan</TabsTrigger>
-                <TabsTrigger value="ch">Chinese</TabsTrigger>
-              </TabsList>
+             <TabsList className="grid w-full grid-cols-2 md:grid-cols-4">
+  <TabsTrigger value="en">English</TabsTrigger>
+  <TabsTrigger value="ar">العربية</TabsTrigger>
+  <TabsTrigger value="fr">Français</TabsTrigger>
+  <TabsTrigger value="de">Deutsch</TabsTrigger>
+</TabsList>
 
               {/* English Tab */}
               <TabsContent value="en" className="space-y-4">
@@ -287,97 +287,97 @@ export default function CategoryFormDialog({
                 </div>
               </TabsContent>
 
-              {/* Taiwan Tab */}
-              <TabsContent value="tw" className="space-y-4">
-                <div className="space-y-2">
-                  <Label htmlFor="translations.tw.title">Title (TW) *</Label>
-                  <Input
-                    id="translations.tw.title"
-                    {...register("translations.tw.title", {
-                      required: "Taiwan title is required",
-                      maxLength: {
-                        value: 100,
-                        message: "Title must be less than 100 characters",
-                      },
-                    })}
-                    placeholder="台灣類別標題"
-                  />
-                  {errors.translations?.tw?.title && (
-                    <p className="text-sm text-destructive">
-                      {errors.translations.tw.title.message}
-                    </p>
-                  )}
-                </div>
+              {/* french Tab */}
+              <TabsContent value="fr" className="space-y-4">
+  <div className="space-y-2">
+    <Label htmlFor="translations.fr.title">Title (FR) *</Label>
+    <Input
+      id="translations.fr.title"
+      {...register("translations.fr.title", {
+        required: "French title is required",
+        maxLength: {
+          value: 100,
+          message: "Title must be less than 100 characters",
+        },
+      })}
+      placeholder="Titre de la catégorie en français"
+    />
+    {errors.translations?.fr?.title && (
+      <p className="text-sm text-destructive">
+        {errors.translations.fr.title.message}
+      </p>
+    )}
+  </div>
 
-                <div className="space-y-2">
-                  <Label htmlFor="translations.tw.description">
-                    Description (TW) *
-                  </Label>
-                  <Textarea
-                    id="translations.tw.description"
-                    {...register("translations.tw.description", {
-                      required: "Taiwan description is required",
-                      maxLength: {
-                        value: 500,
-                        message: "Description must be less than 500 characters",
-                      },
-                    })}
-                    placeholder="台灣類別描述"
-                    rows={4}
-                  />
-                  {errors.translations?.tw?.description && (
-                    <p className="text-sm text-destructive">
-                      {errors.translations.tw.description.message}
-                    </p>
-                  )}
-                </div>
-              </TabsContent>
+  <div className="space-y-2">
+    <Label htmlFor="translations.fr.description">
+      Description (FR) *
+    </Label>
+    <Textarea
+      id="translations.fr.description"
+      {...register("translations.fr.description", {
+        required: "French description is required",
+        maxLength: {
+          value: 500,
+          message: "Description must be less than 500 characters",
+        },
+      })}
+      placeholder="Description de la catégorie en français"
+      rows={4}
+    />
+    {errors.translations?.fr?.description && (
+      <p className="text-sm text-destructive">
+        {errors.translations.fr.description.message}
+      </p>
+    )}
+  </div>
+</TabsContent>
 
-              {/* Simplified / Chinese Tab */}
-              <TabsContent value="ch" className="space-y-4">
-                <div className="space-y-2">
-                  <Label htmlFor="translations.ch.title">Title (CH) *</Label>
-                  <Input
-                    id="translations.ch.title"
-                    {...register("translations.ch.title", {
-                      required: "Chinese title is required",
-                      maxLength: {
-                        value: 100,
-                        message: "Title must be less than 100 characters",
-                      },
-                    })}
-                    placeholder="中国类别标题"
-                  />
-                  {errors.translations?.ch?.title && (
-                    <p className="text-sm text-destructive">
-                      {errors.translations.ch.title.message}
-                    </p>
-                  )}
-                </div>
+              {/* Simplified / german Tab */}
+              <TabsContent value="de" className="space-y-4">
+  <div className="space-y-2">
+    <Label htmlFor="translations.de.title">Title (DE) *</Label>
+    <Input
+      id="translations.de.title"
+      {...register("translations.de.title", {
+        required: "German title is required",
+        maxLength: {
+          value: 100,
+          message: "Title must be less than 100 characters",
+        },
+      })}
+      placeholder="Kategorietitel auf Deutsch"
+    />
+    {errors.translations?.de?.title && (
+      <p className="text-sm text-destructive">
+        {errors.translations.de.title.message}
+      </p>
+    )}
+  </div>
 
-                <div className="space-y-2">
-                  <Label htmlFor="translations.ch.description">
-                    Description (CH) *
-                  </Label>
-                  <Textarea
-                    id="translations.ch.description"
-                    {...register("translations.ch.description", {
-                      required: "Chinese description is required",
-                      maxLength: {
-                        value: 500,
-                        message: "Description must be less than 500 characters",
-                      },
-                    })}
-                    placeholder="中国类别描述"
-                    rows={4}
-                  />
-                  {errors.translations?.ch?.description && (
-                    <p className="text-sm text-destructive">
-                      {errors.translations.ch.description.message}
-                    </p>
-                  )}
-                </div>
-              </TabsContent>
+  <div className="space-y-2">
+    <Label htmlFor="translations.de.description">
+      Description (DE) *
+    </Label>
+    <Textarea
+      id="translations.de.description"
+      {...register("translations.de.description", {
+        required: "German description is required",
+        maxLength: {
+          value: 500,
+          message: "Description must be less than 500 characters",
+        },
+      })}
+      placeholder="Kategoriebeschreibung auf Deutsch"
+      rows={4}
+    />
+    {errors.translations?.de?.description && (
+      <p className="text-sm text-destructive">
+        {errors.translations.de.description.message}
+      </p>
+    )}
+  </div>
+</TabsContent>
             </Tabs>
           </div>
 

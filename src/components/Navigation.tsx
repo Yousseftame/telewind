@@ -26,7 +26,7 @@ export default function Navigation() {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
     };
-    
+
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -57,10 +57,10 @@ export default function Navigation() {
         scrolled ? "bg-background/95 backdrop-blur-md shadow-md py-3" : "bg-background py-5"
       }`}
     >
-      <nav className="container mx-auto px-4 flex items-center justify-between">
+      <nav className="container h-10 mx-auto px-4 flex items-center justify-between">
         {/* Logo */}
         <Link to="/" className="flex items-center">
-          <img src={telewindLogo} alt="TeleWind Electronics" className="h-10 w-auto" />
+          <img src={telewindLogo} alt="TeleWind Electronics" className="h-20 w-auto" />
         </Link>
 
         {/* Desktop Navigation */}
@@ -171,7 +171,7 @@ export default function Navigation() {
         {/* Language Switcher & Mobile Menu Button */}
         <div className="flex items-center gap-2">
           <LanguageSwitcher />
-          
+
           <button
             className="lg:hidden text-foreground p-2"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}

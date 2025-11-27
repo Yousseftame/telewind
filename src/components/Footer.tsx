@@ -19,7 +19,7 @@ export default function Footer() {
             <div className="flex flex-col gap-2 text-sm">
               <div className="flex items-center gap-2">
                 <Mail size={16} />
-                <span>info@telewind.com.tw</span>
+                <span>info@telewind.org</span>
               </div>
               {/* <div className="flex items-center gap-2">
                 <Phone size={16} />

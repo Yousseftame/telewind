@@ -58,8 +58,8 @@ export default function ProductViewDialog({
 
   const enTranslation = getTranslation("en");
   const arTranslation = getTranslation("ar");
-  const twTranslation = getTranslation("tw");
-  const chTranslation = getTranslation("ch");
+  const frTranslation = getTranslation("fr");  // ⚠️ Changed from twTranslation
+const deTranslation = getTranslation("de");  // ⚠️ Changed from chTranslation
 
   // ✅ NEW: Extract PDF filename from URL
   const pdfFileName = product.specification_pdf 
@@ -156,12 +156,12 @@ export default function ProductViewDialog({
               Product Information
             </h3>
             <Tabs defaultValue="en" className="w-full">
-              <TabsList className="grid w-full grid-cols-4">
-                <TabsTrigger value="en">English</TabsTrigger>
-                <TabsTrigger value="ar">العربية</TabsTrigger>
-                <TabsTrigger value="tw">Taiwan</TabsTrigger>
-                <TabsTrigger value="ch">Chinese</TabsTrigger>
-              </TabsList>
+             <TabsList className="grid w-full grid-cols-4">
+  <TabsTrigger value="en">English</TabsTrigger>
+  <TabsTrigger value="ar">العربية</TabsTrigger>
+  <TabsTrigger value="fr">Français</TabsTrigger>  {/* ⚠️ Changed from Taiwan */}
+  <TabsTrigger value="de">Deutsch</TabsTrigger>   {/* ⚠️ Changed from Chinese */}
+</TabsList>
 
               {/* English Content */}
               <TabsContent value="en" className="space-y-4 pt-4">
@@ -237,77 +237,77 @@ export default function ProductViewDialog({
                 </div>
               </TabsContent>
 
-              {/* Taiwan/Chinese Content */}
-              <TabsContent value="tw" className="space-y-4 pt-4">
-                <div>
-                  <h4 className="text-xl font-bold text-foreground mb-4">
-                    {twTranslation.title}
-                  </h4>
+             {/* French Content */}
+<TabsContent value="fr" className="space-y-4 pt-4">
+  <div>
+    <h4 className="text-xl font-bold text-foreground mb-4">
+      {frTranslation.title}
+    </h4>
 
-                  <div className="p-4 bg-background border rounded-lg mb-4">
-                    <p className="text-xs text-muted-foreground mb-2">描述</p>
-                    <p className="text-sm leading-relaxed whitespace-pre-wrap">
-                      {twTranslation.description}
-                    </p>
-                  </div>
+    <div className="p-4 bg-background border rounded-lg mb-4">
+      <p className="text-xs text-muted-foreground mb-2">Description</p>
+      <p className="text-sm leading-relaxed whitespace-pre-wrap">
+        {frTranslation.description}
+      </p>
+    </div>
 
-                  {twTranslation.key_features &&
-                    twTranslation.key_features.length > 0 && (
-                      <div>
-                        <h5 className="font-semibold mb-3">主要功能</h5>
-                        <ul className="space-y-2">
-                          {twTranslation.key_features.map((feature, index) => (
-                            <li
-                              key={index}
-                              className="flex items-start gap-2 p-3 bg-background border rounded-lg"
-                            >
-                              <span className="text-primary font-bold mt-0.5">
-                                •
-                              </span>
-                              <span className="flex-1">{feature}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    )}
-                </div>
-              </TabsContent>
+    {frTranslation.key_features &&
+      frTranslation.key_features.length > 0 && (
+        <div>
+          <h5 className="font-semibold mb-3">Caractéristiques principales</h5>
+          <ul className="space-y-2">
+            {frTranslation.key_features.map((feature, index) => (
+              <li
+                key={index}
+                className="flex items-start gap-2 p-3 bg-background border rounded-lg"
+              >
+                <span className="text-primary font-bold mt-0.5">
+                  •
+                </span>
+                <span className="flex-1">{feature}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+  </div>
+</TabsContent>
 
-              {/* Simplified / Chinese Content */}
-              <TabsContent value="ch" className="space-y-4 pt-4">
-                <div>
-                  <h4 className="text-xl font-bold text-foreground mb-4">
-                    {chTranslation.title}
-                  </h4>
+              {/* German Content */}
+<TabsContent value="de" className="space-y-4 pt-4">
+  <div>
+    <h4 className="text-xl font-bold text-foreground mb-4">
+      {deTranslation.title}
+    </h4>
 
-                  <div className="p-4 bg-background border rounded-lg mb-4">
-                    <p className="text-xs text-muted-foreground mb-2">描述</p>
-                    <p className="text-sm leading-relaxed whitespace-pre-wrap">
-                      {chTranslation.description}
-                    </p>
-                  </div>
+    <div className="p-4 bg-background border rounded-lg mb-4">
+      <p className="text-xs text-muted-foreground mb-2">Beschreibung</p>
+      <p className="text-sm leading-relaxed whitespace-pre-wrap">
+        {deTranslation.description}
+      </p>
+    </div>
 
-                  {chTranslation.key_features &&
-                    chTranslation.key_features.length > 0 && (
-                      <div>
-                        <h5 className="font-semibold mb-3">主要功能</h5>
-                        <ul className="space-y-2">
-                          {chTranslation.key_features.map((feature, index) => (
-                            <li
-                              key={index}
-                              className="flex items-start gap-2 p-3 bg-background border rounded-lg"
-                            >
-                              <span className="text-primary font-bold mt-0.5">
-                                •
-                              </span>
-                              <span className="flex-1">{feature}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    )}
-                </div>
-              </TabsContent>
+    {deTranslation.key_features &&
+      deTranslation.key_features.length > 0 && (
+        <div>
+          <h5 className="font-semibold mb-3">Hauptmerkmale</h5>
+          <ul className="space-y-2">
+            {deTranslation.key_features.map((feature, index) => (
+              <li
+                key={index}
+                className="flex items-start gap-2 p-3 bg-background border rounded-lg"
+              >
+                <span className="text-primary font-bold mt-0.5">
+                  •
+                </span>
+                <span className="flex-1">{feature}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+  </div>
+</TabsContent>
             </Tabs>
           </div>
         </div>

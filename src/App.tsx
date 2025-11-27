@@ -70,7 +70,7 @@ const App = () => (
                {/* <Route path="/adminStudies" element={<ProtectedRoute><AdminStudies /></ProtectedRoute>} /> */}
                <Route path="/AdminCate" element={<ProtectedRoute><AdminCate /></ProtectedRoute>} />
                <Route path="/adminEvents" element={<ProtectedRoute><AdminEvents /></ProtectedRoute>} />
-               <Route path="/adminPartner" element={<ProtectedRoute><AdminPartner /></ProtectedRoute>} />
+               {/* <Route path="/adminPartner" element={<ProtectedRoute><AdminPartner /></ProtectedRoute>} /> */}
                <Route path="/certifications" element={<ProtectedRoute><Certifications /></ProtectedRoute>} />
                <Route path="/announcements" element={<ProtectedRoute><Announcements /></ProtectedRoute>} />
                <Route path="/adminLogo" element={<ProtectedRoute><AdminLogo /></ProtectedRoute>} />

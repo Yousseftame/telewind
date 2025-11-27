@@ -1,11 +1,16 @@
 // src/utils/formDataHelpers.ts
 
 /**
+ * ✅ UPDATED: Default languages array - NOW USES fr, de instead of tw, ch
+ */
+const DEFAULT_LANGUAGES = ["en", "ar", "fr", "de"];
+
+/**
  * Helper to build FormData for multi-language entities with images
  */
 export function buildMultiLangFormData(
   data: any,
-  languages: string[] = ["en", "ar", "tw","ch"]
+  languages: string[] = DEFAULT_LANGUAGES
 ): FormData {
   const formData = new FormData();
 
@@ -46,7 +51,7 @@ export function buildMultiLangFormData(
  */
 export function buildEventFormData(
   data: any,
-  languages: string[] = ["en", "ar", "tw" , "ch"]
+  languages: string[] = DEFAULT_LANGUAGES
 ): FormData {
   const formData = new FormData();
 
@@ -89,7 +94,7 @@ export function buildEventFormData(
  */
 export function buildCertFormData(
   data: any,
-  languages: string[] = ["en", "ar", "tw", "ch"]
+  languages: string[] = DEFAULT_LANGUAGES
 ): FormData {
   const formData = new FormData();
 
@@ -122,7 +127,7 @@ export function buildCertFormData(
  */
 export function buildAnnouncementFormData(
   data: any,
-  languages: string[] = ["en", "ar", "tw" , "ch"]
+  languages: string[] = DEFAULT_LANGUAGES
 ): FormData {
   const formData = new FormData();
 
@@ -157,7 +162,7 @@ export function buildAnnouncementFormData(
  */
 export function buildPartnerFormData(
   data: any,
-  languages: string[] = ["en", "ar", "tw" , "ch"]
+  languages: string[] = DEFAULT_LANGUAGES
 ): FormData {
   const formData = new FormData();
 
@@ -204,7 +209,7 @@ export function buildPartnerFormData(
 
 export function buildIndustryFormData(
   data: any,
-  languages: string[] = ["en", "ar", "tw", "ch"]
+  languages: string[] = DEFAULT_LANGUAGES
 ): FormData {
   const formData = new FormData();
 
@@ -244,13 +249,9 @@ export function buildIndustryFormData(
 /**
  * Helper to build FormData for Product
  */
-/**
- * Helper to build FormData for Product
- * ✅ FIXED: Only append image/PDF if they are actual File objects
- */
 export function buildProductFormData(
   data: any,
-  languages: string[] = ["en", "ar", "tw", "ch"]
+  languages: string[] = DEFAULT_LANGUAGES
 ): FormData {
   const formData = new FormData();
 
@@ -286,52 +287,37 @@ export function buildProductFormData(
     }
   });
 
-  // ✅ FIXED: Only append image if it's a new File (not null/undefined)
+  // Only append image if it's a new File
   if (data.image instanceof File) {
     formData.append("image", data.image);
   }
-  // If you want to explicitly remove the image, handle it separately:
-  // else if (data.removeImage === true) {
-  //   formData.append("remove_image", "1");
-  // }
 
-  // ✅ FIXED: Only append specification_pdf if it's a new File (not null/undefined)
+  // Only append specification_pdf if it's a new File
   if (data.specification_pdf instanceof File) {
     formData.append("specification_pdf", data.specification_pdf);
   }
-  // If you want to explicitly remove the PDF, handle it separately:
-  // else if (data.removeSpecificationPdf === true) {
-  //   formData.append("remove_specification_pdf", "1");
-  // }
 
   return formData;
 }
 
-// Add this function to src/utils/formDataHelpers.ts
-
 /**
  * Helper to build FormData for Partner Logo
- * Fields: partner_id, display_order, status, logo (File)
  */
 export function buildLogoFormData(data: any): FormData {
   const formData = new FormData();
 
-  // Handle partner_id
   if (data.partner_id !== undefined) {
     formData.append("partner_id", data.partner_id.toString());
   }
 
-  // Handle display_order
   if (data.display_order !== undefined) {
     formData.append("display_order", data.display_order.toString());
   }
 
-  // Handle status (1 = active, 0 = inactive)
   if (data.status !== undefined) {
     formData.append("status", data.status.toString());
   }
 
-  // Handle logo image (only if it's a File)
   if (data.logo instanceof File) {
     formData.append("logo", data.logo);
   }
