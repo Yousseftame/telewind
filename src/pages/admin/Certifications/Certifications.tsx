@@ -30,7 +30,7 @@ export default function Certifications() {
   const [showFormDialog, setShowFormDialog] = useState(false);
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
   const [showViewDialog, setShowViewDialog] = useState(false);
-  const [selectedLang, setSelectedLang] = useState<"en" | "ar" | "tw" | "ch">("en");
+  const [selectedLang, setSelectedLang] = useState<"en" | "ar" | "fr" | "de">("en");
   const [searchTitle, setSearchTitle] = useState("");
 
   // Handlers
@@ -152,7 +152,7 @@ export default function Certifications() {
             {/* LANGUAGE TABS WITH FLAGS */}
             <Tabs
               value={selectedLang}
-              onValueChange={(v) => setSelectedLang(v as "en" | "ar" | "tw" | "ch")}
+              onValueChange={(v) => setSelectedLang(v as "en" | "ar" | "fr" | "de")}
             >
               <TabsList className="bg-slate-100 p-1 rounded-xl">
                 <TabsTrigger
@@ -168,16 +168,16 @@ export default function Certifications() {
                   🇸🇦 العربية
                 </TabsTrigger>
                 <TabsTrigger
-                  value="tw"
+                  value="fr"
                   className="rounded-lg px-4 py-2 text-sm font-medium data-[state=active]:bg-white data-[state=active]:text-indigo-600 data-[state=active]:shadow-sm"
                 >
-                  🇹🇼 Taiwan
+                  🇫🇷 Français
                 </TabsTrigger>
                 <TabsTrigger
-                  value="ch"
+                  value="de"
                   className="rounded-lg px-4 py-2 text-sm font-medium data-[state=active]:bg-white data-[state=active]:text-indigo-600 data-[state=active]:shadow-sm"
                 >
-                  CH Chinese
+                  🇩🇪 Deutsch
                 </TabsTrigger>
               </TabsList>
             </Tabs>

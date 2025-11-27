@@ -23,7 +23,7 @@ import EventViewDialog from "./EventViewDialog";
 import { useEventCRUD } from "./useEventCRUD";
 
 // Supported languages for events
-type Language = "en" | "ar" | "tw" | "ch";
+type Language = "en" | "ar" | "fr" | "de";
 
 export default function AdminEvents() {
   const [selectedLanguage, setSelectedLanguage] = useState<Language>("en");
@@ -204,16 +204,16 @@ export default function AdminEvents() {
                   🇸🇦 العربية
                 </TabsTrigger>
                 <TabsTrigger
-                  value="tw"
+                  value="fr"
                   className="rounded-lg px-4 py-2 text-sm font-medium data-[state=active]:bg-white data-[state=active]:text-indigo-600 data-[state=active]:shadow-sm"
                 >
-                  🇹🇼 Taiwan
+                  🇫🇷 Français
                 </TabsTrigger>
                 <TabsTrigger
-                  value="ch"
+                  value="de"
                   className="rounded-lg px-4 py-2 text-sm font-medium data-[state=active]:bg-white data-[state=active]:text-indigo-600 data-[state=active]:shadow-sm"
                 >
-                  CH Chinese
+                  🇩🇪 Deutsch
                 </TabsTrigger>
               </TabsList>
             </Tabs>

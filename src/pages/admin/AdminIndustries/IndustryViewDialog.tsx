@@ -58,8 +58,8 @@ export default function IndustryViewDialog({
 
   const enTranslation = getTranslation("en");
   const arTranslation = getTranslation("ar");
-  const twTranslation = getTranslation("tw");
-  const chTranslation = getTranslation("ch");
+  const frTranslation = getTranslation("fr"); // ✅ UPDATED: Changed from tw
+  const deTranslation = getTranslation("de"); // ✅ UPDATED: Changed from ch
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -97,7 +97,7 @@ export default function IndustryViewDialog({
             </div>
           </div>
 
-          {/* Translations Tabs */}
+          {/* Translations Tabs - ✅ UPDATED */}
           <div className="space-y-2">
             <h3 className="text-lg font-semibold text-foreground">
               Industry Information
@@ -106,8 +106,8 @@ export default function IndustryViewDialog({
               <TabsList className="grid w-full grid-cols-2 sm:grid-cols-4">
                 <TabsTrigger value="en">English</TabsTrigger>
                 <TabsTrigger value="ar">العربية</TabsTrigger>
-                <TabsTrigger value="tw">Taiwan</TabsTrigger>
-                <TabsTrigger value="ch">Chinese</TabsTrigger>
+                <TabsTrigger value="fr">Français</TabsTrigger>
+                <TabsTrigger value="de">Deutsch</TabsTrigger>
               </TabsList>
 
               {/* English Content */}
@@ -162,23 +162,23 @@ export default function IndustryViewDialog({
                   )}
               </TabsContent>
 
-              {/* Taiwan Content */}
-              <TabsContent value="tw" className="space-y-4 pt-4">
+              {/* French Content - ✅ UPDATED */}
+              <TabsContent value="fr" className="space-y-4 pt-4">
                 <div>
                   <h4 className="text-xl font-bold text-foreground mb-2">
-                    {twTranslation.title}
+                    {frTranslation.title}
                   </h4>
                   <p className="text-muted-foreground leading-relaxed">
-                    {twTranslation.description}
+                    {frTranslation.description}
                   </p>
                 </div>
 
-                {twTranslation.applications &&
-                  twTranslation.applications.length > 0 && (
+                {frTranslation.applications &&
+                  frTranslation.applications.length > 0 && (
                     <div>
-                      <h5 className="font-semibold mb-2">應用</h5>
+                      <h5 className="font-semibold mb-2">Applications</h5>
                       <div className="flex flex-wrap gap-2">
-                        {twTranslation.applications.map((app, index) => (
+                        {frTranslation.applications.map((app, index) => (
                           <Badge key={index} variant="secondary">
                             {app}
                           </Badge>
@@ -188,23 +188,23 @@ export default function IndustryViewDialog({
                   )}
               </TabsContent>
 
-              {/* Simplified / Chinese Content */}
-              <TabsContent value="ch" className="space-y-4 pt-4">
+              {/* German Content - ✅ UPDATED */}
+              <TabsContent value="de" className="space-y-4 pt-4">
                 <div>
                   <h4 className="text-xl font-bold text-foreground mb-2">
-                    {chTranslation.title}
+                    {deTranslation.title}
                   </h4>
                   <p className="text-muted-foreground leading-relaxed">
-                    {chTranslation.description}
+                    {deTranslation.description}
                   </p>
                 </div>
 
-                {chTranslation.applications &&
-                  chTranslation.applications.length > 0 && (
+                {deTranslation.applications &&
+                  deTranslation.applications.length > 0 && (
                     <div>
-                      <h5 className="font-semibold mb-2">应用</h5>
+                      <h5 className="font-semibold mb-2">Anwendungen</h5>
                       <div className="flex flex-wrap gap-2">
-                        {chTranslation.applications.map((app, index) => (
+                        {deTranslation.applications.map((app, index) => (
                           <Badge key={index} variant="secondary">
                             {app}
                           </Badge>

@@ -27,6 +27,7 @@ interface Event {
   }>;
 }
 
+// ✅ UPDATED: Changed from tw/ch to fr/de
 interface EventFormData {
   date: string;
   type: string;
@@ -43,13 +44,13 @@ interface EventFormData {
       location: string;
       details: string;
     };
-    tw: {
+    fr: {
       title: string;
       description: string;
       location: string;
       details: string;
     };
-    ch: {
+    de: {
       title: string;
       description: string;
       location: string;
@@ -75,26 +76,27 @@ export default function EventFormDialog({
 }: EventFormDialogProps) {
   const isEditMode = !!event;
 
+  // ✅ UPDATED: State variables (fr/de instead of tw/ch)
   const [detailsEn, setDetailsEn] = useState("");
   const [detailsAr, setDetailsAr] = useState("");
-  const [detailsTw, setDetailsTw] = useState("");
-  const [detailsCh, setDetailsCh] = useState("");
+  const [detailsFr, setDetailsFr] = useState("");
+  const [detailsDe, setDetailsDe] = useState("");
 
   const getDefaultTranslations = () => {
     if (!event) {
       return {
         en: { title: "", description: "", location: "", details: "" },
         ar: { title: "", description: "", location: "", details: "" },
-        tw: { title: "", description: "", location: "", details: "" },
-        ch: { title: "", description: "", location: "", details: "" },
+        fr: { title: "", description: "", location: "", details: "" },
+        de: { title: "", description: "", location: "", details: "" },
       };
     }
 
     const translations = {
       en: { title: "", description: "", location: "", details: "" },
       ar: { title: "", description: "", location: "", details: "" },
-      tw: { title: "", description: "", location: "", details: "" },
-      ch: { title: "", description: "", location: "", details: "" },
+      fr: { title: "", description: "", location: "", details: "" },
+      de: { title: "", description: "", location: "", details: "" },
     };
 
     event.translations.forEach((t) => {
@@ -133,8 +135,8 @@ export default function EventFormDialog({
 
       setDetailsEn(translations.en.details);
       setDetailsAr(translations.ar.details);
-      setDetailsTw(translations.tw.details);
-      setDetailsCh(translations.ch.details);
+      setDetailsFr(translations.fr.details);
+      setDetailsDe(translations.de.details);
     }
   }, [open, reset, event]);
 
@@ -144,8 +146,8 @@ export default function EventFormDialog({
       translations: {
         en: { ...data.translations.en, details: detailsEn },
         ar: { ...data.translations.ar, details: detailsAr },
-        tw: { ...data.translations.tw, details: detailsTw },
-        ch: { ...data.translations.ch, details: detailsCh },
+        fr: { ...data.translations.fr, details: detailsFr },
+        de: { ...data.translations.de, details: detailsDe },
       },
     });
   };
@@ -202,13 +204,13 @@ export default function EventFormDialog({
             </div>
           </div>
 
-          {/* Multi-language Tabs */}
+          {/* Multi-language Tabs - ✅ UPDATED */}
           <Tabs defaultValue="en" className="w-full">
             <TabsList className="grid w-full grid-cols-2 md:grid-cols-4">
               <TabsTrigger value="en">English</TabsTrigger>
               <TabsTrigger value="ar">العربية</TabsTrigger>
-              <TabsTrigger value="tw">Taiwan</TabsTrigger>
-              <TabsTrigger value="ch">Chinese</TabsTrigger>
+              <TabsTrigger value="fr">Français</TabsTrigger>
+              <TabsTrigger value="de">Deutsch</TabsTrigger>
             </TabsList>
 
             {/* English */}
@@ -309,43 +311,43 @@ export default function EventFormDialog({
               </div>
             </TabsContent>
 
-            {/* Taiwan */}
-            <TabsContent value="tw" className="space-y-4">
+            {/* French - ✅ NEW */}
+            <TabsContent value="fr" className="space-y-4">
               <div>
-                <Label htmlFor="title-tw">標題 (Taiwan)</Label>
+                <Label htmlFor="title-fr">Titre (French)</Label>
                 <Input
-                  id="title-tw"
-                  {...register("translations.tw.title")}
+                  id="title-fr"
+                  {...register("translations.fr.title")}
                   className="mt-1"
                 />
               </div>
 
               <div>
-                <Label htmlFor="location-tw">地點 (Taiwan)</Label>
+                <Label htmlFor="location-fr">Lieu (French)</Label>
                 <Input
-                  id="location-tw"
-                  {...register("translations.tw.location")}
+                  id="location-fr"
+                  {...register("translations.fr.location")}
                   className="mt-1"
                 />
               </div>
 
               <div>
-                <Label htmlFor="description-tw">描述 (Taiwan)</Label>
+                <Label htmlFor="description-fr">Description (French)</Label>
                 <Textarea
-                  id="description-tw"
-                  {...register("translations.tw.description")}
+                  id="description-fr"
+                  {...register("translations.fr.description")}
                   rows={3}
                   className="mt-1"
                 />
               </div>
 
               <div>
-                <Label htmlFor="details-tw">詳情 (Taiwan)</Label>
+                <Label htmlFor="details-fr">Détails (French)</Label>
                 <div className="mt-1">
                   <ReactQuill
                     theme="snow"
-                    value={detailsTw}
-                    onChange={setDetailsTw}
+                    value={detailsFr}
+                    onChange={setDetailsFr}
                     modules={quillModules}
                     className="bg-background"
                   />
@@ -353,43 +355,43 @@ export default function EventFormDialog({
               </div>
             </TabsContent>
 
-            {/* Simplified / Chinese Content */}
-            <TabsContent value="ch" className="space-y-4">
+            {/* German - ✅ NEW */}
+            <TabsContent value="de" className="space-y-4">
               <div>
-                <Label htmlFor="title-ch">标题 (Chinese)</Label>
+                <Label htmlFor="title-de">Titel (German)</Label>
                 <Input
-                  id="title-ch"
-                  {...register("translations.ch.title")}
+                  id="title-de"
+                  {...register("translations.de.title")}
                   className="mt-1"
                 />
               </div>
 
               <div>
-                <Label htmlFor="location-ch">地点 (Chinese)</Label>
+                <Label htmlFor="location-de">Ort (German)</Label>
                 <Input
-                  id="location-ch"
-                  {...register("translations.ch.location")}
+                  id="location-de"
+                  {...register("translations.de.location")}
                   className="mt-1"
                 />
               </div>
 
               <div>
-                <Label htmlFor="description-ch">描述 (Chinese)</Label>
+                <Label htmlFor="description-de">Beschreibung (German)</Label>
                 <Textarea
-                  id="description-ch"
-                  {...register("translations.ch.description")}
+                  id="description-de"
+                  {...register("translations.de.description")}
                   rows={3}
                   className="mt-1"
                 />
               </div>
 
               <div>
-                <Label htmlFor="details-ch">详情 (Chinese)</Label>
+                <Label htmlFor="details-de">Details (German)</Label>
                 <div className="mt-1">
                   <ReactQuill
                     theme="snow"
-                    value={detailsCh} // You need a state for ch details, like `const [detailsCh, setDetailsCh] = useState("")`
-                    onChange={setDetailsCh}
+                    value={detailsDe}
+                    onChange={setDetailsDe}
                     modules={quillModules}
                     className="bg-background"
                   />

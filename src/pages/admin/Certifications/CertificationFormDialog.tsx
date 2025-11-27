@@ -21,14 +21,15 @@ interface Props {
   isSubmitting: boolean;
 }
 
+// ✅ UPDATED: Changed from tw/ch to fr/de
 interface FormState {
   image: File | null;
   removeImage: boolean;
   translations: {
     en: { title: string };
     ar: { title: string };
-    tw: { title: string };
-    ch: { title: string };
+    fr: { title: string };
+    de: { title: string };
   };
 }
 
@@ -45,8 +46,8 @@ export function CertificationFormDialog({
     translations: {
       en: { title: "" },
       ar: { title: "" },
-      tw: { title: "" },
-      ch: { title: "" },
+      fr: { title: "" },
+      de: { title: "" },
     },
   });
 
@@ -56,8 +57,8 @@ export function CertificationFormDialog({
     if (certification) {
       const enTrans = getTranslation(certification, "en");
       const arTrans = getTranslation(certification, "ar");
-      const twTrans = getTranslation(certification, "tw");
-      const chTrans = getTranslation(certification, "ch");
+      const frTrans = getTranslation(certification, "fr");
+      const deTrans = getTranslation(certification, "de");
 
       setFormState({
         image: null,
@@ -65,8 +66,8 @@ export function CertificationFormDialog({
         translations: {
           en: { title: enTrans?.title || "" },
           ar: { title: arTrans?.title || "" },
-          tw: { title: twTrans?.title || "" },
-          ch: { title: chTrans?.title || "" },
+          fr: { title: frTrans?.title || "" },
+          de: { title: deTrans?.title || "" },
         },
       });
     } else {
@@ -76,8 +77,8 @@ export function CertificationFormDialog({
         translations: {
           en: { title: "" },
           ar: { title: "" },
-          tw: { title: "" },
-          ch: { title: "" },
+          fr: { title: "" },
+          de: { title: "" },
         },
       });
     }
@@ -99,11 +100,11 @@ export function CertificationFormDialog({
     if (!formState.translations.ar.title.trim()) {
       newErrors.ar_title = "Arabic title is required";
     }
-    if (!formState.translations.tw.title.trim()) {
-      newErrors.tw_title = "Taiwan title is required";
+    if (!formState.translations.fr.title.trim()) {
+      newErrors.fr_title = "French title is required";
     }
-    if (!formState.translations.ch.title.trim()) {
-      newErrors.ch_title = "Chinese title is required";
+    if (!formState.translations.de.title.trim()) {
+      newErrors.de_title = "German title is required";
     }
 
     if (Object.keys(newErrors).length > 0) {
@@ -139,12 +140,13 @@ export function CertificationFormDialog({
             required={!certification}
           />
 
+          {/* ✅ UPDATED: Tabs */}
           <Tabs defaultValue="en" className="w-full">
             <TabsList className="grid w-full grid-cols-2 md:grid-cols-4">
               <TabsTrigger value="en">English</TabsTrigger>
-              <TabsTrigger value="ar">Arabic</TabsTrigger>
-              <TabsTrigger value="tw">Taiwan</TabsTrigger>
-              <TabsTrigger value="ch">Chinese </TabsTrigger>
+              <TabsTrigger value="ar">العربية</TabsTrigger>
+              <TabsTrigger value="fr">Français</TabsTrigger>
+              <TabsTrigger value="de">Deutsch</TabsTrigger>
             </TabsList>
 
             {/* English Tab */}
@@ -200,53 +202,53 @@ export function CertificationFormDialog({
               </div>
             </TabsContent>
 
-            {/* Taiwan / Traditional Chinese Tab */}
-            <TabsContent value="tw" className="space-y-4">
+            {/* French Tab - ✅ NEW */}
+            <TabsContent value="fr" className="space-y-4">
               <div>
-                <Label htmlFor="tw-title">Title (Taiwan) *</Label>
+                <Label htmlFor="fr-title">Titre (French) *</Label>
                 <Input
-                  id="tw-title"
-                  value={formState.translations.tw.title}
+                  id="fr-title"
+                  value={formState.translations.fr.title}
                   onChange={(e) =>
                     setFormState((prev) => ({
                       ...prev,
                       translations: {
                         ...prev.translations,
-                        tw: { title: e.target.value },
+                        fr: { title: e.target.value },
                       },
                     }))
                   }
-                  placeholder="輸入台灣標題"
+                  placeholder="Entrez le titre en français"
                 />
-                {errors.tw_title && (
+                {errors.fr_title && (
                   <p className="text-sm text-destructive mt-1">
-                    {errors.tw_title}
+                    {errors.fr_title}
                   </p>
                 )}
               </div>
             </TabsContent>
 
-            {/* Simplified / Chinese Content */}
-            <TabsContent value="ch" className="space-y-4">
+            {/* German Tab - ✅ NEW */}
+            <TabsContent value="de" className="space-y-4">
               <div>
-                <Label htmlFor="ch-title">Title (Chinese) *</Label>
+                <Label htmlFor="de-title">Titel (German) *</Label>
                 <Input
-                  id="ch-title"
-                  value={formState.translations.ch.title}
+                  id="de-title"
+                  value={formState.translations.de.title}
                   onChange={(e) =>
                     setFormState((prev) => ({
                       ...prev,
                       translations: {
                         ...prev.translations,
-                        ch: { title: e.target.value },
+                        de: { title: e.target.value },
                       },
                     }))
                   }
-                  placeholder="输入中文标题"
+                  placeholder="Geben Sie den Titel auf Deutsch ein"
                 />
-                {errors.ch_title && (
+                {errors.de_title && (
                   <p className="text-sm text-destructive mt-1">
-                    {errors.ch_title}
+                    {errors.de_title}
                   </p>
                 )}
               </div>
