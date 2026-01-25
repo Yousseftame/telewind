@@ -1,4 +1,4 @@
-export const baseURL: string = "https://telewind.org/api"; // Updated base URL based on Postman
+export const baseURL: string = "https://telewind.org:9000/api"; // Updated base URL based on Postman
 
 export const ADMIN_URL = {
   LOGIN: "/login",
