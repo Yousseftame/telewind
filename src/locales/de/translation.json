@@ -203,7 +203,9 @@
      "notFoundDesc":"Das von Ihnen gesuchte Produkt existiert nicht oder wurde möglicherweise entfernt.",
        "loadingDetails": "Produktdetails werden geladen",
     "errorLoading": "Fehler beim Laden des Produkts",
-    "tryAgain": "Erneut versuchen"
+    "tryAgain": "Erneut versuchen",
+        "noCategories": "Keine Kategorien verfügbar"
+
   
 
   }

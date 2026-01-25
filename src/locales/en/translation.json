@@ -199,7 +199,8 @@
     "notFoundDesc":"The product you're looking for doesn't exist or may have been removed.",
      "loadingDetails": "Loading product details",
     "errorLoading": "Error Loading Product",
-    "tryAgain": "Try Again"
+    "tryAgain": "Try Again",
+    "noCategories": "No categories available"
   }
  
 }

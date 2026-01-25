@@ -201,7 +201,9 @@
    "notFoundDesc":"Le produit que vous recherchez n’existe pas ou a peut-être été supprimé.",
    "loadingDetails": "Chargement des détails du produit",
     "errorLoading": "Erreur lors du chargement du produit",
-    "tryAgain": "Réessayer"
+    "tryAgain": "Réessayer",
+        "noCategories": "Aucune catégorie disponible"
+
 
   }
 }

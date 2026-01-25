@@ -162,7 +162,7 @@ export default function Products() {
               
               {/* No Categories Message */}
               {!categoriesLoading && categories.length === 0 && (
-                <span className="text-sm text-muted-foreground">No categories available</span>
+                <span className="text-sm text-muted-foreground">{t("productDetails.noCategories")}</span>
               )}
             </div>
           </div>
@@ -188,8 +188,8 @@ export default function Products() {
             </div>
           ) : productsError ? (
             <div className="text-center py-12">
-              <p className="text-destructive text-lg mb-4">Error loading products</p>
-              <p className="text-muted-foreground">Please try again later</p>
+              <p className="text-destructive text-lg mb-4">{t("productDetails.errorLoading")} </p>
+              <p className="text-muted-foreground">{t("productDetails.tryAgain")}</p>
             </div>
           ) : (
             <>
