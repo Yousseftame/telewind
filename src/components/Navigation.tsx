@@ -111,7 +111,7 @@ export default function Navigation() {
                   {categoriesLoading ? (
                     <li className="p-3 text-sm text-muted-foreground">Loading categories...</li>
                   ) : productCategories.length === 0 ? (
-                    <li className="p-3 text-sm text-muted-foreground">No categories available</li>
+                    <li className="p-3 text-sm text-muted-foreground">{t("productDetails.noCategories")}</li>
                   ) : (
                     productCategories.map((cat) => (
                       <li key={cat.categoryId}>

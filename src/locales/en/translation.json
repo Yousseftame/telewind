@@ -42,7 +42,8 @@
   ,"industries": {
     "title": "Industries We Serve",
     "description": "Trusted by defense, security, and critical infrastructure organizations worldwide",
-    "explore": "Explore All Industries"
+    "explore": "Explore All Industries",
+    "noIndustries": "No industries available at the moment"
   },
   "globalTrust": {
     "title": "Global Trust & Quality Assurance",

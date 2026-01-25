@@ -96,7 +96,7 @@ export default function Industries() {
           {!isLoading && industries.length === 0 && (
             <div className="text-center py-12">
               <p className="text-muted-foreground text-lg">
-                No industries available at the moment
+                {t("industries.noIndustries")}
               </p>
             </div>
           )}

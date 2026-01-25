@@ -42,7 +42,9 @@
   "industries": {
     "title": "Branchen, die wir bedienen",
     "description": "Vertrauenswürdig für Verteidigungs-, Sicherheits- und kritische Infrastrukturen weltweit",
-    "explore": "Alle Branchen Erkunden"
+    "explore": "Alle Branchen Erkunden",
+        "noIndustries": "Derzeit sind keine Branchen verfügbar"
+
   },
   "globalTrust": {
     "title": "Globales Vertrauen & Qualitätssicherung",

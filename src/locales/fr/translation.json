@@ -42,7 +42,9 @@
   "industries": {
     "title": "Industries que Nous Servons",
     "description": "Fiable pour les organisations de défense, de sécurité et d'infrastructures critiques dans le monde entier",
-    "explore": "Explorer Toutes les Industries"
+    "explore": "Explorer Toutes les Industries",
+        "noIndustries": "Aucune industrie disponible pour le moment"
+
   },
   "globalTrust": {
     "title": "Confiance Globale & Assurance Qualité",
