@@ -195,7 +195,7 @@ export default function Products() {
             <>
               <div className="mb-6">
                 <p className="text-muted-foreground">
-                  Showing {products.length} product{products.length !== 1 ? "s" : ""}
+                  {t("productsSection.showingCount")} {products.length} {t("productsSection.productCount")} 
                 </p>
               </div>
 
@@ -292,7 +292,7 @@ export default function Products() {
               {products.length === 0 && (
                 <div className="text-center py-12">
                   <p className="text-muted-foreground text-lg">
-                    No products found matching your criteria
+                     {t("productDetails.notFound")}
                   </p>
                   {(selectedCategory !== 0 || searchQuery) && (
                     <Button
@@ -304,7 +304,7 @@ export default function Products() {
                         setSearchParams(new URLSearchParams());
                       }}
                     >
-                      Clear Filters
+                      {t("productsSection.clearFilters")}
                     </Button>
                   )}
                 </div>

@@ -88,7 +88,11 @@
     "viewDetails": "VOIR LES DÉTAILS",
     "spec-pdf": "spécification",
     "customSolution": "Notre équipe d'ingénierie peut concevoir des solutions personnalisées pour répondre à vos besoins spécifiques",
-    "contactButton": "Contacter l'Équipe d'Ingénierie"
+    "contactButton": "Contacter l'Équipe d'Ingénierie",
+     "showingCount": "Affichage",
+    "productCount":"Produits",
+        "clearFilters": "Effacer les filtres"
+
   },
   "industriesApplications": {
     "title": "Industries & Applications",
@@ -116,7 +120,13 @@
     "readMore": "Lire la Suite",
     "mediaInquiries": "Demandes des Médias",
     "mediaDescription": "Pour les communiqués de presse, interviews ou informations médias, contactez notre équipe de communication",
-    "contactMedia": "Contacter les Relations Médias"
+    "contactMedia": "Contacter les Relations Médias",
+        "noUpcomingEvents": "Aucun événement à venir pour le moment",
+            "eventDetails": "Détails de l'événement",
+                "noAnnouncements": "Aucune annonce disponible pour le moment"
+
+
+
   },
   "partnersDistributors": {
     "title": "Partenaires & Distributeurs",
@@ -177,5 +187,21 @@
     "careerOpportunities": "Opportunités de Carrière",
     "careerDescription": "Rejoignez notre équipe d'experts en électronique de défense",
     "viewCareers": "Voir les Offres d'Emploi"
+  },
+   "productDetails": {
+    "title":"Besoin de plus d’informations ?",
+    "desc":"Notre équipe est là pour vous aider à trouver la solution idéale adaptée à vos besoins. Contactez-nous pour obtenir des spécifications détaillées, des informations sur les tarifs ou des solutions personnalisées.",
+    "button":"Contactez-nous",
+    "contactBtn":"Contactez-nous",
+    "viewBtn":"Voir tous les produits",
+    "backToProduct":"Retour aux produits",
+    "keyFeatures":"Caractéristiques clés",
+    "supportedBands":"Bandes prises en charge",
+    "notFound":"Produit non trouvé",
+   "notFoundDesc":"Le produit que vous recherchez n’existe pas ou a peut-être été supprimé.",
+   "loadingDetails": "Chargement des détails du produit",
+    "errorLoading": "Erreur lors du chargement du produit",
+    "tryAgain": "Réessayer"
+
   }
 }

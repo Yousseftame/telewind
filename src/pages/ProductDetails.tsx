@@ -20,7 +20,7 @@ export default function ProductDetails() {
       <div className="min-h-screen bg-background flex items-center justify-center pt-20">
         <div className="text-center">
           <Loader2 className="w-12 h-12 animate-spin text-primary mx-auto mb-4" />
-          <p className="text-muted-foreground">Loading product details...</p>
+          <p className="text-muted-foreground">  {t("productDetails.loadingDetails")}</p>
         </div>
       </div>
     );
@@ -33,7 +33,7 @@ export default function ProductDetails() {
         <div className="text-center max-w-md mx-auto px-4">
           <AlertCircle className="w-16 h-16 text-destructive mx-auto mb-4" />
           <h2 className="font-heading text-3xl font-bold text-destructive mb-4">
-            Error Loading Product
+              {t("productDetails.errorLoading")}
           </h2>
           <p className="text-muted-foreground mb-6">
             {error instanceof Error
@@ -44,11 +44,11 @@ export default function ProductDetails() {
             <Button asChild variant="default">
               <Link to="/products">
                 <ArrowLeft className="w-4 h-4 mr-2" />
-                Back to Products
+                {t("productDetails.backToProduct")}
               </Link>
             </Button>
             <Button variant="outline" onClick={() => window.location.reload()}>
-              Try Again
+                {t("productDetails.tryAgain")}
             </Button>
           </div>
         </div>
@@ -63,16 +63,15 @@ export default function ProductDetails() {
         <div className="text-center max-w-md mx-auto px-4">
           <div className="text-6xl mb-4">🔍</div>
           <h2 className="font-heading text-3xl font-bold text-foreground mb-4">
-            Product Not Found
+            {t("productDetails.notFound")}
           </h2>
           <p className="text-muted-foreground mb-6">
-            The product you're looking for doesn't exist or may have been
-            removed.
+              {t("productDetails.notFoundDesc")}
           </p>
           <Button asChild variant="default">
             <Link to="/products">
               <ArrowLeft className="w-4 h-4 mr-2" />
-              Back to Products
+              {t("productDetails.backToProduct")}
             </Link>
           </Button>
         </div>
@@ -88,7 +87,7 @@ export default function ProductDetails() {
         <Button asChild variant="ghost" className="mb-6 hover:bg-muted">
           <Link to="/products">
             <ArrowLeft className="w-4 h-4 mr-2" />
-            Back to Products
+            {t("productDetails.backToProduct")}
           </Link>
         </Button>
 
@@ -133,7 +132,7 @@ export default function ProductDetails() {
               <div className="bg-muted/50 rounded-lg p-6">
                 <h3 className="font-heading text-xl font-semibold mb-4 flex items-center gap-2">
                   <span className="w-1 h-6 bg-accent rounded-full"></span>
-                  Key Features
+                  {t("productDetails.keyFeatures")}
                 </h3>
                 <ul className="space-y-3">
                   {product.key_features.map((feature, index) => (
@@ -155,7 +154,7 @@ export default function ProductDetails() {
               <div className="bg-muted/50 rounded-lg p-6">
                 <h3 className="font-heading text-xl font-semibold mb-4 flex items-center gap-2">
                   <span className="w-1 h-6 bg-accent rounded-full"></span>
-                  Supported Bands
+                  {t("productDetails.supportedBands")}
                 </h3>
                 <div className="flex flex-wrap gap-2">
                   {product.supported_bands.map((band, index) => (
@@ -178,7 +177,7 @@ export default function ProductDetails() {
                 onClick={() => navigate("/contact")}
                 className="w-full md:w-auto flex-1"
               >
-                Contact Us
+                 {t("productDetails.contactBtn")}
               </Button>
 
               <Button
@@ -187,7 +186,7 @@ export default function ProductDetails() {
                 onClick={() => navigate("/products")}
                 className="w-full md:w-auto flex-1"
               >
-                View All Products
+                {t("productDetails.viewBtn")}
               </Button>
             </div>
           </div>
@@ -198,19 +197,17 @@ export default function ProductDetails() {
           <div className="mt-16 pt-8 border-t border-border">
             <div className="text-center max-w-3xl mx-auto">
               <h2 className="font-heading text-2xl font-bold mb-4">
-                Need More Information?
+                {t("productDetails.title")}
               </h2>
               <p className="text-muted-foreground mb-6">
-                Our team is here to help you find the perfect solution for your
-                needs. Get in touch with us for detailed specifications,
-                pricing, or custom solutions.
+                 {t("productDetails.desc")}
               </p>
               <Button
                 variant="default"
                 size="lg"
                 onClick={() => navigate("/contact")}
               >
-                Get in Touch
+                 {t("productDetails.button")}
               </Button>
             </div>
           </div>

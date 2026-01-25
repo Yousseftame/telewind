@@ -89,7 +89,10 @@
      "viewDetails": "VIEW DETAILS",
      "spec-pdf":"specification",
     "customSolution": "Our engineering team can design custom solutions to meet your specific requirements",
-    "contactButton": "Contact Engineering Team"
+    "contactButton": "Contact Engineering Team",
+    "showingCount": "Showing",
+    "productCount":"Products",
+    "clearFilters": "Clear Filters"
   },
   "industriesApplications": {
     "title": "Industries & Applications",
@@ -117,7 +120,11 @@
     "readMore": "Read More",
     "mediaInquiries": "Media Inquiries",
     "mediaDescription": "For press releases, interviews, or media information, contact our communications team",
-    "contactMedia": "Contact Media Relations"
+    "contactMedia": "Contact Media Relations",
+    "noUpcomingEvents": "No upcoming events at the moment",
+        "eventDetails": "Event Details",
+        "noAnnouncements": "No announcements available at the moment"
+
   },
   "partnersDistributors": {
     "title": "Partners & Distributors",
@@ -179,4 +186,20 @@
     "careerDescription": "Join our team of defense electronics experts",
     "viewCareers": "View Careers"
   }
+  ,"productDetails": {
+    "title":"Need More Information?",
+    "desc":"Our team is here to help you find the perfect solution for your needs. Get in touch with us for detailed specifications, pricing, or custom solutions.",
+    "button":"GET IN TOUCH",
+    "contactBtn":"CONTACT US",
+    "viewBtn":"VIEW ALL PRODUCTS",
+    "backToProduct":"Back to Products",
+    "keyFeatures":"Key Features",
+    "supportedBands":"Supported Bands",
+    "notFound":" Product Not Found",
+    "notFoundDesc":"The product you're looking for doesn't exist or may have been removed.",
+     "loadingDetails": "Loading product details",
+    "errorLoading": "Error Loading Product",
+    "tryAgain": "Try Again"
+  }
+ 
 }

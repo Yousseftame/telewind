@@ -76,7 +76,7 @@ export default function Events() {
                       {event.details && (
                         <div className="bg-muted/50 p-3 rounded-sm mb-4">
                           <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-1">
-                            Event Details
+                           {t("eventsMedia.eventDetails")}
                           </p>
                           <p className="text-sm font-medium" dangerouslySetInnerHTML={{ __html:event.details}}></p>
                         </div>
@@ -89,7 +89,7 @@ export default function Events() {
               {events.length === 0 && (
                 <div className="text-center py-12">
                   <p className="text-muted-foreground text-lg">
-                    No upcoming events at the moment
+                   {t("eventsMedia.noUpcomingEvents")}
                   </p>
                 </div>
               )}
@@ -147,7 +147,7 @@ export default function Events() {
               {announcements.length === 0 && (
                 <div className="text-center py-12">
                   <p className="text-muted-foreground text-lg">
-                    No announcements available at the moment
+                  {t("eventsMedia.noAnnouncements")}
                   </p>
                 </div>
               )}

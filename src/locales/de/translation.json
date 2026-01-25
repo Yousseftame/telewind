@@ -88,7 +88,12 @@
     "viewDetails": "DETAILS ANSEHEN",
     "spec-pdf": "Spezifikation",
     "customSolution": "Unser Ingenieurteam kann maßgeschneiderte Lösungen entwerfen, um Ihre spezifischen Anforderungen zu erfüllen",
-    "contactButton": "Ingenieurteam Kontaktieren"
+    "contactButton": "Ingenieurteam Kontaktieren",
+     "showingCount": "Anzeige",
+    "productCount":"Produkte",
+        "clearFilters": "Filter zurücksetzen"
+        
+
   },
   "industriesApplications": {
     "title": "Branchen & Anwendungen",
@@ -116,7 +121,14 @@
     "readMore": "Weiterlesen",
     "mediaInquiries": "Medienanfragen",
     "mediaDescription": "Für Pressemitteilungen, Interviews oder Medieninformationen kontaktieren Sie unser Kommunikationsteam",
-    "contactMedia": "Kontakt Medienbeziehungen"
+    "contactMedia": "Kontakt Medienbeziehungen",
+        "noUpcomingEvents": "Derzeit stehen keine bevorstehenden Veranstaltungen an",
+            "eventDetails": "Veranstaltungsdetails",
+                "noAnnouncements": "Derzeit sind keine Ankündigungen verfügbar"
+
+
+
+
   },
   "partnersDistributors": {
     "title": "Partner & Vertrieb",
@@ -177,5 +189,22 @@
     "careerOpportunities": "Karrieremöglichkeiten",
     "careerDescription": "Werden Sie Teil unseres Teams von Verteidigungselektronik-Experten",
     "viewCareers": "Karrieren Anzeigen"
+  } 
+  ,"productDetails": {
+    "title":"Benötigen Sie weitere Informationen?",
+    "desc":"Unser Team unterstützt Sie dabei, die perfekte Lösung für Ihre Anforderungen zu finden. Kontaktieren Sie uns für detaillierte Spezifikationen, Preise oder maßgeschneiderte Lösungen.",
+    "button":"Kontaktieren Sie uns",
+    "contactBtn":"Kontaktieren Sie uns",
+    "viewBtn":"Alle Produkte anzeigen",
+    "backToProduct":"Zurück zu den Produkten",
+    "keyFeatures":"Hauptmerkmale",
+    "supportedBands":"Unterstützte Bänder",
+    "notFound":" Produkt nicht gefunden",
+     "notFoundDesc":"Das von Ihnen gesuchte Produkt existiert nicht oder wurde möglicherweise entfernt.",
+       "loadingDetails": "Produktdetails werden geladen",
+    "errorLoading": "Fehler beim Laden des Produkts",
+    "tryAgain": "Erneut versuchen"
+  
+
   }
 }

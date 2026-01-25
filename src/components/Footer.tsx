@@ -60,10 +60,10 @@ export default function Footer() {
         {/* Bottom Bar */}
         <div className="border-t border-primary-foreground/20 pt-6 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-primary-foreground/80">
           <p>&copy; {new Date().getFullYear()} {t(`footer.copyright`)}</p>
-          <div className="flex gap-4">
+          {/* <div className="flex gap-4">
             <Link to="" className="hover:text-accent transition-colors">{t(`footer.privacyPolicy`)}</Link>
             <Link to="" className="hover:text-accent transition-colors">{t(`footer.termsOfService`)}</Link>
-          </div>
+          </div> */}
         </div>
       </div>
     </footer>
