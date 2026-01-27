@@ -115,17 +115,20 @@
   }
   ,"eventsMedia": {
     "title": "Events & Media",
-    "description": "Stay updated on TeleWind's latest events, news, and industry insights",
+    "description": "Stay updated with our latest events, news, and media content",
+    "mediaSection": "Media",
+    "playVideo": "Play Video",
+    "mediaDescription": "Watch our latest company presentation and product showcases",
     "upcomingEvents": "Upcoming Events",
-    "latestNews": "Latest News & Announcements",
-    "readMore": "Read More",
-    "mediaInquiries": "Media Inquiries",
-    "mediaDescription": "For press releases, interviews, or media information, contact our communications team",
-    "contactMedia": "Contact Media Relations",
+    "pastEvents": "Past Events",
+    "eventDetails": "Event Details",
     "noUpcomingEvents": "No upcoming events at the moment",
-        "eventDetails": "Event Details",
-        "noAnnouncements": "No announcements available at the moment"
-
+    "noPastEvents": "No past events to display",
+    "latestNews": "Latest News & Announcements",
+    "noAnnouncements": "No announcements available",
+    "mediaInquiries": "Media Inquiries",
+    "contactMedia": "Contact Us",
+    "readMore": "Read More"
   },
   "partnersDistributors": {
     "title": "Partners & Distributors",

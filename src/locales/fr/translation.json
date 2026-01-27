@@ -115,20 +115,21 @@
     "scheduleButton": "Planifier une Consultation"
   },
   "eventsMedia": {
-    "title": "Événements & Médias",
-    "description": "Restez informé des derniers événements, actualités et perspectives sectorielles de TeleWind",
-    "upcomingEvents": "Événements à Venir",
-    "latestNews": "Dernières Nouvelles & Annonces",
-    "readMore": "Lire la Suite",
-    "mediaInquiries": "Demandes des Médias",
-    "mediaDescription": "Pour les communiqués de presse, interviews ou informations médias, contactez notre équipe de communication",
-    "contactMedia": "Contacter les Relations Médias",
-        "noUpcomingEvents": "Aucun événement à venir pour le moment",
-            "eventDetails": "Détails de l'événement",
-                "noAnnouncements": "Aucune annonce disponible pour le moment"
-
-
-
+    "title": "Événements et Médias",
+    "description": "Restez informé de nos derniers événements, actualités et contenus médias",
+    "mediaSection": "Médias",
+    "playVideo": "Lire la vidéo",
+    "mediaDescription": "Regardez notre dernière présentation d'entreprise et nos vitrines de produits",
+    "upcomingEvents": "Événements à venir",
+    "pastEvents": "Événements passés",
+    "eventDetails": "Détails de l'événement",
+    "noUpcomingEvents": "Aucun événement à venir pour le moment",
+    "noPastEvents": "Aucun événement passé à afficher",
+    "latestNews": "Dernières nouvelles et annonces",
+    "noAnnouncements": "Aucune annonce disponible",
+    "mediaInquiries": "Demandes médias",
+    "contactMedia": "Contactez-nous",
+    "readMore": "Lire la suite"
   },
   "partnersDistributors": {
     "title": "Partenaires & Distributeurs",

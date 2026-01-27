@@ -23,13 +23,10 @@
   "keyPillars": {
     "pillar1Title": "Über 45 Jahre Ingenieurskunst",
     "pillar1Description": "Jahrzehntelange bewährte Expertise in verteidigungsfähiger Elektronik und Systemintegration.",
-    
     "pillar2Title": "Vollständiges Inhouse-Design & Fertigung",
     "pillar2Description": "Volle Kontrolle vom Konzept bis zur Produktion mit fortschrittlichen SMT/DIP-Fähigkeiten.",
-    
     "pillar3Title": "Verteidigungsfähige RF-, EW- & Taktische Kommunikation",
     "pillar3Description": "Militärspezifikationssysteme für missionskritische Operationen und sichere Kommunikation.",
-    
     "pillar4Title": "KI, Robotik & Künstliche Intelligenz",
     "pillar4Description": "Intelligente Plattformen der nächsten Generation und kollaborative Robotersysteme."
   },
@@ -43,8 +40,7 @@
     "title": "Branchen, die wir bedienen",
     "description": "Vertrauenswürdig für Verteidigungs-, Sicherheits- und kritische Infrastrukturen weltweit",
     "explore": "Alle Branchen Erkunden",
-        "noIndustries": "Derzeit sind keine Branchen verfügbar"
-
+    "noIndustries": "Derzeit sind keine Branchen verfügbar"
   },
   "globalTrust": {
     "title": "Globales Vertrauen & Qualitätssicherung",
@@ -91,11 +87,9 @@
     "spec-pdf": "Spezifikation",
     "customSolution": "Unser Ingenieurteam kann maßgeschneiderte Lösungen entwerfen, um Ihre spezifischen Anforderungen zu erfüllen",
     "contactButton": "Ingenieurteam Kontaktieren",
-     "showingCount": "Anzeige",
-    "productCount":"Produkte",
-        "clearFilters": "Filter zurücksetzen"
-        
-
+    "showingCount": "Anzeige",
+    "productCount": "Produkte",
+    "clearFilters": "Filter zurücksetzen"
   },
   "industriesApplications": {
     "title": "Branchen & Anwendungen",
@@ -116,21 +110,21 @@
     "scheduleButton": "Beratung Planen"
   },
   "eventsMedia": {
-    "title": "Veranstaltungen & Medien",
-    "description": "Bleiben Sie über die neuesten Veranstaltungen, Nachrichten und Brancheneinblicke von TeleWind informiert",
+    "title": "Veranstaltungen und Medien",
+    "description": "Bleiben Sie über unsere neuesten Veranstaltungen, Nachrichten und Medieninhalte auf dem Laufenden",
+    "mediaSection": "Medien",
+    "playVideo": "Video abspielen",
+    "mediaDescription": "Sehen Sie sich unsere neueste Unternehmenspräsentation und Produktpräsentationen an",
     "upcomingEvents": "Kommende Veranstaltungen",
-    "latestNews": "Neueste Nachrichten & Ankündigungen",
-    "readMore": "Weiterlesen",
+    "pastEvents": "Vergangene Veranstaltungen",
+    "eventDetails": "Veranstaltungsdetails",
+    "noUpcomingEvents": "Derzeit keine kommenden Veranstaltungen",
+    "noPastEvents": "Keine vergangenen Veranstaltungen zum Anzeigen",
+    "latestNews": "Neueste Nachrichten und Ankündigungen",
+    "noAnnouncements": "Keine Ankündigungen verfügbar",
     "mediaInquiries": "Medienanfragen",
-    "mediaDescription": "Für Pressemitteilungen, Interviews oder Medieninformationen kontaktieren Sie unser Kommunikationsteam",
-    "contactMedia": "Kontakt Medienbeziehungen",
-        "noUpcomingEvents": "Derzeit stehen keine bevorstehenden Veranstaltungen an",
-            "eventDetails": "Veranstaltungsdetails",
-                "noAnnouncements": "Derzeit sind keine Ankündigungen verfügbar"
-
-
-
-
+    "contactMedia": "Kontaktieren Sie uns",
+    "readMore": "Mehr lesen"
   },
   "partnersDistributors": {
     "title": "Partner & Vertrieb",
@@ -170,8 +164,8 @@
     "emailAddress": "E-Mail Adresse *",
     "phoneNumber": "Telefonnummer",
     "country": "Land *",
-     "selectCountry":"Land auswählen",
-      "specifyOther":"Geben Sie Ihre Anfrage-Details an ",
+    "selectCountry": "Land auswählen",
+    "specifyOther": "Geben Sie Ihre Anfrage-Details an ",
     "inquiryType": "Anfragetyp *",
     "productInformation": "Produktinformationen",
     "technicalSupport": "Technischer Support",
@@ -180,7 +174,7 @@
     "other": "Andere",
     "message": "Nachricht *",
     "sendMessage": "Nachricht Senden",
-     "placeMessage":"Bitte geben Sie Details an...",
+    "placeMessage": "Bitte geben Sie Details an...",
     "otherWays": "Weitere Möglichkeiten zur Verbindung",
     "findPartner": "Partner Finden",
     "findPartnerDescription": "Kontaktieren Sie unsere autorisierten Vertriebspartner in Ihrer Region",
@@ -191,24 +185,21 @@
     "careerOpportunities": "Karrieremöglichkeiten",
     "careerDescription": "Werden Sie Teil unseres Teams von Verteidigungselektronik-Experten",
     "viewCareers": "Karrieren Anzeigen"
-  } 
-  ,"productDetails": {
-    "title":"Benötigen Sie weitere Informationen?",
-    "desc":"Unser Team unterstützt Sie dabei, die perfekte Lösung für Ihre Anforderungen zu finden. Kontaktieren Sie uns für detaillierte Spezifikationen, Preise oder maßgeschneiderte Lösungen.",
-    "button":"Kontaktieren Sie uns",
-    "contactBtn":"Kontaktieren Sie uns",
-    "viewBtn":"Alle Produkte anzeigen",
-    "backToProduct":"Zurück zu den Produkten",
-    "keyFeatures":"Hauptmerkmale",
-    "supportedBands":"Unterstützte Bänder",
-    "notFound":" Produkt nicht gefunden",
-     "notFoundDesc":"Das von Ihnen gesuchte Produkt existiert nicht oder wurde möglicherweise entfernt.",
-       "loadingDetails": "Produktdetails werden geladen",
+  },
+  "productDetails": {
+    "title": "Benötigen Sie weitere Informationen?",
+    "desc": "Unser Team unterstützt Sie dabei, die perfekte Lösung für Ihre Anforderungen zu finden. Kontaktieren Sie uns für detaillierte Spezifikationen, Preise oder maßgeschneiderte Lösungen.",
+    "button": "Kontaktieren Sie uns",
+    "contactBtn": "Kontaktieren Sie uns",
+    "viewBtn": "Alle Produkte anzeigen",
+    "backToProduct": "Zurück zu den Produkten",
+    "keyFeatures": "Hauptmerkmale",
+    "supportedBands": "Unterstützte Bänder",
+    "notFound": " Produkt nicht gefunden",
+    "notFoundDesc": "Das von Ihnen gesuchte Produkt existiert nicht oder wurde möglicherweise entfernt.",
+    "loadingDetails": "Produktdetails werden geladen",
     "errorLoading": "Fehler beim Laden des Produkts",
     "tryAgain": "Erneut versuchen",
-        "noCategories": "Keine Kategorien verfügbar"
-
-  
-
+    "noCategories": "Keine Kategorien verfügbar"
   }
 }
