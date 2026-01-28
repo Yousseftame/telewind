@@ -5,13 +5,13 @@ import { axiosInstance } from "@/services/axiosInstance";
 import { SITE_URLS } from "@/services/apiEndpoints";
 import { useTranslation } from "react-i18next";
 
-// ✅ FIXED: Map i18next language codes to API Accept-Language codes
+// ✅ Map i18next language codes to API Accept-Language codes
 const getApiLanguage = (i18nLang: string): string => {
   const langMap: Record<string, string> = {
     "en": "en",
     "ar": "ar",
-    "fr-FR": "fr",  // ✅ Changed from zh-TW → tw to fr-FR → fr
-    "de-DE": "de",  // ✅ Changed from zh-CN → ch to de-DE → de
+    "fr-FR": "fr",
+    "de-DE": "de",
   };
   return langMap[i18nLang] || "en";
 };
@@ -100,6 +100,7 @@ export interface SiteEvent {
   details: string;
   date: string;
   type: string;
+  video?: string; // ✅ NEW: Added optional video field
 }
 
 export function useSiteEvents() {

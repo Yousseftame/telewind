@@ -1,7 +1,7 @@
 // src/utils/formDataHelpers.ts
 
 /**
- * ✅ UPDATED: Default languages array - NOW USES fr, de instead of tw, ch
+ * ✅ UPDATED: Default languages array
  */
 const DEFAULT_LANGUAGES = ["en", "ar", "fr", "de"];
 
@@ -48,6 +48,7 @@ export function buildMultiLangFormData(
 
 /**
  * Helper to build FormData for events with all fields
+ * ✅ UPDATED: Added video support
  */
 export function buildEventFormData(
   data: any,
@@ -61,6 +62,13 @@ export function buildEventFormData(
   }
   if (data.type) {
     formData.append("type", data.type);
+  }
+
+  // ✅ NEW: Handle video file
+  if (data.video instanceof File) {
+    formData.append("video", data.video);
+  } else if (data.removeVideo) {
+    formData.append("remove_video", "1");
   }
 
   // Handle translations with all fields

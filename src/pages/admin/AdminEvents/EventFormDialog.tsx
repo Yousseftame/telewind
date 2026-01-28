@@ -13,11 +13,13 @@ import { Textarea } from "@/components/ui/textarea";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
+import { Upload, X, Video } from "lucide-react";
 
 interface Event {
   id: number;
   date: string;
   type: string;
+  video?: string; // ✅ NEW: Added video field
   translations: Array<{
     locale: string;
     title: string;
@@ -27,10 +29,11 @@ interface Event {
   }>;
 }
 
-// ✅ UPDATED: Changed from tw/ch to fr/de
 interface EventFormData {
   date: string;
   type: string;
+  video?: File | string | null; // ✅ NEW: Added video to form data
+  removeVideo?: boolean; // ✅ NEW: Flag to remove existing video
   translations: {
     en: {
       title: string;
@@ -76,11 +79,15 @@ export default function EventFormDialog({
 }: EventFormDialogProps) {
   const isEditMode = !!event;
 
-  // ✅ UPDATED: State variables (fr/de instead of tw/ch)
   const [detailsEn, setDetailsEn] = useState("");
   const [detailsAr, setDetailsAr] = useState("");
   const [detailsFr, setDetailsFr] = useState("");
   const [detailsDe, setDetailsDe] = useState("");
+
+  // ✅ NEW: Video state management
+  const [videoFile, setVideoFile] = useState<File | null>(null);
+  const [videoPreview, setVideoPreview] = useState<string>("");
+  const [removeVideo, setRemoveVideo] = useState(false);
 
   const getDefaultTranslations = () => {
     if (!event) {
@@ -137,11 +144,52 @@ export default function EventFormDialog({
       setDetailsAr(translations.ar.details);
       setDetailsFr(translations.fr.details);
       setDetailsDe(translations.de.details);
+
+      // ✅ NEW: Reset video state
+      setVideoFile(null);
+      setRemoveVideo(false);
+      
+      // If editing and has existing video, set preview
+      if (event?.video) {
+        setVideoPreview(event.video);
+      } else {
+        setVideoPreview("");
+      }
     }
   }, [open, reset, event]);
 
+  // ✅ NEW: Handle video file selection
+  const handleVideoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      // Validate file type
+      if (!file.type.startsWith("video/")) {
+        alert("Please select a valid video file");
+        return;
+      }
+
+      // Validate file size (e.g., max 100MB)
+      const maxSize = 100 * 1024 * 1024; // 100MB in bytes
+      if (file.size > maxSize) {
+        alert("Video file size must be less than 100MB");
+        return;
+      }
+
+      setVideoFile(file);
+      setVideoPreview(URL.createObjectURL(file));
+      setRemoveVideo(false);
+    }
+  };
+
+  // ✅ NEW: Handle video removal
+  const handleRemoveVideo = () => {
+    setVideoFile(null);
+    setVideoPreview("");
+    setRemoveVideo(true);
+  };
+
   const handleFormSubmit = (data: EventFormData) => {
-    onSubmit({
+    const submitData: EventFormData = {
       ...data,
       translations: {
         en: { ...data.translations.en, details: detailsEn },
@@ -149,7 +197,16 @@ export default function EventFormDialog({
         fr: { ...data.translations.fr, details: detailsFr },
         de: { ...data.translations.de, details: detailsDe },
       },
-    });
+    };
+
+    // ✅ NEW: Add video handling
+    if (videoFile) {
+      submitData.video = videoFile;
+    } else if (removeVideo) {
+      submitData.removeVideo = true;
+    }
+
+    onSubmit(submitData);
   };
 
   const quillModules = {
@@ -204,7 +261,64 @@ export default function EventFormDialog({
             </div>
           </div>
 
-          {/* Multi-language Tabs - ✅ UPDATED */}
+          {/* ✅ NEW: Video Upload Section */}
+          <div className="space-y-2">
+            <Label htmlFor="video">Event Video (Optional)</Label>
+            <div className="border-2 border-dashed border-gray-300 rounded-lg p-6">
+              {videoPreview ? (
+                <div className="space-y-4">
+                  <div className="relative aspect-video bg-black rounded-lg overflow-hidden">
+                    <video
+                      src={videoPreview}
+                      controls
+                      className="w-full h-full"
+                    >
+                      Your browser does not support the video tag.
+                    </video>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <p className="text-sm text-muted-foreground">
+                      {videoFile ? videoFile.name : "Current video"}
+                    </p>
+                    <Button
+                      type="button"
+                      variant="destructive"
+                      size="sm"
+                      onClick={handleRemoveVideo}
+                    >
+                      <X className="h-4 w-4 mr-1" />
+                      Remove Video
+                    </Button>
+                  </div>
+                </div>
+              ) : (
+                <div className="text-center">
+                  <Video className="mx-auto h-12 w-12 text-gray-400" />
+                  <div className="mt-4">
+                    <label
+                      htmlFor="video"
+                      className="cursor-pointer inline-flex items-center px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition-colors"
+                    >
+                      <Upload className="h-4 w-4 mr-2" />
+                      Upload Video
+                    </label>
+                    <Input
+                      id="video"
+                      type="file"
+                      accept="video/*"
+                      onChange={handleVideoChange}
+                      className="hidden"
+                    />
+                  </div>
+                  <p className="mt-2 text-xs text-muted-foreground">
+                    MP4, WebM, or OGG (max 100MB)
+                  </p>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Multi-language Tabs */}
           <Tabs defaultValue="en" className="w-full">
             <TabsList className="grid w-full grid-cols-2 md:grid-cols-4">
               <TabsTrigger value="en">English</TabsTrigger>
@@ -311,7 +425,7 @@ export default function EventFormDialog({
               </div>
             </TabsContent>
 
-            {/* French - ✅ NEW */}
+            {/* French */}
             <TabsContent value="fr" className="space-y-4">
               <div>
                 <Label htmlFor="title-fr">Titre (French)</Label>
@@ -355,7 +469,7 @@ export default function EventFormDialog({
               </div>
             </TabsContent>
 
-            {/* German - ✅ NEW */}
+            {/* German */}
             <TabsContent value="de" className="space-y-4">
               <div>
                 <Label htmlFor="title-de">Titel (German)</Label>

@@ -3,7 +3,7 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Calendar, MapPin, Loader2, Play } from "lucide-react";
+import { Calendar, MapPin, Loader2, Play, Video } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { useSiteEvents, useSiteAnnouncements } from "@/hooks/useSiteData";
@@ -119,6 +119,25 @@ export default function Events() {
                     key={event.id}
                     className="hover:shadow-xl transition-shadow border-t-4 border-accent"
                   >
+                      {/* ✅ NEW: Video Display */}
+                    {event.video && (
+                      <div className="relative aspect-video bg-black">
+                        <video
+                          src={event.video}
+                          controls
+                          className="w-full h-full object-cover"
+                          preload="metadata"
+                        >
+                          Your browser does not support the video tag.
+                        </video>
+                        <div className="absolute top-2 right-2">
+                          <Badge className="bg-accent/90 text-accent-foreground btnHover backdrop-blur-sm">
+                            <Video className="w-3 h-3 mr-1" />
+                            Video
+                          </Badge>
+                        </div>
+                      </div>
+                    )}
                     <CardContent className="p-6">
                       <Badge className="mb-4 bg-accent text-accent-foreground btnHover">
                         {event.type}
@@ -190,8 +209,27 @@ export default function Events() {
                     key={event.id}
                     className="hover:shadow-xl transition-shadow border-t-4 border-muted-foreground/30 opacity-90"
                   >
+                     {/* ✅ NEW: Video Display */}
+                    {event.video && (
+                      <div className="relative aspect-video bg-black">
+                        <video
+                          src={event.video}
+                          controls
+                          className="w-full h-full object-cover"
+                          preload="metadata"
+                        >
+                          Your browser does not support the video tag.
+                        </video>
+                        <div className="absolute top-2 right-2">
+                          <Badge className="bg-accent/90 text-accent-foreground btnHover backdrop-blur-sm">
+                            <Video className="w-3 h-3 mr-1" />
+                            Video
+                          </Badge>
+                        </div>
+                      </div>
+                    )}
                     <CardContent className="p-6">
-                      <Badge className="mb-4 bg-muted-foreground/20 text-foreground">
+                      <Badge className="mb-4 bg-muted-foreground/20 text-foreground btnHover">
                         {event.type}
                       </Badge>
                       <h3 className="font-heading text-xl font-bold mb-4">

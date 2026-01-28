@@ -62,6 +62,7 @@ export interface Event {
   id: number;
   date: string;
   type: string;
+  video?: string; // ✅ NEW: Added optional video field
   translations: EventTranslation[];
   creationDate?: string;
 }
@@ -105,7 +106,7 @@ export interface Partner {
   id: number;
   email: string;
   type: string;
-  region: string | null; // ✅ MOVED: region is now top-level, not in translations
+  region: string | null;
   phone: string;
   website: string;
   translations: PartnerTranslation[];
@@ -145,10 +146,9 @@ export interface Industry {
 
 export interface PartnerLogo {
   id: number;
-  // partnerId: number;
   displayOrder: number;
-  status: number; // 1 = active, 0 = inactive
-  statusText: string; // "active" or "inactive"
+  status: number;
+  statusText: string;
   logoUrl: string;
 }
 

@@ -6,7 +6,7 @@ import {
 } from "@/components/ui/dialog";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
-import { Calendar, MapPin, Tag } from "lucide-react";
+import { Calendar, MapPin, Tag, Video } from "lucide-react";
 import { Event } from "@/services/types";
 import { getTranslation } from "@/utils/formDataHelpers";
 
@@ -25,7 +25,6 @@ export default function EventViewDialog({
 }: EventViewDialogProps) {
   if (!event) return null;
 
-  // ✅ UPDATED: Changed from tw/ch to fr/de
   const enTranslation = getTranslation(event, "en");
   const arTranslation = getTranslation(event, "ar");
   const frTranslation = getTranslation(event, "fr");
@@ -78,7 +77,27 @@ export default function EventViewDialog({
               </div>
             </div>
 
-            {/* Multi-language Content - ✅ UPDATED */}
+            {/* ✅ NEW: Video Display Section */}
+            {event.video && (
+              <div className="space-y-2">
+                <div className="flex items-center gap-2">
+                  <Video className="h-4 w-4 text-primary" />
+                  <h4 className="font-semibold">Event Video</h4>
+                </div>
+                <div className="relative aspect-video bg-black rounded-lg overflow-hidden">
+                  <video
+                    src={event.video}
+                    controls
+                    className="w-full h-full"
+                    poster="" // You can add a poster image if available
+                  >
+                    Your browser does not support the video tag.
+                  </video>
+                </div>
+              </div>
+            )}
+
+            {/* Multi-language Content */}
             <Tabs defaultValue="en" className="w-full">
               <TabsList className="grid w-full grid-cols-2 md:grid-cols-4">
                 <TabsTrigger value="en">English</TabsTrigger>
@@ -159,7 +178,7 @@ export default function EventViewDialog({
                 )}
               </TabsContent>
 
-              {/* French Content - ✅ UPDATED */}
+              {/* French Content */}
               <TabsContent value="fr" className="space-y-4">
                 <div>
                   <h3 className="text-xl font-bold mb-2">
@@ -195,7 +214,7 @@ export default function EventViewDialog({
                 )}
               </TabsContent>
 
-              {/* German Content - ✅ UPDATED */}
+              {/* German Content */}
               <TabsContent value="de" className="space-y-4">
                 <div>
                   <h3 className="text-xl font-bold mb-2">
